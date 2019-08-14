@@ -1,0 +1,11 @@
+{
+	"message": "configresponse",
+	"operation": "getconfigapplication",
+	"failurereason": "",	
+	"successful": "yes",
+	"properties": [
+		{
+			"refreshrate": "30"
+		}
+	]
+}

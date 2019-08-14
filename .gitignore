@@ -1,0 +1,14 @@
+/bin/.gitignore
+/bin/bugzilla/
+/bin/.gitignore
+/build
+/install/services/OR service/orservice.jar
+/install/services/gui service/guiservice.jar
+/install/services/document service/documentservice.jar
+/install/services/login service/loginservice.jar
+/bin/
+/microservices/bugzilla live config service/modules/*.pyc
+/microservices/bugzilla live list manager service/python/modules/*.pyc
+/microservices/bugzilla live list manager service/modules/*.pyc
+/microservices/bugzilla live list manager service/bin
+/microservices/bugzilla live OR service/modules/*.pyc

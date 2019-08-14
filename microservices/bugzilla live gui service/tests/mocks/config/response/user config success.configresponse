@@ -1,0 +1,13 @@
+{
+	"message": "configresponse",
+	"operation": "getconfiguser",
+	"failurereason": "",	
+	"successful": "yes",
+	"properties": [
+		{
+			"password": "A Password",
+			"api_key": "An API Key",
+			"username": "A Username"
+		}
+	]
+}

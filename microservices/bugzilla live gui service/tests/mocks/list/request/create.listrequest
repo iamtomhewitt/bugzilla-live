@@ -1,0 +1,6 @@
+{
+	"message": "listrequest",
+	"operation": "create",
+	"filename": "test list.txt",
+	"filecontents": "12345"
+}

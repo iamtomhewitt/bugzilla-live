@@ -1,0 +1,20 @@
+<project name="Build OR Service" default="build_OR_service_non-development">
+	<description>
+        Copies the Python scripts to the install folder, so that they are inclued when the main applicaiton is installed.
+	</description>
+
+	<target name="build_OR_service_non-development">
+		<property name="dir.project" value="C:\Git\bugzilla-live" />
+		<property name="build.dir" value="${dir.project}/install/services/OR service/" />
+		<property name="source.directory" value="${dir.project}/microservices/bugzilla live OR service/" />
+
+		<echo message="Compiling OR service" />
+		<copy todir="${build.dir}">
+			<fileset dir="${source.directory}/install" includes="**" />
+			<fileset dir="${source.directory}/modules" includes="**" />
+		</copy>
+		<echo message="OR service compiled successfully" />
+
+	</target>
+
+</project>

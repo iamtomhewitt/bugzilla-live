@@ -1,0 +1,42 @@
+{
+	"message": "documentrequest",
+    "operation": "releasenote",s
+	"subsystem": "subsystem",
+    "filename": "A filename",
+    "documenttitle": "title",
+    "documentnumber": "number",
+    "issue": "A",
+    "issuedate": "08/09/2018",
+    "issuestatus": "Draft",
+    "classification": "Some classification",
+    "ORs": [
+		{
+			"summary": "12345 Summary",
+			"severity": "Low",
+			"number": "12345",
+			"lastUpdated": "04/01/2019 21:38",
+			"product": "A product",
+			"component": "A component",
+			"system": "dev",
+			"segmentRelease": "1.0",
+			"internalExternal": "Internal",
+			"assignedTo": "Tom Hewitt",
+			"status": "Investigation",
+			"generatedFrom": "Test"
+		},
+		{
+			"summary": "23456 Summary",
+			"severity": "Low",
+			"number": "23456",
+			"lastUpdated": "04/01/2019 21:38",
+			"product": "A product",
+			"component": "A component",
+			"system": "Dev",
+			"segmentRelease": "1.0",
+			"internalExternal": "Internal",
+			"assignedTo": "Tom Hewitt",
+			"status": "Diagnosed",
+			"generatedFrom": "Development"
+		}
+	]
+}
