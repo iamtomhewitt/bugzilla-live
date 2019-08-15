@@ -255,6 +255,7 @@ Regardless of language.
 ## **Camel Case Defined**
 
 Camel casing should follow this rule, with the exception of the word ```OR``` (as this looks like the word ```or```):
+
 |           Form          |      Correct      |     Incorrect     |
 |:-----------------------:|:-----------------:|:-----------------:|
 | "XML HTTP request"      | XmlHttpRequest    | XMLHTTPRequest    |
