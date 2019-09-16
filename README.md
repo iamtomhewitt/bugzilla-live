@@ -1,4 +1,4 @@
-Bugzilla Live is a JavaFX desktop tool to manage ORs using either a list of numbers or a username. It replaces the traditional way of using Excel spreadsheets to track ORs.
+Bugzilla Live is a JavaFX desktop tool to manage bugs from Bugzilla using either a list of numbers or a username. It replaces the traditional way of using Excel spreadsheets to track bugs.
 
 # Getting started
 
