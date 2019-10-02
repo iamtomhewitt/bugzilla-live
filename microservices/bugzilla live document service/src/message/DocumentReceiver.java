@@ -154,7 +154,7 @@ public class DocumentReceiver extends MessageReceiver
 																			.withFilename(filename)
 																			.withIssue(issue)
 																			.withIssueStatus(issueStatus)
-																			.withORs(bugs)
+																			.withBugs(bugs)
 																			.withReleaseNumber(releaseNumber)
 																			.withTestEnvironment(testEnvironment)
 																			.build()

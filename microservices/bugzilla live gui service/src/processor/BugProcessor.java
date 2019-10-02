@@ -25,15 +25,15 @@ public class BugProcessor extends MessageProcessor
 			if (successful.equals("no"))
 			{
 				String reason = message.get("failurereason").toString();
-				showMicroserviceFailure("The OR service has returned an error:", reason);
+				showMicroserviceFailure("The bug service has returned an error:", reason);
 			}
 		}
-		else if (operation.equals("orresponse"))
+		else if (operation.equals("bugresponse"))
 		{
 			GuiMethods.updateBugsInTable(message);
 			InformationPane.getInstance().updateTexts();
 		}
-		else if (operation.equals("ordetail"))
+		else if (operation.equals("bugdetail"))
 		{
 			Platform.runLater(new Runnable()
 			{

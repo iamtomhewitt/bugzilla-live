@@ -67,8 +67,8 @@ call "config service/remove service.bat"
 call "config service/install service.bat"
 call "list manager service/remove service.bat"
 call "list manager service/install service.bat"
-call "OR service/remove service.bat"
-call "OR service/install service.bat"
+call "bug service/remove service.bat"
+call "bug service/install service.bat"
 call "document service/remove service.bat"
 call "document service/install service.bat"
 
@@ -82,7 +82,7 @@ echo Copying Source Files...
 xcopy "%~dp0\config" "C:\BugzillaLive\config" /y /s /i
 xcopy "%~dp0\services\config service" "C:\BugzillaLive\services\config service" /y /s /i
 xcopy "%~dp0\services\list manager service" "C:\BugzillaLive\services\list manager service" /y /s /i
-xcopy "%~dp0\services\OR service" "C:\BugzillaLive\services\OR service" /y /s /i
+xcopy "%~dp0\services\a bug service" "C:\BugzillaLive\services\a bug service" /y /s /i
 xcopy "%~dp0\services\gui service" "C:\BugzillaLive\services\gui service" /y /s /i
 xcopy "%~dp0\services\login service" "C:\BugzillaLive\services\login service" /y /s /i
 xcopy "%~dp0\services\document service" "C:\BugzillaLive\services\document service" /y /s /i

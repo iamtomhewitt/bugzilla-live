@@ -51,7 +51,7 @@ public class BugContextMenu
 		MenuItem subsystemTest 	= new MenuItem("Create Subsystem Test");
 		MenuItem excel 			= new MenuItem("Export To Excel");
 		MenuItem changeStatus 	= new MenuItem("Change Bug Status");
-		MenuItem copyORTitle 	= new MenuItem("Copy Bug Title");
+		MenuItem copyBugTitle 	= new MenuItem("Copy Bug Title");
 
 		Menu documentsMenu = new Menu("Documents");
 		documentsMenu.setGraphic(Icons.createDocumentIcon());
@@ -101,7 +101,7 @@ public class BugContextMenu
 				{
 					try 
 					{
-						Utilities.openORInFirefox(GuiConstants.BUGZILLA_URL, i);
+						Utilities.openBugInFirefox(GuiConstants.BUGZILLA_URL, i);
 					} 
 					catch (IOException e1) 
 					{
@@ -159,8 +159,8 @@ public class BugContextMenu
 			new ChangeBugStatusDialog(number, status);
 		});
 		
-		copyORTitle.setGraphic(Icons.createListIcon());
-		copyORTitle.setOnAction(e -> 
+		copyBugTitle.setGraphic(Icons.createListIcon());
+		copyBugTitle.setOnAction(e -> 
 		{
 			Bug bug = table.getSelectionModel().getSelectedItem();
 			String title = "Bug" + bug.getNumber() + " - " + bug.getSummary();
@@ -173,7 +173,7 @@ public class BugContextMenu
 		if (bugNumbers.size() == 1)
 		{
 			documentsMenu.getItems().add(unitTest);
-			contextMenu.getItems().add(copyORTitle);
+			contextMenu.getItems().add(copyBugTitle);
 		}
 
 		int x = MouseInfo.getPointerInfo().getLocation().x;

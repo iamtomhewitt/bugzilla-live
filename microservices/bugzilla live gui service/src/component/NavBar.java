@@ -65,13 +65,13 @@ public class NavBar
 			{
 				try
 				{
-					// Get the ORs from the prefiltered data, i.e the master set of bugs
+					// Get the bugs from the prefiltered data, i.e the master set of bugs
 					ObservableList<Bug> data = FXCollections.observableArrayList(JacksonAdapter.fromJson(GuiConstants.PREFILTERED_BUG_DATA, Bug.class));
 
 					filteredData = new FilteredList<>(data, e -> true);
 					filteredData.setPredicate((Predicate<? super Bug>) bug ->
 					{
-						// See if any of the ORs contain the typed filter
+						// See if any of the bugs contain the typed filter
 						String filterText = newValue.toLowerCase();
 
 						if (newValue == null || newValue.isEmpty())
@@ -137,7 +137,7 @@ public class NavBar
 		{
 			try 
 			{
-				Utilities.openORInFirefox(GuiConstants.BUGZILLA_URL, firefoxField.getText());
+				Utilities.openBugInFirefox(GuiConstants.BUGZILLA_URL, firefoxField.getText());
 			} 
 			catch (IOException e1) 
 			{
@@ -170,7 +170,7 @@ public class NavBar
 			{
 				try 
 				{
-					Utilities.openORInFirefox(GuiConstants.BUGZILLA_URL, firefoxField.getText());
+					Utilities.openBugInFirefox(GuiConstants.BUGZILLA_URL, firefoxField.getText());
 				} 
 				catch (IOException e1) 
 				{

@@ -12,7 +12,7 @@ public class UserBugsRequest extends BugRequest
 {
 	private String user;
 
-	public UserBugsRequest(String userToGetORsFor, String username, String password, String apiKey)
+	public UserBugsRequest(String userToGetBugsFor, String username, String password, String apiKey)
 	{
 		this.setMessage("bugrequest");
 		this.setFileExtension(".bugrequest");
@@ -20,7 +20,7 @@ public class UserBugsRequest extends BugRequest
 		this.setUsername(username);
 		this.setPassword(password);
 		this.setApiKey(apiKey);
-		this.user = userToGetORsFor;
+		this.user = userToGetBugsFor;
 	}
 
 	@SuppressWarnings("unchecked")

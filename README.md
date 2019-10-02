@@ -22,11 +22,11 @@ Bugzilla Live is a JavaFX desktop tool to manage bugs from Bugzilla using either
 
 * Bugzilla Live is split into a set of microservices that use JSON files to pass messages between each service. An example would be: 
 
-    ```GUI -> OR Request Message (JSON) -> OR Microservice```
+    ```GUI -> Bug Request Message (JSON) -> Bug Microservice```
 
-* The OR microservice would then parse the JSON message data, perform the required tasks and send a response message back:
+* The Bug microservice would then parse the JSON message data, perform the required tasks and send a response message back:
 
-    ```OR Microservice -> OR Response Message (JSON) -> GUI```
+    ```Bug Microservice -> Bug Response Message (JSON) -> GUI```
 
 ## Fixing Problems
 
@@ -49,7 +49,7 @@ The following should be applied throughout the code base.
         doSomething();
     }
 
-    // OR
+    // Or
 
     if (something)
         doSomething();
@@ -107,7 +107,7 @@ Regardless of language.
     /**
     * An abstract class for processing messages in the message folder. <p>
     * Each service that implements <code>MessageReceiver</code> has a list of file types it is allowed to process - so that each service
-    * does not process messages made for other services (e.g. the List service cannot processes messages for the OR service).
+    * does not process messages made for other services (e.g. the List service cannot processes messages for the Bug service).
     */
     public abstract class MessageReceiver
     {
@@ -254,11 +254,11 @@ Regardless of language.
 
 ## **Camel Case Defined**
 
-Camel casing should follow this rule, with the exception of the word ```OR``` (as this looks like the word ```or```):
+Camel casing should follow this rule, with the exception of the word ```Bug``` (as this looks like the word ```or```):
 
 |           Form          |      Correct      |     Incorrect     |
 |:-----------------------:|:-----------------:|:-----------------:|
 | "XML HTTP request"      | XmlHttpRequest    | XMLHTTPRequest    |
 | "new customer ID"       | newCustomerId     | newCustomerID     |
 | "supports IPv6 on iOS?" | supportsIpv6OnIos | supportsIPv6OnIOS |
-| "change OR request    " | changeORRequest   | changeOrRequest   |
+| "change Bug request    " | changeBugRequest   | changeOrRequest   |

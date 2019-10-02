@@ -24,7 +24,7 @@ import theme.GuiStyler;
 import theme.Sizes;
 
 /**
- * A dialog box used for creating a new list of ORs in the form of a .txt file.
+ * A dialog box used for creating a new list of bugs in the form of a .txt file.
  * 
  * @author Tom Hewitt
  */

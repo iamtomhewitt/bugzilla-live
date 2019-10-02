@@ -11,7 +11,7 @@ import bugzilla.common.bug.Bug;
 import bugzilla.exception.GenerateDocumentException;
 
 /**
- * Generates an excel document using the supplied list of ORs, and returns the file path of the generated document.
+ * Generates an excel document using the supplied list of bugs, and returns the file path of the generated document.
  * 
  * @author Tom Hewitt
  * @since 2.3.0

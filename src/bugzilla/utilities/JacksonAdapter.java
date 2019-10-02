@@ -23,7 +23,7 @@ import bugzilla.common.UnitTestStep;
 public class JacksonAdapter
 {
 	/**
-	 * Convert an object to a JSON string, for example, an <code>OR</code>.
+	 * Convert an object to a JSON string, for example, an <code>Bug</code>.
 	 */
 	public static <T> String toJson(T object) throws JsonTransformationException
 	{
@@ -46,8 +46,8 @@ public class JacksonAdapter
 	/**
 	 * Converts a JSON string into an object specified by a class.
 	 * <p>
-	 * For example, to convert JSON to an <code>OR</code>: <br>
-	 * <code>List<.OR> listOfORs = fromJSON("yourJSON", OR.class);</code>
+	 * For example, to convert JSON to an <code>Bug</code>: <br>
+	 * <code>List<.Bug> listOfBugs = fromJSON("yourJSON", Bug.class);</code>
 	 */
 	public static List fromJson(String json, Class c) throws JsonTransformationException
 	{

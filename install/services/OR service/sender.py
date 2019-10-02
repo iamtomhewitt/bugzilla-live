@@ -41,18 +41,18 @@ class Sender:
         response.write(final)
 
 
-    def send_OR_response_message(self, ORs_as_list):
+    def send_bug_response_message(self, bugs_as_list):
         """
-        Sends a response message containing the retrieved ORs.
+        Sends a response message containing the retrieved bugs.
         """
-        logging.info("| Sending OR response message")
+        logging.info("| Sending bug response message")
 
         json_data = {}
         json_data['message'] = 'orresponse'
         json_data['operation'] = 'orresponse'
         json_data['successful'] = 'yes'
         json_data['failurereason'] = ''
-        json_data['ORs'] = ORs_as_list
+        json_data['bugs'] = bugs_as_list
         json_data = json.dumps(json_data)
 
         # Random filename as we could overwrite a message that is already there
@@ -66,11 +66,11 @@ class Sender:
         response.write(final)
 
 
-    def send_OR_detail_response_message(self, number, comments, attachments):
+    def send_bug_detail_response_message(self, number, comments, attachments):
         """
-        Sends a response message containing the detail (comments and attachements) of an OR.
+        Sends a response message containing the detail (comments and attachements) of an bug.
         """
-        logging.info("| Sending OR detail response message")
+        logging.info("| Sending bug detail response message")
 
         json_data = {}
         json_data['message'] = 'orresponse'
