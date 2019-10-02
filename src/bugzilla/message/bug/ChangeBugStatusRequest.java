@@ -1,14 +1,14 @@
-package bugzilla.message.OR;
+package bugzilla.message.bug;
 
 import org.json.simple.JSONObject;
 
-public class ChangeORStatusRequest extends ORRequest
+public class ChangeBugStatusRequest extends BugRequest
 {
 	private String status;
 	private String comment;
 	private String number;
 	
-	public ChangeORStatusRequest()
+	public ChangeBugStatusRequest()
 	{
 		// Used for builder
 	}
@@ -43,7 +43,7 @@ public class ChangeORStatusRequest extends ORRequest
 		private String password;
 		private String apiKey;
 
-		public Builder withORNumber(String number)
+		public Builder withBugNumber(String number)
 		{
 			this.number = number;
 			return this;
@@ -79,9 +79,9 @@ public class ChangeORStatusRequest extends ORRequest
 			return this;
 		}
 
-		public ChangeORStatusRequest build()
+		public ChangeBugStatusRequest build()
 		{
-			ChangeORStatusRequest request = new ChangeORStatusRequest();
+			ChangeBugStatusRequest request = new ChangeBugStatusRequest();
 			request.setMessage("orrequest");
 			request.setFileExtension(".orrequest");
 			request.setOperation("changestatus");

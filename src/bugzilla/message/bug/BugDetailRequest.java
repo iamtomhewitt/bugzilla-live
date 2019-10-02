@@ -1,26 +1,26 @@
-package bugzilla.message.OR;
+package bugzilla.message.bug;
 
 import org.json.simple.JSONObject;
 
 /**
- * A request to retrieve ORs for a specific user. This request can be tailored for either a specific user, or by the currently logged in user.
+ * A request for detail of a bug (attachments and comments).
  * 
  * @author Tom Hewitt
  * @since 2.3.1
  */
-public class UserORsRequest extends ORRequest
+public class BugDetailRequest extends BugRequest
 {
-	private String user;
-
-	public UserORsRequest(String userToGetORsFor, String username, String password, String apiKey)
+	private String number;
+	
+	public BugDetailRequest(String number, String username, String password, String apiKey)
 	{
-		this.setMessage("orrequest");
-		this.setFileExtension(".orrequest");
-		this.setOperation("user");
+		this.setMessage("bugrequest");
+		this.setFileExtension(".bugrequest");
+		this.setOperation("detail");
 		this.setUsername(username);
 		this.setPassword(password);
 		this.setApiKey(apiKey);
-		this.user = userToGetORsFor;
+		this.number = number;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -30,7 +30,7 @@ public class UserORsRequest extends ORRequest
 		JSONObject message = new JSONObject();
 		message.put("message", this.getMessage());
 		message.put("operation", this.getOperation());
-		message.put("user", this.user);
+		message.put("number", this.number);
 		message.put("username", this.getUsername());
 		message.put("password", this.getPassword());
 		message.put("apiKey", this.getApiKey());

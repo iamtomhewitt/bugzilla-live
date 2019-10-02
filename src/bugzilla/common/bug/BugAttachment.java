@@ -1,4 +1,4 @@
-package bugzilla.common.OR;
+package bugzilla.common.bug;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -9,19 +9,19 @@ import java.util.Base64;
 import bugzilla.common.Folders;
 
 /**
- * Data class of an attachment in an OR.
+ * Data class of an attachment in a bug.
  *
  * @author Tom Hewitt
  * @since 2.0.0
  */
-public class ORAttachment
+public class BugAttachment
 {
 	private String id;
 	private String description;
 	private String filename;
 	private String data;
 
-	public ORAttachment()
+	public BugAttachment()
 	{
 		// Used for Jackson
 	}

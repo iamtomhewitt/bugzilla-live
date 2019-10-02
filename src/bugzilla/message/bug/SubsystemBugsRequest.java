@@ -1,21 +1,21 @@
-package bugzilla.message.OR;
+package bugzilla.message.bug;
 
 import org.json.simple.JSONObject;
 
 /**
- * A request for ORs for a particular subsystem.
+ * A request for bugs for a particular subsystem.
  * 
  * @author Tom Hewitt
  * @since 2.3.1
  */
-public class SubsystemORsRequest extends ORRequest
+public class SubsystemBugsRequest extends BugRequest
 {
 	private String subsystem;
 
-	public SubsystemORsRequest(String subsystem, String username, String password, String apiKey)
+	public SubsystemBugsRequest(String subsystem, String username, String password, String apiKey)
 	{
-		this.setMessage("orrequest");
-		this.setFileExtension(".orrequest");
+		this.setMessage("bugrequest");
+		this.setFileExtension(".bugrequest");
 		this.setOperation("subsystem");
 		this.setUsername(username);
 		this.setPassword(password);

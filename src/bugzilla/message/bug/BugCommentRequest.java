@@ -1,18 +1,18 @@
-package bugzilla.message.OR;
+package bugzilla.message.bug;
 
 import org.json.simple.JSONObject;
 
 /**
- * A request to add a comment to an OR.
+ * A request to add a comment to a bug.
  * 
  * @author Tom Hewitt
  */
-public class ORCommentRequest extends ORRequest
+public class BugCommentRequest extends BugRequest
 {
 	private String number;
 	private String comment;
 
-	private ORCommentRequest()
+	private BugCommentRequest()
 	{
 		// Used for builder
 	}
@@ -41,7 +41,7 @@ public class ORCommentRequest extends ORRequest
 		private String password;
 		private String apiKey;
 
-		public Builder withORNumber(String number)
+		public Builder withBugNumber(String number)
 		{
 			this.number = number;
 			return this;
@@ -71,11 +71,11 @@ public class ORCommentRequest extends ORRequest
 			return this;
 		}
 
-		public ORCommentRequest build()
+		public BugCommentRequest build()
 		{
-			ORCommentRequest request = new ORCommentRequest();
-			request.setMessage("orrequest");
-			request.setFileExtension(".orrequest");
+			BugCommentRequest request = new BugCommentRequest();
+			request.setMessage("bugrequest");
+			request.setFileExtension(".bugrequest");
 			request.setOperation("addcomment");
 			request.setUsername(this.username);
 			request.setPassword(this.password);

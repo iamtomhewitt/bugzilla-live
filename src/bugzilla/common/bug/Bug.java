@@ -1,4 +1,4 @@
-package bugzilla.common.OR;
+package bugzilla.common.bug;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Tom Hewitt
  * @since 1.0.0
  */
-public class OR
+public class Bug
 {
 	private String number;
 	private String summary;
@@ -28,11 +28,11 @@ public class OR
 	private String lastUpdated;
 	
 	// Used for Jackson
-	public OR(){}
+	public Bug(){}
 		
 	public String toString()
 	{		
-		return "OR: "+number+
+		return "Bug: "+number+
 				"\nSummary: "+summary+
 				"\nStatus: "+status+
 				"\nProduct: "+product+

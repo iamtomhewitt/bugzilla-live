@@ -1,14 +1,14 @@
-package bugzilla.message.OR;
+package bugzilla.message.bug;
 
 import bugzilla.message.Message;
 
 /**
- * A base request class for all kinds of OR requests.
+ * A base request class for all kinds of bug requests.
  * 
  * @author Tom Hewitt
  * @since 2.3.1
  */
-public abstract class ORRequest extends Message
+public abstract class BugRequest extends Message
 {
 	private String username;
 	private String password;

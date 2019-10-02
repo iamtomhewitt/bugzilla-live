@@ -5,7 +5,7 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import bugzilla.common.OR.OR;
+import bugzilla.common.bug.Bug;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.utilities.JacksonAdapter;
 
@@ -17,14 +17,14 @@ import bugzilla.utilities.JacksonAdapter;
  */
 public class ExcelRequest extends DocumentRequest
 {
-	private List<OR> ors;
+	private List<Bug> bugs;
 	
-	public ExcelRequest(List<OR> ors)
+	public ExcelRequest(List<Bug> bugs)
 	{
 		this.setMessage("documentrequest");
 		this.setFileExtension(".documentrequest");
 		this.setOperation("excel");
-		this.ors = ors;
+		this.bugs = bugs;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -37,15 +37,15 @@ public class ExcelRequest extends DocumentRequest
 			message.put("message", this.getMessage());
 			message.put("operation", this.getOperation());
 	
-			if (this.ors != null)
+			if (this.bugs != null)
 			{
-				String ORsAsJson = JacksonAdapter.toJson(this.ors);
+				String bugsAsJson = JacksonAdapter.toJson(this.bugs);
 	
-				// First parse ORsAsJson so that it formats correctly when it is written to the file
+				// First parse bugsAsJson so that it formats correctly when it is written to the file
 				JSONParser parser = new JSONParser();
-				JSONArray ORs = (JSONArray) parser.parse(ORsAsJson);
+				JSONArray bugs = (JSONArray) parser.parse(bugsAsJson);
 	
-				message.put("ORs", ORs);
+				message.put("bugs", bugs);
 			}
 	
 			return message.toJSONString();
