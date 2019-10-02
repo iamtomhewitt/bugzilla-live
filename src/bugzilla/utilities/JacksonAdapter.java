@@ -7,9 +7,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import bugzilla.common.OR.OR;
-import bugzilla.common.OR.ORAttachment;
-import bugzilla.common.OR.ORComment;
+import bugzilla.common.bug.Bug;
+import bugzilla.common.bug.BugAttachment;
+import bugzilla.common.bug.BugComment;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.common.UnitTestStep;
 
@@ -55,17 +55,17 @@ public class JacksonAdapter
 		
 		try
 		{
-			if (c == OR.class)
+			if (c == Bug.class)
 			{
-				return Arrays.asList(mapper.readValue(json, OR[].class));
+				return Arrays.asList(mapper.readValue(json, Bug[].class));
 			}
-			if (c == ORComment.class)
+			if (c == BugComment.class)
 			{
-				return Arrays.asList(mapper.readValue(json, ORComment[].class));
+				return Arrays.asList(mapper.readValue(json, BugComment[].class));
 			}
-			if (c == ORAttachment.class)
+			if (c == BugAttachment.class)
 			{
-				return Arrays.asList(mapper.readValue(json, ORAttachment[].class));
+				return Arrays.asList(mapper.readValue(json, BugAttachment[].class));
 			}
 			if (c == UnitTestStep.class)
 			{

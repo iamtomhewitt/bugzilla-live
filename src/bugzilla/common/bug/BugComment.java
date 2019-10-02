@@ -1,20 +1,20 @@
-package bugzilla.common.OR;
+package bugzilla.common.bug;
 
 import java.nio.charset.StandardCharsets;
 
 /**
- * Data class for an OR comment.
+ * Data class for a bug comment.
  *
  * @author Tom Hewitt
  * @since 2.0.0
  */
-public class ORComment
+public class BugComment
 {
 	private String commenter;
 	private String time;
 	private String comment;
 
-	public ORComment()
+	public BugComment()
 	{
 		// Used for Jackson
 	}

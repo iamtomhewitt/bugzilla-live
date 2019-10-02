@@ -8,7 +8,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import bugzilla.common.OR.OR;
+import bugzilla.common.bug.Bug;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.utilities.JacksonAdapter;
 
@@ -25,7 +25,7 @@ public class ReleaseNoteRequest extends DocumentRequest
 	private String issue;
 	private String issueStatus;
 	
-	private List<OR> ors;
+	private List<Bug> bugs;
 	
 	private ReleaseNoteRequest()
 	{
@@ -52,15 +52,15 @@ public class ReleaseNoteRequest extends DocumentRequest
 			message.put("issuedate", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 			message.put("subsystem", this.subsystem);
 	
-			if (this.ors != null)
+			if (this.bugs != null)
 			{
-				String ORsAsJson = JacksonAdapter.toJson(this.ors);
+				String bugsAsJson = JacksonAdapter.toJson(this.bugs);
 	
-				// First parse ORsAsJson so that it formats correctly when it is written to the file
+				// First parse bugsAsJson so that it formats correctly when it is written to the file
 				JSONParser parser = new JSONParser();
-				JSONArray ORs = (JSONArray) parser.parse(ORsAsJson);
+				JSONArray bugs = (JSONArray) parser.parse(bugsAsJson);
 	
-				message.put("ORs", ORs);
+				message.put("bugs", bugs);
 			}
 	
 			return message.toJSONString();
@@ -81,7 +81,7 @@ public class ReleaseNoteRequest extends DocumentRequest
 		private String documentTitle;
 		private String classification;
 		
-		private List<OR> ors;
+		private List<Bug> bugs;
 		
 		public Builder withSubsystem(String subsystem)
 		{
@@ -125,9 +125,9 @@ public class ReleaseNoteRequest extends DocumentRequest
 			return this;
 		}
 		
-		public Builder withORs(List<OR> ors)
+		public Builder withBugs(List<Bug> bugs)
 		{
-			this.ors = ors;
+			this.bugs = bugs;
 			return this;
 		}
 		
@@ -143,7 +143,7 @@ public class ReleaseNoteRequest extends DocumentRequest
 			request.documentNumber = this.documentNumber;
 			request.issue = this.issue;
 			request.issueStatus = this.issueStatus;
-			request.ors = this.ors;
+			request.bugs = this.bugs;
 			request.subsystem = this.subsystem;
 			return request;
 		}
