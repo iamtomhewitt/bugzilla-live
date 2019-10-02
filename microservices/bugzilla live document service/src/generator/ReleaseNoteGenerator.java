@@ -62,8 +62,8 @@ public class ReleaseNoteGenerator extends DocumentGenerator
 			replaceText(document, "%Issue_date", this.issueDate);
 			replaceText(document, "%Issue_status", this.issueStatus);
 	
-			replaceTextWithORTable(document, "%External_Bugs", this.bugs.stream().filter(bug -> bug.getInternalExternal().equals("External")).collect(Collectors.toList()));
-			replaceTextWithORTable(document, "%Internal_Bugs", this.bugs.stream().filter(bug -> bug.getInternalExternal().equals("Internal")).collect(Collectors.toList()));
+			replaceTextWithBugTable(document, "%External_Bugs", this.bugs.stream().filter(bug -> bug.getInternalExternal().equals("External")).collect(Collectors.toList()));
+			replaceTextWithBugTable(document, "%Internal_Bugs", this.bugs.stream().filter(bug -> bug.getInternalExternal().equals("Internal")).collect(Collectors.toList()));
 	
 			FileOutputStream os = new FileOutputStream(outputFile);
 			document.write(os);

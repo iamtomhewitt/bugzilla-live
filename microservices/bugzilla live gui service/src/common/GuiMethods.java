@@ -133,7 +133,7 @@ public class GuiMethods
 	
 
 	/**
-	 * Sends a request to the OR Details Service to refresh the <b><i>current</i></b> set of Bugs in the table.<p>
+	 * Sends a request to the Bug Service to refresh the <b><i>current</i></b> set of Bugs in the table.<p>
 	 * NB: Since filtering introduced, now we must use the prefiltered Bugs, otherwise the refresh request will just send a list of the Bugs
 	 * that have been filtered. 
 	 */

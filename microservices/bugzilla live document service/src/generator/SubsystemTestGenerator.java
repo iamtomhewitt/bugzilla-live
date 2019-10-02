@@ -66,7 +66,7 @@ public class SubsystemTestGenerator extends DocumentGenerator
 			// For each bug create the test section
 			for (Bug bug : bug)
 			{
-				createParagraphWithRun("OR" + bug.getNumber() + " - " + bug.getSummary(), "Heading2");			
+				createParagraphWithRun("Bug" + bug.getNumber() + " - " + bug.getSummary(), "Heading2");			
 				createParagraphWithRun("Test Environment", "Heading3");				
 				setRun(document.createParagraph().createRun(), "Arial", 12, "000000", testEnvironment, false, true);
 				createParagraphWithRun("Test Procedure", "Heading3");			
@@ -87,7 +87,7 @@ public class SubsystemTestGenerator extends DocumentGenerator
 			replaceText(document, "Docsubsystem", "CRM");
 			replaceText(document, "Releasenumber", releaseNumber);
 	
-			replaceTextWithORTable(document, "%Bugs", this.bug);
+			replaceTextWithBugTable(document, "%Bugs", this.bug);
 	
 			FileOutputStream os = new FileOutputStream(outputFile);
 			document.write(os);
@@ -234,7 +234,7 @@ public class SubsystemTestGenerator extends DocumentGenerator
 			return this;
 		}
 		
-		public Builder withORs(List<Bug> bugs)
+		public Builder withBugs(List<Bug> bugs)
 		{
 			this.bugs = bugs;
 			return this;

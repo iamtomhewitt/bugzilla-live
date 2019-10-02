@@ -154,7 +154,7 @@ public class BugTable
 								{
 									try 
 									{
-										Utilities.openORInFirefox(GuiConstants.BUGZILLA_URL, bug.getNumber());
+										Utilities.openBugInFirefox(GuiConstants.BUGZILLA_URL, bug.getNumber());
 									} 
 									catch (IOException e1) 
 									{

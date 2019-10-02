@@ -28,7 +28,7 @@ public class Utilities
 	/**
 	 * Opens a bug in Firefox.
 	 */
-	public static void openORInFirefox(String bugzillaUrl, String number) throws IOException
+	public static void openBugInFirefox(String bugzillaUrl, String number) throws IOException
 	{
 		Runtime.getRuntime().exec("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe " + bugzillaUrl + "show_bug.cgi?id=" + number);
 	}

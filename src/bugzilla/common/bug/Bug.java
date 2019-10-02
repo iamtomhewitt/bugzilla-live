@@ -6,9 +6,9 @@ import java.time.Instant;
 import java.util.Date;
 
 /**
- * A data class representing the basic info of an OR. Used to populate the main table in the GUI.
+ * A data class representing the basic info of an Bug. Used to populate the main table in the GUI.
  * 
- * @see <code>ORDetail</code> for attachments and comments.
+ * @see <code>BugDetail</code> for attachments and comments.
  * @author Tom Hewitt
  * @since 1.0.0
  */
@@ -62,7 +62,7 @@ public class Bug
 	}
 	
 	/**
-	 * Checks if <code>str</code> exists in any variables of the OR.
+	 * Checks if <code>str</code> exists in any variables of the Bug.
 	 */
 	public boolean contains(String str)
 	{

@@ -53,7 +53,7 @@ public class BugTests
 	}
 	
 	@Test
-	public void testCreateChangeORStatusRequestObject()
+	public void testCreateChangeBugStatusRequestObject()
 	{
 	    ChangeBugStatusRequest request = new ChangeBugStatusRequest.Builder().withApiKey(API_KEY)
 	                                                                        .withComment("Comment")
@@ -74,7 +74,7 @@ public class BugTests
 	}
 	
 	@Test
-	public void testCreateORCommentRequestObject()
+	public void testCreateBugCommentRequestObject()
     {
         BugCommentRequest request = new BugCommentRequest.Builder().withApiKey(API_KEY)
                                                                     .withComment("A comment.")
@@ -94,7 +94,7 @@ public class BugTests
     }
 	
 	@Test
-    public void testCreateORDetailRequestObject()
+    public void testCreateBugDetailRequestObject()
     {
         BugDetailRequest request = new BugDetailRequest("12345", USERNAME, PASSWORD, API_KEY);
         
@@ -110,7 +110,7 @@ public class BugTests
     }
 	
 	@Test
-	public void testCreateORsRequestObject()
+	public void testCreateBugsRequestObject()
 	{
 	    List<String> numbers = Arrays.asList("12345", "22345");
 	    
@@ -127,7 +127,7 @@ public class BugTests
 	}
 	
 	@Test
-    public void testCreateSubsystemORsRequestObject()
+    public void testCreateSubsystemBugsRequestObject()
     {
         SubsystemBugsRequest request = new SubsystemBugsRequest("Subsystem", USERNAME, PASSWORD, API_KEY);
         
@@ -143,7 +143,7 @@ public class BugTests
     }
 	
 	@Test
-    public void testCreateUserORsRequestObject()
+    public void testCreateUserBugsRequestObject()
     {
         UserBugsRequest request = new UserBugsRequest(USERNAME, USERNAME, PASSWORD, API_KEY);
         
@@ -161,7 +161,7 @@ public class BugTests
 	
 	// Sending tests
 	@Test
-	public void testSendChangeORStatusRequest() throws JsonTransformationException, MessageSenderException
+	public void testSendChangeBugStatusRequest() throws JsonTransformationException, MessageSenderException
 	{
 	    File folder = new File(Folders.MESSAGE_FOLDER);
 	    ChangeBugStatusRequest request = new ChangeBugStatusRequest.Builder().withApiKey(API_KEY)
@@ -179,7 +179,7 @@ public class BugTests
 	}
 	
 	@Test
-	public void testSendORCommentRequest() throws JsonTransformationException, MessageSenderException
+	public void testSendBugCommentRequest() throws JsonTransformationException, MessageSenderException
 	{
 	    File folder = new File(Folders.MESSAGE_FOLDER);
 	    BugCommentRequest request = new BugCommentRequest.Builder().withApiKey(API_KEY)
@@ -196,7 +196,7 @@ public class BugTests
 	}
 	
 	@Test
-    public void testSendORDetailRequest() throws JsonTransformationException, MessageSenderException
+    public void testSendBugDetailRequest() throws JsonTransformationException, MessageSenderException
     {
 	    File folder = new File(Folders.MESSAGE_FOLDER);
 	    BugDetailRequest request = new BugDetailRequest("12345", USERNAME, PASSWORD, API_KEY);      
@@ -209,7 +209,7 @@ public class BugTests
     }
 	
 	@Test
-	public void testSendORsRequest() throws JsonTransformationException, MessageSenderException
+	public void testSendBugsRequest() throws JsonTransformationException, MessageSenderException
     {
 	    File folder = new File(Folders.MESSAGE_FOLDER);
 	    List<String> numbers = Arrays.asList("12345", "22345");        
@@ -223,7 +223,7 @@ public class BugTests
     }
 	
 	@Test
-    public void testSendSusbsystemORsRequest() throws JsonTransformationException, MessageSenderException
+    public void testSendSusbsystemBugsRequest() throws JsonTransformationException, MessageSenderException
     {
         File folder = new File(Folders.MESSAGE_FOLDER);
         SubsystemBugsRequest request = new SubsystemBugsRequest("Subsystem", USERNAME, PASSWORD, API_KEY);  
@@ -236,7 +236,7 @@ public class BugTests
     }
 	
 	@Test
-    public void testSendUserORsRequest() throws JsonTransformationException, MessageSenderException
+    public void testSendUserBugsRequest() throws JsonTransformationException, MessageSenderException
     {
         File folder = new File(Folders.MESSAGE_FOLDER);
         UserBugsRequest request = new UserBugsRequest(USERNAME, USERNAME, PASSWORD, API_KEY);
@@ -251,22 +251,22 @@ public class BugTests
 	
 	// Mock response tests
     @Test
-	public void testMockORsSuccessResponse() throws JsonTransformationException, ParseException, IOException
+	public void testMockBugsSuccessResponse() throws JsonTransformationException, ParseException, IOException
 	{
-	    File mock = new File("tests/mocks/OR/response/ors.orresponse");
+	    File mock = new File("tests/mocks/bug/response/ors.orresponse");
 	    
 	    String responseContent = new String(Files.readAllBytes(Paths.get(mock.getAbsolutePath())));
         JSONObject message = (JSONObject) new JSONParser().parse(responseContent);
-        List<Bug> ors = JacksonAdapter.fromJson(message.get("ORs").toString(), Bug.class);
+        List<Bug> ors = JacksonAdapter.fromJson(message.get("bugs").toString(), Bug.class);
 
         assertNotNull(ors);
         assertEquals(ors.isEmpty(), false);
 	}
     
     @Test
-    public void testMockORsFailureResponse() throws ParseException, IOException
+    public void testMockBugsFailureResponse() throws ParseException, IOException
     {
-        File mock = new File("tests/mocks/OR/response/ors failure.orresponse");
+        File mock = new File("tests/mocks/bug/response/ors failure.orresponse");
         JSONObject message = (JSONObject) new JSONParser().parse(new String(Files.readAllBytes(Paths.get(mock.getAbsolutePath()))));
 
         String operation = message.get("operation").toString();
@@ -279,9 +279,9 @@ public class BugTests
     }
     
     @Test
-    public void testMockORDetailSuccessResponse() throws IOException, JsonTransformationException, ParseException
+    public void testMockBugDetailSuccessResponse() throws IOException, JsonTransformationException, ParseException
     {
-        File mock = new File("tests/mocks/OR/response/detail.orresponse");
+        File mock = new File("tests/mocks/bug/response/detail.orresponse");
         
         String responseContent = new String(Files.readAllBytes(Paths.get(mock.getAbsolutePath())));
         JSONObject message = (JSONObject) new JSONParser().parse(responseContent);
@@ -295,9 +295,9 @@ public class BugTests
     }
     
     @Test
-    public void testMockORDetailFailureResponse() throws ParseException, IOException
+    public void testMockBugDetailFailureResponse() throws ParseException, IOException
     {
-        File mock = new File("tests/mocks/OR/response/detail failure.orresponse");
+        File mock = new File("tests/mocks/bug/response/detail failure.orresponse");
         JSONObject message = (JSONObject) new JSONParser().parse(new String(Files.readAllBytes(Paths.get(mock.getAbsolutePath()))));
         
         String operation = message.get("operation").toString();

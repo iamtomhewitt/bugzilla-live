@@ -105,7 +105,7 @@ public class InformationPane
 				for (Label l : severityLabels)
 				{
 					String severity = l.getText().split(":")[0];
-					l.setText(severity + ": " + BugCounter.countSeverityBugs(severity) + " (Active: " + BugCounter.countActiveSeverityORs(severity) + ")");
+					l.setText(severity + ": " + BugCounter.countSeverityBugs(severity) + " (Active: " + BugCounter.countActiveSeverityBugs(severity) + ")");
 				}
 
 				for (Label l : statusLabels)
