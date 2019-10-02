@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import bugzilla.common.Errors;
 import bugzilla.common.Folders;
 import bugzilla.common.MessageBox;
-import bugzilla.common.OR.OR;
+import bugzilla.common.OR.Bug;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
 import bugzilla.common.UnitTestStep;
@@ -41,10 +41,10 @@ public class UnitTestDialog extends VBox
 	
 	private List<TextField> textFields = new ArrayList<TextField>();
 
-	public UnitTestDialog(OR or)
+	public UnitTestDialog(Bug bug)
 	{
 		// Create file details
-		TextField fileReferenceField = createTextField("file reference (e.g. 21-27-1350)", "Reference created in Skynet Access Database", 450);
+		TextField fileReferenceField = createTextField("file reference (e.g. 21-27-1350)", "Reference created in Access Database", 450);
 		TextField fileLocationField = createTextField("\tfile location", "Location of saved file", 450);		
 		TextField aim = createTextField("test aim", "Aim of the test", 450);
 		TextField testEnvironment = createTextField("test environment", "E.g. Development, RSIF", 450);
@@ -54,7 +54,7 @@ public class UnitTestDialog extends VBox
 		Button createButton = new Button("Create");
 
 		fileLocationField.setEditable(false);
-		fileLocationField.setText("\\\\skynet-fs\\Filing\\Segment\\Filing System\\21-Testing\\27 - Unit Testing");
+		fileLocationField.setText("A location");
 		
 		HBox fileLocationDetails = new HBox(fileLocationField, browseButton);
 		fileLocationDetails.setSpacing(5);
@@ -98,14 +98,14 @@ public class UnitTestDialog extends VBox
 			}
 			
 			String fileLocation = fileLocationField.getText();
-			String filename = fileReferenceField.getText() + "A - Unit Test " + subsystem.getSelectionModel().getSelectedItem() + " - OR" + or.getNumber() + " - " + or.getSummary();
+			String filename = fileReferenceField.getText() + "A - Unit Test " + subsystem.getSelectionModel().getSelectedItem() + " - Bug" + bug.getNumber() + " - " + bug.getSummary();
 						
 			try
 			{
 				UnitTestRequest request = new UnitTestRequest.Builder().withAim(aim.getText())
 																		.withClassification(classification.getSelectionModel().getSelectedItem())
 																		.withDeveloperUsername(GuiMethods.createDisplayName(GuiConstants.USERNAME))
-																		.withDocumentTitle("OR" + or.getNumber() + " - " + or.getSummary())
+																		.withDocumentTitle("Bug" + bug.getNumber() + " - " + bug.getSummary())
 																		.withFileLocation(fileLocation)
 																		.withFilename(filename)
 																		.withTestEnvironment(testEnvironment.getText())
@@ -139,8 +139,8 @@ public class UnitTestDialog extends VBox
 		this.setPadding(new Insets(20));
 		this.setStyle("-fx-background-color: white");
 		
-		String title = "Unit Test | OR" + or.getNumber() + " - ";
-		title += (or.getSummary().length() > 30) ? or.getSummary().substring(0, 30) + "..." : or.getSummary();
+		String title = "Unit Test | Bug" + bug.getNumber() + " - ";
+		title += (bug.getSummary().length() > 30) ? bug.getSummary().substring(0, 30) + "..." : bug.getSummary();
 
 		stage.setScene(new Scene(WindowsBar.createWindowsBar(stage, this, title), 500, 800));
 		stage.show();

@@ -7,12 +7,12 @@ import java.util.List;
 import bugzilla.common.Errors;
 import bugzilla.common.Fonts;
 import bugzilla.common.MessageBox;
-import bugzilla.common.OR.OR;
+import bugzilla.common.OR.Bug;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
-import bugzilla.message.OR.ORDetailRequest;
+import bugzilla.message.OR.BugDetailRequest;
 import bugzilla.utilities.Utilities;
-import component.menu.ORContextMenu;
+import component.menu.BugContextMenu;
 import theme.RowColours;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -35,18 +35,18 @@ import common.GuiConstants;
 import message.GuiMessageSender;
 
 /**
- * The main table in the middle of the GUI that holds information about all the ORs.
+ * The main table in the middle of the GUI that holds information about all the bugs.
  * 
  * @author Tom Hewitt
  */
-public class ORTable
+public class BugTable
 {
-	private TableView<OR> tableView;
+	private TableView<Bug> tableView;
 	
-	private static ORTable instance;
+	private static BugTable instance;
 
 	@SuppressWarnings("unchecked")
-	public ORTable()
+	public BugTable()
 	{
 		instance = this;
 		
@@ -55,18 +55,18 @@ public class ORTable
 		int MEDIUM = 10;
 		int LARGE = 20;
 
-		TableColumn<OR, String> numberColumn 	= createColumn("Number", "number", X_SMALL);
-		TableColumn<OR, String> statusColumn 	= createColumn("Status", "status", SMALL);
-		TableColumn<OR, String> assignedColumn 	= createColumn("Assigned To", "assignedTo", SMALL);
-		TableColumn<OR, String> productColumn 	= createColumn("Subsystem", "product", SMALL);
-		TableColumn<OR, String> componentColumn = createColumn("Component", "component", SMALL);
-		TableColumn<OR, String> severity 		= createColumn("Severity", "severity", SMALL);
-		TableColumn<OR, String> summaryColumn 	= createColumn("Summary", "summary", LARGE);
-		TableColumn<OR, String> genFromColumn 	= createColumn("Generated From", "generatedFrom", MEDIUM);
-		TableColumn<OR, String> intExtColumn 	= createColumn("Int/Ext", "internalExternal", SMALL);
-		TableColumn<OR, String> systemColumn 	= createColumn("Environment", "system", SMALL);
-		TableColumn<OR, String> segmentColumn 	= createColumn("Segment Release", "segmentRelease", SMALL);
-		TableColumn<OR, String> lastUpdatedColumn = createColumn("Last Updated", "lastUpdated", SMALL);
+		TableColumn<Bug, String> numberColumn 	= createColumn("Number", "number", X_SMALL);
+		TableColumn<Bug, String> statusColumn 	= createColumn("Status", "status", SMALL);
+		TableColumn<Bug, String> assignedColumn 	= createColumn("Assigned To", "assignedTo", SMALL);
+		TableColumn<Bug, String> productColumn 	= createColumn("Subsystem", "product", SMALL);
+		TableColumn<Bug, String> componentColumn = createColumn("Component", "component", SMALL);
+		TableColumn<Bug, String> severity 		= createColumn("Severity", "severity", SMALL);
+		TableColumn<Bug, String> summaryColumn 	= createColumn("Summary", "summary", LARGE);
+		TableColumn<Bug, String> genFromColumn 	= createColumn("Generated From", "generatedFrom", MEDIUM);
+		TableColumn<Bug, String> intExtColumn 	= createColumn("Int/Ext", "internalExternal", SMALL);
+		TableColumn<Bug, String> systemColumn 	= createColumn("Environment", "system", SMALL);
+		TableColumn<Bug, String> segmentColumn 	= createColumn("Segment Release", "segmentRelease", SMALL);
+		TableColumn<Bug, String> lastUpdatedColumn = createColumn("Last Updated", "lastUpdated", SMALL);
 
 		tableView = new TableView<>();
 		tableView.getColumns().addAll(numberColumn, statusColumn, assignedColumn, productColumn, componentColumn, severity, summaryColumn, genFromColumn, intExtColumn, systemColumn, segmentColumn, lastUpdatedColumn);
@@ -75,7 +75,7 @@ public class ORTable
 		tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		tableView.setRowFactory(tv ->
 		{
-			TableRow<OR> row = new TableRow<>();
+			TableRow<Bug> row = new TableRow<>();
 			row.setOnMouseClicked(event ->
 			{
 				// Double Click
@@ -83,7 +83,7 @@ public class ORTable
 				{
 					try
 					{
-						ORDetailRequest request = new ORDetailRequest(row.getItem().getNumber(), GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
+						BugDetailRequest request = new BugDetailRequest(row.getItem().getNumber(), GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
 						new GuiMessageSender().sendRequestMessage(request);
 					}
 					catch (JsonTransformationException | MessageSenderException e)
@@ -101,36 +101,36 @@ public class ORTable
 			@Override
 			public void handle(MouseEvent e)
 			{
-				ObservableList<OR> selectedORs = tableView.getSelectionModel().getSelectedItems();
+				ObservableList<Bug> selectedBugs = tableView.getSelectionModel().getSelectedItems();
 
 				// Right mouse click
 				if (e.getButton() == MouseButton.SECONDARY)
 				{
-					List<String> selectedORNumbers = new ArrayList<String>();
+					List<String> selectedBugNumbers = new ArrayList<String>();
 
-					for (OR or : selectedORs)
-						selectedORNumbers.add(or.getNumber());
+					for (Bug bug : selectedBugs)
+						selectedBugNumbers.add(bug.getNumber());
 
 					if (tableView.getItems().size() > 0)
-						new ORContextMenu(tableView, selectedORNumbers);
+						new BugContextMenu(tableView, selectedBugNumbers);
 				}
 			}
 		});		
 	}
 
-	private TableColumn<OR, String> createColumn(String columnLabel, String ORProperty, int widthPercentage)
+	private TableColumn<Bug, String> createColumn(String columnLabel, String bugProperty, int widthPercentage)
 	{
-		TableColumn<OR, String> column = new TableColumn<>(columnLabel);
+		TableColumn<Bug, String> column = new TableColumn<>(columnLabel);
 
 		column.setMaxWidth(1f * Integer.MAX_VALUE * widthPercentage);
 		column.setEditable(false);
-		column.setCellValueFactory(new PropertyValueFactory<>(ORProperty));
-		column.setCellFactory(new Callback<TableColumn<OR, String>, TableCell<OR, String>>()
+		column.setCellValueFactory(new PropertyValueFactory<>(bugProperty));
+		column.setCellFactory(new Callback<TableColumn<Bug, String>, TableCell<Bug, String>>()
 		{
 			@Override
-			public TableCell<OR, String> call(TableColumn<OR, String> param)
+			public TableCell<Bug, String> call(TableColumn<Bug, String> param)
 			{
-				return new TableCell<OR, String>()
+				return new TableCell<Bug, String>()
 				{
 					@SuppressWarnings("unchecked")
 					@Override
@@ -141,20 +141,20 @@ public class ORTable
 							super.updateItem(item, empty);
 							int index = indexProperty().getValue() < 0 ? 0 : indexProperty().getValue();
 
-							OR or = param.getTableView().getItems().get(index);
-							TableRow<OR> row = getTableRow();
+							Bug bug = param.getTableView().getItems().get(index);
+							TableRow<Bug> row = getTableRow();
 							Hyperlink link = new Hyperlink();
 
 							// First update hyperlink
 							if (columnLabel.equals("Number"))
 							{
-								link.setText(or.getNumber());
+								link.setText(bug.getNumber());
 								link.setUnderline(true);
 								link.setOnAction(e ->
 								{
 									try 
 									{
-										Utilities.openORInFirefox(GuiConstants.BUGZILLA_URL, or.getNumber());
+										Utilities.openORInFirefox(GuiConstants.BUGZILLA_URL, bug.getNumber());
 									} 
 									catch (IOException e1) 
 									{
@@ -174,7 +174,7 @@ public class ORTable
 							setFont(Font.font("System", Fonts.FONT_SIZE_NORMAL));
 							setAlignment(Pos.CENTER);
 							
-							colour(this, or, link);
+							colour(this, bug, link);
 
 							if (row != null)
 							{
@@ -205,71 +205,71 @@ public class ORTable
 		return column;
 	}
 
-	private void colour(Node n, OR or, Hyperlink link)
+	private void colour(Node n, Bug bug, Hyperlink link)
 	{
 		// Colour based on if fixed or not first
-		if (or.getStatus().equalsIgnoreCase("Fixed"))
+		if (bug.getStatus().equalsIgnoreCase("Fixed"))
 		{
 			n.setStyle(RowColours.FIXED);
 		}
-		else if (or.getStatus().equalsIgnoreCase("Coded"))
+		else if (bug.getStatus().equalsIgnoreCase("Coded"))
 		{
 			n.setStyle(RowColours.CODED);
 		}
-		else if (or.getStatus().equalsIgnoreCase("Closed"))
+		else if (bug.getStatus().equalsIgnoreCase("Closed"))
 		{
 			n.setStyle(RowColours.CLOSED);
 		}
-		else if (or.getStatus().equalsIgnoreCase("Addressed"))
+		else if (bug.getStatus().equalsIgnoreCase("Addressed"))
 		{
 			n.setStyle(RowColours.ADDRESSED);
 		}
-		else if (or.getStatus().equalsIgnoreCase("No Fault"))
+		else if (bug.getStatus().equalsIgnoreCase("No Fault"))
 		{
 			((Labeled) n).setTextFill(Color.WHITE);
 			link.setTextFill(Color.WHITE);
 			n.setStyle(RowColours.NOFAULT);
 		}
-		else if (or.getStatus().equalsIgnoreCase("Released"))
+		else if (bug.getStatus().equalsIgnoreCase("Released"))
 		{
 			n.setStyle(RowColours.RELEASED);
 		}
-		else if (or.getStatus().equalsIgnoreCase("Built"))
+		else if (bug.getStatus().equalsIgnoreCase("Built"))
 		{
 			n.setStyle(RowColours.BUILT);
 		}
 
 		// Now the status
-		else if (or.getSeverity().equalsIgnoreCase("Critical"))
+		else if (bug.getSeverity().equalsIgnoreCase("Critical"))
 		{
 			((Labeled) n).setTextFill(Color.WHITE);
 			link.setTextFill(Color.WHITE);
 			n.setStyle(RowColours.CRITICAL);
 		}
-		else if (or.getSeverity().equalsIgnoreCase("High"))
+		else if (bug.getSeverity().equalsIgnoreCase("High"))
 		{
 			n.setStyle(RowColours.HIGH);
 		}
-		else if (or.getSeverity().equalsIgnoreCase("Medium"))
+		else if (bug.getSeverity().equalsIgnoreCase("Medium"))
 		{
 			n.setStyle(RowColours.MEDIUM);
 		}
-		else if (or.getSeverity().equalsIgnoreCase("Low"))
+		else if (bug.getSeverity().equalsIgnoreCase("Low"))
 		{
 			n.setStyle(RowColours.LOW);
 		}
-		else if (or.getSeverity().equalsIgnoreCase("Unknown"))
+		else if (bug.getSeverity().equalsIgnoreCase("Unknown"))
 		{
 			n.setStyle(RowColours.UNKNOWN);
 		}
 	}
 	
-	public TableView<OR> getTableView()
+	public TableView<Bug> getTableView()
 	{
 		return tableView;
 	}
 	
-	public static ORTable getInstance()
+	public static BugTable getInstance()
 	{
 		return instance;
 	}

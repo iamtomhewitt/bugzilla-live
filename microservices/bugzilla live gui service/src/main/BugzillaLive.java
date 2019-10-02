@@ -12,7 +12,7 @@ import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageReceiverException;
 import component.InformationPane;
 import component.NavBar;
-import component.ORTable;
+import component.BugTable;
 import component.Toolbar;
 import component.WindowsBar;
 import bugzilla.utilities.Icons;
@@ -34,7 +34,7 @@ import message.GuiMessageReceiver;
 
 public class BugzillaLive extends Application
 {
-	private ORTable table = new ORTable();
+	private BugTable table = new BugTable();
 	private BorderPane border = new BorderPane();
 	private Toolbar toolbar = new Toolbar();
 	private InformationPane infoPane = new InformationPane();
@@ -94,7 +94,7 @@ public class BugzillaLive extends Application
 
 		try
 		{
-			GuiConstants.PREFILTERED_OR_DATA = JacksonAdapter.toJson(table.getTableView().getItems());
+			GuiConstants.PREFILTERED_BUG_DATA = JacksonAdapter.toJson(table.getTableView().getItems());
 		}
 		catch (JsonTransformationException e1)
 		{
@@ -129,7 +129,7 @@ public class BugzillaLive extends Application
 
 					Thread.sleep(GuiConstants.REFRESH_TIME * 1000);
 					
-					if (!GuiConstants.PAUSED) GuiMethods.requestORRefresh();
+					if (!GuiConstants.PAUSED) GuiMethods.requestBugRefresh();
 				}
 			}
 			catch (InterruptedException e)

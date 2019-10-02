@@ -7,14 +7,14 @@ import org.junit.runner.notification.Failure;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import OR.ORTests;
+import OR.BugTests;
 import config.ConfigTests;
 import document.DocumentTests;
 import exception.ExceptionTests;
 import lists.ListTests;
 
 @RunWith(Suite.class)
-@SuiteClasses({ ORTests.class, ListTests.class, ConfigTests.class, DocumentTests.class, ExceptionTests.class })
+@SuiteClasses({ BugTests.class, ListTests.class, ConfigTests.class, DocumentTests.class, ExceptionTests.class })
 public class UnitTests
 {
 	public static void main(String[] args)

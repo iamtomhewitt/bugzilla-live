@@ -1,4 +1,4 @@
-package component.dialog.OR;
+package component.dialog.bug;
 
 import java.io.IOException;
 import java.text.DateFormatSymbols;
@@ -15,8 +15,8 @@ import org.json.simple.JSONObject;
 import bugzilla.common.Errors;
 import bugzilla.common.Fonts;
 import bugzilla.common.MessageBox;
-import bugzilla.common.OR.ORAttachment;
-import bugzilla.common.OR.ORComment;
+import bugzilla.common.OR.BugAttachment;
+import bugzilla.common.OR.BugComment;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.utilities.Icons;
 import bugzilla.utilities.JacksonAdapter;
@@ -47,12 +47,12 @@ import theme.GuiStyler;
 import theme.Sizes;
 
 /**
- * Shows the comments as well as attachments (which come through as comments as well) for a given OR number.
+ * Shows the comments as well as attachments (which come through as comments as well) for a given Bug number.
  * 
  * @author Tom Hewitt
  */
 @SuppressWarnings("unchecked")
-public class ORCommentDialog extends GridPane 
+public class BugCommentDialog extends GridPane 
 {
 	private Stage stage = new Stage();
 	private VBox vbox = new VBox();
@@ -66,7 +66,7 @@ public class ORCommentDialog extends GridPane
 	
 	private JSONObject message;
 
-	public ORCommentDialog(JSONObject message) throws Exception
+	public BugCommentDialog(JSONObject message) throws Exception
 	{
 		this.message = message;
 		
@@ -79,9 +79,9 @@ public class ORCommentDialog extends GridPane
 		stackpane.getChildren().add(scrollPane);
 		stackpane.setStyle("-fx-background-color: white; -fx-border-color: white; -fx-border-size: 5");
 
-		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, stackpane, "OR" + number + " Comments"), WINDOW_WIDTH, 900);
+		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, stackpane, "Bug" + number + " Comments"), WINDOW_WIDTH, 900);
 		stage.setResizable(false);
-		stage.setTitle("OR" + number + " Comments");
+		stage.setTitle("Bug" + number + " Comments");
 		stage.setScene(scene);
 		stage.show();
 		stage.centerOnScreen();
@@ -103,9 +103,9 @@ public class ORCommentDialog extends GridPane
 	
 	private void populateAttachments() throws JsonTransformationException 
 	{
-		List<ORAttachment> attachments = JacksonAdapter.fromJson(message.get("attachments").toString(), ORAttachment.class);
+		List<BugAttachment> attachments = JacksonAdapter.fromJson(message.get("attachments").toString(), BugAttachment.class);
 		
-		for (ORAttachment attachment : attachments)
+		for (BugAttachment attachment : attachments)
 		{			
 			Hyperlink link = new Hyperlink();
 			link.setText("Attachment " + attachment.getId() + " | " + attachment.getDescription() + " (" + attachment.getFilename() + ")");
@@ -141,9 +141,9 @@ public class ORCommentDialog extends GridPane
 
 	private void populateComments() throws JsonTransformationException 
 	{
-		List<ORComment> comments = JacksonAdapter.fromJson(message.get("comments").toString(), ORComment.class);		
+		List<BugComment> comments = JacksonAdapter.fromJson(message.get("comments").toString(), BugComment.class);		
 
-		for (ORComment comment : comments)
+		for (BugComment comment : comments)
 		{
 			comment.setComment(comment.getComment());
 			

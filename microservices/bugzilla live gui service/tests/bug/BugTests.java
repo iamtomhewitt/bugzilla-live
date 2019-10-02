@@ -1,4 +1,4 @@
-package OR;
+package bug;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -18,23 +18,23 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import bugzilla.common.OR.OR;
-import bugzilla.common.OR.ORAttachment;
-import bugzilla.common.OR.ORComment;
+import bugzilla.common.OR.Bug;
+import bugzilla.common.OR.BugAttachment;
+import bugzilla.common.OR.BugComment;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
 import bugzilla.common.Folders;
-import bugzilla.message.OR.ChangeORStatusRequest;
-import bugzilla.message.OR.ORCommentRequest;
-import bugzilla.message.OR.ORDetailRequest;
-import bugzilla.message.OR.ORsRequest;
-import bugzilla.message.OR.SubsystemORsRequest;
-import bugzilla.message.OR.UserORsRequest;
+import bugzilla.message.OR.ChangeBugStatusRequest;
+import bugzilla.message.OR.BugCommentRequest;
+import bugzilla.message.OR.BugDetailRequest;
+import bugzilla.message.OR.BugsRequest;
+import bugzilla.message.OR.SubsystemBugsRequest;
+import bugzilla.message.OR.UserBugsRequest;
 import bugzilla.utilities.JacksonAdapter;
 import message.GuiMessageSender;
 
 @SuppressWarnings("unchecked")
-public class ORTests
+public class BugTests
 {
 	private static final String USERNAME = "tom.hewitt";
 	private static final String PASSWORD = "password";
@@ -55,9 +55,9 @@ public class ORTests
 	@Test
 	public void testCreateChangeORStatusRequestObject()
 	{
-	    ChangeORStatusRequest request = new ChangeORStatusRequest.Builder().withApiKey(API_KEY)
+	    ChangeBugStatusRequest request = new ChangeBugStatusRequest.Builder().withApiKey(API_KEY)
 	                                                                        .withComment("Comment")
-	                                                                        .withORNumber("12345")
+	                                                                        .withBugNumber("12345")
 	                                                                        .withPassword(PASSWORD)
 	                                                                        .withStatus("Diagnosed")
 	                                                                        .withUsername(USERNAME)
@@ -76,9 +76,9 @@ public class ORTests
 	@Test
 	public void testCreateORCommentRequestObject()
     {
-        ORCommentRequest request = new ORCommentRequest.Builder().withApiKey(API_KEY)
+        BugCommentRequest request = new BugCommentRequest.Builder().withApiKey(API_KEY)
                                                                     .withComment("A comment.")
-                                                                    .withORNumber("12345")
+                                                                    .withBugNumber("12345")
                                                                     .withPassword(PASSWORD)
                                                                     .withUsername(USERNAME)
                                                                     .build();                                
@@ -96,7 +96,7 @@ public class ORTests
 	@Test
     public void testCreateORDetailRequestObject()
     {
-        ORDetailRequest request = new ORDetailRequest("12345", USERNAME, PASSWORD, API_KEY);
+        BugDetailRequest request = new BugDetailRequest("12345", USERNAME, PASSWORD, API_KEY);
         
         assertNotNull(request);
         assertEquals(request.getMessage(), "orrequest");
@@ -114,7 +114,7 @@ public class ORTests
 	{
 	    List<String> numbers = Arrays.asList("12345", "22345");
 	    
-	    ORsRequest request = new ORsRequest(numbers, USERNAME, PASSWORD, API_KEY);
+	    BugsRequest request = new BugsRequest(numbers, USERNAME, PASSWORD, API_KEY);
 	    assertNotNull(request);
         assertEquals(request.getMessage(), "orrequest");
         assertEquals(request.getFileExtension().endsWith(".orrequest"), true);
@@ -129,7 +129,7 @@ public class ORTests
 	@Test
     public void testCreateSubsystemORsRequestObject()
     {
-        SubsystemORsRequest request = new SubsystemORsRequest("Subsystem", USERNAME, PASSWORD, API_KEY);
+        SubsystemBugsRequest request = new SubsystemBugsRequest("Subsystem", USERNAME, PASSWORD, API_KEY);
         
         assertNotNull(request);
         assertEquals(request.getMessage(), "orrequest");
@@ -145,7 +145,7 @@ public class ORTests
 	@Test
     public void testCreateUserORsRequestObject()
     {
-        UserORsRequest request = new UserORsRequest(USERNAME, USERNAME, PASSWORD, API_KEY);
+        UserBugsRequest request = new UserBugsRequest(USERNAME, USERNAME, PASSWORD, API_KEY);
         
         assertNotNull(request);
         assertEquals(request.getMessage(), "orrequest");
@@ -164,9 +164,9 @@ public class ORTests
 	public void testSendChangeORStatusRequest() throws JsonTransformationException, MessageSenderException
 	{
 	    File folder = new File(Folders.MESSAGE_FOLDER);
-	    ChangeORStatusRequest request = new ChangeORStatusRequest.Builder().withApiKey(API_KEY)
+	    ChangeBugStatusRequest request = new ChangeBugStatusRequest.Builder().withApiKey(API_KEY)
                                                                             .withComment("Comment")
-                                                                            .withORNumber("12345")
+                                                                            .withBugNumber("12345")
                                                                             .withPassword(PASSWORD)
                                                                             .withStatus("Diagnosed")
                                                                             .withUsername(USERNAME)
@@ -182,9 +182,9 @@ public class ORTests
 	public void testSendORCommentRequest() throws JsonTransformationException, MessageSenderException
 	{
 	    File folder = new File(Folders.MESSAGE_FOLDER);
-	    ORCommentRequest request = new ORCommentRequest.Builder().withApiKey(API_KEY)
+	    BugCommentRequest request = new BugCommentRequest.Builder().withApiKey(API_KEY)
                                                                 .withComment("A comment.")
-                                                                .withORNumber("12345")
+                                                                .withBugNumber("12345")
                                                                 .withPassword(PASSWORD)
                                                                 .withUsername(USERNAME)
                                                                 .build();       
@@ -199,7 +199,7 @@ public class ORTests
     public void testSendORDetailRequest() throws JsonTransformationException, MessageSenderException
     {
 	    File folder = new File(Folders.MESSAGE_FOLDER);
-	    ORDetailRequest request = new ORDetailRequest("12345", USERNAME, PASSWORD, API_KEY);      
+	    BugDetailRequest request = new BugDetailRequest("12345", USERNAME, PASSWORD, API_KEY);      
 
 	    new GuiMessageSender().sendRequestMessage(request);
         
@@ -213,7 +213,7 @@ public class ORTests
     {
 	    File folder = new File(Folders.MESSAGE_FOLDER);
 	    List<String> numbers = Arrays.asList("12345", "22345");        
-        ORsRequest request = new ORsRequest(numbers, USERNAME, PASSWORD, API_KEY);    
+        BugsRequest request = new BugsRequest(numbers, USERNAME, PASSWORD, API_KEY);    
         
         new GuiMessageSender().sendRequestMessage(request);
         
@@ -226,7 +226,7 @@ public class ORTests
     public void testSendSusbsystemORsRequest() throws JsonTransformationException, MessageSenderException
     {
         File folder = new File(Folders.MESSAGE_FOLDER);
-        SubsystemORsRequest request = new SubsystemORsRequest("Subsystem", USERNAME, PASSWORD, API_KEY);  
+        SubsystemBugsRequest request = new SubsystemBugsRequest("Subsystem", USERNAME, PASSWORD, API_KEY);  
         
         new GuiMessageSender().sendRequestMessage(request);
         
@@ -239,7 +239,7 @@ public class ORTests
     public void testSendUserORsRequest() throws JsonTransformationException, MessageSenderException
     {
         File folder = new File(Folders.MESSAGE_FOLDER);
-        UserORsRequest request = new UserORsRequest(USERNAME, USERNAME, PASSWORD, API_KEY);
+        UserBugsRequest request = new UserBugsRequest(USERNAME, USERNAME, PASSWORD, API_KEY);
         
         new GuiMessageSender().sendRequestMessage(request);
         
@@ -257,7 +257,7 @@ public class ORTests
 	    
 	    String responseContent = new String(Files.readAllBytes(Paths.get(mock.getAbsolutePath())));
         JSONObject message = (JSONObject) new JSONParser().parse(responseContent);
-        List<OR> ors = JacksonAdapter.fromJson(message.get("ORs").toString(), OR.class);
+        List<Bug> ors = JacksonAdapter.fromJson(message.get("ORs").toString(), Bug.class);
 
         assertNotNull(ors);
         assertEquals(ors.isEmpty(), false);
@@ -285,8 +285,8 @@ public class ORTests
         
         String responseContent = new String(Files.readAllBytes(Paths.get(mock.getAbsolutePath())));
         JSONObject message = (JSONObject) new JSONParser().parse(responseContent);
-        List<ORAttachment> attachments = JacksonAdapter.fromJson(message.get("attachments").toString(), ORAttachment.class);
-        List<ORComment> comments    = JacksonAdapter.fromJson(message.get("comments").toString(), ORComment.class);
+        List<BugAttachment> attachments = JacksonAdapter.fromJson(message.get("attachments").toString(), BugAttachment.class);
+        List<BugComment> comments    = JacksonAdapter.fromJson(message.get("comments").toString(), BugComment.class);
 
         assertNotNull(attachments);
         assertEquals(attachments.isEmpty(), false);

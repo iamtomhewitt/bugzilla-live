@@ -1,10 +1,10 @@
-package component.dialog.OR;
+package component.dialog.bug;
 
 import bugzilla.common.Errors;
 import bugzilla.common.MessageBox;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
-import bugzilla.message.OR.UserORsRequest;
+import bugzilla.message.OR.UserBugsRequest;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -22,7 +22,7 @@ import message.GuiMessageSender;
 import theme.GuiStyler;
 import theme.Sizes;
 
-public class GetUserORsDialog
+public class GetUserBugsDialog
 {
 	private Stage stage 				= new Stage();	
 	private TextField firstNameField 	= new TextField();
@@ -30,13 +30,13 @@ public class GetUserORsDialog
 	private VBox vbox 					= new VBox();	
 	private VBox fields 				= new VBox();
 	private HBox buttons 				= new HBox();
-	private Button getORsButton			= new Button();
+	private Button getBugsButton		= new Button();
 
-	public GetUserORsDialog(Stage s)
+	public GetUserBugsDialog(Stage s)
 	{
 		this.stage = s;
 		
-		Label title = new Label("User ORs");
+		Label title = new Label("User Bugs");
 
 		firstNameField.setPromptText("first name");
 		firstNameField.setOnKeyPressed(e->
@@ -52,18 +52,18 @@ public class GetUserORsDialog
 				execute();
 		});
 
-		getORsButton = new Button("Get User ORs");
-		getORsButton.setOnAction(e -> execute());
+		getBugsButton = new Button("Get User Bugs");
+		getBugsButton.setOnAction(e -> execute());
 		
-		Button myORsButton = new Button("Get My ORs");
-		myORsButton.setOnAction(e ->
+		Button myBugsButton = new Button("Get My Bugs");
+		myBugsButton.setOnAction(e ->
 		{
 			GuiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
 			GuiConstants.CURRENT_LIST_FILE = null;
 			
 			try
 			{
-				UserORsRequest request = new UserORsRequest(GuiConstants.USERNAME, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
+				UserBugsRequest request = new UserBugsRequest(GuiConstants.USERNAME, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
 				new GuiMessageSender().sendRequestMessage(request);
 			}
 			catch (JsonTransformationException | MessageSenderException e1)
@@ -74,8 +74,8 @@ public class GetUserORsDialog
 			stage.close();
 		});
 		
-		GuiStyler.stylePrimaryButton(getORsButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
-		GuiStyler.stylePrimaryButton(myORsButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
+		GuiStyler.stylePrimaryButton(getBugsButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
+		GuiStyler.stylePrimaryButton(myBugsButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
 		GuiStyler.styleTextField(firstNameField, Sizes.INPUT_WIDTH_LARGE, 30);
 		GuiStyler.styleTextField(lastNameField, Sizes.INPUT_WIDTH_LARGE, 30);
 		GuiStyler.styleTitle(title);
@@ -85,7 +85,7 @@ public class GetUserORsDialog
 		fields.setSpacing(10);
 		fields.setPadding(new Insets(10));
 		
-		buttons.getChildren().addAll(getORsButton, myORsButton);
+		buttons.getChildren().addAll(getBugsButton, myBugsButton);
 		buttons.setAlignment(Pos.CENTER);
 		buttons.setSpacing(10);
 
@@ -93,7 +93,7 @@ public class GetUserORsDialog
 		vbox.setAlignment(Pos.CENTER);
 		vbox.setSpacing(10);
 		
-		Platform.runLater(() -> getORsButton.requestFocus());
+		Platform.runLater(() -> getBugsButton.requestFocus());
 	}
 	
 	private void execute()
@@ -111,7 +111,7 @@ public class GetUserORsDialog
 		
 		try
 		{
-			UserORsRequest request = new UserORsRequest(username, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
+			UserBugsRequest request = new UserBugsRequest(username, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
 			new GuiMessageSender().sendRequestMessage(request);
 		}
 		catch (JsonTransformationException | MessageSenderException e1)

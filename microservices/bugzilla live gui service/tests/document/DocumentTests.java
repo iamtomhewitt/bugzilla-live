@@ -17,7 +17,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import bugzilla.common.OR.OR;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
 import bugzilla.common.Folders;
@@ -31,7 +30,7 @@ import message.GuiMessageSender;
 
 public class DocumentTests
 {
-    private List<OR> mockORs;
+    private List<Bug> mockBugs;
     
     @After
     @Before
@@ -44,18 +43,18 @@ public class DocumentTests
             f.delete();
         }
         
-        // Setup some mock ORs
-        File mock = new File("tests/mocks/document/mock ORs.json");
+        // Setup some mock bugs
+        File mock = new File("tests/mocks/document/mock bugs.json");
         String mockContents = new String(Files.readAllBytes(Paths.get(mock.getAbsolutePath())));
         JSONObject message = (JSONObject) new JSONParser().parse(mockContents);
-        this.mockORs = JacksonAdapter.fromJson(message.get("ORs").toString(), OR.class);
+        this.mockBugs = JacksonAdapter.fromJson(message.get("bugs").toString(), Bug.class);
     }
     
     // Object creation tests
     @Test
     public void testCreateExcelRequestObject() throws JsonTransformationException
     {
-        ExcelRequest request = new ExcelRequest(mockORs);
+        ExcelRequest request = new ExcelRequest(mockBugs);
         
         assertNotNull(request);
         assertEquals(request.getMessage(), "documentrequest");
@@ -74,7 +73,7 @@ public class DocumentTests
                                                                     .withFilename("filename")
                                                                     .withIssue("issue")
                                                                     .withIssueStatus("status")
-                                                                    .withORs(mockORs)
+                                                                    .withBugs(mockBugs)
                                                                     .withSubsystem("subsystem")
                                                                     .build();
         assertNotNull(request);
@@ -98,7 +97,7 @@ public class DocumentTests
                                                                     .withFilename("filename")
                                                                     .withIssue("issue")
                                                                     .withIssueStatus("status")
-                                                                    .withORs(mockORs)
+                                                                    .withBugs(mockBugs)
                                                                     .withReleaseNumber("release")
                                                                     .withSubsystem("subsystem")
                                                                     .withTestEnvironment("dev")
@@ -147,7 +146,7 @@ public class DocumentTests
     public void testSendExcelRequest() throws JsonTransformationException, MessageSenderException
     {
         File folder = new File(Folders.MESSAGE_FOLDER);
-        ExcelRequest request = new ExcelRequest(mockORs);
+        ExcelRequest request = new ExcelRequest(mockBugs);
         
         new GuiMessageSender().sendRequestMessage(request);
         
@@ -166,7 +165,7 @@ public class DocumentTests
                                                                     .withFilename("filename")
                                                                     .withIssue("issue")
                                                                     .withIssueStatus("status")
-                                                                    .withORs(mockORs)
+                                                                    .withBugs(mockBugs)
                                                                     .withSubsystem("subsystem")
                                                                     .build();        
         new GuiMessageSender().sendRequestMessage(request);
@@ -187,7 +186,7 @@ public class DocumentTests
                                                                         .withFilename("filename")
                                                                         .withIssue("issue")
                                                                         .withIssueStatus("status")
-                                                                        .withORs(mockORs)
+                                                                        .withBugs(mockBugs)
                                                                         .withReleaseNumber("release")
                                                                         .withSubsystem("subsystem")
                                                                         .withTestEnvironment("dev")
