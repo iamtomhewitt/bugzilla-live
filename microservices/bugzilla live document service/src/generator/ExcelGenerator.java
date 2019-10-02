@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import bugzilla.common.Folders;
-import bugzilla.common.OR.OR;
+import bugzilla.common.bug.Bug;
 import bugzilla.exception.GenerateDocumentException;
 
 /**
@@ -18,7 +18,7 @@ import bugzilla.exception.GenerateDocumentException;
  */
 public class ExcelGenerator
 {
-	public static String generateExcelDocument(List<OR> ors) throws GenerateDocumentException
+	public static String generateExcelDocument(List<Bug> bugs) throws GenerateDocumentException
 	{
 		try 
 		{
@@ -33,8 +33,8 @@ public class ExcelGenerator
 	
 			excel += "\n";
 	
-			for (OR o : ors)
-				excel += o.toExcelFormat() + "\n";
+			for (Bug bug : bugs)
+				excel += bug.toExcelFormat() + "\n";
 	
 			Files.write(Paths.get(fileLocation), excel.getBytes());
 			
