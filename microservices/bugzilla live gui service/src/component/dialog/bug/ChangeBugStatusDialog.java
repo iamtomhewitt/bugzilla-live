@@ -1,4 +1,4 @@
-package component.dialog.OR;
+package component.dialog.bug;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import bugzilla.common.Fonts;
 import bugzilla.common.MessageBox;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
-import bugzilla.message.OR.ChangeORStatusRequest;
+import bugzilla.message.OR.ChangeBugStatusRequest;
 import bugzilla.utilities.Icons;
 import component.WindowsBar;
 import javafx.geometry.Insets;
@@ -26,18 +26,18 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
 import common.GuiConstants;
-import common.ORTemplates;
+import common.BugTemplates;
 import message.GuiMessageSender;
 import theme.GuiStyler;
 import theme.Sizes;
 
-public class ChangeORStatusDialog extends VBox 
+public class ChangeBugStatusDialog extends VBox 
 {
 	private Stage stage = new Stage();
 	
 	private String selectedStatus = "";
 
-	public ChangeORStatusDialog(String number, String status)
+	public ChangeBugStatusDialog(String number, String status)
 	{
 		Map<String, List<String>> statusMap = this.generateStatusMap();
 		
@@ -58,7 +58,7 @@ public class ChangeORStatusDialog extends VBox
 			comment.setText("Updated to " + selectedStatus + ".");
 			
 			if (selectedStatus.equalsIgnoreCase("Coded"))
-				comment.setText(ORTemplates.CODED);
+				comment.setText(BugTemplates.CODED);
 		});
 
 		Button submitButton = new Button("Submit");
@@ -69,13 +69,13 @@ public class ChangeORStatusDialog extends VBox
 				MessageBox.showDialog(Errors.MISSING_FIELD);
 				return;
 			}
-			if (MessageBox.showConfirmDialog("Are you sure you want to update this OR to " + selectedStatus + "?"))
+			if (MessageBox.showConfirmDialog("Are you sure you want to update this bug to " + selectedStatus + "?"))
 			{
 				try
 				{
-					ChangeORStatusRequest request = new ChangeORStatusRequest.Builder().withApiKey(GuiConstants.APIKEY)
+					ChangeBugStatusRequest request = new ChangeBugStatusRequest.Builder().withApiKey(GuiConstants.APIKEY)
 																						.withComment(comment.getText())
-																						.withORNumber(number)
+																						.withBugNumber(number)
 																						.withPassword(GuiConstants.PASSWORD)
 																						.withStatus(selectedStatus)
 																						.withUsername(GuiConstants.USERNAME)
@@ -104,8 +104,8 @@ public class ChangeORStatusDialog extends VBox
 		GuiStyler.styleTitle(statusLabel);
 		GuiStyler.styleComboBox(statusComboBox);
 
-		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, this, "OR" + number + " Change Status"), 375, 400);
-		stage.setTitle("OR" + number + " Change Status");
+		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, this, "Bug" + number + " Change Status"), 375, 400);
+		stage.setTitle("Bug" + number + " Change Status");
 		stage.getIcons().add(Icons.createChangeStatusIcon().getImage());
 		stage.setScene(scene);
 		stage.centerOnScreen();

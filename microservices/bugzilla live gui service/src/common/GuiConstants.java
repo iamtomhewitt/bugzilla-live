@@ -13,8 +13,8 @@ public class GuiConstants
 	public static String PASSWORD;
 	public static String APIKEY;
 	public static String BUGZILLA_URL;
-	public static String PREFILTERED_OR_DATA;
-	public static String OR_REGEX				= "[0-9]+(,[0-9]+)*";
+	public static String PREFILTERED_BUG_DATA;
+	public static String BUG_REGEX				= "[0-9]+(,[0-9]+)*";
 	public static String VERSION				= "";
 
 	public static File CURRENT_LIST_FILE;

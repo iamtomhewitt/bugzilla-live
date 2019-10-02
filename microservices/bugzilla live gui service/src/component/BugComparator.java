@@ -11,31 +11,31 @@ import java.util.List;
 
 import bugzilla.common.Errors;
 import bugzilla.common.MessageBox;
-import bugzilla.common.OR.OR;
+import bugzilla.common.OR.Bug;
 
-public class ORComparator implements Comparator<OR>
+public class BugComparator implements Comparator<Bug>
 {
 	private final List<String> fieldSortOrder;
 	
-	public ORComparator(String... fieldSortOrder)
+	public BugComparator(String... fieldSortOrder)
 	{
 		this.fieldSortOrder = new ArrayList<String>(Arrays.asList(fieldSortOrder));
 	}
 
 	@Override
-	public int compare(OR o1, OR o2)
+	public int compare(Bug b1, Bug b2)
 	{
 		try
 		{
 			if (fieldSortOrder.contains("severity"))
 			{
 				List<String> definedOrder = Arrays.asList("Unknown", "Low", "Medium", "High", "Critical");
-				return Integer.valueOf(definedOrder.indexOf(o1.getSeverity())).compareTo(Integer.valueOf(definedOrder.indexOf(o2.getSeverity())));				 
+				return Integer.valueOf(definedOrder.indexOf(b1.getSeverity())).compareTo(Integer.valueOf(definedOrder.indexOf(b2.getSeverity())));				 
 			}
 			else if (fieldSortOrder.contains("status"))
 			{
 				List<String> definedOrder = Arrays.asList("Investigation", "Diagnosed","Coded", "Built", "Released", "Fixed",  "Addressed", "CLOSED", "No Fault");
-				return Integer.valueOf(definedOrder.indexOf(o1.getStatus())).compareTo(Integer.valueOf(definedOrder.indexOf(o2.getStatus())));
+				return Integer.valueOf(definedOrder.indexOf(b1.getStatus())).compareTo(Integer.valueOf(definedOrder.indexOf(b2.getStatus())));
 			}
 			else if (fieldSortOrder.contains("lastUpdated"))
 			{
@@ -43,8 +43,8 @@ public class ORComparator implements Comparator<OR>
 				{
 					SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 
-					Date d1 = f.parse(o1.getLastUpdated());
-					Date d2 = f.parse(o2.getLastUpdated());
+					Date d1 = f.parse(b1.getLastUpdated());
+					Date d2 = f.parse(b2.getLastUpdated());
 
 					return d1.compareTo(d2);
 				}
@@ -56,7 +56,7 @@ public class ORComparator implements Comparator<OR>
 			}
 			else
 			{
-				return cmp(o1, o2, fieldSortOrder);
+				return cmp(b1, b2, fieldSortOrder);
 			}
 		}
 		catch(Exception e)
@@ -65,12 +65,12 @@ public class ORComparator implements Comparator<OR>
 		}
 	}
 	
-	private int cmp(OR a, OR b, final List<String> fields) throws Exception
+	private int cmp(Bug a, Bug b, final List<String> fields) throws Exception
 	{
 		if (fields.isEmpty())
 			return 0;
 		
-		PropertyDescriptor pd = new PropertyDescriptor(fields.get(0), OR.class);
+		PropertyDescriptor pd = new PropertyDescriptor(fields.get(0), Bug.class);
 		
 		String firstString = (String) pd.getReadMethod().invoke(a);
 		String secondString = (String) pd.getReadMethod().invoke(b);

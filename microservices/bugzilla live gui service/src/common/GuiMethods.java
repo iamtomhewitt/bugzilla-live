@@ -10,15 +10,15 @@ import org.json.simple.JSONObject;
 import bugzilla.common.Errors;
 import bugzilla.common.Fonts;
 import bugzilla.common.MessageBox;
-import bugzilla.common.OR.OR;
+import bugzilla.common.OR.Bug;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
-import bugzilla.message.OR.ORsRequest;
-import bugzilla.message.OR.UserORsRequest;
+import bugzilla.message.OR.BugsRequest;
+import bugzilla.message.OR.UserBugsRequest;
 import bugzilla.utilities.JacksonAdapter;
 import component.InformationPane;
-import component.ORComparator;
-import component.ORTable;
+import component.BugComparator;
+import component.BugTable;
 import component.WindowsBar;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -57,24 +57,24 @@ public class GuiMethods
 	/**
 	 * Determines which type of refresh request is needed, and then makes the request.
 	 */
-	public static void requestORRefresh()
+	public static void requestBugRefresh()
 	{						
 		switch(GuiConstants.REQUEST_TYPE)
 		{
 			case CURRENT_USER:
-				requestRefreshOfCurrentUserORs();
+				requestRefreshOfCurrentUserBugs();
 				break;
 				
 			case LIST:
-				requestRefreshOfORsInList();
+				requestRefreshOfBugsInList();
 				break;
 
 			case USER:
-				requestRefreshOfORsInTable();
+				requestRefreshOfBugsInTable();
 				break;
 
 			case SUBSYSTEM:
-				requestRefreshOfORsInTable();
+				requestRefreshOfBugsInTable();
 				break;
 
 			default:
@@ -84,16 +84,16 @@ public class GuiMethods
 	}
 	
 	/**
-	 * Requests ORs for the user currently logged in.
+	 * Requests bugs for the user currently logged in.
 	 */
-	public static void requestRefreshOfCurrentUserORs()
+	public static void requestRefreshOfCurrentUserBugs()
 	{
 		GuiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
 		GuiConstants.CURRENT_LIST_FILE = null;
 		
 		try
 		{
-			UserORsRequest request = new UserORsRequest(GuiConstants.USERNAME, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
+			UserBugsRequest request = new UserBugsRequest(GuiConstants.USERNAME, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
 			new GuiMessageSender().sendRequestMessage(request);
 		}
 		catch (JsonTransformationException | MessageSenderException e)
@@ -104,16 +104,16 @@ public class GuiMethods
 	
 
 	/**
-	 * Sends a request to the OR Details Service to refresh the ORs contained in the active list. Call this method when adding or removing an OR from a list, or when switching lists.
+	 * Sends a request to the Bug Details Service to refresh the Bugs contained in the active list. Call this method when adding or removing an Bug from a list, or when switching lists.
 	 */
-	public static void requestRefreshOfORsInList()
+	public static void requestRefreshOfBugsInList()
 	{
 		try
 		{
 			// Sleep first to allow previous file processing to complete
 			Thread.sleep(500);
 
-			// Get the current OR numbers in the file
+			// Get the current bug numbers in the file
 			String content = new String(Files.readAllBytes(Paths.get(GuiConstants.CURRENT_LIST_FILE.getAbsolutePath())));
 			List<String> numbers = new ArrayList<String>(Arrays.asList(content.split(",")));
 			
@@ -121,7 +121,7 @@ public class GuiMethods
 
 			if (!numbers.isEmpty())
 			{
-				ORsRequest request = new ORsRequest(numbers, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
+				BugsRequest request = new BugsRequest(numbers, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
 				new GuiMessageSender().sendRequestMessage(request);
 			}
 		}
@@ -133,23 +133,23 @@ public class GuiMethods
 	
 
 	/**
-	 * Sends a request to the OR Details Service to refresh the <b><i>current</i></b> set of ORs in the table.<p>
-	 * NB: Since filtering introduced, now we must use the prefiltered ORs, otherwise the refresh request will just send a list of the ORs
+	 * Sends a request to the OR Details Service to refresh the <b><i>current</i></b> set of Bugs in the table.<p>
+	 * NB: Since filtering introduced, now we must use the prefiltered Bugs, otherwise the refresh request will just send a list of the Bugs
 	 * that have been filtered. 
 	 */
-	public static void requestRefreshOfORsInTable()
+	public static void requestRefreshOfBugsInTable()
 	{	
 		try
 		{
 			List<String> numbers = new ArrayList<String>();
-			List<OR> ors = JacksonAdapter.fromJson(GuiConstants.PREFILTERED_OR_DATA, OR.class);
+			List<Bug> bugs = JacksonAdapter.fromJson(GuiConstants.PREFILTERED_BUG_DATA, Bug.class);
 			
-			for (OR o : ors)
-				numbers.add(o.getNumber());
+			for (Bug bug : bugs)
+				numbers.add(bug.getNumber());
 
 			if (!numbers.isEmpty())
 			{
-				ORsRequest request = new ORsRequest(numbers, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
+				BugsRequest request = new BugsRequest(numbers, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
 				new GuiMessageSender().sendRequestMessage(request);
 			}
 		}
@@ -161,19 +161,19 @@ public class GuiMethods
 	
 
 	/**
-	 * Called when an OR response message is received. Decodes the JSON returned, creates a list of OR objects and inserts it into the table.
+	 * Called when an bug response message is received. Decodes the JSON returned, creates a list of bug objects and inserts it into the table.
 	 */
-	public static void updateORsInTable(JSONObject jsonObject)
+	public static void updateBugsInTable(JSONObject jsonObject)
 	{		
 		try
 		{
-			ObservableList<OR> ors = FXCollections.observableArrayList(JacksonAdapter.fromJson(jsonObject.get("ORs").toString(), OR.class));
-			FXCollections.reverse(ors);
+			ObservableList<Bug> bugs = FXCollections.observableArrayList(JacksonAdapter.fromJson(jsonObject.get("Bugs").toString(), Bug.class));
+			FXCollections.reverse(bugs);
 			
-			GuiConstants.PREFILTERED_OR_DATA = JacksonAdapter.toJson(ors);
-			ORTable.getInstance().getTableView().getItems().clear();
-			ORTable.getInstance().getTableView().setItems(ors);
-			ORTable.getInstance().getTableView().refresh();
+			GuiConstants.PREFILTERED_BUG_DATA = JacksonAdapter.toJson(bugs);
+			BugTable.getInstance().getTableView().getItems().clear();
+			BugTable.getInstance().getTableView().setItems(bugs);
+			BugTable.getInstance().getTableView().refresh();
 		}
 		catch (JsonTransformationException e1)
 		{
@@ -182,27 +182,27 @@ public class GuiMethods
 	}
 	
 	/**
-	 * Sorts the OR table based on up to two parameters.
+	 * Sorts the bug table based on up to two parameters.
 	 */
-	public static void sortORs(boolean descending, String... sort)
+	public static void sortBugs(boolean descending, String... sort)
 	{
-		ORComparator comparator = new ORComparator(sort);
-		ObservableList<OR> listOfORs = ORTable.getInstance().getTableView().getItems();
-		listOfORs.sort(comparator);
+		BugComparator comparator = new BugComparator(sort);
+		ObservableList<Bug> listOfBugs = BugTable.getInstance().getTableView().getItems();
+		listOfBugs.sort(comparator);
 
 		if (descending)
-			Collections.reverse(listOfORs);
+			Collections.reverse(listOfBugs);
 	}
 	
 	/**
-	 * Clears the OR table and inserts a 'Please Wait' placeholder.
+	 * Clears the bug table and inserts a 'Please Wait' placeholder.
 	 */
 	public static void clearTable()
 	{
 		Label l = new Label("Please wait...");
 		l.setFont(Font.font(Fonts.FONT_SIZE_SUPER));
-		ORTable.getInstance().getTableView().getItems().clear();
-		ORTable.getInstance().getTableView().setPlaceholder(l);
+		BugTable.getInstance().getTableView().getItems().clear();
+		BugTable.getInstance().getTableView().setPlaceholder(l);
 	}
 	
 	/**

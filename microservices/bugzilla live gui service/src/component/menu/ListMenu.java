@@ -9,7 +9,6 @@ import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
 import bugzilla.message.list.DeleteListRequest;
 import bugzilla.utilities.Icons;
-import component.dialog.OR.AddORListDialog;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -19,6 +18,7 @@ import main.BugzillaLive;
 import common.GuiConstants;
 import common.GuiMethods;
 import common.RequestType;
+import component.dialog.bug.AddBugListDialog;
 import message.GuiMessageSender;
 
 public class ListMenu
@@ -32,12 +32,12 @@ public class ListMenu
 		Menu delete = new Menu("Delete");		
 		SeparatorMenuItem separator = new SeparatorMenuItem();
 
-		createList.setOnAction(e -> new AddORListDialog());
+		createList.setOnAction(e -> new AddBugListDialog());
 		
 		externalList.setOnAction(e ->
 		{
 			FileChooser chooser = new FileChooser();
-			chooser.setTitle("Open OR List");
+			chooser.setTitle("Open Bug List");
 			File file = chooser.showOpenDialog(BugzillaLive.getMainStage());
 			switchList(file);
 		});
@@ -119,7 +119,7 @@ public class ListMenu
 		GuiConstants.REQUEST_TYPE = RequestType.LIST;
 		GuiConstants.CURRENT_LIST_FILE = file;
 		GuiMethods.clearTable();
-		GuiMethods.requestRefreshOfORsInList();
+		GuiMethods.requestRefreshOfBugsInList();
 	}
 
 	public Menu getMenu()

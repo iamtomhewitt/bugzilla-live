@@ -1,4 +1,4 @@
-package component.dialog.OR;
+package component.dialog.bug;
 
 import java.io.File;
 
@@ -28,21 +28,21 @@ import theme.Sizes;
  * 
  * @author Tom Hewitt
  */
-public class AddORListDialog 
+public class AddBugListDialog 
 {
 	private Stage stage = new Stage();	
 	private VBox vbox = new VBox();
 
-	public AddORListDialog()
+	public AddBugListDialog()
 	{		
 		TextField fileNameField = new TextField();
-		TextField orField = new TextField();
+		TextField bugField = new TextField();
 		
 		fileNameField.setPromptText("filename");
-		orField.setPromptText("OR number");
+		bugField.setPromptText("Bug number");
 		
 		Button createButton = new Button("Create");
-		createButton.setOnAction(e -> add(orField, fileNameField));
+		createButton.setOnAction(e -> add(bugField, fileNameField));
 		
 		HBox buttons = new HBox(createButton);
 		buttons.setAlignment(Pos.CENTER);
@@ -51,48 +51,48 @@ public class AddORListDialog
 		fileNameField.setOnKeyPressed(e->
 		{
 			if (e.getCode() == KeyCode.ENTER)
-				add(orField, fileNameField);
+				add(bugField, fileNameField);
 		});
-		orField.setOnKeyPressed(e->
+		bugField.setOnKeyPressed(e->
 		{
 			if (e.getCode() == KeyCode.ENTER)
-				add(orField, fileNameField);
+				add(bugField, fileNameField);
 		});
 		
-		vbox.getChildren().addAll(fileNameField, orField, buttons);
+		vbox.getChildren().addAll(fileNameField, bugField, buttons);
 		vbox.setSpacing(10);
 		vbox.setAlignment(Pos.CENTER);
 		vbox.setStyle("-fx-background-color: white");
 		
 		GuiStyler.stylePrimaryButton(createButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
-		GuiStyler.styleTextField(orField, Sizes.INPUT_WIDTH_LARGE, Sizes.INPUT_HEIGHT_SMALL);
+		GuiStyler.styleTextField(bugField, Sizes.INPUT_WIDTH_LARGE, Sizes.INPUT_HEIGHT_SMALL);
 		GuiStyler.styleTextField(fileNameField, Sizes.INPUT_WIDTH_LARGE, Sizes.INPUT_HEIGHT_SMALL);
 		
 		Platform.runLater(() -> createButton.requestFocus());
 		
-		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, vbox, "Add OR List"), 275, 175);	
+		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, vbox, "Add Bug List"), 275, 175);	
 		stage.getIcons().add(Icons.createListIcon().getImage());
 		stage.setScene(scene);
 		stage.show();
 		stage.centerOnScreen();
 	}
 	
-	private void add(TextField orField, TextField fileNameField)
+	private void add(TextField bugField, TextField fileNameField)
 	{
 		try
 		{
-			if (!orField.getText().matches(GuiConstants.OR_REGEX))
+			if (!bugField.getText().matches(GuiConstants.BUG_REGEX))
 			{
-				MessageBox.showDialog("OR '"+orField.getText()+"'" + Errors.INVALID_OR);
+				MessageBox.showDialog("Bug '"+bugField.getText()+"'" + Errors.INVALID_BUG);
 				return;
 			}
-			if (orField.getText().isEmpty() || fileNameField.getText().isEmpty())
+			if (bugField.getText().isEmpty() || fileNameField.getText().isEmpty())
 			{
 				MessageBox.showDialog(Errors.MISSING_FIELD);
 				return;
 			}
 			
-			CreateListRequest request = new CreateListRequest(Folders.LISTS_FOLDER + fileNameField.getText() + ".txt", orField.getText());
+			CreateListRequest request = new CreateListRequest(Folders.LISTS_FOLDER + fileNameField.getText() + ".txt", bugField.getText());
 			new GuiMessageSender().sendRequestMessage(request);
 			
 			GuiMethods.clearTable();
@@ -100,7 +100,7 @@ public class AddORListDialog
 			Thread.sleep(100);
 			GuiConstants.CURRENT_LIST_FILE = new File(Folders.LISTS_FOLDER + fileNameField.getText() + ".txt");
 			
-			GuiMethods.requestRefreshOfORsInList();
+			GuiMethods.requestRefreshOfBugsInList();
 
 			stage.close();
 		}

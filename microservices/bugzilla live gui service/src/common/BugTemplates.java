@@ -1,6 +1,6 @@
 package common;
 
-public class ORTemplates
+public class BugTemplates
 {
 	private static String separator = "-------------------------------------------------------------------------------";									
 	

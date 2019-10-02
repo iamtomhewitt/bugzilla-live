@@ -3,7 +3,7 @@ package exception;
 import org.json.simple.JSONObject;
 import org.junit.Test;
 
-import bugzilla.common.OR.OR;
+import bugzilla.common.OR.Bug;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageProcessorException;
 import bugzilla.exception.MessageReceiverException;
@@ -19,7 +19,7 @@ public class ExceptionTests
     public void testThrowsJsonTransformationException() throws JsonTransformationException
     {        
         String json = "incorrect json";
-        JacksonAdapter.fromJson(json, OR.class);
+        JacksonAdapter.fromJson(json, Bug.class);
     }
     
     @SuppressWarnings("unchecked")

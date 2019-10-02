@@ -1,10 +1,10 @@
-package component.dialog.OR;
+package component.dialog.bug;
 
 import bugzilla.common.Errors;
 import bugzilla.common.MessageBox;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
-import bugzilla.message.OR.SubsystemORsRequest;
+import bugzilla.message.OR.SubsystemBugsRequest;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -19,14 +19,14 @@ import message.GuiMessageSender;
 import theme.GuiStyler;
 import theme.Sizes;
 
-public class GetSubsystemORsDialog 
+public class GetSubsystemBugsDialog 
 {
 	private Stage stage;		
 	private HBox hbox = new HBox();
 	private VBox vbox = new VBox();
-	private Button getORsButton;
+	private Button getBugsButton;
 	
-	public GetSubsystemORsDialog(Stage s)
+	public GetSubsystemBugsDialog(Stage s)
 	{	
 		this.stage = s;
 				
@@ -34,8 +34,8 @@ public class GetSubsystemORsDialog
 		subsystems.getItems().addAll("APM", "CM", "CRM", "FM", "SM", "TMS", "INF", "SEGMENT");
 		subsystems.getSelectionModel().select(2);
 		
-		getORsButton = new Button("Get ORs");
-		getORsButton.setOnAction(e ->
+		getBugsButton = new Button("Get Bugs");
+		getBugsButton.setOnAction(e ->
 		{
 			GuiConstants.CURRENT_LIST_FILE = null;
 			GuiConstants.REQUEST_TYPE = RequestType.SUBSYSTEM;
@@ -44,7 +44,7 @@ public class GetSubsystemORsDialog
 			
 			try
 			{
-				SubsystemORsRequest request = new SubsystemORsRequest(subsystem, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
+				SubsystemBugsRequest request = new SubsystemBugsRequest(subsystem, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
 				new GuiMessageSender().sendRequestMessage(request);
 			}
 			catch (JsonTransformationException | MessageSenderException e1)
@@ -56,14 +56,14 @@ public class GetSubsystemORsDialog
 			stage.close();
 		});
 		
-		hbox.getChildren().addAll(subsystems, getORsButton);
+		hbox.getChildren().addAll(subsystems, getBugsButton);
 		hbox.setAlignment(Pos.CENTER);
 		hbox.setSpacing(10);
 		
-		Label title = new Label("Subsystem ORs");
+		Label title = new Label("Subsystem Bugs");
 		
 		GuiStyler.styleTitle(title);
-		GuiStyler.stylePrimaryButton(getORsButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
+		GuiStyler.stylePrimaryButton(getBugsButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
 		GuiStyler.styleComboBox(subsystems);
 		
 		vbox.getChildren().addAll(title, hbox);
@@ -78,6 +78,6 @@ public class GetSubsystemORsDialog
 	
 	public Button getButton()
 	{
-		return getORsButton;
+		return getBugsButton;
 	}
 }

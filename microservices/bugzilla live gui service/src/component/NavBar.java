@@ -6,13 +6,11 @@ import java.util.function.Predicate;
 import bugzilla.common.Errors;
 import bugzilla.common.Fonts;
 import bugzilla.common.MessageBox;
-import bugzilla.common.OR.OR;
+import bugzilla.common.OR.Bug;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.utilities.Icons;
 import bugzilla.utilities.JacksonAdapter;
 import bugzilla.utilities.Utilities;
-import component.dialog.OR.AddORDialog;
-import component.dialog.OR.GetORsDialog;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -33,6 +31,8 @@ import theme.GuiStyler;
 import theme.Sizes;
 import common.GuiConstants;
 import common.GuiMethods;
+import component.dialog.bug.AddBugDialog;
+import component.dialog.bug.GetBugsDialog;
 
 /**
  * The bar above the table showing buttons to navigate around the application.
@@ -43,7 +43,7 @@ import common.GuiMethods;
 public class NavBar
 {
 	private HBox navBar = new HBox();
-	private FilteredList<OR> filteredData = null;
+	private FilteredList<Bug> filteredData = null;
 	private int fieldHeight = 35;
 	
 	@SuppressWarnings("unchecked")
@@ -58,18 +58,18 @@ public class NavBar
 		filterField.setMinWidth(Sizes.INPUT_WIDTH_LARGE + 100);
 		filterField.setAlignment(Pos.CENTER);
 		filterField.setPromptText("filter");
-		filterField.setTooltip(new Tooltip("Enter text to filter the table below. E.g., use 'severity:low' to get 'Low' ORs."));	
+		filterField.setTooltip(new Tooltip("Enter text to filter the table below. E.g., use 'severity:low' to get 'Low' bugs."));	
 		filterField.setOnKeyReleased(f ->
 		{
 			filterField.textProperty().addListener((obsValue, oldValue, newValue) ->
 			{
 				try
 				{
-					// Get the ORs from the prefiltered data, i.e the master set of ORs
-					ObservableList<OR> data = FXCollections.observableArrayList(JacksonAdapter.fromJson(GuiConstants.PREFILTERED_OR_DATA, OR.class));
+					// Get the ORs from the prefiltered data, i.e the master set of bugs
+					ObservableList<Bug> data = FXCollections.observableArrayList(JacksonAdapter.fromJson(GuiConstants.PREFILTERED_BUG_DATA, Bug.class));
 
 					filteredData = new FilteredList<>(data, e -> true);
-					filteredData.setPredicate((Predicate<? super OR>) or ->
+					filteredData.setPredicate((Predicate<? super Bug>) bug ->
 					{
 						// See if any of the ORs contain the typed filter
 						String filterText = newValue.toLowerCase();
@@ -77,7 +77,7 @@ public class NavBar
 						if (newValue == null || newValue.isEmpty())
 							return true;
 						
-						if (or.contains(filterText))
+						if (bug.contains(filterText))
 							return true;
 						
 						if (filterText.contains("severity:".toLowerCase()))
@@ -91,7 +91,7 @@ public class NavBar
 								if (severity == null)
 									return false;
 								
-								if (or.getSeverity().toLowerCase().contains(severity))
+								if (bug.getSeverity().toLowerCase().contains(severity))
 									return true;
 							}
 						}
@@ -107,21 +107,21 @@ public class NavBar
 
 			if (filteredData == null || filteredData.isEmpty())
 			{
-				ORTable.getInstance().getTableView().getItems().clear();
-				ORTable.getInstance().getTableView().refresh();
+				BugTable.getInstance().getTableView().getItems().clear();
+				BugTable.getInstance().getTableView().refresh();
 			
-				Label l = new Label("Filter matches no ORs.");
+				Label l = new Label("Filter matches no bugs.");
 				l.setFont(Font.font(Fonts.FONT_SIZE_SUPER));
-				ORTable.getInstance().getTableView().setPlaceholder(l);
+				BugTable.getInstance().getTableView().setPlaceholder(l);
 			}
 			else
 			{
 				// Filtered data found, set table items
-				SortedList<OR> sorted = new SortedList<>(filteredData);
-				sorted.comparatorProperty().bind(ORTable.getInstance().getTableView().comparatorProperty());
-				ORTable.getInstance().getTableView().getItems().clear();
-				ORTable.getInstance().getTableView().refresh();
-				ORTable.getInstance().getTableView().setItems(FXCollections.observableArrayList(sorted));
+				SortedList<Bug> sorted = new SortedList<>(filteredData);
+				sorted.comparatorProperty().bind(BugTable.getInstance().getTableView().comparatorProperty());
+				BugTable.getInstance().getTableView().getItems().clear();
+				BugTable.getInstance().getTableView().refresh();
+				BugTable.getInstance().getTableView().setItems(FXCollections.observableArrayList(sorted));
 			}
 		});
 
@@ -129,10 +129,10 @@ public class NavBar
 		firefoxField.setMinHeight(fieldHeight);
 		firefoxField.setAlignment(Pos.CENTER);
 		firefoxField.setPromptText("bugzilla");
-		firefoxField.setTooltip(new Tooltip("Enter an OR to open in Bugzilla"));		
+		firefoxField.setTooltip(new Tooltip("Enter a bug to open in Bugzilla"));		
 
 		Button firefoxButton = new Button("", Icons.createFirefoxIcon());
-		firefoxButton.setTooltip(new Tooltip("Open the OR in Bugzilla"));
+		firefoxButton.setTooltip(new Tooltip("Open the bug in Bugzilla"));
 		firefoxButton.setOnAction(e ->
 		{
 			try 
@@ -147,20 +147,20 @@ public class NavBar
 		});
 
 		Button addButton = new Button("", Icons.createAddIcon());
-		addButton.setTooltip(new Tooltip("Add a new OR to this list"));
-		addButton.setOnAction(e -> new AddORDialog());
+		addButton.setTooltip(new Tooltip("Add a new bug to this list"));
+		addButton.setOnAction(e -> new AddBugDialog());
 
 		Button refreshButton = new Button("", Icons.createRefreshIcon());
 		refreshButton.setTooltip(new Tooltip("Refresh the table"));
-		refreshButton.setOnAction(e -> GuiMethods.requestRefreshOfORsInTable());
+		refreshButton.setOnAction(e -> GuiMethods.requestRefreshOfBugsInTable());
 
-		Button ORsButton = new Button("Get ORs", Icons.createListIcon());
-		ORsButton.setOnAction(e -> new GetORsDialog());		
+		Button bugsButton = new Button("Get bugs", Icons.createListIcon());
+		bugsButton.setOnAction(e -> new GetBugsDialog());		
 		
 		GuiStyler.styleGraphicButton(addButton, Sizes.BUTTON_WIDTH_SMALL);
 		GuiStyler.styleGraphicButton(firefoxButton, Sizes.BUTTON_WIDTH_SMALL);
 		GuiStyler.styleGraphicButton(refreshButton, Sizes.BUTTON_WIDTH_SMALL);
-		GuiStyler.styleGraphicButton(ORsButton, Sizes.BUTTON_WIDTH_MEDIUM);
+		GuiStyler.styleGraphicButton(bugsButton, Sizes.BUTTON_WIDTH_MEDIUM);
 		GuiStyler.styleTextField(filterField, Sizes.INPUT_WIDTH_X_LARGE, fieldHeight);
 		GuiStyler.styleTextField(firefoxField, Sizes.INPUT_WIDTH_LARGE, fieldHeight);
 		
@@ -180,7 +180,7 @@ public class NavBar
 			}
 		});
 		
-		navBar.getChildren().addAll(filterField, createRegion(50), firefoxField, firefoxButton, addButton, refreshButton, ORsButton, createRegion(50), pause);
+		navBar.getChildren().addAll(filterField, createRegion(50), firefoxField, firefoxButton, addButton, refreshButton, bugsButton, createRegion(50), pause);
 		navBar.setAlignment(Pos.CENTER);
 		navBar.setSpacing(10);
 		navBar.setPadding(new Insets(10, 5, 5, 5));

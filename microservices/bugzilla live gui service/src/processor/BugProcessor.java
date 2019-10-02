@@ -6,12 +6,12 @@ import bugzilla.common.Errors;
 import bugzilla.common.MessageBox;
 import bugzilla.exception.MessageProcessorException;
 import component.InformationPane;
-import component.dialog.OR.ORCommentDialog;
+import component.dialog.bug.BugCommentDialog;
 import javafx.application.Platform;
 import log.GuiLogger;
 import common.GuiMethods;
 
-public class ORProcessor extends MessageProcessor
+public class BugProcessor extends MessageProcessor
 {
 	@Override
 	public void process(JSONObject message) throws MessageProcessorException
@@ -30,7 +30,7 @@ public class ORProcessor extends MessageProcessor
 		}
 		else if (operation.equals("orresponse"))
 		{
-			GuiMethods.updateORsInTable(message);
+			GuiMethods.updateBugsInTable(message);
 			InformationPane.getInstance().updateTexts();
 		}
 		else if (operation.equals("ordetail"))
@@ -42,7 +42,7 @@ public class ORProcessor extends MessageProcessor
 				{
 					try
 					{																		
-						new ORCommentDialog(message);
+						new BugCommentDialog(message);
 					}
 					catch (Exception e)
 					{

@@ -1,4 +1,4 @@
-package component.dialog.OR;
+package component.dialog.bug;
 
 import bugzilla.common.Errors;
 import bugzilla.common.MessageBox;
@@ -24,21 +24,21 @@ import theme.GuiStyler;
 import theme.Sizes;
 
 /**
- * A simple dialog box that takes in an OR number and adds it to the current list of OR's that the GUI is displaying.
+ * A simple dialog box that takes in an bug number and adds it to the current list of bugs that the GUI is displaying.
  * 
  * @author Tom Hewitt
  */
-public class AddORDialog
+public class AddBugDialog
 {		
 	private Stage stage = new Stage();
 	private VBox hbox = new VBox();
 	private HBox buttons = new HBox();
 	
-	public AddORDialog()
+	public AddBugDialog()
 	{
 		TextField input = new TextField();
 		input.setPromptText("number");
-		input.setTooltip(new Tooltip("Enter more than 1 OR by separating with a comma, for example '23001,23002'"));
+		input.setTooltip(new Tooltip("Enter more than 1 bug by separating with a comma, for example '23001,23002'"));
 		input.setOnKeyPressed(e->
 		{
 			if (e.getCode() == KeyCode.ENTER)
@@ -63,7 +63,7 @@ public class AddORDialog
 
 		Platform.runLater(() -> addButton.requestFocus());
         
-		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, hbox, "Add OR"), 275, 125);
+		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, hbox, "Add Bug"), 275, 125);
 		stage.getIcons().add(Icons.createAddIcon().getImage());
 		stage.setScene(scene);
 		stage.show();
@@ -74,14 +74,14 @@ public class AddORDialog
 	{
 		try
 		{
-			if (!input.getText().matches(GuiConstants.OR_REGEX))
+			if (!input.getText().matches(GuiConstants.BUG_REGEX))
 			{
-				MessageBox.showDialog("OR '" + input.getText() + "'" + Errors.INVALID_OR);
+				MessageBox.showDialog("Bug '" + input.getText() + "'" + Errors.INVALID_BUG);
 				return;
 			}
 			if (GuiConstants.REQUEST_TYPE.equals(RequestType.USER))
 			{
-				MessageBox.showDialog("Cannot add an OR as a list is not being used.");
+				MessageBox.showDialog("Cannot add a bug as a list is not being used.");
 				return;
 			}
 			if (!input.getText().equals(""))
@@ -89,8 +89,8 @@ public class AddORDialog
 				ModifyListRequest request = new ModifyListRequest(GuiConstants.CURRENT_LIST_FILE.getAbsolutePath(), input.getText(), "");
 				new GuiMessageSender().sendRequestMessage(request);
 				
-				// Now refresh the list to pick up the new OR
-				GuiMethods.requestRefreshOfORsInList();
+				// Now refresh the list to pick up the new bug
+				GuiMethods.requestRefreshOfBugsInList();
 				stage.close();
 			}
 		}

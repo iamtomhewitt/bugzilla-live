@@ -8,7 +8,7 @@ import java.util.List;
 import bugzilla.common.Errors;
 import bugzilla.common.Folders;
 import bugzilla.common.MessageBox;
-import bugzilla.common.OR.OR;
+import bugzilla.common.OR.Bug;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
 import bugzilla.message.document.ReleaseNoteRequest;
@@ -34,13 +34,13 @@ public class ReleaseNoteDialog extends VBox
 {
 	private List<TextField> fields = new ArrayList<TextField>();
 	
-	public ReleaseNoteDialog(ObservableList<OR> ors)
+	public ReleaseNoteDialog(ObservableList<Bug> bugs)
 	{
 		Stage stage = new Stage();		
 		
 		TextField filename 			= createTextField("file name", "Document file name");		
 		TextField releaseNumber 	= createTextField("release number", "Number of this release");
-		TextField documentReference = createTextField("document reference", "The reference of the document (generated in the Skynet Access Database)");
+		TextField documentReference = createTextField("document reference", "The reference of the document (generated in the Access Database)");
 		TextField issue 			= createTextField("issue", "E.g. A, B, 1.0, 1.1");
 		TextField issueStatus 		= createTextField("issue status", "E.g. Draft, Definitive");		
 		TextField saveLocation 		= createTextField("save location", "Where to save the file");
@@ -91,7 +91,7 @@ public class ReleaseNoteDialog extends VBox
 																			.withFilename(filename.getText())
 																			.withIssue(issue.getText())
 																			.withIssueStatus(issueStatus.getText())
-																			.withORs(ors)
+																			.withBugs(bugs)
 																			.withSubsystem(subsystem)
 																			.build();
 				new GuiMessageSender().sendRequestMessage(request);

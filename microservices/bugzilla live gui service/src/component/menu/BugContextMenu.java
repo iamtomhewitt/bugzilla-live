@@ -7,10 +7,8 @@ import java.util.List;
 
 import bugzilla.common.Errors;
 import bugzilla.common.MessageBox;
-import bugzilla.common.OR.OR;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
-import bugzilla.message.OR.ORDetailRequest;
 import bugzilla.message.document.ExcelRequest;
 import bugzilla.message.list.ModifyListRequest;
 import bugzilla.utilities.Icons;
@@ -19,7 +17,6 @@ import bugzilla.utilities.Utilities;
 import component.InformationPane;
 import component.dialog.ReleaseNoteDialog;
 import component.dialog.SubsystemTestDialog;
-import component.dialog.OR.ChangeORStatusDialog;
 import component.dialog.unittest.UnitTestDialog;
 
 import javafx.collections.ObservableList;
@@ -32,15 +29,15 @@ import common.GuiConstants;
 
 import message.GuiMessageSender;
 
-public class ORContextMenu
+public class BugContextMenu
 {
-	public ORContextMenu(TableView<OR> table, List<String> orNumbers)
+	public BugContextMenu(TableView<Bug> table, List<String> bugNumbers)
 	{
 		ContextMenu contextMenu = new ContextMenu();
 
-		String removeTitle 		= (orNumbers.size() > 1) ? "Remove ORs" : "Remove OR" + orNumbers.get(0);
-		String firefoxTitle 	= (orNumbers.size() > 1) ? "Open ORs in Bugzilla" : "Open OR" + orNumbers.get(0) + " in Bugzilla";
-		String copyTitle 		= (orNumbers.size() > 1) ? "Copy ORs" : "Copy OR" + orNumbers.get(0);
+		String removeTitle 		= (bugNumbers.size() > 1) ? "Remove Bugs" : "Remove Bug" + bugNumbers.get(0);
+		String firefoxTitle 	= (bugNumbers.size() > 1) ? "Open Bugs in Bugzilla" : "Open Bug" + bugNumbers.get(0) + " in Bugzilla";
+		String copyTitle 		= (bugNumbers.size() > 1) ? "Copy Bugs" : "Copy Bug" + bugNumbers.get(0);
 
 		MenuItem remove 		= new MenuItem(removeTitle);
 		MenuItem firefox 		= new MenuItem(firefoxTitle);
@@ -50,8 +47,8 @@ public class ORContextMenu
 		MenuItem unitTest 		= new MenuItem("Create Unit Test");
 		MenuItem subsystemTest 	= new MenuItem("Create Subsystem Test");
 		MenuItem excel 			= new MenuItem("Export To Excel");
-		MenuItem changeStatus 	= new MenuItem("Change OR Status");
-		MenuItem copyORTitle 	= new MenuItem("Copy OR Title");
+		MenuItem changeStatus 	= new MenuItem("Change Bug Status");
+		MenuItem copyORTitle 	= new MenuItem("Copy Bug Title");
 
 		Menu documentsMenu = new Menu("Documents");
 		documentsMenu.setGraphic(Icons.createDocumentIcon());
@@ -60,7 +57,7 @@ public class ORContextMenu
 		remove.setOnAction(e ->
 		{
 			// Remove from the table view GUI
-			List<OR> orsToRemove = new ArrayList<OR>(table.getSelectionModel().getSelectedItems());
+			List<Bug> orsToRemove = new ArrayList<Bug>(table.getSelectionModel().getSelectedItems());
 
 			// Start at the end of the list and work backwards, otherwise the indexes of the
 			// table shift and it will only delete the first one
@@ -74,7 +71,7 @@ public class ORContextMenu
 			table.getSelectionModel().clearSelection();
 
 			// Now remove from the config file
-			for (String number : orNumbers)
+			for (String number : bugNumbers)
 			{
 				if (!number.equals(""))
 				{
@@ -95,7 +92,7 @@ public class ORContextMenu
 		firefox.setGraphic(Icons.createFirefoxIcon());
 		firefox.setOnAction(e ->
 		{
-			for (String i : orNumbers)
+			for (String i : bugNumbers)
 			{
 				if (!i.equals(""))
 				{
@@ -120,7 +117,7 @@ public class ORContextMenu
 			try
 			{
 				String number = table.getSelectionModel().getSelectedItem().getNumber();
-				ORDetailRequest request = new ORDetailRequest(number, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
+				BugDetailRequest request = new BugDetailRequest(number, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
 				new GuiMessageSender().sendRequestMessage(request);
 			}
 			catch (Exception ex)
@@ -131,8 +128,8 @@ public class ORContextMenu
 
 		releaseNote.setOnAction(e ->
 		{
-			ObservableList<OR> ors = table.getSelectionModel().getSelectedItems();
-			new ReleaseNoteDialog(ors);
+			ObservableList<Bug> bugs = table.getSelectionModel().getSelectedItems();
+			new ReleaseNoteDialog(bugs);
 		});
 
 		unitTest.setOnAction(e -> new UnitTestDialog(table.getSelectionModel().getSelectedItem()));
@@ -140,10 +137,10 @@ public class ORContextMenu
 		
 		excel.setOnAction(e ->
 		{
-			ObservableList<OR> ors = table.getItems();
+			ObservableList<Bug> bugs = table.getItems();
 			try
 			{
-				new GuiMessageSender().sendRequestMessage(new ExcelRequest(ors));
+				new GuiMessageSender().sendRequestMessage(new ExcelRequest(bugs));
 			}
 			catch(JsonTransformationException | MessageSenderException e1)
 			{
@@ -156,21 +153,21 @@ public class ORContextMenu
 		{
 			String number = table.getSelectionModel().getSelectedItem().getNumber();
 			String status = table.getSelectionModel().getSelectedItem().getStatus();
-			new ChangeORStatusDialog(number, status);
+			new ChangeBugStatusDialog(number, status);
 		});
 		
 		copyORTitle.setGraphic(Icons.createListIcon());
 		copyORTitle.setOnAction(e -> 
 		{
-			OR or = table.getSelectionModel().getSelectedItem();
-			String title = "OR" + or.getNumber() + " - " + or.getSummary();
+			Bug bug = table.getSelectionModel().getSelectedItem();
+			String title = "Bug" + bug.getNumber() + " - " + bug.getSummary();
 			Utilities.copy(title);
 		});
 
 		documentsMenu.getItems().addAll(excel, releaseNote, subsystemTest);
 		contextMenu.getItems().addAll(remove, firefox, copy, comment, documentsMenu, changeStatus);
 
-		if (orNumbers.size() == 1)
+		if (bugNumbers.size() == 1)
 		{
 			documentsMenu.getItems().add(unitTest);
 			contextMenu.getItems().add(copyORTitle);
