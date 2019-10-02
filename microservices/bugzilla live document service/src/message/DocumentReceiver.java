@@ -13,7 +13,7 @@ import bugzilla.common.message.MessageReceiver;
 import bugzilla.exception.GenerateDocumentException;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageReceiverException;
-import bugzilla.common.OR.OR;
+import bugzilla.common.bug.Bug;
 import bugzilla.common.UnitTestStep;
 import bugzilla.utilities.JacksonAdapter;
 
@@ -68,7 +68,7 @@ public class DocumentReceiver extends MessageReceiver
 					String issueStatus 		= jsonObject.get("issuestatus").toString();
 					String filename 		= jsonObject.get("filename").toString();
 
-					List<OR> ors = JacksonAdapter.fromJson(jsonObject.get("ORs").toString(), OR.class);
+					List<Bug> bugs = JacksonAdapter.fromJson(jsonObject.get("bugs").toString(), Bug.class);
 					
 					ReleaseNoteGenerator r = new ReleaseNoteGenerator.Builder().withClassification(classification)
 																				.withDocumentNumber(documentNumber)
@@ -77,7 +77,7 @@ public class DocumentReceiver extends MessageReceiver
 																				.withIssue(issue)
 																				.withIssueDate(issueDate)
 																				.withIssueStatus(issueStatus)
-																				.withORs(ors)
+																				.withBugs(bugs)
 																				.build();							
 					String filePath = "";
 					
@@ -100,8 +100,8 @@ public class DocumentReceiver extends MessageReceiver
 					
 				case "excel":
 				{
-					List<OR> ors = JacksonAdapter.fromJson(jsonObject.get("ORs").toString(), OR.class);
-					String filePath = ExcelGenerator.generateExcelDocument(ors);
+					List<Bug> bugs = JacksonAdapter.fromJson(jsonObject.get("Bugs").toString(), Bug.class);
+					String filePath = ExcelGenerator.generateExcelDocument(bugs);
 					DocumentSender.sendResponseMessage(true, "", filePath);
 					break;
 				}
@@ -144,7 +144,7 @@ public class DocumentReceiver extends MessageReceiver
 					String issueStatus 		= jsonObject.get("issuestatus").toString();
 					String developerName	= jsonObject.get("developerusername").toString();
 					String releaseNumber	= jsonObject.get("releasenumber").toString();
-					List<OR> ors = JacksonAdapter.fromJson(jsonObject.get("ORs").toString(), OR.class);
+					List<Bug> bugs = JacksonAdapter.fromJson(jsonObject.get("bugs").toString(), Bug.class);
 
 					String filePath = new SubsystemTestGenerator.Builder().withClassification(classification)
 																			.withDeveloperName(developerName)
@@ -154,7 +154,7 @@ public class DocumentReceiver extends MessageReceiver
 																			.withFilename(filename)
 																			.withIssue(issue)
 																			.withIssueStatus(issueStatus)
-																			.withORs(ors)
+																			.withORs(bugs)
 																			.withReleaseNumber(releaseNumber)
 																			.withTestEnvironment(testEnvironment)
 																			.build()

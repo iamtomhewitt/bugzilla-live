@@ -19,7 +19,7 @@ import org.apache.xmlbeans.XmlCursor;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTblWidth;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTblWidth;
 
-import bugzilla.common.OR.OR;
+import bugzilla.common.bug.Bug;
 import bugzilla.common.UnitTestStep;
 import log.DocumentLogger;
 
@@ -154,7 +154,7 @@ public abstract class DocumentGenerator
 		return table;
 	}
 
-	protected void replaceTextWithORTable(XWPFDocument doc, String placeholder, List<OR> listOfORs)
+	protected void replaceTextWithORTable(XWPFDocument doc, String placeholder, List<Bug> listOfORs)
 	{
 		XWPFTable table = findTable(doc, placeholder);		
 
