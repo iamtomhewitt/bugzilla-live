@@ -21,6 +21,7 @@ import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
 import bugzilla.common.Folders;
 import bugzilla.common.UnitTestStep;
+import bugzilla.common.bug.Bug;
 import bugzilla.message.document.ExcelRequest;
 import bugzilla.message.document.ReleaseNoteRequest;
 import bugzilla.message.document.SubsystemTestRequest;

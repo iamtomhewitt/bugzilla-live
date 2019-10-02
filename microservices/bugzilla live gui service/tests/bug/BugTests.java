@@ -18,18 +18,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import bugzilla.common.OR.Bug;
-import bugzilla.common.OR.BugAttachment;
-import bugzilla.common.OR.BugComment;
+import bugzilla.common.bug.Bug;
+import bugzilla.common.bug.BugAttachment;
+import bugzilla.common.bug.BugComment;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
+import bugzilla.message.bug.BugCommentRequest;
+import bugzilla.message.bug.BugDetailRequest;
+import bugzilla.message.bug.BugsRequest;
+import bugzilla.message.bug.ChangeBugStatusRequest;
+import bugzilla.message.bug.SubsystemBugsRequest;
+import bugzilla.message.bug.UserBugsRequest;
 import bugzilla.common.Folders;
-import bugzilla.message.OR.ChangeBugStatusRequest;
-import bugzilla.message.OR.BugCommentRequest;
-import bugzilla.message.OR.BugDetailRequest;
-import bugzilla.message.OR.BugsRequest;
-import bugzilla.message.OR.SubsystemBugsRequest;
-import bugzilla.message.OR.UserBugsRequest;
 import bugzilla.utilities.JacksonAdapter;
 import message.GuiMessageSender;
 

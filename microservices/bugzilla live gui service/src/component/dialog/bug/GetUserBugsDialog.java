@@ -4,7 +4,7 @@ import bugzilla.common.Errors;
 import bugzilla.common.MessageBox;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
-import bugzilla.message.OR.UserBugsRequest;
+import bugzilla.message.bug.UserBugsRequest;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

@@ -11,7 +11,7 @@ import java.util.List;
 
 import bugzilla.common.Errors;
 import bugzilla.common.MessageBox;
-import bugzilla.common.OR.Bug;
+import bugzilla.common.bug.Bug;
 
 public class BugComparator implements Comparator<Bug>
 {

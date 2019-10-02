@@ -7,8 +7,10 @@ import java.util.List;
 
 import bugzilla.common.Errors;
 import bugzilla.common.MessageBox;
+import bugzilla.common.bug.Bug;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
+import bugzilla.message.bug.BugDetailRequest;
 import bugzilla.message.document.ExcelRequest;
 import bugzilla.message.list.ModifyListRequest;
 import bugzilla.utilities.Icons;
@@ -17,6 +19,7 @@ import bugzilla.utilities.Utilities;
 import component.InformationPane;
 import component.dialog.ReleaseNoteDialog;
 import component.dialog.SubsystemTestDialog;
+import component.dialog.bug.ChangeBugStatusDialog;
 import component.dialog.unittest.UnitTestDialog;
 
 import javafx.collections.ObservableList;

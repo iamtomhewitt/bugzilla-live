@@ -2,7 +2,7 @@ package component.dialog;
 
 import java.util.Collections;
 
-import bugzilla.common.OR.Bug;
+import bugzilla.common.bug.Bug;
 import bugzilla.utilities.Icons;
 import component.BugTable;
 import component.WindowsBar;

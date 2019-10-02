@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import bugzilla.common.Errors;
 import bugzilla.common.Fonts;
 import bugzilla.common.MessageBox;
-import bugzilla.common.OR.Bug;
+import bugzilla.common.bug.Bug;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.utilities.Icons;
 import bugzilla.utilities.JacksonAdapter;

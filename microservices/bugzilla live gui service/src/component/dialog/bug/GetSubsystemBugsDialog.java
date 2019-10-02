@@ -4,7 +4,7 @@ import bugzilla.common.Errors;
 import bugzilla.common.MessageBox;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
-import bugzilla.message.OR.SubsystemBugsRequest;
+import bugzilla.message.bug.SubsystemBugsRequest;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
