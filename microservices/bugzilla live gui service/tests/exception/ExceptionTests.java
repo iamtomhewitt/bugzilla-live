@@ -3,7 +3,7 @@ package exception;
 import org.json.simple.JSONObject;
 import org.junit.Test;
 
-import bugzilla.common.OR.Bug;
+import bugzilla.common.bug.Bug;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageProcessorException;
 import bugzilla.exception.MessageReceiverException;

@@ -5,7 +5,7 @@ import bugzilla.common.Fonts;
 import bugzilla.common.MessageBox;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
-import bugzilla.message.OR.BugCommentRequest;
+import bugzilla.message.bug.BugCommentRequest;
 import bugzilla.utilities.Icons;
 import component.WindowsBar;
 import javafx.geometry.Insets;

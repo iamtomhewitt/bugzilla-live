@@ -7,7 +7,7 @@ import java.util.List;
 import bugzilla.common.Errors;
 import bugzilla.common.Folders;
 import bugzilla.common.MessageBox;
-import bugzilla.common.OR.Bug;
+import bugzilla.common.bug.Bug;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
 import bugzilla.message.document.SubsystemTestRequest;

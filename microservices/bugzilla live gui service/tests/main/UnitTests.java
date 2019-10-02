@@ -7,7 +7,7 @@ import org.junit.runner.notification.Failure;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import OR.BugTests;
+import bug.BugTests;
 import config.ConfigTests;
 import document.DocumentTests;
 import exception.ExceptionTests;

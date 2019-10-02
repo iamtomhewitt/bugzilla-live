@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import bugzilla.common.Errors;
 import bugzilla.common.Folders;
 import bugzilla.common.MessageBox;
-import bugzilla.common.OR.Bug;
+import bugzilla.common.bug.Bug;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
 import bugzilla.common.UnitTestStep;

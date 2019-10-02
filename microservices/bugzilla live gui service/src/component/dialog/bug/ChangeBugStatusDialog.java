@@ -10,7 +10,7 @@ import bugzilla.common.Fonts;
 import bugzilla.common.MessageBox;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
-import bugzilla.message.OR.ChangeBugStatusRequest;
+import bugzilla.message.bug.ChangeBugStatusRequest;
 import bugzilla.utilities.Icons;
 import component.WindowsBar;
 import javafx.geometry.Insets;
