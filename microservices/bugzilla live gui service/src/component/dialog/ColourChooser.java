@@ -13,7 +13,7 @@ import bugzilla.exception.MessageSenderException;
 import bugzilla.message.config.ApplicationSaveRequest;
 import bugzilla.utilities.Icons;
 import common.GuiMethods;
-import component.ORTable;
+import component.BugTable;
 import component.WindowsBar;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -80,7 +80,7 @@ public class ColourChooser extends VBox
 			Colours.INFO_PANE_HEADING 	= Colours.toHex(infoPaneHeading.getColourPicker().getValue());
 			Colours.INFO_PANE_SUBHEADING= Colours.toHex(infoPaneSubheading.getColourPicker().getValue());
 
-			ORTable.getInstance().getTableView().refresh();
+			BugTable.getInstance().getTableView().refresh();
 			
 			GuiMethods.updateColours();
 			

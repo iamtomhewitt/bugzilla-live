@@ -27,48 +27,48 @@ class BugzillaRequestor:
         logging.info("| Username: %s, Password: %s, API Key: %s" % (self.username, "*****", self.api_key))
 
 
-    def get_ORs(self, list_of_numbers):
+    def get_bugs(self, list_of_numbers):
         """
-        Makes a request to Bugzilla for the set of OR numbers specified. Bugzilla returns a JSON response, which we parse into a list, which is
+        Makes a request to Bugzilla for the set of a bug numbers specified. Bugzilla returns a JSON response, which we parse into a list, which is
         returned.
         """
 
         # Remove the last comma so we dont have an empty 'ids=' in our query
         list_of_numbers = list_of_numbers.rstrip(',')
 
-        ORs = ""
+        bugs = ""
         for number in list_of_numbers.split(","):
-            ORs += "&ids=" + number
+            bugs += "&ids=" + number
 
-        api_url = url + "/bug/?api_key=" + self.api_key + ORs + "&include_fields=id,status,product,component,summary,assigned_to,severity,cf_genfrom,cf_intext,cf_system,cf_contitem,cf_segment_release,last_change_time"
-        ORs = self.make_OR_request(api_url)
+        api_url = url + "/bug/?api_key=" + self.api_key + bugs + "&include_fields=id,status,product,component,summary,assigned_to,severity,cf_genfrom,cf_intext,cf_system,cf_contitem,cf_segment_release,last_change_time"
+        bugs = self.make_bug_request(api_url)
 
-        return ORs
+        return bugs
 
 
-    def get_ORs_for_user(self, user):
+    def get_bugs_for_user(self, user):
         """
         Makes a request to Bugzilla for a specified user. Bugzilla returns a JSON response, which we parse into a list, which is
         returned.
         """
         api_url = url + "/bug?assigned_to=" + user + "&bug_status=Investigation&bug_status=Diagnosed&bug_status=Diagnosed&bug_status=Coded&bug_status=Addressed&bug_status=Released&bug_status=Fixed&bug_status=No Fault&bug_status=Built" + "&api_key=" + self.api_key
-        ORs = self.make_OR_request(api_url)
-        return ORs
+        bugs = self.make_bug_request(api_url)
+        return bugs
 
 
-    def get_ORs_for_subsystem(self, subsystem):
+    def get_bugs_for_subsystem(self, subsystem):
         """
         Makes a request to Bugzilla for a specified subsystem. Bugzilla returns a JSON response, which we parse into a list, which is
         returned.
         """
         api_url = url + "/bug?product=" + subsystem + "&bug_status=Investigation&bug_status=Diagnosed&bug_status=Diagnosed&bug_status=Coded&bug_status=Addressed&bug_status=Released&bug_status=Fixed&bug_status=No Fault&bug_status=Built" + "&api_key=" + self.api_key
-        ORs = self.make_OR_request(api_url)
-        return ORs
+        bugs = self.make_bug_request(api_url)
+        return bugs
 
 
-    def get_OR_detail(self, number):
+    def get_bug_detail(self, number):
         """
-        Gets the comments and attachments for an OR. Bugzilla returns a JSON response, which we parse into two separate lists, which are
+        Gets the comments and attachments for an a bug. Bugzilla returns a JSON response, which we parse into two separate lists, which are
         returned.
         """
         online = False
@@ -112,9 +112,9 @@ class BugzillaRequestor:
         return comments, attachments
 
 
-    def add_OR_comment(self, number, comment):
+    def add_bug_comment(self, number, comment):
         """
-        Makes a request to add a comment to an OR.
+        Makes a request to add a comment to an a bug.
         """
         api_url = url + "/bug/" + number + "/comment?api_key=" + self.api_key
         data = {
@@ -125,9 +125,9 @@ class BugzillaRequestor:
         return True;
              
         
-    def change_OR_status(self, number, status, comment_json):
+    def change_bug_status(self, number, status, comment_json):
         """
-        Changes the status of an OR with a comment included.
+        Changes the status of an a bug with a comment included.
         """
         status = {
             "status" : status,
@@ -169,9 +169,9 @@ class BugzillaRequestor:
         return json.loads(r.text)
 
     
-    def make_OR_request(self, api_url):
+    def make_bug_request(self, api_url):
         """
-        A shared method for making get requests to retrieve ORs. The api_url is what specifies what kind of OR retrieval this is.
+        A shared method for making get requests to retrieve bugs. The api_url is what specifies what kind of a bug retrieval this is.
         It could either be a a set of numbers, or a url for a specific user or subsystem.
         """
         online = False
@@ -182,25 +182,25 @@ class BugzillaRequestor:
         else:
             response_json = json.loads(directories.test_json)
 
-        ORs = []
+        bugs = []
 
         # Now convert the r.text into a custom JSON string that the GUI service can interpret.
-        # 'bugs' are also known as ORs, but cannot use the word 'OR' as this is a Python type word.
+        # 'bugs' are also known as bugs, but cannot use the word 'a bug' as this is a Python type word.
         for bug in response_json['bugs']:
-            an_OR = {}
-            an_OR['assignedTo']          = bug['assigned_to']
-            an_OR['component']           = bug['component']
-            an_OR['generatedFrom']       = bug['cf_genfrom']
-            an_OR['internalExternal']    = bug['cf_intext']
-            an_OR['lastUpdated']         = bug['last_change_time']
-            an_OR['number']              = bug['id']
-            an_OR['product']             = bug['product']
-            an_OR['segmentRelease']      = bug['cf_segment_release']
-            an_OR['severity']            = bug['severity']
-            an_OR['status']              = bug['status']
-            an_OR['summary']             = bug['summary']
-            an_OR['system']              = 'Unknown' if not bug['cf_system'] else bug['cf_system'][0]
+            an_bug = {}
+            an_bug['assignedTo']          = bug['assigned_to']
+            an_bug['component']           = bug['component']
+            an_bug['generatedFrom']       = bug['cf_genfrom']
+            an_bug['internalExternal']    = bug['cf_intext']
+            an_bug['lastUpdated']         = bug['last_change_time']
+            an_bug['number']              = bug['id']
+            an_bug['product']             = bug['product']
+            an_bug['segmentRelease']      = bug['cf_segment_release']
+            an_bug['severity']            = bug['severity']
+            an_bug['status']              = bug['status']
+            an_bug['summary']             = bug['summary']
+            an_bug['system']              = 'Unknown' if not bug['cf_system'] else bug['cf_system'][0]
 
-            ORs.append(an_OR)
+            bugs.append(an_bug)
 
-        return ORs   
+        return bugs   

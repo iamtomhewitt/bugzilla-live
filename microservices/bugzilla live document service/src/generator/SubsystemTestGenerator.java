@@ -22,7 +22,7 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTblLayoutType;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTblWidth;
 
 import bugzilla.common.Folders;
-import bugzilla.common.OR.OR;
+import bugzilla.common.bug.Bug;
 import bugzilla.exception.GenerateDocumentException;
 
 /**
@@ -48,7 +48,7 @@ public class SubsystemTestGenerator extends DocumentGenerator
 	private String filename;
 	private String releaseNumber;
 	
-	private List<OR> ors = new ArrayList<OR>();
+	private List<Bug> bug = new ArrayList<Bug>();
 	
 	private SubsystemTestGenerator()
 	{
@@ -63,10 +63,10 @@ public class SubsystemTestGenerator extends DocumentGenerator
 	
 			document = new XWPFDocument(new FileInputStream(templateLocation));
 	
-			// For each OR create the test section
-			for (OR or : ors)
+			// For each bug create the test section
+			for (Bug bug : bug)
 			{
-				createParagraphWithRun("OR" + or.getNumber() + " - " + or.getSummary(), "Heading2");			
+				createParagraphWithRun("Bug" + bug.getNumber() + " - " + bug.getSummary(), "Heading2");			
 				createParagraphWithRun("Test Environment", "Heading3");				
 				setRun(document.createParagraph().createRun(), "Arial", 12, "000000", testEnvironment, false, true);
 				createParagraphWithRun("Test Procedure", "Heading3");			
@@ -87,7 +87,7 @@ public class SubsystemTestGenerator extends DocumentGenerator
 			replaceText(document, "Docsubsystem", "CRM");
 			replaceText(document, "Releasenumber", releaseNumber);
 	
-			replaceTextWithORTable(document, "%ORs", this.ors);
+			replaceTextWithBugTable(document, "%Bugs", this.bug);
 	
 			FileOutputStream os = new FileOutputStream(outputFile);
 			document.write(os);
@@ -172,7 +172,7 @@ public class SubsystemTestGenerator extends DocumentGenerator
 		private String filename;
 		private String releaseNumber;
 		
-		private List<OR> ors = new ArrayList<OR>();
+		private List<Bug> bugs = new ArrayList<Bug>();
 		
 		public Builder withDocumentTitle(String documentTitle)
 		{
@@ -234,9 +234,9 @@ public class SubsystemTestGenerator extends DocumentGenerator
 			return this;
 		}
 		
-		public Builder withORs(List<OR> ors)
+		public Builder withBugs(List<Bug> bugs)
 		{
-			this.ors = ors;
+			this.bugs = bugs;
 			return this;
 		}
 		
@@ -251,7 +251,7 @@ public class SubsystemTestGenerator extends DocumentGenerator
 			generator.filename = this.filename;
 			generator.issue = this.issue;
 			generator.issueStatus = this.issueStatus;
-			generator.ors = this.ors;
+			generator.bug = this.bugs;
 			generator.releaseNumber = this.releaseNumber;
 			generator.testEnvironment = this.testEnvironment;
 			return generator;

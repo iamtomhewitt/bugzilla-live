@@ -1,6 +1,6 @@
 # A list of directories to be used by other python modules
 message_directory = "C:\\BugzillaLive\\messages\\"
-service_directory = "C:\\BugzillaLive\\services\\OR service\\"
+service_directory = "C:\\BugzillaLive\\services\\bug service\\"
 
 test_json = """
 {
@@ -17,7 +17,7 @@ test_json = """
             "status": "Investigation",
             "creator": "first.last@cgi.com",
             "cf_genfrom": "Testing",
-            "summary": "Test OR",
+            "summary": "Test bug",
             "last_change_time": "2014-09-23T19:12:17Z",
             "cf_intext": "Internal",
             "cf_segment_release": "1.2",

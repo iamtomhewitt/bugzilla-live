@@ -7,7 +7,7 @@ import java.util.List;
 import bugzilla.common.Errors;
 import bugzilla.common.Folders;
 import bugzilla.common.MessageBox;
-import bugzilla.common.OR.OR;
+import bugzilla.common.bug.Bug;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
 import bugzilla.message.document.SubsystemTestRequest;
@@ -35,7 +35,7 @@ public class SubsystemTestDialog extends VBox
 {
 	private List<TextField> textFields = new ArrayList<TextField>();
 	
-	public SubsystemTestDialog(ObservableList<OR> ors)
+	public SubsystemTestDialog(ObservableList<Bug> bugs)
 	{
 		TextField releaseNumberField 	= createTextField("release number", "E.g. 8.20.0.0", 450);
 		TextField fileLocationField		= createTextField("\tfile location", "Location of saved file", 450);		
@@ -115,7 +115,7 @@ public class SubsystemTestDialog extends VBox
 																		.withFilename(filename)
 																		.withIssue(issueField.getText())
 																		.withIssueStatus(issueStatusField.getText())
-																		.withORs(ors)
+																		.withBugs(bugs)
 																		.withReleaseNumber(releaseNumberField.getText())
 																		.withSubsystem(subsystem.getSelectionModel().getSelectedItem())
 																		.withTestEnvironment(testEnvironmentField.getText())

@@ -7,9 +7,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import bugzilla.common.OR.OR;
-import bugzilla.common.OR.ORAttachment;
-import bugzilla.common.OR.ORComment;
+import bugzilla.common.bug.Bug;
+import bugzilla.common.bug.BugAttachment;
+import bugzilla.common.bug.BugComment;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.common.UnitTestStep;
 
@@ -23,7 +23,7 @@ import bugzilla.common.UnitTestStep;
 public class JacksonAdapter
 {
 	/**
-	 * Convert an object to a JSON string, for example, an <code>OR</code>.
+	 * Convert an object to a JSON string, for example, an <code>Bug</code>.
 	 */
 	public static <T> String toJson(T object) throws JsonTransformationException
 	{
@@ -46,8 +46,8 @@ public class JacksonAdapter
 	/**
 	 * Converts a JSON string into an object specified by a class.
 	 * <p>
-	 * For example, to convert JSON to an <code>OR</code>: <br>
-	 * <code>List<.OR> listOfORs = fromJSON("yourJSON", OR.class);</code>
+	 * For example, to convert JSON to an <code>Bug</code>: <br>
+	 * <code>List<.Bug> listOfBugs = fromJSON("yourJSON", Bug.class);</code>
 	 */
 	public static List fromJson(String json, Class c) throws JsonTransformationException
 	{
@@ -55,17 +55,17 @@ public class JacksonAdapter
 		
 		try
 		{
-			if (c == OR.class)
+			if (c == Bug.class)
 			{
-				return Arrays.asList(mapper.readValue(json, OR[].class));
+				return Arrays.asList(mapper.readValue(json, Bug[].class));
 			}
-			if (c == ORComment.class)
+			if (c == BugComment.class)
 			{
-				return Arrays.asList(mapper.readValue(json, ORComment[].class));
+				return Arrays.asList(mapper.readValue(json, BugComment[].class));
 			}
-			if (c == ORAttachment.class)
+			if (c == BugAttachment.class)
 			{
-				return Arrays.asList(mapper.readValue(json, ORAttachment[].class));
+				return Arrays.asList(mapper.readValue(json, BugAttachment[].class));
 			}
 			if (c == UnitTestStep.class)
 			{
