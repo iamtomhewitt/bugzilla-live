@@ -9,12 +9,12 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import bugzilla.common.UnitTestStep;
+import bugzilla.common.bug.Bug;
 import bugzilla.common.message.MessageReceiver;
 import bugzilla.exception.GenerateDocumentException;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageReceiverException;
-import bugzilla.common.bug.Bug;
-import bugzilla.common.UnitTestStep;
 import bugzilla.utilities.JacksonAdapter;
 
 import generator.ExcelGenerator;
