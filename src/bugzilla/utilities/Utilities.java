@@ -2,7 +2,7 @@ package bugzilla.utilities;
 
 import java.io.IOException;
 
-import bugzilla.common.OR.OR;
+import bugzilla.common.bug.Bug;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
@@ -26,17 +26,17 @@ public class Utilities
 	}
 
 	/**
-	 * Opens an OR in Firefox.
+	 * Opens a bug in Firefox.
 	 */
-	public static void openORInFirefox(String bugzillaUrl, String number) throws IOException
+	public static void openBugInFirefox(String bugzillaUrl, String number) throws IOException
 	{
 		Runtime.getRuntime().exec("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe " + bugzillaUrl + "show_bug.cgi?id=" + number);
 	}
 
 	/**
-	 * Copies the OR table to the clipboard.
+	 * Copies the bug table to the clipboard.
 	 */
-	public static void copy(TableView<OR> table)
+	public static void copy(TableView<Bug> table)
 	{
 		ObservableList<Integer> rows = table.getSelectionModel().getSelectedIndices();
 		final Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -44,10 +44,10 @@ public class Utilities
 		String finalString = "";
 		for (int row : rows)
 		{
-			OR or = (OR) table.getItems().get(row);
+			Bug bug = (Bug) table.getItems().get(row);
 			if (table.getSelectionModel().isSelected(row))
 			{
-				finalString += or.toString() + "\n\n";
+				finalString += bug.toString() + "\n\n";
 			}
 		}
 		content.putString(finalString);

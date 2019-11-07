@@ -19,13 +19,13 @@ import org.apache.xmlbeans.XmlCursor;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTblWidth;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTblWidth;
 
-import bugzilla.common.OR.OR;
+import bugzilla.common.bug.Bug;
 import bugzilla.common.UnitTestStep;
 import log.DocumentLogger;
 
 /**
  * Generates a document by replacing placeholders in a .docx template with the specified element, such as a table, or a title.<p>
- * The template will need to have the placeholder present in the document, and must be appropiately named, such as 'DocMyORTable' in order for the placeholder to be found.
+ * The template will need to have the placeholder present in the document, and must be appropiately named, such as 'DocMyBugTable' in order for the placeholder to be found.
  * Spaces do not work for placeholders.<p>
  * 
  * Heading styles can also be applied, if they exist in the template.
@@ -154,7 +154,7 @@ public abstract class DocumentGenerator
 		return table;
 	}
 
-	protected void replaceTextWithORTable(XWPFDocument doc, String placeholder, List<OR> listOfORs)
+	protected void replaceTextWithBugTable(XWPFDocument doc, String placeholder, List<Bug> listOfBugs)
 	{
 		XWPFTable table = findTable(doc, placeholder);		
 
@@ -162,7 +162,7 @@ public abstract class DocumentGenerator
 		XWPFTableRow titleRow = table.getRow(0);
 		titleRow.addNewTableCell();
 		XWPFParagraph para = titleRow.getCell(0).addParagraph();
-		setRun(para.createRun(), "Arial", 11, "000000", "OR", true, false);
+		setRun(para.createRun(), "Arial", 11, "000000", "Bug", true, false);
 		setRun(titleRow.getCell(1).addParagraph().createRun(), "Arial", 11, "000000", "Description", true, false);
 		titleRow.getCell(0).removeParagraph(0);
 		titleRow.getCell(1).removeParagraph(0);
@@ -173,11 +173,11 @@ public abstract class DocumentGenerator
 		width.setW(BigInteger.valueOf(9072));
 
 		// create rows
-		for (int i = 0; i < listOfORs.size(); i++)
+		for (int i = 0; i < listOfBugs.size(); i++)
 		{
 			XWPFTableRow row = table.createRow();
-			setRun(row.getCell(0).addParagraph().createRun(), "Arial", 11, "000000", listOfORs.get(i).getNumber(), false, false);
-			setRun(row.getCell(1).addParagraph().createRun(), "Arial", 11, "000000", listOfORs.get(i).getSummary(), false, false);
+			setRun(row.getCell(0).addParagraph().createRun(), "Arial", 11, "000000", listOfBugs.get(i).getNumber(), false, false);
+			setRun(row.getCell(1).addParagraph().createRun(), "Arial", 11, "000000", listOfBugs.get(i).getSummary(), false, false);
 			row.getCell(0).removeParagraph(0);
 			row.getCell(1).removeParagraph(0);
 			

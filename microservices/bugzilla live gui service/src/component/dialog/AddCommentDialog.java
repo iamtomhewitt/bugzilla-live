@@ -5,7 +5,7 @@ import bugzilla.common.Fonts;
 import bugzilla.common.MessageBox;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
-import bugzilla.message.OR.ORCommentRequest;
+import bugzilla.message.bug.BugCommentRequest;
 import bugzilla.utilities.Icons;
 import component.WindowsBar;
 import javafx.geometry.Insets;
@@ -21,7 +21,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
 import common.GuiConstants;
-import common.ORTemplates;
+import common.BugTemplates;
 import message.GuiMessageSender;
 import theme.GuiStyler;
 import theme.Sizes;
@@ -48,15 +48,15 @@ public class AddCommentDialog extends VBox
 			switch (template)
 			{
 				case "Coded":
-					comment.setText(ORTemplates.CODED);
+					comment.setText(BugTemplates.CODED);
 					break;
 					
 				case "None":
-					comment.setText(ORTemplates.NONE);
+					comment.setText(BugTemplates.NONE);
 					break;
 					
 				default:
-					comment.setText(ORTemplates.NONE);
+					comment.setText(BugTemplates.NONE);
 					break;
 			}
 		});
@@ -77,9 +77,9 @@ public class AddCommentDialog extends VBox
 			{
 				try
 				{
-					ORCommentRequest request = new ORCommentRequest.Builder().withApiKey(GuiConstants.APIKEY)
+					BugCommentRequest request = new BugCommentRequest.Builder().withApiKey(GuiConstants.APIKEY)
 																				.withComment(comment.getText())
-																				.withORNumber(number)
+																				.withBugNumber(number)
 																				.withPassword(GuiConstants.PASSWORD)
 																				.withUsername(GuiConstants.USERNAME)
 																				.build();
@@ -103,7 +103,7 @@ public class AddCommentDialog extends VBox
 		GuiStyler.styleComboBox(templates);
 		GuiStyler.styleTitle(templateLabel);
 
-		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, this, "OR" + number + " Add Comment"), 375, 475);
+		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, this, "Bug" + number + " Add Comment"), 375, 475);
 		stage.setTitle("Add New Comment");
 		stage.getIcons().add(Icons.createAddIcon().getImage());
 		stage.setX(xPosition);

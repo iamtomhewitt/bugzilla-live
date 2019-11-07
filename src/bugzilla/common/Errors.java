@@ -11,11 +11,11 @@ public class Errors
 	public static final String FIREFOX 			= "Could not open Firefox.";
 	public static final String CREATE_LIST 		= "Could not create new list.";
 	public static final String HELP 			= "Could not open Help.";
-	public static final String COMMENTS 		= "Could not open comments for OR.";
+	public static final String COMMENTS 		= "Could not open comments for bug.";
 	public static final String REFRESH 			= "Could not refresh table.";
 	public static final String GENERAL 			= "A general error has occurred.";
 	public static final String MISSING_FIELD 	= "There is a missing field.";
-	public static final String INVALID_OR		= "Not a valid OR.";
+	public static final String INVALID_BUG		= "Not a valid bug.";
 	public static final String EXCEL 			= "Could not export table to Excel.";
 	public static final String JACKSON_FROM		= "Problem parsing JSON into Object.";
 	public static final String JACKSON_TO		= "Problem turning Object into JSON.";

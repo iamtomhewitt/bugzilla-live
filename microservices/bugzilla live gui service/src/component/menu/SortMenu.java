@@ -14,7 +14,7 @@ public class SortMenu
 		MenuItem customSort = new MenuItem("Custom...");
 		customSort.setOnAction(e -> new CustomSortDialog());
 
-		Menu numberMenu 		= createSortingSubMenu("OR Number", "number");
+		Menu numberMenu 		= createSortingSubMenu("Bug Number", "number");
 		Menu statusMenu 		= createSortingSubMenu("Status", "status");
 		Menu assignedMenu 		= createSortingSubMenu("Assigned To", "assignedTo");
 		Menu subSystemMenu 		= createSortingSubMenu("Subsystem", "subsystem");
@@ -41,8 +41,8 @@ public class SortMenu
 		MenuItem ascending = new MenuItem("Ascending");
 		MenuItem descending = new MenuItem("Descending");
 
-		ascending .setOnAction(e -> GuiMethods.sortORs(false, sortingProperty));
-		descending.setOnAction(e -> GuiMethods.sortORs(true, sortingProperty));
+		ascending .setOnAction(e -> GuiMethods.sortBugs(false, sortingProperty));
+		descending.setOnAction(e -> GuiMethods.sortBugs(true, sortingProperty));
 
 		m.getItems().addAll(ascending, descending);
 		return m;

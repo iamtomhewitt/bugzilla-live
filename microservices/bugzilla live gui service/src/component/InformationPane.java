@@ -36,19 +36,19 @@ public class InformationPane
 	{
 		instance = this;
 
-		title = createLabel("ORs", Fonts.FONT, FontWeight.EXTRA_BOLD, Fonts.FONT_SIZE_SUPER, Color.WHITE);
+		title = createLabel("Bugs", Fonts.FONT, FontWeight.EXTRA_BOLD, Fonts.FONT_SIZE_SUPER, Color.WHITE);
 		title.setWrapText(true);
 
 		Label subsystem = createHeadingLabel("Subsystem");
 
-		Label apmORs 		= createSubHeadingLabel("APM", Colours.toHex(Color.TOMATO), subsystemLabels);
-		Label cmORs 		= createSubHeadingLabel("CM", Colours.toHex(Color.YELLOW), subsystemLabels);
-		Label crmORs 		= createSubHeadingLabel("CRM", Colours.toHex(Color.YELLOWGREEN), subsystemLabels);
-		Label fmORs 		= createSubHeadingLabel("FM", Colours.toHex(Color.LIGHTBLUE), subsystemLabels);
-		Label tmsORs 		= createSubHeadingLabel("TMS", Colours.toHex(Color.BLUE), subsystemLabels);
-		Label smORs 		= createSubHeadingLabel("SM", Colours.toHex(Color.PURPLE), subsystemLabels);
-		Label infORs 		= createSubHeadingLabel("INF", Colours.toHex(Color.ORANGE), subsystemLabels);
-		Label segmentORs 	= createSubHeadingLabel("SEGMENT", Colours.toHex(Color.ALICEBLUE), subsystemLabels);
+		Label apmBugs 		= createSubHeadingLabel("APM", Colours.toHex(Color.TOMATO), subsystemLabels);
+		Label cmBugs 		= createSubHeadingLabel("CM", Colours.toHex(Color.YELLOW), subsystemLabels);
+		Label crmBugs 		= createSubHeadingLabel("CRM", Colours.toHex(Color.YELLOWGREEN), subsystemLabels);
+		Label fmBugs 		= createSubHeadingLabel("FM", Colours.toHex(Color.LIGHTBLUE), subsystemLabels);
+		Label tmsBugs 		= createSubHeadingLabel("TMS", Colours.toHex(Color.BLUE), subsystemLabels);
+		Label smBugs 		= createSubHeadingLabel("SM", Colours.toHex(Color.PURPLE), subsystemLabels);
+		Label infBugs 		= createSubHeadingLabel("INF", Colours.toHex(Color.ORANGE), subsystemLabels);
+		Label segmentBugs 	= createSubHeadingLabel("SEGMENT", Colours.toHex(Color.ALICEBLUE), subsystemLabels);
 
 		Label severity 		= createHeadingLabel("\nSeverity");
 		Label critical 		= createSubHeadingLabel("Critical", Colours.CRITICAL, severityLabels);
@@ -74,7 +74,7 @@ public class InformationPane
 
 		subheadingLabels.add(refreshed);
 
-		pane.getChildren().addAll(title, refreshedVbox, subsystem, apmORs, cmORs, crmORs, fmORs, smORs, tmsORs, infORs, segmentORs, severity, critical, high, medium, low, unknown, status, investigation, diagnosed, addressed, coded, built, released, fixed, noFault, closed);
+		pane.getChildren().addAll(title, refreshedVbox, subsystem, apmBugs, cmBugs, crmBugs, fmBugs, smBugs, tmsBugs, infBugs, segmentBugs, severity, critical, high, medium, low, unknown, status, investigation, diagnosed, addressed, coded, built, released, fixed, noFault, closed);
 		pane.setSpacing(12);
 		pane.setPadding(new Insets(20, 15, 15, 15));
 		pane.setMinWidth(250);
@@ -92,26 +92,26 @@ public class InformationPane
 			{
 				String filename = GuiConstants.CURRENT_LIST_FILE == null ? "" : GuiConstants.CURRENT_LIST_FILE.getName().split("\\.")[0] + " | ";
 
-				title.setText(filename + ORTable.getInstance().getTableView().getItems().size() + " ORs");
+				title.setText(filename + BugTable.getInstance().getTableView().getItems().size() + " Bugs");
 
 				refreshed.setText(Calendar.getInstance().getTime().toString());
 
 				for (Label l : subsystemLabels)
 				{
 					String subsystem = l.getText().split(":")[0];
-					l.setText(subsystem + ": " + ORCounter.countSubsystemORs(subsystem));
+					l.setText(subsystem + ": " + BugCounter.countSubsystemBugs(subsystem));
 				}
 
 				for (Label l : severityLabels)
 				{
 					String severity = l.getText().split(":")[0];
-					l.setText(severity + ": " + ORCounter.countSeverityORs(severity) + " (Active: " + ORCounter.countActiveSeverityORs(severity) + ")");
+					l.setText(severity + ": " + BugCounter.countSeverityBugs(severity) + " (Active: " + BugCounter.countActiveSeverityBugs(severity) + ")");
 				}
 
 				for (Label l : statusLabels)
 				{
 					String status = l.getText().split(":")[0];
-					l.setText(status + ": " + ORCounter.countStatusORs(status));
+					l.setText(status + ": " + BugCounter.countStatusBugs(status));
 				}
 			}
 		});

@@ -17,7 +17,7 @@ import bugzilla.exception.MessageReceiverException;
 /**
  * An abstract class for processing messages in the message folder. <p>
  * Each service that implements <code>MessageReceiver</code> has a list of file types it is allowed to process - so that each service
- * does not process messages made for other services (e.g. the List service cannot processes messages for the OR service). 
+ * does not process messages made for other services (e.g. the List service cannot processes messages for the Bug service). 
  *
  * @author Tom Hewitt
  * @since 2.0.0

@@ -3,7 +3,7 @@ package generator;
 import org.apache.poi.xwpf.usermodel.*;
 
 import bugzilla.common.Folders;
-import bugzilla.common.OR.OR;
+import bugzilla.common.bug.Bug;
 import bugzilla.exception.GenerateDocumentException;
 import log.DocumentLogger;
 
@@ -32,7 +32,7 @@ public class ReleaseNoteGenerator extends DocumentGenerator
 	private String issueStatus;
 	private String filename;
 	
-	private List<OR> ors = new ArrayList<OR>();
+	private List<Bug> bugs = new ArrayList<Bug>();
 	
 	public ReleaseNoteGenerator() 
 	{
@@ -62,8 +62,8 @@ public class ReleaseNoteGenerator extends DocumentGenerator
 			replaceText(document, "%Issue_date", this.issueDate);
 			replaceText(document, "%Issue_status", this.issueStatus);
 	
-			replaceTextWithORTable(document, "%External_ORs", this.ors.stream().filter(o -> o.getInternalExternal().equals("External")).collect(Collectors.toList()));
-			replaceTextWithORTable(document, "%Internal_ORs", this.ors.stream().filter(o -> o.getInternalExternal().equals("Internal")).collect(Collectors.toList()));
+			replaceTextWithBugTable(document, "%External_Bugs", this.bugs.stream().filter(bug -> bug.getInternalExternal().equals("External")).collect(Collectors.toList()));
+			replaceTextWithBugTable(document, "%Internal_Bugs", this.bugs.stream().filter(bug -> bug.getInternalExternal().equals("Internal")).collect(Collectors.toList()));
 	
 			FileOutputStream os = new FileOutputStream(outputFile);
 			document.write(os);
@@ -94,7 +94,7 @@ public class ReleaseNoteGenerator extends DocumentGenerator
 		private String issueStatus;
 		private String filename;
 		
-		private List<OR> ors = new ArrayList<OR>();
+		private List<Bug> bugs = new ArrayList<Bug>();
 		
 		public Builder withClassification(String classification)
 		{
@@ -138,9 +138,9 @@ public class ReleaseNoteGenerator extends DocumentGenerator
 			return this;
 		}
 		
-		public Builder withORs(List<OR> ors)
+		public Builder withBugs(List<Bug> ors)
 		{
-			this.ors = ors;
+			this.bugs = ors;
 			return this;
 		}
 		
@@ -153,7 +153,7 @@ public class ReleaseNoteGenerator extends DocumentGenerator
 			generator.filename = this.filename;
 			generator.issue = this.issue;
 			generator.issueStatus = this.issueStatus;
-			generator.ors = this.ors;
+			generator.bugs = this.bugs;
 			generator.issueDate = this.issueDate;
 			
 			try 

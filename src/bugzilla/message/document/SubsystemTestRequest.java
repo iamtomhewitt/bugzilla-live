@@ -7,7 +7,7 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import bugzilla.common.OR.OR;
+import bugzilla.common.bug.Bug;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.utilities.JacksonAdapter;
 
@@ -27,7 +27,7 @@ public class SubsystemTestRequest extends DocumentRequest
 	private String testEnvironment;
 	private String releaseNumber;
 
-	private List<OR> ors;
+	private List<Bug> bugs;
 	
 	private SubsystemTestRequest()
 	{
@@ -56,15 +56,15 @@ public class SubsystemTestRequest extends DocumentRequest
 			message.put("developerusername", this.developerUsername);
 			message.put("releasenumber", this.releaseNumber);
 	
-			if (this.ors != null)
+			if (this.bugs != null)
 			{
-				String ORsAsJson = JacksonAdapter.toJson(this.ors);
+				String bugsAsJson = JacksonAdapter.toJson(this.bugs);
 	
-				// First parse ORsAsJson so that it formats correctly when it is written to the file
+				// First parse bugsAsJson so that it formats correctly when it is written to the file
 				JSONParser parser = new JSONParser();
-				JSONArray ORs = (JSONArray) parser.parse(ORsAsJson);
+				JSONArray bugs = (JSONArray) parser.parse(bugsAsJson);
 	
-				message.put("ORs", ORs);
+				message.put("Bugs", bugs);
 			}
 	
 			return message.toJSONString();
@@ -88,7 +88,7 @@ public class SubsystemTestRequest extends DocumentRequest
 		private String fileLocation;
 		private String documentTitle;
 		private String classification;
-		private List<OR> ors;
+		private List<Bug> bugs;
 		
 		public Builder withSubsystem(String subsystem)
 		{
@@ -156,9 +156,9 @@ public class SubsystemTestRequest extends DocumentRequest
 			return this;
 		}
 		
-		public Builder withORs(List<OR> ors)
+		public Builder withBugs(List<Bug> ors)
 		{
-			this.ors = ors;
+			this.bugs = ors;
 			return this;
 		}
 		
@@ -179,7 +179,7 @@ public class SubsystemTestRequest extends DocumentRequest
 			request.developerUsername = this.developerUsername;
 			request.testEnvironment = this.testEnvironment;
 			request.releaseNumber = this.releaseNumber;
-			request.ors = this.ors;
+			request.bugs = this.bugs;
 			return request;
 		}
 	}

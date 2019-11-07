@@ -18,14 +18,14 @@ import log.GuiLogger;
 import processor.ConfigProcessor;
 import processor.DocumentProcessor;
 import processor.ListProcessor;
-import processor.ORProcessor;
+import processor.BugProcessor;
 
 public class GuiMessageReceiver extends MessageReceiver
 {
 	public GuiMessageReceiver()
 	{
 		GuiLogger.getInstance().print("GUI Receiver started");
-		this.setFileTypes(Arrays.asList(".orresponse", ".listresponse", ".configresponse", ".documentresponse"));
+		this.setFileTypes(Arrays.asList(".bugresponse", ".listresponse", ".configresponse", ".documentresponse"));
 	}	
 
 	@Override
@@ -60,8 +60,8 @@ public class GuiMessageReceiver extends MessageReceiver
 					new ListProcessor().process(jsonObject);
 					break;
 
-				case "orresponse":
-					new ORProcessor().process(jsonObject);
+				case "bugresponse":
+					new BugProcessor().process(jsonObject);
 					break;
 					
 				case "documentresponse":

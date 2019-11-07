@@ -2,9 +2,9 @@ package component.dialog;
 
 import java.util.Collections;
 
-import bugzilla.common.OR.OR;
+import bugzilla.common.bug.Bug;
 import bugzilla.utilities.Icons;
-import component.ORTable;
+import component.BugTable;
 import component.WindowsBar;
 
 import javafx.collections.ObservableList;
@@ -25,7 +25,7 @@ import theme.Sizes;
 
 public class CustomSortDialog extends VBox
 {
-	private ObservableList<TableColumn<OR, ?>> tableViewColumns = ORTable.getInstance().getTableView().getColumns();
+	private ObservableList<TableColumn<Bug, ?>> tableViewColumns = BugTable.getInstance().getTableView().getColumns();
 	
 	private ComboBox<String> primaryComboBox = new ComboBox<String>();
 	private ComboBox<String> secondaryComboBox = new ComboBox<String>();
@@ -54,7 +54,7 @@ public class CustomSortDialog extends VBox
 			primary		= primary.equals("Subsystem") ? "Product" : primary;
 			secondary 	= secondary.equals("Subsystem") ? "Product" : secondary;
 
-			GuiMethods.sortORs(true, primary, secondary);
+			GuiMethods.sortBugs(true, primary, secondary);
 			stage.close();
 		});
 		

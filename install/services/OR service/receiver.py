@@ -32,53 +32,53 @@ class Receiver:
         s = sender.Sender()
 
         # Potential operations are:
-        #  numbers      - retrieve a list of ORs based on a set of numbers
-        #  user         - retrieve a list of ORs for a specified user 
-        #  subsystem    - retrieve a list of ORs for a specified subsystem 
-        #  detail       - retrieve a set of comments and attachments for an OR 
-        #  addcomment   - adds a comment to the specified OR using a POST request
-        #  changestatus - changes the status of an OR with a comment
+        #  numbers      - retrieve a list of bugs based on a set of numbers
+        #  user         - retrieve a list of bugs for a specified user 
+        #  subsystem    - retrieve a list of bugs for a specified subsystem 
+        #  detail       - retrieve a set of comments and attachments for an bug 
+        #  addcomment   - adds a comment to the specified bug using a POST request
+        #  changestatus - changes the status of an bug with a comment
         if operation == "numbers":
             numbers = json_data['numbers']
-            ORs = b.get_ORs(numbers)
-            if not ORs:
-                s.send_notification_message(False, "No ORs could be found for the query specified.")
+            bugs = b.get_bugs(numbers)
+            if not bugs:
+                s.send_notification_message(False, "No bugs could be found for the query specified.")
             else:
-                s.send_OR_response_message(ORs)
+                s.send_bug_response_message(bugs)
 
         elif operation == "user":
             user = json_data['user']
-            ORs = b.get_ORs_for_user(user)
+            bugs = b.get_bugs_for_user(user)
 
-            if not ORs:
-                s.send_notification_message(False, "No ORs could be found for the query specified.")
+            if not bugs:
+                s.send_notification_message(False, "No bugs could be found for the query specified.")
             else:
-                s.send_OR_response_message(ORs)
+                s.send_bug_response_message(bugs)
 
         elif operation == "subsystem":
             subsystem = json_data['subsystem']
-            ORs = b.get_ORs_for_subsystem(subsystem)
-            if not ORs:
-                s.send_notification_message(False, "No ORs could be found for the query specified.")
+            bugs = b.get_bugs_for_subsystem(subsystem)
+            if not bugs:
+                s.send_notification_message(False, "No bugs could be found for the query specified.")
             else:
-                s.send_OR_response_message(ORs)
+                s.send_bug_response_message(bugs)
 
         elif operation == "detail":
             number = json_data['number']
-            comments, attachments = b.get_OR_detail(number)
-            s.send_OR_detail_response_message(number, comments, attachments)
+            comments, attachments = b.get_bug_detail(number)
+            s.send_bug_detail_response_message(number, comments, attachments)
 
         elif operation == "addcomment":
             number  = json_data['number']
             comment = json_data['comment']
-            b.add_OR_comment(number, comment)
+            b.add_bug_comment(number, comment)
             s.send_notification_message(True, "")
 
         elif operation == "changestatus":
             number  = json_data['number']
             status  = json_data['status']
             comment = json_data['comment']
-            b.change_OR_status(number, status, comment)
+            b.change_bug_status(number, status, comment)
             s.send_notification_message(True, "")
 
         else:
