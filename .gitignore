@@ -2,10 +2,7 @@
 /bin/bugzilla/
 /bin/.gitignore
 /build
-/install/services/OR service/orservice.jar
-/install/services/gui service/guiservice.jar
-/install/services/document service/documentservice.jar
-/install/services/login service/loginservice.jar
+/install/*
 /bin/
 /microservices/bugzilla live config service/modules/*.pyc
 /microservices/bugzilla live list manager service/python/modules/*.pyc
