@@ -9,3 +9,4 @@
 /microservices/bugzilla live list manager service/modules/*.pyc
 /microservices/bugzilla live list manager service/bin
 /microservices/bugzilla live OR service/modules/*.pyc
+/target/
