@@ -25,8 +25,7 @@ import theme.Sizes;
 public class GetUserBugsDialog
 {
 	private Stage stage 				= new Stage();	
-	private TextField firstNameField 	= new TextField();
-	private TextField lastNameField  	= new TextField();	
+	private TextField usernameField 	= new TextField();
 	private VBox vbox 					= new VBox();	
 	private VBox fields 				= new VBox();
 	private HBox buttons 				= new HBox();
@@ -38,21 +37,14 @@ public class GetUserBugsDialog
 		
 		Label title = new Label("User Bugs");
 
-		firstNameField.setPromptText("first name");
-		firstNameField.setOnKeyPressed(e->
-		{
-			if (e.getCode() == KeyCode.ENTER)
-				execute();
-		});
-		
-		lastNameField.setPromptText("last name");
-		lastNameField.setOnKeyPressed(e->
+		usernameField.setPromptText("username");
+		usernameField.setOnKeyPressed(e->
 		{
 			if (e.getCode() == KeyCode.ENTER)
 				execute();
 		});
 
-		getBugsButton = new Button("Get User Bugs");
+		getBugsButton = new Button("Get Bugs");
 		getBugsButton.setOnAction(e -> execute());
 		
 		Button myBugsButton = new Button("Get My Bugs");
@@ -76,11 +68,10 @@ public class GetUserBugsDialog
 		
 		GuiStyler.stylePrimaryButton(getBugsButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
 		GuiStyler.stylePrimaryButton(myBugsButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
-		GuiStyler.styleTextField(firstNameField, Sizes.INPUT_WIDTH_LARGE, 30);
-		GuiStyler.styleTextField(lastNameField, Sizes.INPUT_WIDTH_LARGE, 30);
+		GuiStyler.styleTextField(usernameField, Sizes.INPUT_WIDTH_LARGE, 30);
 		GuiStyler.styleTitle(title);
 		
-		fields.getChildren().addAll(firstNameField, lastNameField);
+		fields.getChildren().addAll(usernameField);
 		fields.setAlignment(Pos.CENTER);
 		fields.setSpacing(10);
 		fields.setPadding(new Insets(10));
@@ -98,7 +89,7 @@ public class GetUserBugsDialog
 	
 	private void execute()
 	{
-		if (firstNameField.getText().equals("") || lastNameField.getText().equals(""))
+		if (usernameField.getText().isEmpty())
 		{
 			MessageBox.showDialog(Errors.MISSING_FIELD);
 			return;
@@ -106,12 +97,10 @@ public class GetUserBugsDialog
 		
 		GuiConstants.CURRENT_LIST_FILE = null;
 		GuiConstants.REQUEST_TYPE = RequestType.USER;
-		
-		String username = firstNameField.getText() + "." + lastNameField.getText();
-		
+				
 		try
 		{
-			UserBugsRequest request = new UserBugsRequest(username, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
+			UserBugsRequest request = new UserBugsRequest(usernameField.getText(), GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
 			new GuiMessageSender().sendRequestMessage(request);
 		}
 		catch (JsonTransformationException | MessageSenderException e1)
