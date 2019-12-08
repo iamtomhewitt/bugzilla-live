@@ -2,10 +2,10 @@ package component.menu;
 
 import java.io.IOException;
 
-import bugzilla.common.Errors;
-import bugzilla.common.MessageBox;
-import bugzilla.utilities.Icons;
-import bugzilla.utilities.Utilities;
+import common.common.Errors;
+import common.common.MessageBox;
+import common.utilities.Icons;
+import common.utilities.Utilities;
 import component.dialog.AboutDialog;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;

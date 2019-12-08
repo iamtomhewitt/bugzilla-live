@@ -2,11 +2,12 @@ package message;
 
 import java.io.File;
 import java.io.FileWriter;
-import bugzilla.common.Folders;
-import bugzilla.common.message.MessageSender;
-import bugzilla.exception.JsonTransformationException;
-import bugzilla.exception.MessageSenderException;
-import bugzilla.message.Message;
+
+import common.common.Folders;
+import common.exception.JsonTransformationException;
+import common.exception.MessageSenderException;
+import common.message.Message;
+import common.message.MessageSender;
 import log.GuiLogger;
 
 /**

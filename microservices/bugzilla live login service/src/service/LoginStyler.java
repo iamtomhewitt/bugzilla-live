@@ -1,6 +1,6 @@
 package service;
 
-import bugzilla.common.Fonts;
+import common.common.Fonts;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

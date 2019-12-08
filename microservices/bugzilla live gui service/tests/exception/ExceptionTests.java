@@ -3,12 +3,12 @@ package exception;
 import org.json.simple.JSONObject;
 import org.junit.Test;
 
-import bugzilla.common.bug.Bug;
-import bugzilla.exception.JsonTransformationException;
-import bugzilla.exception.MessageProcessorException;
-import bugzilla.exception.MessageReceiverException;
-import bugzilla.exception.MessageSenderException;
-import bugzilla.utilities.JacksonAdapter;
+import common.common.bug.Bug;
+import common.exception.JsonTransformationException;
+import common.exception.MessageProcessorException;
+import common.exception.MessageReceiverException;
+import common.exception.MessageSenderException;
+import common.utilities.JacksonAdapter;
 import message.GuiMessageReceiver;
 import message.GuiMessageSender;
 import processor.ListProcessor;

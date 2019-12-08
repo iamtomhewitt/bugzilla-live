@@ -3,11 +3,11 @@ package processor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import bugzilla.utilities.Encryptor;
 import log.GuiLogger;
 import theme.Colours;
 import common.GuiConstants;
 import common.GuiMethods;
+import common.utilities.Encryptor;
 
 public class ConfigProcessor extends MessageProcessor
 {

@@ -2,8 +2,8 @@ package log;
 
 import java.io.File;
 
-import bugzilla.common.Folders;
-import bugzilla.common.Logger;
+import common.common.Folders;
+import common.common.Logger;
 
 /**
  * Logs activity of the login service.

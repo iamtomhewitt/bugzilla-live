@@ -3,12 +3,12 @@ package theme;
 import java.util.HashMap;
 import java.util.Map;
 
-import bugzilla.common.Errors;
-import bugzilla.common.MessageBox;
-import bugzilla.exception.JsonTransformationException;
-import bugzilla.exception.MessageSenderException;
-import bugzilla.message.config.ApplicationSaveRequest;
 import common.GuiMethods;
+import common.common.Errors;
+import common.common.MessageBox;
+import common.exception.JsonTransformationException;
+import common.exception.MessageSenderException;
+import common.message.config.ApplicationSaveRequest;
 import message.GuiMessageSender;
 
 public class Themes

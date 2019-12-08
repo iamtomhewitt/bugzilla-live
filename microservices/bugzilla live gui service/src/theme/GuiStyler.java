@@ -1,6 +1,6 @@
 package theme;
 
-import bugzilla.common.Fonts;
+import common.common.Fonts;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

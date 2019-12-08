@@ -1,12 +1,5 @@
 package component.dialog;
 
-import bugzilla.common.Errors;
-import bugzilla.common.Fonts;
-import bugzilla.common.MessageBox;
-import bugzilla.exception.JsonTransformationException;
-import bugzilla.exception.MessageSenderException;
-import bugzilla.message.bug.BugCommentRequest;
-import bugzilla.utilities.Icons;
 import component.WindowsBar;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,6 +14,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
 import common.GuiConstants;
+import common.common.Errors;
+import common.common.Fonts;
+import common.common.MessageBox;
+import common.exception.JsonTransformationException;
+import common.exception.MessageSenderException;
+import common.message.bug.BugCommentRequest;
+import common.utilities.Icons;
 import common.BugTemplates;
 import message.GuiMessageSender;
 import theme.GuiStyler;

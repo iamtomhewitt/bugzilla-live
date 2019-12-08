@@ -14,12 +14,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import bugzilla.common.Folders;
-import bugzilla.exception.JsonTransformationException;
-import bugzilla.exception.MessageSenderException;
-import bugzilla.message.list.CreateListRequest;
-import bugzilla.message.list.DeleteListRequest;
-import bugzilla.message.list.ModifyListRequest;
+import common.common.Folders;
+import common.exception.JsonTransformationException;
+import common.exception.MessageSenderException;
+import common.message.list.CreateListRequest;
+import common.message.list.DeleteListRequest;
+import common.message.list.ModifyListRequest;
 import message.GuiMessageSender;
 
 public class ListTests

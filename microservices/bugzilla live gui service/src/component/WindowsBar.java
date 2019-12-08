@@ -1,6 +1,6 @@
 package component;
 
-import bugzilla.common.Fonts;
+import common.common.Fonts;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;

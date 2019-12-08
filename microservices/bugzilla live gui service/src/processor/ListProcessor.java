@@ -2,7 +2,7 @@ package processor;
 
 import org.json.simple.JSONObject;
 
-import bugzilla.exception.MessageProcessorException;
+import common.exception.MessageProcessorException;
 import log.GuiLogger;
 
 public class ListProcessor extends MessageProcessor

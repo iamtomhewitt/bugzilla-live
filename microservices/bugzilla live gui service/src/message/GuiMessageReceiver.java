@@ -8,12 +8,13 @@ import java.util.Arrays;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import bugzilla.common.Errors;
-import bugzilla.common.MessageBox;
-import bugzilla.common.message.MessageReceiver;
-import bugzilla.exception.MessageProcessorException;
-import bugzilla.exception.MessageReceiverException;
+
 import common.GuiMethods;
+import common.common.Errors;
+import common.common.MessageBox;
+import common.exception.MessageProcessorException;
+import common.exception.MessageReceiverException;
+import common.message.MessageReceiver;
 import log.GuiLogger;
 import processor.ConfigProcessor;
 import processor.ListProcessor;

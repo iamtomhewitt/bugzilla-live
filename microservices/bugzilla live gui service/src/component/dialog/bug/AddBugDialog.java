@@ -1,9 +1,5 @@
 package component.dialog.bug;
 
-import bugzilla.common.Errors;
-import bugzilla.common.MessageBox;
-import bugzilla.message.list.ModifyListRequest;
-import bugzilla.utilities.Icons;
 import component.WindowsBar;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -19,6 +15,10 @@ import javafx.stage.Stage;
 import common.GuiConstants;
 import common.GuiMethods;
 import common.RequestType;
+import common.common.Errors;
+import common.common.MessageBox;
+import common.message.list.ModifyListRequest;
+import common.utilities.Icons;
 import message.GuiMessageSender;
 import theme.GuiStyler;
 import theme.Sizes;

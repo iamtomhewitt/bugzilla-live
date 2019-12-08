@@ -15,10 +15,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import bugzilla.common.Errors;
-import bugzilla.common.MessageBox;
-import bugzilla.common.message.MessageReceiver;
-import bugzilla.utilities.Encryptor;
+import common.common.Errors;
+import common.common.MessageBox;
+import common.message.MessageReceiver;
+import common.utilities.Encryptor;
 import javafx.application.Platform;
 import log.LoginLogger;
 

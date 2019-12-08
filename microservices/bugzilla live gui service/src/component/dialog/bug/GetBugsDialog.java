@@ -1,6 +1,6 @@
 package component.dialog.bug;
 
-import bugzilla.utilities.Icons;
+import common.utilities.Icons;
 import component.WindowsBar;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

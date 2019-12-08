@@ -12,15 +12,15 @@ import java.util.concurrent.Callable;
 
 import org.json.simple.JSONObject;
 
-import bugzilla.common.Errors;
-import bugzilla.common.Fonts;
-import bugzilla.common.MessageBox;
-import bugzilla.common.bug.BugAttachment;
-import bugzilla.common.bug.BugComment;
-import bugzilla.exception.JsonTransformationException;
-import bugzilla.utilities.Icons;
-import bugzilla.utilities.JacksonAdapter;
 import common.GuiMethods;
+import common.common.Errors;
+import common.common.Fonts;
+import common.common.MessageBox;
+import common.common.bug.BugAttachment;
+import common.common.bug.BugComment;
+import common.exception.JsonTransformationException;
+import common.utilities.Icons;
+import common.utilities.JacksonAdapter;
 import component.WindowsBar;
 import component.dialog.AddCommentDialog;
 import javafx.animation.AnimationTimer;
