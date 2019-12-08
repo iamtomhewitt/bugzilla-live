@@ -50,9 +50,6 @@ public class CustomSortDialog extends VBox
 			
 			primary 	= primaryComboBox.getSelectionModel().getSelectedItem();
 			secondary 	= secondaryComboBox.getSelectionModel().getSelectedItem();
-			
-			primary		= primary.equals("Subsystem") ? "Product" : primary;
-			secondary 	= secondary.equals("Subsystem") ? "Product" : secondary;
 
 			GuiMethods.sortBugs(true, primary, secondary);
 			stage.close();
@@ -86,10 +83,7 @@ public class CustomSortDialog extends VBox
 	{
 		for (int i = 0; i < tableViewColumns.size(); i++)
 		{
-			String columnName = tableViewColumns.get(i).getText();
-			if (columnName.equals("Product"))
-				columnName = "Subsystem";
-			
+			String columnName = tableViewColumns.get(i).getText();			
 			comboBox.getItems().add(columnName);
 		}
 		

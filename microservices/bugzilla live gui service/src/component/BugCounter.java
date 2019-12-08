@@ -2,11 +2,6 @@ package component;
 
 public class BugCounter
 {
-	public static int countSubsystemBugs(String subsystem)
-	{
-		return (int) BugTable.getInstance().getTableView().getItems().stream().filter(o -> o.getProduct().equalsIgnoreCase(subsystem)).count();
-	}
-
 	public static int countSeverityBugs(String severity)
 	{
 		return (int) BugTable.getInstance().getTableView().getItems().stream().filter(o -> o.getSeverity().equalsIgnoreCase(severity)).count();

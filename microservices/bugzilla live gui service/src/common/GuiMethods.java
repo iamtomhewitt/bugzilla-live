@@ -73,10 +73,6 @@ public class GuiMethods
 				requestRefreshOfBugsInTable();
 				break;
 
-			case SUBSYSTEM:
-				requestRefreshOfBugsInTable();
-				break;
-
 			default:
 				MessageBox.showDialog(Errors.GENERAL + "\nIncorrect REQUEST_TYPE: " + GuiConstants.REQUEST_TYPE);
 				break;
