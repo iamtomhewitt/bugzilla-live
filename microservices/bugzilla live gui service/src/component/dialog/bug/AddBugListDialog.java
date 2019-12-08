@@ -2,11 +2,6 @@ package component.dialog.bug;
 
 import java.io.File;
 
-import bugzilla.common.Errors;
-import bugzilla.common.Folders;
-import bugzilla.common.MessageBox;
-import bugzilla.message.list.CreateListRequest;
-import bugzilla.utilities.Icons;
 import component.WindowsBar;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -19,6 +14,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import common.GuiConstants;
 import common.GuiMethods;
+import common.common.Errors;
+import common.common.Folders;
+import common.common.MessageBox;
+import common.message.list.CreateListRequest;
+import common.utilities.Icons;
 import message.GuiMessageSender;
 import theme.GuiStyler;
 import theme.Sizes;

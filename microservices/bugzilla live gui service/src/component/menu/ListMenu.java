@@ -2,13 +2,6 @@ package component.menu;
 
 import java.io.File;
 
-import bugzilla.common.Errors;
-import bugzilla.common.Folders;
-import bugzilla.common.MessageBox;
-import bugzilla.exception.JsonTransformationException;
-import bugzilla.exception.MessageSenderException;
-import bugzilla.message.list.DeleteListRequest;
-import bugzilla.utilities.Icons;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -18,6 +11,13 @@ import main.BugzillaLive;
 import common.GuiConstants;
 import common.GuiMethods;
 import common.RequestType;
+import common.common.Errors;
+import common.common.Folders;
+import common.common.MessageBox;
+import common.exception.JsonTransformationException;
+import common.exception.MessageSenderException;
+import common.message.list.DeleteListRequest;
+import common.utilities.Icons;
 import component.dialog.bug.AddBugListDialog;
 import message.GuiMessageSender;
 

@@ -2,14 +2,14 @@ package processor;
 
 import org.json.simple.JSONObject;
 
-import bugzilla.common.Errors;
-import bugzilla.common.MessageBox;
-import bugzilla.exception.MessageProcessorException;
 import component.InformationPane;
 import component.dialog.bug.BugCommentDialog;
 import javafx.application.Platform;
 import log.GuiLogger;
 import common.GuiMethods;
+import common.common.Errors;
+import common.common.MessageBox;
+import common.exception.MessageProcessorException;
 
 public class BugProcessor extends MessageProcessor
 {

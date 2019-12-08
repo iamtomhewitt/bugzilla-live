@@ -18,18 +18,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import bugzilla.common.bug.Bug;
-import bugzilla.common.bug.BugAttachment;
-import bugzilla.common.bug.BugComment;
-import bugzilla.exception.JsonTransformationException;
-import bugzilla.exception.MessageSenderException;
-import bugzilla.message.bug.BugCommentRequest;
-import bugzilla.message.bug.BugDetailRequest;
-import bugzilla.message.bug.BugsRequest;
-import bugzilla.message.bug.ChangeBugStatusRequest;
-import bugzilla.message.bug.UserBugsRequest;
-import bugzilla.common.Folders;
-import bugzilla.utilities.JacksonAdapter;
+import common.common.Folders;
+import common.common.bug.Bug;
+import common.common.bug.BugAttachment;
+import common.common.bug.BugComment;
+import common.exception.JsonTransformationException;
+import common.exception.MessageSenderException;
+import common.message.bug.BugCommentRequest;
+import common.message.bug.BugDetailRequest;
+import common.message.bug.BugsRequest;
+import common.message.bug.ChangeBugStatusRequest;
+import common.message.bug.UserBugsRequest;
+import common.utilities.JacksonAdapter;
 import message.GuiMessageSender;
 
 @SuppressWarnings("unchecked")

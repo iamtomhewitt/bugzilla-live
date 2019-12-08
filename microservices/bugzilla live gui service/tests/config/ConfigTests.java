@@ -18,13 +18,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import bugzilla.common.Folders;
-import bugzilla.exception.JsonTransformationException;
-import bugzilla.exception.MessageSenderException;
-import bugzilla.message.config.ApplicationGetRequest;
-import bugzilla.message.config.ApplicationSaveRequest;
-import bugzilla.message.config.UserGetRequest;
-import bugzilla.message.config.UserSaveRequest;
+import common.common.Folders;
+import common.exception.JsonTransformationException;
+import common.exception.MessageSenderException;
+import common.message.config.ApplicationGetRequest;
+import common.message.config.ApplicationSaveRequest;
+import common.message.config.UserGetRequest;
+import common.message.config.UserSaveRequest;
 import message.GuiMessageSender;
 
 public class ConfigTests

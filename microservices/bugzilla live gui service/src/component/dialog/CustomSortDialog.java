@@ -2,8 +2,6 @@ package component.dialog;
 
 import java.util.Collections;
 
-import bugzilla.common.bug.Bug;
-import bugzilla.utilities.Icons;
 import component.BugTable;
 import component.WindowsBar;
 
@@ -19,7 +17,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import common.GuiMethods;
-
+import common.common.bug.Bug;
+import common.utilities.Icons;
 import theme.GuiStyler;
 import theme.Sizes;
 

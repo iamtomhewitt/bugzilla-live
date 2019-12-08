@@ -2,8 +2,8 @@ package processor;
 
 import org.json.simple.JSONObject;
 
-import bugzilla.common.MessageBox;
-import bugzilla.exception.MessageProcessorException;
+import common.common.MessageBox;
+import common.exception.MessageProcessorException;
 import javafx.application.Platform;
 
 /**

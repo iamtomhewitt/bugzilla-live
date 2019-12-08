@@ -3,7 +3,7 @@ package component;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import bugzilla.common.Fonts;
+
 import theme.Colours;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -14,6 +14,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import common.GuiConstants;
+import common.common.Fonts;
 
 public class InformationPane
 {

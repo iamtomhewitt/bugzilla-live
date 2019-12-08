@@ -10,11 +10,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import bugzilla.common.Errors;
-import bugzilla.common.Folders;
-import bugzilla.common.Fonts;
-import bugzilla.common.MessageBox;
-import bugzilla.utilities.Icons;
 import component.WindowsBar;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
@@ -34,6 +29,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import common.GuiConstants;
+import common.common.Errors;
+import common.common.Folders;
+import common.common.Fonts;
+import common.common.MessageBox;
+import common.utilities.Icons;
 
 public class AboutDialog
 {

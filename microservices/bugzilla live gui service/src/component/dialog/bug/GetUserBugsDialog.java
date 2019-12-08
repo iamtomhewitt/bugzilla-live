@@ -1,10 +1,5 @@
 package component.dialog.bug;
 
-import bugzilla.common.Errors;
-import bugzilla.common.MessageBox;
-import bugzilla.exception.JsonTransformationException;
-import bugzilla.exception.MessageSenderException;
-import bugzilla.message.bug.UserBugsRequest;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,6 +13,11 @@ import javafx.stage.Stage;
 import common.GuiConstants;
 import common.GuiMethods;
 import common.RequestType;
+import common.common.Errors;
+import common.common.MessageBox;
+import common.exception.JsonTransformationException;
+import common.exception.MessageSenderException;
+import common.message.bug.UserBugsRequest;
 import message.GuiMessageSender;
 import theme.GuiStyler;
 import theme.Sizes;

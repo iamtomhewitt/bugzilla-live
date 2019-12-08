@@ -5,16 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import bugzilla.common.Errors;
-import bugzilla.common.MessageBox;
-import bugzilla.common.bug.Bug;
-import bugzilla.exception.JsonTransformationException;
-import bugzilla.exception.MessageSenderException;
-import bugzilla.message.bug.BugDetailRequest;
-import bugzilla.message.list.ModifyListRequest;
-import bugzilla.utilities.Icons;
-import bugzilla.utilities.Utilities;
-
 import component.InformationPane;
 import component.dialog.bug.ChangeBugStatusDialog;
 
@@ -23,7 +13,15 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
 
 import common.GuiConstants;
-
+import common.common.Errors;
+import common.common.MessageBox;
+import common.common.bug.Bug;
+import common.exception.JsonTransformationException;
+import common.exception.MessageSenderException;
+import common.message.bug.BugDetailRequest;
+import common.message.list.ModifyListRequest;
+import common.utilities.Icons;
+import common.utilities.Utilities;
 import message.GuiMessageSender;
 
 public class BugContextMenu
