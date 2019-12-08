@@ -9,12 +9,11 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import bug.BugTests;
 import config.ConfigTests;
-import document.DocumentTests;
 import exception.ExceptionTests;
 import lists.ListTests;
 
 @RunWith(Suite.class)
-@SuiteClasses({ BugTests.class, ListTests.class, ConfigTests.class, DocumentTests.class, ExceptionTests.class })
+@SuiteClasses({ BugTests.class, ListTests.class, ConfigTests.class, ExceptionTests.class })
 public class UnitTests
 {
 	public static void main(String[] args)

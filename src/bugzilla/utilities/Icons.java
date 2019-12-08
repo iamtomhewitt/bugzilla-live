@@ -24,15 +24,9 @@ public class Icons
 	public static final String COMMENT		= "file:"+Folders.ICONS_FOLDER+"Comment.png";
 	public static final String ABOUT		= "file:"+Folders.ICONS_FOLDER+"About.png";
 	public static final String THEME		= "file:"+Folders.ICONS_FOLDER+"Theme.png";
-	public static final String DOCUMENT		= "file:"+Folders.ICONS_FOLDER+"Document.png";
 	public static final String CHANGE_STATUS= "file:"+Folders.ICONS_FOLDER+"Change Status.png";
 
 	public static final int ICON_SIZE = 25;
-	
-	public static ImageView createDocumentIcon()
-	{
-		return createIcon(Icons.DOCUMENT);
-	}
 	
 	public static ImageView createThemeIcon()
 	{
