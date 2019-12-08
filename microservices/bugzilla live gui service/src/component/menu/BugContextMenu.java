@@ -11,19 +11,14 @@ import bugzilla.common.bug.Bug;
 import bugzilla.exception.JsonTransformationException;
 import bugzilla.exception.MessageSenderException;
 import bugzilla.message.bug.BugDetailRequest;
-import bugzilla.message.document.ExcelRequest;
 import bugzilla.message.list.ModifyListRequest;
 import bugzilla.utilities.Icons;
 import bugzilla.utilities.Utilities;
 
 import component.InformationPane;
-import component.dialog.ReleaseNoteDialog;
 import component.dialog.bug.ChangeBugStatusDialog;
-import component.dialog.unittest.UnitTestDialog;
 
-import javafx.collections.ObservableList;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
 
@@ -45,14 +40,8 @@ public class BugContextMenu
 		MenuItem firefox 		= new MenuItem(firefoxTitle);
 		MenuItem copy 			= new MenuItem(copyTitle);
 		MenuItem comment 		= new MenuItem("Show Comments");
-		MenuItem releaseNote 	= new MenuItem("Create Release Note");
-		MenuItem unitTest 		= new MenuItem("Create Unit Test");
-		MenuItem excel 			= new MenuItem("Export To Excel");
 		MenuItem changeStatus 	= new MenuItem("Change Bug Status");
 		MenuItem copyBugTitle 	= new MenuItem("Copy Bug Title");
-
-		Menu documentsMenu = new Menu("Documents");
-		documentsMenu.setGraphic(Icons.createDocumentIcon());
 
 		remove.setGraphic(Icons.createRemoveIcon());
 		remove.setOnAction(e ->
@@ -126,27 +115,6 @@ public class BugContextMenu
 				MessageBox.showExceptionDialog(Errors.COMMENTS, ex);
 			}
 		});
-
-		releaseNote.setOnAction(e ->
-		{
-			ObservableList<Bug> bugs = table.getSelectionModel().getSelectedItems();
-			new ReleaseNoteDialog(bugs);
-		});
-
-		unitTest.setOnAction(e -> new UnitTestDialog(table.getSelectionModel().getSelectedItem()));
-		
-		excel.setOnAction(e ->
-		{
-			ObservableList<Bug> bugs = table.getItems();
-			try
-			{
-				new GuiMessageSender().sendRequestMessage(new ExcelRequest(bugs));
-			}
-			catch(JsonTransformationException | MessageSenderException e1)
-			{
-				MessageBox.showExceptionDialog(Errors.GENERAL, e1);
-			}
-		});
 		
 		changeStatus.setGraphic(Icons.createChangeStatusIcon());
 		changeStatus.setOnAction(e -> 
@@ -164,12 +132,10 @@ public class BugContextMenu
 			Utilities.copy(title);
 		});
 
-		documentsMenu.getItems().addAll(excel, releaseNote);
-		contextMenu.getItems().addAll(remove, firefox, copy, comment, documentsMenu, changeStatus);
+		contextMenu.getItems().addAll(remove, firefox, copy, comment, changeStatus);
 
 		if (bugNumbers.size() == 1)
 		{
-			documentsMenu.getItems().add(unitTest);
 			contextMenu.getItems().add(copyBugTitle);
 		}
 
