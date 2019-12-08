@@ -24,7 +24,6 @@ import bugzilla.common.UnitTestStep;
 import bugzilla.common.bug.Bug;
 import bugzilla.message.document.ExcelRequest;
 import bugzilla.message.document.ReleaseNoteRequest;
-import bugzilla.message.document.SubsystemTestRequest;
 import bugzilla.message.document.UnitTestRequest;
 import bugzilla.utilities.JacksonAdapter;
 import message.GuiMessageSender;
@@ -75,38 +74,11 @@ public class DocumentTests
                                                                     .withIssue("issue")
                                                                     .withIssueStatus("status")
                                                                     .withBugs(mockBugs)
-                                                                    .withSubsystem("subsystem")
                                                                     .build();
         assertNotNull(request);
         assertEquals(request.getMessage(), "documentrequest");
         assertEquals(request.getFileExtension().endsWith(".documentrequest"), true);
         assertEquals(request.getOperation(), "releasenote");
-        assertEquals(request.getClassification().isEmpty(), false);
-        assertEquals(request.getDocumentTitle().isEmpty(), false);
-        assertEquals(request.getFilename().isEmpty(), false);
-        assertNotNull(request.toJson());
-        assertEquals(request.toJson().isEmpty(), false);
-    }
-    
-    @Test
-    public void testCreateSubsystemTestRequestObject() throws JsonTransformationException
-    {
-        SubsystemTestRequest request = new SubsystemTestRequest.Builder().withClassification("classification")
-                                                                    .withDeveloperUsername("username")
-                                                                    .withDocumentNumber("doc number")
-                                                                    .withDocumentTitle("doc title")
-                                                                    .withFilename("filename")
-                                                                    .withIssue("issue")
-                                                                    .withIssueStatus("status")
-                                                                    .withBugs(mockBugs)
-                                                                    .withReleaseNumber("release")
-                                                                    .withSubsystem("subsystem")
-                                                                    .withTestEnvironment("dev")
-                                                                    .build();
-        assertNotNull(request);
-        assertEquals(request.getMessage(), "documentrequest");
-        assertEquals(request.getFileExtension().endsWith(".documentrequest"), true);
-        assertEquals(request.getOperation(), "subsystemtest");
         assertEquals(request.getClassification().isEmpty(), false);
         assertEquals(request.getDocumentTitle().isEmpty(), false);
         assertEquals(request.getFilename().isEmpty(), false);
@@ -167,31 +139,7 @@ public class DocumentTests
                                                                     .withIssue("issue")
                                                                     .withIssueStatus("status")
                                                                     .withBugs(mockBugs)
-                                                                    .withSubsystem("subsystem")
                                                                     .build();        
-        new GuiMessageSender().sendRequestMessage(request);
-        
-        assertEquals(folder.listFiles().length, 1);
-        assertEquals(folder.listFiles()[0].getAbsolutePath().endsWith(".documentrequest"), true);
-        assertNotEquals(folder.listFiles()[0].length(), 0);
-    }
-    
-    @Test
-    public void testSendSubsystemTestRequest() throws JsonTransformationException, MessageSenderException
-    {
-        File folder = new File(Folders.MESSAGE_FOLDER);
-        SubsystemTestRequest request = new SubsystemTestRequest.Builder().withClassification("classification")
-                                                                        .withDeveloperUsername("username")
-                                                                        .withDocumentNumber("doc number")
-                                                                        .withDocumentTitle("doc title")
-                                                                        .withFilename("filename")
-                                                                        .withIssue("issue")
-                                                                        .withIssueStatus("status")
-                                                                        .withBugs(mockBugs)
-                                                                        .withReleaseNumber("release")
-                                                                        .withSubsystem("subsystem")
-                                                                        .withTestEnvironment("dev")
-                                                                        .build();      
         new GuiMessageSender().sendRequestMessage(request);
         
         assertEquals(folder.listFiles().length, 1);

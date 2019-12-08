@@ -17,7 +17,6 @@ public class GetBugsDialog extends VBox
 
         this.getChildren().add(new GetUserBugsDialog(stage).getVbox());
         this.getChildren().add(new Separator());
-        this.getChildren().add(new GetSubsystemBugsDialog(stage).getVbox());
 
         this.setSpacing(15);
         this.setPadding(new Insets(20));

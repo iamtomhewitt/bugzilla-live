@@ -18,7 +18,6 @@ import bugzilla.utilities.Utilities;
 
 import component.InformationPane;
 import component.dialog.ReleaseNoteDialog;
-import component.dialog.SubsystemTestDialog;
 import component.dialog.bug.ChangeBugStatusDialog;
 import component.dialog.unittest.UnitTestDialog;
 
@@ -48,7 +47,6 @@ public class BugContextMenu
 		MenuItem comment 		= new MenuItem("Show Comments");
 		MenuItem releaseNote 	= new MenuItem("Create Release Note");
 		MenuItem unitTest 		= new MenuItem("Create Unit Test");
-		MenuItem subsystemTest 	= new MenuItem("Create Subsystem Test");
 		MenuItem excel 			= new MenuItem("Export To Excel");
 		MenuItem changeStatus 	= new MenuItem("Change Bug Status");
 		MenuItem copyBugTitle 	= new MenuItem("Copy Bug Title");
@@ -136,7 +134,6 @@ public class BugContextMenu
 		});
 
 		unitTest.setOnAction(e -> new UnitTestDialog(table.getSelectionModel().getSelectedItem()));
-		subsystemTest.setOnAction(e -> new SubsystemTestDialog(table.getSelectionModel().getSelectedItems()));
 		
 		excel.setOnAction(e ->
 		{
@@ -167,7 +164,7 @@ public class BugContextMenu
 			Utilities.copy(title);
 		});
 
-		documentsMenu.getItems().addAll(excel, releaseNote, subsystemTest);
+		documentsMenu.getItems().addAll(excel, releaseNote);
 		contextMenu.getItems().addAll(remove, firefox, copy, comment, documentsMenu, changeStatus);
 
 		if (bugNumbers.size() == 1)

@@ -20,7 +20,6 @@ import bugzilla.utilities.JacksonAdapter;
  */
 public class ReleaseNoteRequest extends DocumentRequest
 {
-	private String subsystem;
 	private String documentNumber;
 	private String issue;
 	private String issueStatus;
@@ -41,7 +40,6 @@ public class ReleaseNoteRequest extends DocumentRequest
 			JSONObject message = new JSONObject();
 			message.put("message", this.getMessage());
 			message.put("operation", this.getOperation());
-			message.put("subsystem", this.subsystem);
 			message.put("filelocation", this.getFileLocation());
 			message.put("filename", this.getFilename());
 			message.put("documenttitle", this.getDocumentTitle());
@@ -50,7 +48,6 @@ public class ReleaseNoteRequest extends DocumentRequest
 			message.put("issue", this.issue);
 			message.put("issuestatus", this.issueStatus);
 			message.put("issuedate", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
-			message.put("subsystem", this.subsystem);
 	
 			if (this.bugs != null)
 			{
@@ -73,7 +70,6 @@ public class ReleaseNoteRequest extends DocumentRequest
 	
 	public static class Builder
 	{
-		private String subsystem;
 		private String documentNumber;
 		private String issue;
 		private String issueStatus;
@@ -82,12 +78,6 @@ public class ReleaseNoteRequest extends DocumentRequest
 		private String classification;
 		
 		private List<Bug> bugs;
-		
-		public Builder withSubsystem(String subsystem)
-		{
-			this.subsystem = subsystem;
-			return this;
-		}
 		
 		public Builder withDocumentNumber(String documentNumber)
 		{
@@ -144,7 +134,6 @@ public class ReleaseNoteRequest extends DocumentRequest
 			request.issue = this.issue;
 			request.issueStatus = this.issueStatus;
 			request.bugs = this.bugs;
-			request.subsystem = this.subsystem;
 			return request;
 		}
 	}

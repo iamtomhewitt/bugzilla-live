@@ -18,8 +18,6 @@ import bugzilla.exception.MessageReceiverException;
 import bugzilla.utilities.JacksonAdapter;
 
 import generator.ExcelGenerator;
-import generator.ReleaseNoteGenerator;
-import generator.SubsystemTestGenerator;
 import generator.UnitTestGenerator;
 
 import log.DocumentLogger;
@@ -56,48 +54,7 @@ public class DocumentReceiver extends MessageReceiver
 			DocumentLogger.getInstance().print("Message received");
 			
 			switch(operation)
-			{
-				case "releasenote":
-				{
-					String subsystem		= jsonObject.get("subsystem").toString();
-					String classification 	= jsonObject.get("classification").toString();
-					String documentTitle 	= jsonObject.get("documenttitle").toString();
-					String documentNumber 	= jsonObject.get("documentnumber").toString();
-					String issue 			= jsonObject.get("issue").toString();
-					String issueDate 		= jsonObject.get("issuedate").toString();
-					String issueStatus 		= jsonObject.get("issuestatus").toString();
-					String filename 		= jsonObject.get("filename").toString();
-
-					List<Bug> bugs = JacksonAdapter.fromJson(jsonObject.get("bugs").toString(), Bug.class);
-					
-					ReleaseNoteGenerator r = new ReleaseNoteGenerator.Builder().withClassification(classification)
-																				.withDocumentNumber(documentNumber)
-																				.withDocumentTitle(documentTitle)
-																				.withFilename(filename)
-																				.withIssue(issue)
-																				.withIssueDate(issueDate)
-																				.withIssueStatus(issueStatus)
-																				.withBugs(bugs)
-																				.build();							
-					String filePath = "";
-					
-					switch (subsystem)
-					{
-						case "CRM":
-							DocumentLogger.getInstance().print("Generating CRM release note");
-							filePath = r.generateCrmReleaseNote();
-							break;
-							
-						default:
-							DocumentLogger.getInstance().print("Unrecognised subsystem: " + subsystem);
-							DocumentSender.sendResponseMessage(false, "Unrecognised subsystem: " + subsystem, "");
-							return;
-					}
-					
-					DocumentSender.sendResponseMessage(true, "", filePath);
-					break;
-				}
-					
+			{									
 				case "excel":
 				{
 					List<Bug> bugs = JacksonAdapter.fromJson(jsonObject.get("Bugs").toString(), Bug.class);
@@ -128,38 +85,6 @@ public class DocumentReceiver extends MessageReceiver
 																	.build()
 																	.generateUnitTest();												
 									
-					DocumentSender.sendResponseMessage(true, "", filePath);
-					break;
-				}
-				
-				case "subsystemtest":
-				{
-					String classification 	= jsonObject.get("classification").toString();
-					String documentTitle 	= jsonObject.get("documenttitle").toString();
-					String documentNumber 	= jsonObject.get("documentnumber").toString();
-					String fileLocation 	= jsonObject.get("filelocation").toString();
-					String filename 		= jsonObject.get("filename").toString();
-					String testEnvironment	= jsonObject.get("testenvironment").toString();
-					String issue 			= jsonObject.get("issue").toString();
-					String issueStatus 		= jsonObject.get("issuestatus").toString();
-					String developerName	= jsonObject.get("developerusername").toString();
-					String releaseNumber	= jsonObject.get("releasenumber").toString();
-					List<Bug> bugs = JacksonAdapter.fromJson(jsonObject.get("bugs").toString(), Bug.class);
-
-					String filePath = new SubsystemTestGenerator.Builder().withClassification(classification)
-																			.withDeveloperName(developerName)
-																			.withDocumentNumber(documentNumber)
-																			.withDocumentTitle(documentTitle)
-																			.withFileLocation(fileLocation)
-																			.withFilename(filename)
-																			.withIssue(issue)
-																			.withIssueStatus(issueStatus)
-																			.withBugs(bugs)
-																			.withReleaseNumber(releaseNumber)
-																			.withTestEnvironment(testEnvironment)
-																			.build()
-																			.generateSubsystemTest();
-					
 					DocumentSender.sendResponseMessage(true, "", filePath);
 					break;
 				}

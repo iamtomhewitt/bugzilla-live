@@ -17,7 +17,6 @@ public class SortMenu
 		Menu numberMenu 		= createSortingSubMenu("Bug Number", "number");
 		Menu statusMenu 		= createSortingSubMenu("Status", "status");
 		Menu assignedMenu 		= createSortingSubMenu("Assigned To", "assignedTo");
-		Menu subSystemMenu 		= createSortingSubMenu("Subsystem", "subsystem");
 		Menu componentMenu 		= createSortingSubMenu("Component", "component");
 		Menu severityMenu 		= createSortingSubMenu("Severity", "severity");
 		Menu summaryMenu 		= createSortingSubMenu("Summary", "summary");
@@ -27,7 +26,7 @@ public class SortMenu
 		Menu segmentMenu 		= createSortingSubMenu("Segment Release", "segmentRelease");
 		Menu lastUpdatedMenu 	= createSortingSubMenu("Last Updated", "lastUpdated");
 
-		sortMenu.getItems().addAll(customSort, numberMenu, statusMenu, assignedMenu, subSystemMenu, componentMenu, severityMenu, summaryMenu, generatedMenu, intExtMenu, systemMenu, segmentMenu, lastUpdatedMenu);
+		sortMenu.getItems().addAll(customSort, numberMenu, statusMenu, assignedMenu, componentMenu, severityMenu, summaryMenu, generatedMenu, intExtMenu, systemMenu, segmentMenu, lastUpdatedMenu);
 	}
 	
 	public Menu getMenu()
