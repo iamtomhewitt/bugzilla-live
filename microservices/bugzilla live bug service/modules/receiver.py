@@ -44,7 +44,6 @@ class Receiver:
         # Potential operations are:
         #  numbers      - retrieve a list of ORs based on a set of numbers
         #  user         - retrieve a list of ORs for a specified user 
-        #  subsystem    - retrieve a list of ORs for a specified subsystem 
         #  detail       - retrieve a set of comments and attachments for an OR 
         #  addcomment   - adds a comment to the specified OR using a POST request
         #  changestatus - changes the status of an OR with a comment
@@ -59,14 +58,6 @@ class Receiver:
         elif operation == "user":
             user = json_data['user']
             ORs, error = b.get_ORs_for_user(user)
-            if error:
-                s.send_notification_message(False, error)
-            else:
-                s.send_OR_response_message(ORs)
-
-        elif operation == "subsystem":
-            subsystem = json_data['subsystem']
-            ORs, error = b.get_ORs_for_subsystem(subsystem)
             if error:
                 s.send_notification_message(False, error)
             else:

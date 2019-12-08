@@ -56,16 +56,6 @@ class BugzillaRequestor:
         return ORs, error
 
 
-    def get_ORs_for_subsystem(self, subsystem):
-        """
-        Makes a request to Bugzilla for a specified subsystem. Bugzilla returns a JSON response, which we parse into a list, which is
-        returned.
-        """
-        api_url = url + "/bug?product=" + subsystem + "&bug_status=Investigation&bug_status=Diagnosed&bug_status=Diagnosed&bug_status=Coded&bug_status=Addressed&bug_status=Released&bug_status=Fixed&bug_status=No Fault&bug_status=Built" + "&api_key=" + self.api_key
-        ORs, error = self.make_OR_request(api_url)
-        return ORs, error
-
-
     def get_OR_detail(self, number):
         """
         Gets the comments and attachments for an OR. Bugzilla returns a JSON response, which we parse into two separate lists, which are
@@ -181,7 +171,7 @@ class BugzillaRequestor:
     def make_OR_request(self, api_url):
         """
         A shared method for making get requests to retrieve ORs. The api_url is what specifies what kind of OR retrieval this is.
-        It could either be a a set of numbers, or a url for a specific user or subsystem.
+        It could either be a a set of numbers, or a url for a specific user.
         """
         online = False
         logging.info("| Online: " + str(online))
@@ -211,7 +201,6 @@ class BugzillaRequestor:
             an_OR['severity']            = bug['severity']
             an_OR['status']              = bug['status']
             an_OR['summary']             = bug['summary']
-            an_OR['system']              = 'Unknown' if not bug['cf_system'] else bug['cf_system'][0]
 
             ORs.append(an_OR)
 

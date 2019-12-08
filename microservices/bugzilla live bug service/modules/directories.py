@@ -21,9 +21,6 @@ test_json = """
             "last_change_time": "2014-09-23T19:12:17Z",
             "cf_intext": "Internal",
             "cf_segment_release": "1.2",
-            "cf_system": [
-                "System"
-            ],
             "assigned_to": "first.last@cgi.com",
             "component": "Component",
             "severity": "Critical",
