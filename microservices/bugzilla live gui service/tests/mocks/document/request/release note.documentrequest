@@ -1,7 +1,6 @@
 {
 	"message": "documentrequest",
     "operation": "releasenote",s
-	"subsystem": "subsystem",
     "filename": "A filename",
     "documenttitle": "title",
     "documentnumber": "number",

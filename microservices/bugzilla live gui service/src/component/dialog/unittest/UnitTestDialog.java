@@ -66,10 +66,9 @@ public class UnitTestDialog extends VBox
 		fileDetails.setSpacing(10);
 
 		// Other details
-		ComboBox<String> subsystem = createComboBox(Arrays.asList("APM", "CM", "CRM", "FM", "SM", "TMS", "INF"), 2);
 		ComboBox<String> classification = createComboBox(Arrays.asList("SECRET", "RESTRICTED", "UNCLASSIFIED"), 1);
 
-		HBox comboDetails = new HBox(subsystem, classification);
+		HBox comboDetails = new HBox(classification);
 		comboDetails.setSpacing(5);
 		comboDetails.setAlignment(Pos.CENTER);
 
@@ -98,7 +97,7 @@ public class UnitTestDialog extends VBox
 			}
 			
 			String fileLocation = fileLocationField.getText();
-			String filename = fileReferenceField.getText() + "A - Unit Test " + subsystem.getSelectionModel().getSelectedItem() + " - Bug" + bug.getNumber() + " - " + bug.getSummary();
+			String filename = fileReferenceField.getText() + "A - Unit Test - Bug" + bug.getNumber() + " - " + bug.getSummary();
 						
 			try
 			{
