@@ -58,7 +58,6 @@ public class BugTable
 		TableColumn<Bug, String> numberColumn 	= createColumn("Number", "number", X_SMALL);
 		TableColumn<Bug, String> statusColumn 	= createColumn("Status", "status", SMALL);
 		TableColumn<Bug, String> assignedColumn 	= createColumn("Assigned To", "assignedTo", SMALL);
-		TableColumn<Bug, String> productColumn 	= createColumn("Subsystem", "product", SMALL);
 		TableColumn<Bug, String> componentColumn = createColumn("Component", "component", SMALL);
 		TableColumn<Bug, String> severity 		= createColumn("Severity", "severity", SMALL);
 		TableColumn<Bug, String> summaryColumn 	= createColumn("Summary", "summary", LARGE);
@@ -69,7 +68,7 @@ public class BugTable
 		TableColumn<Bug, String> lastUpdatedColumn = createColumn("Last Updated", "lastUpdated", SMALL);
 
 		tableView = new TableView<>();
-		tableView.getColumns().addAll(numberColumn, statusColumn, assignedColumn, productColumn, componentColumn, severity, summaryColumn, genFromColumn, intExtColumn, systemColumn, segmentColumn, lastUpdatedColumn);
+		tableView.getColumns().addAll(numberColumn, statusColumn, assignedColumn, componentColumn, severity, summaryColumn, genFromColumn, intExtColumn, systemColumn, segmentColumn, lastUpdatedColumn);
 		tableView.setEditable(false);
 		tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);

@@ -27,7 +27,6 @@ import bugzilla.message.bug.BugCommentRequest;
 import bugzilla.message.bug.BugDetailRequest;
 import bugzilla.message.bug.BugsRequest;
 import bugzilla.message.bug.ChangeBugStatusRequest;
-import bugzilla.message.bug.SubsystemBugsRequest;
 import bugzilla.message.bug.UserBugsRequest;
 import bugzilla.common.Folders;
 import bugzilla.utilities.JacksonAdapter;
@@ -127,22 +126,6 @@ public class BugTests
 	}
 	
 	@Test
-    public void testCreateSubsystemBugsRequestObject()
-    {
-        SubsystemBugsRequest request = new SubsystemBugsRequest("Subsystem", USERNAME, PASSWORD, API_KEY);
-        
-        assertNotNull(request);
-        assertEquals(request.getMessage(), "orrequest");
-        assertEquals(request.getFileExtension().endsWith(".orrequest"), true);
-        assertEquals(request.getOperation(), "subsystem");
-        assertEquals(request.getUsername(), USERNAME);
-        assertEquals(request.getPassword(), PASSWORD);
-        assertEquals(request.getApiKey(), API_KEY);
-        assertNotNull(request.toJson());
-        assertEquals(request.toJson().isEmpty(), false);
-    }
-	
-	@Test
     public void testCreateUserBugsRequestObject()
     {
         UserBugsRequest request = new UserBugsRequest(USERNAME, USERNAME, PASSWORD, API_KEY);
@@ -214,19 +197,6 @@ public class BugTests
 	    File folder = new File(Folders.MESSAGE_FOLDER);
 	    List<String> numbers = Arrays.asList("12345", "22345");        
         BugsRequest request = new BugsRequest(numbers, USERNAME, PASSWORD, API_KEY);    
-        
-        new GuiMessageSender().sendRequestMessage(request);
-        
-        assertEquals(folder.listFiles().length, 1);
-        assertEquals(folder.listFiles()[0].getAbsolutePath().endsWith(".orrequest"), true);
-        assertNotEquals(folder.listFiles()[0].length(), 0);
-    }
-	
-	@Test
-    public void testSendSusbsystemBugsRequest() throws JsonTransformationException, MessageSenderException
-    {
-        File folder = new File(Folders.MESSAGE_FOLDER);
-        SubsystemBugsRequest request = new SubsystemBugsRequest("Subsystem", USERNAME, PASSWORD, API_KEY);  
         
         new GuiMessageSender().sendRequestMessage(request);
         

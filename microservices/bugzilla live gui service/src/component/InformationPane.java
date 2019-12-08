@@ -20,7 +20,6 @@ public class InformationPane
 	private VBox pane = new VBox();
 	private VBox refreshedVbox = new VBox();
 
-	private List<Label> subsystemLabels 	= new ArrayList<Label>();
 	private List<Label> statusLabels 		= new ArrayList<Label>();
 	private List<Label> severityLabels 		= new ArrayList<Label>();
 	private List<Label> headingLabels 		= new ArrayList<Label>();
@@ -38,17 +37,6 @@ public class InformationPane
 
 		title = createLabel("Bugs", Fonts.FONT, FontWeight.EXTRA_BOLD, Fonts.FONT_SIZE_SUPER, Color.WHITE);
 		title.setWrapText(true);
-
-		Label subsystem = createHeadingLabel("Subsystem");
-
-		Label apmBugs 		= createSubHeadingLabel("APM", Colours.toHex(Color.TOMATO), subsystemLabels);
-		Label cmBugs 		= createSubHeadingLabel("CM", Colours.toHex(Color.YELLOW), subsystemLabels);
-		Label crmBugs 		= createSubHeadingLabel("CRM", Colours.toHex(Color.YELLOWGREEN), subsystemLabels);
-		Label fmBugs 		= createSubHeadingLabel("FM", Colours.toHex(Color.LIGHTBLUE), subsystemLabels);
-		Label tmsBugs 		= createSubHeadingLabel("TMS", Colours.toHex(Color.BLUE), subsystemLabels);
-		Label smBugs 		= createSubHeadingLabel("SM", Colours.toHex(Color.PURPLE), subsystemLabels);
-		Label infBugs 		= createSubHeadingLabel("INF", Colours.toHex(Color.ORANGE), subsystemLabels);
-		Label segmentBugs 	= createSubHeadingLabel("SEGMENT", Colours.toHex(Color.ALICEBLUE), subsystemLabels);
 
 		Label severity 		= createHeadingLabel("\nSeverity");
 		Label critical 		= createSubHeadingLabel("Critical", Colours.CRITICAL, severityLabels);
@@ -74,7 +62,7 @@ public class InformationPane
 
 		subheadingLabels.add(refreshed);
 
-		pane.getChildren().addAll(title, refreshedVbox, subsystem, apmBugs, cmBugs, crmBugs, fmBugs, smBugs, tmsBugs, infBugs, segmentBugs, severity, critical, high, medium, low, unknown, status, investigation, diagnosed, addressed, coded, built, released, fixed, noFault, closed);
+		pane.getChildren().addAll(title, refreshedVbox, severity, critical, high, medium, low, unknown, status, investigation, diagnosed, addressed, coded, built, released, fixed, noFault, closed);
 		pane.setSpacing(12);
 		pane.setPadding(new Insets(20, 15, 15, 15));
 		pane.setMinWidth(250);
@@ -95,12 +83,6 @@ public class InformationPane
 				title.setText(filename + BugTable.getInstance().getTableView().getItems().size() + " Bugs");
 
 				refreshed.setText(Calendar.getInstance().getTime().toString());
-
-				for (Label l : subsystemLabels)
-				{
-					String subsystem = l.getText().split(":")[0];
-					l.setText(subsystem + ": " + BugCounter.countSubsystemBugs(subsystem));
-				}
 
 				for (Label l : severityLabels)
 				{

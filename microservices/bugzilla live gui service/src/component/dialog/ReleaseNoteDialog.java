@@ -52,7 +52,6 @@ public class ReleaseNoteDialog extends VBox
 		save.setAlignment(Pos.CENTER);
 		save.setSpacing(20);
 		
-		ComboBox<String> subsystemCombo 		= createComboBox(Arrays.asList("APM", "CM", "CRM", "FM", "SM", "TMS", "INF", "SEGMENT"), 2);
 		ComboBox<String> classificationCombo 	= createComboBox(Arrays.asList("SECRET", "RESTRICTED", "UNCLASSIFIED"), 1);
 
 		saveLocation.setMaxWidth(150);
@@ -80,19 +79,17 @@ public class ReleaseNoteDialog extends VBox
 				}
 			}
 			
-			String subsystem = subsystemCombo.getSelectionModel().getSelectedItem();
 			String classification = classificationCombo.getSelectionModel().getSelectedItem();
 			
 			try
 			{
 				ReleaseNoteRequest request = new ReleaseNoteRequest.Builder().withClassification(classification)
 																			.withDocumentNumber(documentReference.getText())
-																			.withDocumentTitle(subsystem + " " + releaseNumber.getText() + " Release Note")
+																			.withDocumentTitle(releaseNumber.getText() + " Release Note")
 																			.withFilename(filename.getText())
 																			.withIssue(issue.getText())
 																			.withIssueStatus(issueStatus.getText())
 																			.withBugs(bugs)
-																			.withSubsystem(subsystem)
 																			.build();
 				new GuiMessageSender().sendRequestMessage(request);
 			}
@@ -111,7 +108,7 @@ public class ReleaseNoteDialog extends VBox
 		this.setPadding(new Insets(20));
 		this.setAlignment(Pos.CENTER);
 		this.setStyle("-fx-background-color: white");
-		this.getChildren().addAll(filename, save, releaseNumber, documentReference, issue, issueStatus, subsystemCombo, classificationCombo, generateButton);
+		this.getChildren().addAll(filename, save, releaseNumber, documentReference, issue, issueStatus, classificationCombo, generateButton);
 		
 		stage.setScene(new Scene(WindowsBar.createWindowsBar(stage, this, "Create Release Note"), 300, 475));
 		stage.show();
