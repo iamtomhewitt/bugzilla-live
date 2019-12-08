@@ -16,13 +16,11 @@ public class Folders
 	public static final String PYTHON_FOLDER 				= "C:\\BugzillaLive\\python\\";
 	
 	public static final String CONFIG_SERVICE_FOLDER 		= "C:\\BugzillaLive\\services\\config service\\";
-	public static final String DOCUMENT_SERVICE_FOLDER 		= "C:\\BugzillaLive\\services\\document service\\";
 	public static final String GUI_SERVICE_FOLDER 			= "C:\\BugzillaLive\\services\\gui service\\";
 	public static final String LIST_MANAGER_SERVICE_FOLDER 	= "C:\\BugzillaLive\\services\\list manager service\\";
 	public static final String LOGIN_SERVICE_FOLDER 		= "C:\\BugzillaLive\\services\\login service\\";
 	public static final String BUG_SERVICE_FOLDER 			= "C:\\BugzillaLive\\services\\bug service\\";
 	
 	public static final String PROPERTIES_FOLDER			= "C:\\BugzillaLive\\config\\properties\\";
-	public static final String DOCUMENTS_FOLDER 			= "C:\\BugzillaLive\\config\\documents\\";
 	public static final String TEMPLATES_FOLDER 			= "C:\\BugzillaLive\\config\\templates\\";
 }

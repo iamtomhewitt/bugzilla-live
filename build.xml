@@ -70,7 +70,6 @@
 			<ant antfile="microservices\bugzilla live bug service\build.xml" target="build_bug_service_${build.type}" />
 			<ant antfile="microservices\bugzilla live gui service\build.xml" target="create_jar_${build.type}" />
 			<ant antfile="microservices\bugzilla live login service\build.xml" target="create_jar_${build.type}" />
-			<ant antfile="microservices\bugzilla live document service\build.xml" target="create_jar_${build.type}" />
 		</parallel>
 	</target>
 
