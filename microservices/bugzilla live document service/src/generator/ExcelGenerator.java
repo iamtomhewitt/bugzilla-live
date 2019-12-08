@@ -22,7 +22,7 @@ public class ExcelGenerator
 	{
 		try 
 		{
-			List<String> columns = Arrays.asList("Number", "Status", "Assigned To", "Subsystem", "Component", "Severity", "Summary", "Generated From", "Internal/External", "Environment", "Segment Release", "Last Updated");
+			List<String> columns = Arrays.asList("Number", "Status", "Assigned To", "Component", "Severity", "Summary", "Generated From", "Internal/External", "Environment", "Segment Release", "Last Updated");
 		
 			String fileLocation = Folders.DOCUMENTS_FOLDER + Calendar.getInstance().getTimeInMillis() + ".csv";
 	
