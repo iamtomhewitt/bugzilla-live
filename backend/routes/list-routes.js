@@ -1,5 +1,8 @@
 var express = require('express')
 var router = express.Router();
+var fs = require('fs');
+
+var listFolder = 'C:\\temp\\'
 
 router.get('/', function (req, res) {
     res.send('/list is working');
@@ -10,9 +13,27 @@ router.get('/add', function (req, res) {
     var name = req.query.name;
     var contents = req.query.contents;
 
-    console.log(name);
-    console.log(contents);
-    res.send('/add with name ' + name + ' and contents ' + contents);
+    let response;
+
+    fs.appendFile(listFolder + name + ".bugList", contents, function (err) {
+        if (err) {
+            response = {
+                "message": "configResponse",
+                "operation": "notification",
+                "successful": false,
+                "failureReason": err.message
+            }
+            res.send(response).json();
+        }
+        else {
+            response = {
+                "message": "configResponse",
+                "operation": "notification",
+                "successful": true,
+            }
+            res.send(response).json();
+        }
+    })
 });
 
 // Modify an existing list
