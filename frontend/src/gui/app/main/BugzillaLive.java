@@ -87,11 +87,6 @@ public class BugzillaLive extends Application
 		welcomeLabel.setFont(Font.font(Fonts.FONT_SIZE_SUPER));
 		table.getTableView().setPlaceholder(welcomeLabel);
 
-		// Cache persistent objects so they can be used later
-		//GUIConstants.USERNAME = "thomas.hewitt";
-		//GUIConstants.PASSWORD = "thomas2610";
-		//GUIConstants.APIKEY = "Ypl9KMk64Rt2FT0sE0tfM9K6zlITWJnIBW6zRChA";
-
 		try
 		{
 			GuiConstants.PREFILTERED_BUG_DATA = JacksonAdapter.toJson(table.getTableView().getItems());
