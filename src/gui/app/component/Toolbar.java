@@ -1,8 +1,8 @@
-package component;
+package gui.app.component;
 
-import component.menu.FileMenu;
-import component.menu.HelpMenu;
-import component.menu.SortMenu;
+import gui.app.component.menu.FileMenu;
+import gui.app.component.menu.HelpMenu;
+import gui.app.component.menu.SortMenu;
 import javafx.scene.control.MenuBar;
 
 /** 

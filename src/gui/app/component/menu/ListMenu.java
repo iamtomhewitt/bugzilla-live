@@ -1,4 +1,4 @@
-package component.menu;
+package gui.app.component.menu;
 
 import java.io.File;
 
@@ -7,10 +7,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.FileChooser;
-import main.BugzillaLive;
-import common.GuiConstants;
-import common.GuiMethods;
-import common.RequestType;
 import common.common.Errors;
 import common.common.Folders;
 import common.common.MessageBox;
@@ -18,8 +14,12 @@ import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.list.DeleteListRequest;
 import common.utilities.Icons;
-import component.dialog.bug.AddBugListDialog;
-import message.GuiMessageSender;
+import gui.app.common.GuiConstants;
+import gui.app.common.GuiMethods;
+import gui.app.common.RequestType;
+import gui.app.component.dialog.bug.AddBugListDialog;
+import gui.app.main.BugzillaLive;
+import gui.app.message.GuiMessageSender;
 
 public class ListMenu
 {

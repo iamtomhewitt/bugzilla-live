@@ -1,4 +1,4 @@
-package component.dialog.bug;
+package gui.app.component.dialog.bug;
 
 import java.io.IOException;
 import java.text.DateFormatSymbols;
@@ -12,7 +12,6 @@ import java.util.concurrent.Callable;
 
 import org.json.simple.JSONObject;
 
-import common.GuiMethods;
 import common.common.Errors;
 import common.common.Fonts;
 import common.common.MessageBox;
@@ -21,8 +20,12 @@ import common.common.bug.BugComment;
 import common.exception.JsonTransformationException;
 import common.utilities.Icons;
 import common.utilities.JacksonAdapter;
-import component.WindowsBar;
-import component.dialog.AddCommentDialog;
+import gui.app.common.GuiMethods;
+import gui.app.component.WindowsBar;
+import gui.app.component.dialog.AddCommentDialog;
+import gui.app.log.GuiLogger;
+import gui.app.theme.GuiStyler;
+import gui.app.theme.Sizes;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
@@ -42,9 +45,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import log.GuiLogger;
-import theme.GuiStyler;
-import theme.Sizes;
 
 /**
  * Shows the comments as well as attachments (which come through as comments as well) for a given Bug number.

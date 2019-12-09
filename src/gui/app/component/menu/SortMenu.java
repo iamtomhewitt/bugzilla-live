@@ -1,9 +1,9 @@
-package component.menu;
+package gui.app.component.menu;
 
-import component.dialog.CustomSortDialog;
+import gui.app.common.GuiMethods;
+import gui.app.component.dialog.CustomSortDialog;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import common.GuiMethods;
 
 public class SortMenu
 {
@@ -17,7 +17,7 @@ public class SortMenu
 		Menu numberMenu 		= createSortingSubMenu("Bug Number", "number");
 		Menu statusMenu 		= createSortingSubMenu("Status", "status");
 		Menu assignedMenu 		= createSortingSubMenu("Assigned To", "assignedTo");
-		Menu componentMenu 		= createSortingSubMenu("Component", "component");
+		Menu componentMenu 		= createSortingSubMenu("Component", "gui.app.component");
 		Menu severityMenu 		= createSortingSubMenu("Severity", "severity");
 		Menu summaryMenu 		= createSortingSubMenu("Summary", "summary");
 		Menu generatedMenu 		= createSortingSubMenu("Generated From", "generatedFrom");

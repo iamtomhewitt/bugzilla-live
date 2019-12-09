@@ -1,4 +1,4 @@
-package exception;
+package gui.app.tests.exception;
 
 import org.json.simple.JSONObject;
 import org.junit.Test;
@@ -9,9 +9,9 @@ import common.exception.MessageProcessorException;
 import common.exception.MessageReceiverException;
 import common.exception.MessageSenderException;
 import common.utilities.JacksonAdapter;
-import message.GuiMessageReceiver;
-import message.GuiMessageSender;
-import processor.ListProcessor;
+import gui.app.message.GuiMessageReceiver;
+import gui.app.message.GuiMessageSender;
+import gui.app.processor.ListProcessor;
 
 public class ExceptionTests 
 {    

@@ -1,13 +1,13 @@
-package processor;
+package gui.app.processor;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import log.GuiLogger;
-import theme.Colours;
-import common.GuiConstants;
-import common.GuiMethods;
 import common.utilities.Encryptor;
+import gui.app.common.GuiConstants;
+import gui.app.common.GuiMethods;
+import gui.app.log.GuiLogger;
+import gui.app.theme.Colours;
 
 public class ConfigProcessor extends MessageProcessor
 {

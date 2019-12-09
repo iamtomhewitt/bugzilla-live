@@ -1,6 +1,11 @@
-package component.dialog;
+package gui.app.component.dialog;
 
-import component.WindowsBar;
+import gui.app.component.WindowsBar;
+import gui.app.message.GuiMessageSender;
+import gui.app.theme.GuiStyler;
+import gui.app.theme.Sizes;
+import gui.app.common.BugTemplates;
+import gui.app.common.GuiConstants;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,7 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
-import common.GuiConstants;
 import common.common.Errors;
 import common.common.Fonts;
 import common.common.MessageBox;
@@ -21,10 +25,6 @@ import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.bug.BugCommentRequest;
 import common.utilities.Icons;
-import common.BugTemplates;
-import message.GuiMessageSender;
-import theme.GuiStyler;
-import theme.Sizes;
 
 public class AddCommentDialog extends VBox 
 {

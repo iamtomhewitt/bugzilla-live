@@ -1,4 +1,4 @@
-package component;
+package gui.app.component;
 
 import java.io.IOException;
 import java.util.function.Predicate;
@@ -19,10 +19,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import theme.GuiStyler;
-import theme.Sizes;
-import common.GuiConstants;
-import common.GuiMethods;
 import common.common.Errors;
 import common.common.Fonts;
 import common.common.MessageBox;
@@ -31,8 +27,12 @@ import common.exception.JsonTransformationException;
 import common.utilities.Icons;
 import common.utilities.JacksonAdapter;
 import common.utilities.Utilities;
-import component.dialog.bug.AddBugDialog;
-import component.dialog.bug.GetBugsDialog;
+import gui.app.common.GuiConstants;
+import gui.app.common.GuiMethods;
+import gui.app.component.dialog.bug.AddBugDialog;
+import gui.app.component.dialog.bug.GetBugsDialog;
+import gui.app.theme.GuiStyler;
+import gui.app.theme.Sizes;
 
 /**
  * The bar above the table showing buttons to navigate around the application.

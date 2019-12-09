@@ -1,4 +1,4 @@
-package common;
+package gui.app.common;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -17,20 +17,20 @@ import common.exception.MessageSenderException;
 import common.message.bug.BugsRequest;
 import common.message.bug.UserBugsRequest;
 import common.utilities.JacksonAdapter;
-import component.InformationPane;
-import component.BugComparator;
-import component.BugTable;
-import component.WindowsBar;
+import gui.app.component.InformationPane;
+import gui.app.component.BugComparator;
+import gui.app.component.BugTable;
+import gui.app.component.WindowsBar;
+import gui.app.main.BugzillaLive;
+import gui.app.message.GuiMessageSender;
+import gui.app.theme.Colours;
+import gui.app.theme.RowColours;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import main.BugzillaLive;
-import message.GuiMessageSender;
-import theme.Colours;
-import theme.RowColours;
 
 /**
  * A collection of static methods to be called from anywhere in the application.

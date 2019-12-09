@@ -1,4 +1,4 @@
-package processor;
+package gui.app.processor;
 
 import org.json.simple.JSONObject;
 

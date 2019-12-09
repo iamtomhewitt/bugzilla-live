@@ -1,4 +1,4 @@
-package component.menu;
+package gui.app.component.menu;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ import common.common.Errors;
 import common.common.MessageBox;
 import common.utilities.Icons;
 import common.utilities.Utilities;
-import component.dialog.AboutDialog;
+import gui.app.component.dialog.AboutDialog;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 

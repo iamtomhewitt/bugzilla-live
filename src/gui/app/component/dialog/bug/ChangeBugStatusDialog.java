@@ -1,11 +1,16 @@
-package component.dialog.bug;
+package gui.app.component.dialog.bug;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import component.WindowsBar;
+import gui.app.common.BugTemplates;
+import gui.app.common.GuiConstants;
+import gui.app.component.WindowsBar;
+import gui.app.message.GuiMessageSender;
+import gui.app.theme.GuiStyler;
+import gui.app.theme.Sizes;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,7 +23,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
-import common.GuiConstants;
 import common.common.Errors;
 import common.common.Fonts;
 import common.common.MessageBox;
@@ -26,10 +30,6 @@ import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.bug.ChangeBugStatusRequest;
 import common.utilities.Icons;
-import common.BugTemplates;
-import message.GuiMessageSender;
-import theme.GuiStyler;
-import theme.Sizes;
 
 public class ChangeBugStatusDialog extends VBox 
 {

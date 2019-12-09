@@ -1,12 +1,12 @@
-package processor;
+package gui.app.processor;
 
 import org.json.simple.JSONObject;
 
-import component.InformationPane;
-import component.dialog.bug.BugCommentDialog;
+import gui.app.common.GuiMethods;
+import gui.app.component.InformationPane;
+import gui.app.component.dialog.bug.BugCommentDialog;
+import gui.app.log.GuiLogger;
 import javafx.application.Platform;
-import log.GuiLogger;
-import common.GuiMethods;
 import common.common.Errors;
 import common.common.MessageBox;
 import common.exception.MessageProcessorException;

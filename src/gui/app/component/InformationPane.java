@@ -1,10 +1,9 @@
-package component;
+package gui.app.component;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import theme.Colours;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -13,8 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import common.GuiConstants;
 import common.common.Fonts;
+import gui.app.common.GuiConstants;
+import gui.app.theme.Colours;
 
 public class InformationPane
 {

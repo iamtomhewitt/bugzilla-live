@@ -1,4 +1,4 @@
-package config;
+package gui.app.tests.config;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -25,7 +25,7 @@ import common.message.config.ApplicationGetRequest;
 import common.message.config.ApplicationSaveRequest;
 import common.message.config.UserGetRequest;
 import common.message.config.UserSaveRequest;
-import message.GuiMessageSender;
+import gui.app.message.GuiMessageSender;
 
 public class ConfigTests
 {

@@ -1,4 +1,4 @@
-package theme;
+package gui.app.theme;
 
 import javafx.scene.paint.Color;
 

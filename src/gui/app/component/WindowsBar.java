@@ -1,6 +1,7 @@
-package component;
+package gui.app.component;
 
 import common.common.Fonts;
+import gui.app.theme.Colours;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -19,7 +20,6 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import theme.Colours;
 
 public class WindowsBar
 {		
