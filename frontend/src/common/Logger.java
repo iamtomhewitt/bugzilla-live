@@ -1,4 +1,4 @@
-package common.common;
+package common;
 
 import java.io.File;
 import java.io.FileWriter;

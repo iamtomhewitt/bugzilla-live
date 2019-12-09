@@ -3,7 +3,7 @@ package gui.app.message;
 import java.io.File;
 import java.io.FileWriter;
 
-import common.common.Folders;
+import common.Folders;
 import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.Message;

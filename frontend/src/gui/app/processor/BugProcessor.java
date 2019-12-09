@@ -7,8 +7,8 @@ import gui.app.component.InformationPane;
 import gui.app.component.dialog.bug.BugCommentDialog;
 import gui.app.log.GuiLogger;
 import javafx.application.Platform;
-import common.common.Errors;
-import common.common.MessageBox;
+import common.Errors;
+import common.MessageBox;
 import common.exception.MessageProcessorException;
 
 public class BugProcessor extends MessageProcessor

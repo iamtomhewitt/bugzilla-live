@@ -1,4 +1,4 @@
-package common.common.bug;
+package common.bug;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Base64;
 
-import common.common.Folders;
+import common.Folders;
 
 /**
  * Data class of an attachment in a bug.

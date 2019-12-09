@@ -14,7 +14,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import common.common.Folders;
+import common.Folders;
 import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.list.CreateListRequest;

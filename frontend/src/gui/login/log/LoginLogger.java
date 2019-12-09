@@ -2,8 +2,8 @@ package gui.login.log;
 
 import java.io.File;
 
-import common.common.Folders;
-import common.common.Logger;
+import common.Folders;
+import common.Logger;
 
 /**
  * Logs activity of the login service.

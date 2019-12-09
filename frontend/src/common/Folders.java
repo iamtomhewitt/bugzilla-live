@@ -1,4 +1,4 @@
-package common.common;
+package common;
 
 /**
  * Folders used in the application and micro services.

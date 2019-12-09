@@ -1,4 +1,4 @@
-package common.common.bug;
+package common.bug;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;

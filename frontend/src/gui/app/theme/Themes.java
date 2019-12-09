@@ -3,8 +3,8 @@ package gui.app.theme;
 import java.util.HashMap;
 import java.util.Map;
 
-import common.common.Errors;
-import common.common.MessageBox;
+import common.Errors;
+import common.MessageBox;
 import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.config.ApplicationSaveRequest;

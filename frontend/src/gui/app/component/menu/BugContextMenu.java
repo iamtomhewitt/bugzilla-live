@@ -13,9 +13,9 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
 
-import common.common.Errors;
-import common.common.MessageBox;
-import common.common.bug.Bug;
+import common.Errors;
+import common.MessageBox;
+import common.bug.Bug;
 import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.bug.BugDetailRequest;

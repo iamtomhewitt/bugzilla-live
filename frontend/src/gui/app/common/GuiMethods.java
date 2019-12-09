@@ -8,10 +8,10 @@ import java.util.Collections;
 import java.util.List;
 import org.json.simple.JSONObject;
 
-import common.common.Errors;
-import common.common.Fonts;
-import common.common.MessageBox;
-import common.common.bug.Bug;
+import common.Errors;
+import common.Fonts;
+import common.MessageBox;
+import common.bug.Bug;
 import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.bug.BugsRequest;

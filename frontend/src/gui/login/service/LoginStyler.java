@@ -1,6 +1,6 @@
 package gui.login.service;
 
-import common.common.Fonts;
+import common.Fonts;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

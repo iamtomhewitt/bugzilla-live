@@ -3,7 +3,7 @@ package gui.app.tests.exception;
 import org.json.simple.JSONObject;
 import org.junit.Test;
 
-import common.common.bug.Bug;
+import common.bug.Bug;
 import common.exception.JsonTransformationException;
 import common.exception.MessageProcessorException;
 import common.exception.MessageReceiverException;
