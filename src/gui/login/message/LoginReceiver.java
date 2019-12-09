@@ -1,4 +1,4 @@
-package message;
+package gui.login.message;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,8 +19,8 @@ import common.common.Errors;
 import common.common.MessageBox;
 import common.message.MessageReceiver;
 import common.utilities.Encryptor;
+import gui.login.log.LoginLogger;
 import javafx.application.Platform;
-import log.LoginLogger;
 
 /**
  * Processes config response files for the login service - so that the fields can be pre-populated.

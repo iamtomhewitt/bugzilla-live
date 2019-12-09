@@ -1,4 +1,4 @@
-package log;
+package gui.login.log;
 
 import java.io.File;
 

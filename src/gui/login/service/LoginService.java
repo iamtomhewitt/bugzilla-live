@@ -1,4 +1,4 @@
-package service;
+package gui.login.service;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,6 +13,8 @@ import common.message.config.ApplicationGetRequest;
 import common.message.config.UserGetRequest;
 import common.message.config.UserSaveRequest;
 import common.utilities.Encryptor;
+import gui.login.message.LoginReceiver;
+import gui.login.message.LoginSender;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -29,8 +31,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import message.LoginReceiver;
-import message.LoginSender;
 
 /**
  * The main entry point for the login service.

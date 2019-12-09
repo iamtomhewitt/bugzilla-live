@@ -1,4 +1,4 @@
-package message;
+package gui.login.message;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -8,7 +8,7 @@ import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.Message;
 import common.message.MessageSender;
-import log.LoginLogger;
+import gui.login.log.LoginLogger;
 
 /**
  * Sends request messages for the login service. Mainly config requests to populate the fields on startup, or to send information to the main application,
