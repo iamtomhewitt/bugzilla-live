@@ -1,4 +1,4 @@
-package message;
+package gui.app.message;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -8,7 +8,7 @@ import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.Message;
 import common.message.MessageSender;
-import log.GuiLogger;
+import gui.app.log.GuiLogger;
 
 /**
  * Sends request messages for the GUI service. Mainly request messages for other services.

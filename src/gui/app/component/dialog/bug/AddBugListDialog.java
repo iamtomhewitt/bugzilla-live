@@ -1,8 +1,13 @@
-package component.dialog.bug;
+package gui.app.component.dialog.bug;
 
 import java.io.File;
 
-import component.WindowsBar;
+import gui.app.common.GuiConstants;
+import gui.app.common.GuiMethods;
+import gui.app.component.WindowsBar;
+import gui.app.message.GuiMessageSender;
+import gui.app.theme.GuiStyler;
+import gui.app.theme.Sizes;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,16 +17,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import common.GuiConstants;
-import common.GuiMethods;
 import common.common.Errors;
 import common.common.Folders;
 import common.common.MessageBox;
 import common.message.list.CreateListRequest;
 import common.utilities.Icons;
-import message.GuiMessageSender;
-import theme.GuiStyler;
-import theme.Sizes;
 
 /**
  * A dialog box used for creating a new list of bugs in the form of a .txt file.

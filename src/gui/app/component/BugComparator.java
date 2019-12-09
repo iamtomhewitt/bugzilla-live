@@ -1,4 +1,4 @@
-package component;
+package gui.app.component;
 
 import java.beans.PropertyDescriptor;
 import java.text.ParseException;

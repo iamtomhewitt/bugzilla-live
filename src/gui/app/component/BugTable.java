@@ -1,11 +1,13 @@
-package component;
+package gui.app.component;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import component.menu.BugContextMenu;
-import theme.RowColours;
+import gui.app.common.GuiConstants;
+import gui.app.component.menu.BugContextMenu;
+import gui.app.message.GuiMessageSender;
+import gui.app.theme.RowColours;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -23,7 +25,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
-import common.GuiConstants;
 import common.common.Errors;
 import common.common.Fonts;
 import common.common.MessageBox;
@@ -32,7 +33,6 @@ import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.bug.BugDetailRequest;
 import common.utilities.Utilities;
-import message.GuiMessageSender;
 
 /**
  * The main table in the middle of the GUI that holds information about all the bugs.
@@ -58,7 +58,7 @@ public class BugTable
 		TableColumn<Bug, String> numberColumn 	= createColumn("Number", "number", X_SMALL);
 		TableColumn<Bug, String> statusColumn 	= createColumn("Status", "status", SMALL);
 		TableColumn<Bug, String> assignedColumn 	= createColumn("Assigned To", "assignedTo", SMALL);
-		TableColumn<Bug, String> componentColumn = createColumn("Component", "component", SMALL);
+		TableColumn<Bug, String> componentColumn = createColumn("Component", "gui.app.component", SMALL);
 		TableColumn<Bug, String> severity 		= createColumn("Severity", "severity", SMALL);
 		TableColumn<Bug, String> summaryColumn 	= createColumn("Summary", "summary", LARGE);
 		TableColumn<Bug, String> genFromColumn 	= createColumn("Generated From", "generatedFrom", MEDIUM);

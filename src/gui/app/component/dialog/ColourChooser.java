@@ -1,11 +1,10 @@
-package component.dialog;
+package gui.app.component.dialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import common.GuiMethods;
 import common.common.Errors;
 import common.common.Fonts;
 import common.common.MessageBox;
@@ -13,8 +12,13 @@ import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.config.ApplicationSaveRequest;
 import common.utilities.Icons;
-import component.BugTable;
-import component.WindowsBar;
+import gui.app.common.GuiMethods;
+import gui.app.component.BugTable;
+import gui.app.component.WindowsBar;
+import gui.app.message.GuiMessageSender;
+import gui.app.theme.Colours;
+import gui.app.theme.GuiStyler;
+import gui.app.theme.Sizes;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,10 +31,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import message.GuiMessageSender;
-import theme.Colours;
-import theme.GuiStyler;
-import theme.Sizes;
 
 public class ColourChooser extends VBox
 {		

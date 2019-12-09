@@ -1,4 +1,4 @@
-package theme;
+package gui.app.theme;
 
 import common.common.Fonts;
 import javafx.beans.binding.Bindings;

@@ -1,15 +1,15 @@
-package theme;
+package gui.app.theme;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import common.GuiMethods;
 import common.common.Errors;
 import common.common.MessageBox;
 import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.config.ApplicationSaveRequest;
-import message.GuiMessageSender;
+import gui.app.common.GuiMethods;
+import gui.app.message.GuiMessageSender;
 
 public class Themes
 {

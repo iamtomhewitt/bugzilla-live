@@ -1,4 +1,4 @@
-package common;
+package gui.app.common;
 
 import java.io.File;
 

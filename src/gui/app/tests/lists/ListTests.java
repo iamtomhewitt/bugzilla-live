@@ -1,4 +1,4 @@
-package lists;
+package gui.app.tests.lists;
 
 import static org.junit.Assert.*;
 
@@ -20,7 +20,7 @@ import common.exception.MessageSenderException;
 import common.message.list.CreateListRequest;
 import common.message.list.DeleteListRequest;
 import common.message.list.ModifyListRequest;
-import message.GuiMessageSender;
+import gui.app.message.GuiMessageSender;
 
 public class ListTests
 {

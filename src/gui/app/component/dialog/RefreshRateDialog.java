@@ -1,21 +1,21 @@
-package component.dialog;
+package gui.app.component.dialog;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import component.WindowsBar;
-import common.GuiConstants;
+import gui.app.common.GuiConstants;
+import gui.app.component.WindowsBar;
+import gui.app.message.GuiMessageSender;
+import gui.app.theme.GuiStyler;
+import gui.app.theme.Sizes;
 import common.common.Errors;
 import common.common.MessageBox;
 import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.config.ApplicationSaveRequest;
 import common.utilities.Icons;
-import message.GuiMessageSender;
-import theme.GuiStyler;
-import theme.Sizes;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

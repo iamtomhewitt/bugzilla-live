@@ -1,4 +1,4 @@
-package main;
+package gui.app.tests.main;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
@@ -7,10 +7,10 @@ import org.junit.runner.notification.Failure;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import bug.BugTests;
-import config.ConfigTests;
-import exception.ExceptionTests;
-import lists.ListTests;
+import gui.app.tests.bug.BugTests;
+import gui.app.tests.config.ConfigTests;
+import gui.app.tests.exception.ExceptionTests;
+import gui.app.tests.lists.ListTests;
 
 @RunWith(Suite.class)
 @SuiteClasses({ BugTests.class, ListTests.class, ConfigTests.class, ExceptionTests.class })

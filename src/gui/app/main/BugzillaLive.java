@@ -1,16 +1,17 @@
-package main;
+package gui.app.main;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 
-import component.InformationPane;
-import component.NavBar;
-import component.BugTable;
-import component.Toolbar;
-import component.WindowsBar;
-import common.GuiConstants;
-import common.GuiMethods;
+import gui.app.component.InformationPane;
+import gui.app.component.NavBar;
+import gui.app.common.GuiConstants;
+import gui.app.common.GuiMethods;
+import gui.app.component.BugTable;
+import gui.app.component.Toolbar;
+import gui.app.component.WindowsBar;
+import gui.app.message.GuiMessageReceiver;
 import common.common.Errors;
 import common.common.Folders;
 import common.common.Fonts;
@@ -30,7 +31,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import message.GuiMessageReceiver;
 
 public class BugzillaLive extends Application
 {

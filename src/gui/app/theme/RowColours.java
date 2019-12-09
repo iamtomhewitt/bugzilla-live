@@ -1,4 +1,4 @@
-package theme;
+package gui.app.theme;
 
 public class RowColours
 {

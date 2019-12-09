@@ -1,10 +1,12 @@
-package component.dialog;
+package gui.app.component.dialog;
 
 import java.util.Collections;
 
-import component.BugTable;
-import component.WindowsBar;
-
+import gui.app.common.GuiMethods;
+import gui.app.component.BugTable;
+import gui.app.component.WindowsBar;
+import gui.app.theme.GuiStyler;
+import gui.app.theme.Sizes;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,11 +18,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import common.GuiMethods;
 import common.common.bug.Bug;
 import common.utilities.Icons;
-import theme.GuiStyler;
-import theme.Sizes;
 
 public class CustomSortDialog extends VBox
 {

@@ -1,7 +1,9 @@
-package component.menu;
+package gui.app.component.menu;
 
-import component.dialog.ColourChooser;
-import component.dialog.RefreshRateDialog;
+import gui.app.component.dialog.ColourChooser;
+import gui.app.component.dialog.RefreshRateDialog;
+import gui.app.message.GuiMessageSender;
+import gui.app.theme.Themes;
 import common.common.Errors;
 import common.common.MessageBox;
 import common.exception.JsonTransformationException;
@@ -11,8 +13,6 @@ import common.message.config.UserGetRequest;
 import common.utilities.Icons;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import message.GuiMessageSender;
-import theme.Themes;
 
 public class FileMenu
 {

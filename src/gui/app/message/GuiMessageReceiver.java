@@ -1,4 +1,4 @@
-package message;
+package gui.app.message;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -9,16 +9,16 @@ import java.util.Arrays;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import common.GuiMethods;
 import common.common.Errors;
 import common.common.MessageBox;
 import common.exception.MessageProcessorException;
 import common.exception.MessageReceiverException;
 import common.message.MessageReceiver;
-import log.GuiLogger;
-import processor.ConfigProcessor;
-import processor.ListProcessor;
-import processor.BugProcessor;
+import gui.app.common.GuiMethods;
+import gui.app.log.GuiLogger;
+import gui.app.processor.BugProcessor;
+import gui.app.processor.ConfigProcessor;
+import gui.app.processor.ListProcessor;
 
 public class GuiMessageReceiver extends MessageReceiver
 {

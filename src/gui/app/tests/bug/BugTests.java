@@ -1,4 +1,4 @@
-package bug;
+package gui.app.tests.bug;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -30,7 +30,7 @@ import common.message.bug.BugsRequest;
 import common.message.bug.ChangeBugStatusRequest;
 import common.message.bug.UserBugsRequest;
 import common.utilities.JacksonAdapter;
-import message.GuiMessageSender;
+import gui.app.message.GuiMessageSender;
 
 @SuppressWarnings("unchecked")
 public class BugTests

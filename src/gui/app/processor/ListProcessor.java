@@ -1,9 +1,9 @@
-package processor;
+package gui.app.processor;
 
 import org.json.simple.JSONObject;
 
 import common.exception.MessageProcessorException;
-import log.GuiLogger;
+import gui.app.log.GuiLogger;
 
 public class ListProcessor extends MessageProcessor
 {

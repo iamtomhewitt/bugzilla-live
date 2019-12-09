@@ -1,4 +1,4 @@
-package component;
+package gui.app.component;
 
 public class BugCounter
 {

@@ -1,4 +1,4 @@
-package component.dialog.bug;
+package gui.app.component.dialog.bug;
 
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -10,17 +10,17 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import common.GuiConstants;
-import common.GuiMethods;
-import common.RequestType;
 import common.common.Errors;
 import common.common.MessageBox;
 import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.bug.UserBugsRequest;
-import message.GuiMessageSender;
-import theme.GuiStyler;
-import theme.Sizes;
+import gui.app.common.GuiConstants;
+import gui.app.common.GuiMethods;
+import gui.app.common.RequestType;
+import gui.app.message.GuiMessageSender;
+import gui.app.theme.GuiStyler;
+import gui.app.theme.Sizes;
 
 public class GetUserBugsDialog
 {

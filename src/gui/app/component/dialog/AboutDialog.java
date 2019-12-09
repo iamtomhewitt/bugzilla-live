@@ -1,4 +1,4 @@
-package component.dialog;
+package gui.app.component.dialog;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,7 +10,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import component.WindowsBar;
+import gui.app.common.GuiConstants;
+import gui.app.component.WindowsBar;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
@@ -28,7 +29,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import common.GuiConstants;
 import common.common.Errors;
 import common.common.Folders;
 import common.common.Fonts;

@@ -1,18 +1,18 @@
-package component.menu;
+package gui.app.component.menu;
 
 import java.awt.MouseInfo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import component.InformationPane;
-import component.dialog.bug.ChangeBugStatusDialog;
-
+import gui.app.common.GuiConstants;
+import gui.app.component.InformationPane;
+import gui.app.component.dialog.bug.ChangeBugStatusDialog;
+import gui.app.message.GuiMessageSender;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
 
-import common.GuiConstants;
 import common.common.Errors;
 import common.common.MessageBox;
 import common.common.bug.Bug;
@@ -22,7 +22,6 @@ import common.message.bug.BugDetailRequest;
 import common.message.list.ModifyListRequest;
 import common.utilities.Icons;
 import common.utilities.Utilities;
-import message.GuiMessageSender;
 
 public class BugContextMenu
 {
