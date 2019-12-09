@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser')
 
 var bugRoutes = require('./routes/bug-routes')
+var listRoutes = require('./routes/list-routes')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -12,6 +13,7 @@ app.get('/', function (req, res) {
 });
 
 app.use('/bugs', bugRoutes);
+app.use('/list', listRoutes);
 
 var port = 3000;
 app.listen(port, function () { });
