@@ -2,8 +2,8 @@ package gui.app.log;
 
 import java.io.File;
 
-import common.common.Folders;
-import common.common.Logger;
+import common.Folders;
+import common.Logger;
 
 public class GuiLogger extends Logger
 {

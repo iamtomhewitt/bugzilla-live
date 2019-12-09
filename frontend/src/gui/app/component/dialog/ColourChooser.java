@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import common.common.Errors;
-import common.common.Fonts;
-import common.common.MessageBox;
+import common.Errors;
+import common.Fonts;
+import common.MessageBox;
 import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.config.ApplicationSaveRequest;

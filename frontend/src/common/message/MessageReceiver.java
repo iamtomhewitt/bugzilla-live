@@ -11,7 +11,7 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.List;
 
-import common.common.Folders;
+import common.Folders;
 import common.exception.MessageReceiverException;
 
 /**

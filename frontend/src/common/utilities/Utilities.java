@@ -2,7 +2,7 @@ package common.utilities;
 
 import java.io.IOException;
 
-import common.common.bug.Bug;
+import common.bug.Bug;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.input.Clipboard;

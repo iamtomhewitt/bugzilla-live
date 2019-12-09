@@ -18,10 +18,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import common.common.Folders;
-import common.common.bug.Bug;
-import common.common.bug.BugAttachment;
-import common.common.bug.BugComment;
+import common.Folders;
+import common.bug.Bug;
+import common.bug.BugAttachment;
+import common.bug.BugComment;
 import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.bug.BugCommentRequest;

@@ -18,7 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import common.common.bug.Bug;
+import common.bug.Bug;
 import common.utilities.Icons;
 
 public class CustomSortDialog extends VBox

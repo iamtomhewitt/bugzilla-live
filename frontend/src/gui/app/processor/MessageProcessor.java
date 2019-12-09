@@ -2,7 +2,7 @@ package gui.app.processor;
 
 import org.json.simple.JSONObject;
 
-import common.common.MessageBox;
+import common.MessageBox;
 import common.exception.MessageProcessorException;
 import javafx.application.Platform;
 

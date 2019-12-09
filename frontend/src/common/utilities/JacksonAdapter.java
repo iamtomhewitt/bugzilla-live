@@ -7,10 +7,10 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import common.common.UnitTestStep;
-import common.common.bug.Bug;
-import common.common.bug.BugAttachment;
-import common.common.bug.BugComment;
+import common.UnitTestStep;
+import common.bug.Bug;
+import common.bug.BugAttachment;
+import common.bug.BugComment;
 import common.exception.JsonTransformationException;
 
 /**

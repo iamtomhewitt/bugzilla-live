@@ -1,4 +1,4 @@
-package common.common;
+package common;
 
 /**
  * Fonts and sizes used in the application.

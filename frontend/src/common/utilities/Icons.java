@@ -1,6 +1,6 @@
 package common.utilities;
 
-import common.common.Folders;
+import common.Folders;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

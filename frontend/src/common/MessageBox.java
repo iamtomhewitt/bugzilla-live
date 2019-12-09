@@ -1,4 +1,4 @@
-package common.common;
+package common;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

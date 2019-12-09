@@ -15,8 +15,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import common.common.Errors;
-import common.common.MessageBox;
+import common.Errors;
+import common.MessageBox;
 import common.message.MessageReceiver;
 import common.utilities.Encryptor;
 import gui.login.log.LoginLogger;

@@ -9,8 +9,8 @@ import java.util.Arrays;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import common.common.Errors;
-import common.common.MessageBox;
+import common.Errors;
+import common.MessageBox;
 import common.exception.MessageProcessorException;
 import common.exception.MessageReceiverException;
 import common.message.MessageReceiver;

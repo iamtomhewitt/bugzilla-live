@@ -1,6 +1,6 @@
 package gui.app.component;
 
-import common.common.Fonts;
+import common.Fonts;
 import gui.app.theme.Colours;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;

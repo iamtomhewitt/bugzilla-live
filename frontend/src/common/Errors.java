@@ -1,4 +1,4 @@
-package common.common;
+package common;
 
 /**
  * A set of different error messages.

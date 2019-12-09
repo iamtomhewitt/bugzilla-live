@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import common.common.Errors;
-import common.common.Folders;
-import common.common.MessageBox;
+import common.Errors;
+import common.Folders;
+import common.MessageBox;
 import common.exception.MessageReceiverException;
 import common.exception.MessageSenderException;
 import common.message.config.ApplicationGetRequest;

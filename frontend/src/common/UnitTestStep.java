@@ -1,4 +1,4 @@
-package common.common;
+package common;
 
 /**
  * Data class to hold information about unit test steps.

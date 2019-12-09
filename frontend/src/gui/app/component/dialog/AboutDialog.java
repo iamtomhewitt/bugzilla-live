@@ -29,10 +29,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import common.common.Errors;
-import common.common.Folders;
-import common.common.Fonts;
-import common.common.MessageBox;
+import common.Errors;
+import common.Folders;
+import common.Fonts;
+import common.MessageBox;
 import common.utilities.Icons;
 
 public class AboutDialog

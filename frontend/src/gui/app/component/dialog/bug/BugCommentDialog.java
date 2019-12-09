@@ -12,11 +12,11 @@ import java.util.concurrent.Callable;
 
 import org.json.simple.JSONObject;
 
-import common.common.Errors;
-import common.common.Fonts;
-import common.common.MessageBox;
-import common.common.bug.BugAttachment;
-import common.common.bug.BugComment;
+import common.Errors;
+import common.Fonts;
+import common.MessageBox;
+import common.bug.BugAttachment;
+import common.bug.BugComment;
 import common.exception.JsonTransformationException;
 import common.utilities.Icons;
 import common.utilities.JacksonAdapter;

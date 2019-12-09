@@ -17,9 +17,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import common.common.Errors;
-import common.common.Folders;
-import common.common.MessageBox;
+import common.Errors;
+import common.Folders;
+import common.MessageBox;
 import common.message.list.CreateListRequest;
 import common.utilities.Icons;
 
