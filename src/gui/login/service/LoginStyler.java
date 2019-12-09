@@ -1,4 +1,4 @@
-package service;
+package gui.login.service;
 
 import common.common.Fonts;
 import javafx.scene.control.Button;
