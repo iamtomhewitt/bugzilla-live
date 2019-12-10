@@ -12,16 +12,26 @@ router.get('/', function (req, res) {
 // Add a new list
 router.get('/add', function (req, res) {
     var name = req.query.name;
-    var contents = req.query.contents;
-
+	var contents = req.query.contents;
 	let response;
+
+	if (!name || !contents) {
+		response = {
+			"message": "listResponse",
+			"operation": "notification",
+			"successful": false,
+			"failureReason": "File name or file contents are missing."
+		}
+		res.send(response).json();
+		return;
+	}
 
 	let filename = listFolder + name + '.bugList';
 
 	fs.writeFile(filename, contents, function (err) {
         if (err) {
             response = {
-                "message": "configResponse",
+                "message": "listResponse",
                 "operation": "notification",
                 "successful": false,
                 "failureReason": err.message
@@ -30,7 +40,7 @@ router.get('/add', function (req, res) {
         }
         else {
             response = {
-                "message": "configResponse",
+                "message": "listResponse",
                 "operation": "notification",
                 "successful": true,
             }
