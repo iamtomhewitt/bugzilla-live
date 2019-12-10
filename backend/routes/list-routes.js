@@ -16,12 +16,11 @@ router.get('/add', function (req, res) {
 	let response;
 
 	if (!name || !contents) {
-		response = {
-			"message": "listResponse",
-			"operation": "notification",
-			"successful": false,
-			"failureReason": "File name or file contents are missing."
+		let error = {
+			"title": "Missing parameters",
+			"message": "File name or file contents are missing."
 		}
+		response = failure(error)
 		res.send(response).json();
 		return;
 	}
@@ -30,20 +29,15 @@ router.get('/add', function (req, res) {
 
 	fs.writeFile(filename, contents, function (err) {
         if (err) {
-            response = {
-                "message": "listResponse",
-                "operation": "notification",
-                "successful": false,
-                "failureReason": err.message
-            }
+			let error = {
+				"title": "Error creating file",
+				"message": err.message
+			}
+			response = failure(error)
             res.send(response).json();
         }
         else {
-            response = {
-                "message": "listResponse",
-                "operation": "notification",
-                "successful": true,
-            }
+			response = success("List created.")
             res.send(response).json();
         }
     })
@@ -63,7 +57,55 @@ router.get('/modify', function (req, res) {
 
 // Delete a list
 router.get('/delete', function (req, res) {
-    res.send('/delete with name ' + req.query.name);
+	var name = req.query.name;
+	let response;
+
+	if (!name) {
+		let error = {
+			"title": "Missing parameters",
+			"message": "File name or file contents are missing."
+		}
+		response = failure(error)
+		res.send(response).json();
+		return;
+	}
+
+	let filename = listFolder + name + '.bugList';
+
+	fs.unlink(filename, function (err) {
+        if (err) {
+			let error = {
+				"title": "Error deleting file",
+				"message": err.message
+			}
+			response = failure(error)
+			res.send(response).json();
+			return;
+		}
+		else {
+			response = success("File deleted");
+    		res.send(response);
+		}
+	});
 });
+
+function success(message) {
+	return response = {
+		"type": "listResponse",
+		"operation": "notification",
+		"message": message
+	}
+}
+
+function failure(error) {
+	return response = {
+		"type": "listResponse",
+		"operation": "notification",
+		"error": {
+			"title": error.title,
+			"message": error.message
+		}
+	}
+}
 
 module.exports = router;
