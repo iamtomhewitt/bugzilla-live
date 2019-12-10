@@ -1,8 +1,8 @@
 var express = require('express')
-var router = express.Router();
 var fs = require('fs');
 var path = require('path')
 
+var router = express.Router();
 var listFolder = path.join(__dirname, '..', 'config', 'bug-lists', '/');
 
 router.get('/', function (req, res) {

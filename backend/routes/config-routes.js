@@ -1,8 +1,8 @@
 var express = require('express')
-var router = express.Router();
 var fs = require('fs');
 var path = require('path')
 
+var router = express.Router();
 var configFilename = path.join(__dirname, '..', 'config', 'config.json');
 var configFile = require(configFilename)
 

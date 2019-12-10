@@ -10,14 +10,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function (req, res) {
-    res.send('Bugzilla backend is running! :-)');
+    res.status(200).send('SERVER OK');
 });
 
 app.use('/bugs', bugRoutes);
 app.use('/list', listRoutes);
 app.use('/config', configRoutes);
 
-var port = 3000;
+var port = 3001;
 app.listen(port, function () { });
 
-console.log("Bugzilla backend listening on port: " + port);
+module.exports = app;
