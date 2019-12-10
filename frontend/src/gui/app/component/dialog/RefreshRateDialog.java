@@ -7,7 +7,7 @@ import java.util.Map;
 
 import gui.app.common.GuiConstants;
 import gui.app.component.WindowsBar;
-import gui.app.message.GuiMessageSender;
+
 import gui.app.theme.GuiStyler;
 import gui.app.theme.Sizes;
 import common.Errors;
@@ -50,15 +50,7 @@ public class RefreshRateDialog
 			properties.put("refreshrate", combo.getSelectionModel().getSelectedItem());
 
 			ApplicationSaveRequest request = new ApplicationSaveRequest(properties);
-			try 
-			{
-				new GuiMessageSender().sendRequestMessage(request);
-			}
-			catch(JsonTransformationException | MessageSenderException e1)
-			{
-				MessageBox.showExceptionDialog(Errors.GENERAL, e1);
-			}
-
+			// TODO use APIReqeusotr
 			GuiConstants.REFRESH_TIME = Integer.valueOf(combo.getSelectionModel().getSelectedItem());
 			stage.close();
 		});

@@ -30,7 +30,7 @@ import common.message.bug.BugsRequest;
 import common.message.bug.ChangeBugStatusRequest;
 import common.message.bug.UserBugsRequest;
 import common.utilities.JacksonAdapter;
-import gui.app.message.GuiMessageSender;
+
 
 @SuppressWarnings("unchecked")
 public class BugTests
@@ -154,7 +154,7 @@ public class BugTests
                                                                             .withStatus("Diagnosed")
                                                                             .withUsername(USERNAME)
                                                                             .build();
-        new GuiMessageSender().sendRequestMessage(request);
+        // TODO use ApiRequestor
 	    
 	    assertEquals(folder.listFiles().length, 1);
         assertEquals(folder.listFiles()[0].getAbsolutePath().endsWith(".orrequest"), true);
@@ -171,7 +171,7 @@ public class BugTests
                                                                 .withPassword(PASSWORD)
                                                                 .withUsername(USERNAME)
                                                                 .build();       
-	    new GuiMessageSender().sendRequestMessage(request);
+	    // TODO use ApiRequestor
 	       
         assertEquals(folder.listFiles().length, 1);
         assertEquals(folder.listFiles()[0].getAbsolutePath().endsWith(".orrequest"), true);
@@ -184,7 +184,7 @@ public class BugTests
 	    File folder = new File("");
 	    BugDetailRequest request = new BugDetailRequest("12345", USERNAME, PASSWORD, API_KEY);      
 
-	    new GuiMessageSender().sendRequestMessage(request);
+	    // TODO use ApiRequestor
         
 	    assertEquals(folder.listFiles().length, 1);
         assertEquals(folder.listFiles()[0].getAbsolutePath().endsWith(".orrequest"), true);
@@ -198,7 +198,7 @@ public class BugTests
 	    List<String> numbers = Arrays.asList("12345", "22345");        
         BugsRequest request = new BugsRequest(numbers, USERNAME, PASSWORD, API_KEY);    
         
-        new GuiMessageSender().sendRequestMessage(request);
+        // TODO use ApiRequestor
         
         assertEquals(folder.listFiles().length, 1);
         assertEquals(folder.listFiles()[0].getAbsolutePath().endsWith(".orrequest"), true);
@@ -211,7 +211,7 @@ public class BugTests
         File folder = new File("");
         UserBugsRequest request = new UserBugsRequest(USERNAME, USERNAME, PASSWORD, API_KEY);
         
-        new GuiMessageSender().sendRequestMessage(request);
+        // TODO use ApiRequestor
         
         assertEquals(folder.listFiles().length, 1);
         assertEquals(folder.listFiles()[0].getAbsolutePath().endsWith(".orrequest"), true);

@@ -5,7 +5,7 @@ import java.io.File;
 import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.component.WindowsBar;
-import gui.app.message.GuiMessageSender;
+
 import gui.app.theme.GuiStyler;
 import gui.app.theme.Sizes;
 import javafx.application.Platform;
@@ -93,7 +93,7 @@ public class AddBugListDialog
 			}
 			
 			CreateListRequest request = new CreateListRequest(fileNameField.getText() + ".txt", bugField.getText());
-			new GuiMessageSender().sendRequestMessage(request);
+			// TODO use ApiRequestor
 			
 			GuiMethods.clearTable();
 			

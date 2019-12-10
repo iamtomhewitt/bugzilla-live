@@ -13,8 +13,6 @@ import common.message.config.ApplicationGetRequest;
 import common.message.config.UserGetRequest;
 import common.message.config.UserSaveRequest;
 import common.utilities.Encryptor;
-import gui.login.message.LoginReceiver;
-import gui.login.message.LoginSender;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -58,48 +56,18 @@ public class LoginService extends Application
 	
 	private String icon = "file:" + "Icon.png";
 		
-	private LoginReceiver 	messageReceiver = new LoginReceiver();	
-	private LoginSender		messageSender 	= new LoginSender();
 	private LoginStyler 	styler 			= new LoginStyler();
 
 	@Override
 	public void start(Stage primaryStage) throws Exception
-	{		
-		// Start running the message receiver
-		Thread receiverThread = new Thread(() ->
-		{
-			try 
-			{
-				messageReceiver.start();
-			} 
-			catch (MessageReceiverException e) 
-			{
-				MessageBox.showExceptionDialog(Errors.GENERAL, e);
-			}
-		});
-		receiverThread.setDaemon(true);
-		receiverThread.start();
-		
-		// Request already stored login properties
-		messageSender.sendRequestMessage(new UserGetRequest());		
-		messageSender.sendRequestMessage(new ApplicationGetRequest());
-
-		// Delay so properties are retrieved before the GUI starts
-		Thread.sleep(1000);
-
+	{	
 		loginButton.setOnAction(e -> execute());
 		
 		apiKeyButton.setOnAction(e ->
 		{
 			try
-			{
-				if (messageReceiver.getRetrievedBugzillaUrl() == null || messageReceiver.getRetrievedBugzillaUrl().isEmpty())
-				{
-					MessageBox.showDialog("The Bugzilla URL was not retrieved from the config service properly. Either re-launch Bugzilla Live or open the API keys page manually.");
-					return;
-				}
-				
-				String cmd = "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe " + messageReceiver.getRetrievedBugzillaUrl() + "/userprefs.cgi?tab=apikey";
+			{				
+				String cmd = "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe /userprefs.cgi?tab=apikey";
 				Runtime.getRuntime().exec(cmd);
 			} 
 			catch (IOException ex)
@@ -171,10 +139,6 @@ public class LoginService extends Application
 		vbox.getChildren().addAll(titleVbox, fieldsVbox, buttonsVbox);
 		vbox.setAlignment(Pos.CENTER);
 		
-		usernameInput.setText(messageReceiver.getRetrivedUsername());
-		passwordInput.setText(messageReceiver.getRetrievedPassword());
-		apiKeyInput.setText(messageReceiver.getRetrievedApiKey());
-		
 		Platform.runLater(() -> loginButton.requestFocus());
 		
 		Scene scene = new Scene(vbox, 325, 550);
@@ -202,9 +166,6 @@ public class LoginService extends Application
 	{
 		if (canLogin())
 		{
-			// Stop processing as we do not want to process the messages we are about to make
-			messageReceiver.stop();
-
 			Map<String, String> userPropertiesToSave = new HashMap<String, String>();
 			userPropertiesToSave.put("username", usernameInput.getText());
 			userPropertiesToSave.put("password", Encryptor.encrypt(passwordInput.getText()));
@@ -212,16 +173,14 @@ public class LoginService extends Application
 
 			try
 			{
-				messageSender.sendRequestMessage(new UserSaveRequest(userPropertiesToSave));			
-				messageSender.sendRequestMessage(new ApplicationGetRequest());
-				messageSender.sendRequestMessage(new UserGetRequest());
+				// TODO use ApiRequestor
 			
 				Runtime.getRuntime().exec("java -jar \"" + "" + "guiservice.jar\"");
 				stage.close();
 				Platform.exit();
 				System.exit(0);
 			} 
-			catch (MessageSenderException | IOException ex)
+			catch (IOException ex)
 			{
 				MessageBox.showExceptionDialog(Errors.GENERAL, ex);
 			}

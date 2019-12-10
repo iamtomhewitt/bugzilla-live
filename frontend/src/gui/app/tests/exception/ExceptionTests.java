@@ -6,11 +6,8 @@ import org.junit.Test;
 import common.bug.Bug;
 import common.exception.JsonTransformationException;
 import common.exception.MessageProcessorException;
-import common.exception.MessageReceiverException;
-import common.exception.MessageSenderException;
 import common.utilities.JacksonAdapter;
-import gui.app.message.GuiMessageReceiver;
-import gui.app.message.GuiMessageSender;
+
 import gui.app.processor.ListProcessor;
 
 public class ExceptionTests 
@@ -29,17 +26,5 @@ public class ExceptionTests
         JSONObject message = new JSONObject();
         message.put("operation", "unsupported operation");
         new ListProcessor().process(message);
-    }
-    
-    @Test(expected=MessageReceiverException.class)
-    public void testThrowsMessageReceiverException() throws MessageReceiverException
-    {        
-        new GuiMessageReceiver().processMessage(null);
-    }
-    
-    @Test(expected=MessageSenderException.class)
-    public void testThrowsMessageSenderException() throws MessageSenderException, JsonTransformationException
-    {        
-        new GuiMessageSender().sendRequestMessage(null);
     }
 }

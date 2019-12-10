@@ -8,7 +8,7 @@ import java.util.List;
 import gui.app.common.GuiConstants;
 import gui.app.component.InformationPane;
 import gui.app.component.dialog.bug.ChangeBugStatusDialog;
-import gui.app.message.GuiMessageSender;
+
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
@@ -63,14 +63,7 @@ public class BugContextMenu
 				if (!number.equals(""))
 				{
 					ModifyListRequest request = new ModifyListRequest(GuiConstants.CURRENT_LIST_FILE.getAbsolutePath(), "", number);
-					try 
-					{
-						new GuiMessageSender().sendRequestMessage(request);
-					}
-					catch(JsonTransformationException | MessageSenderException e1)
-					{
-						MessageBox.showExceptionDialog(Errors.GENERAL, e1);
-					}
+					// TODO APIReqesutor
 					
 				}
 			}
@@ -105,7 +98,7 @@ public class BugContextMenu
 			{
 				String number = table.getSelectionModel().getSelectedItem().getNumber();
 				BugDetailRequest request = new BugDetailRequest(number, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
-				new GuiMessageSender().sendRequestMessage(request);
+				// TODO use ApiRequestor
 			}
 			catch (Exception ex)
 			{

@@ -2,7 +2,7 @@ package gui.app.component.menu;
 
 import gui.app.component.dialog.ColourChooser;
 import gui.app.component.dialog.RefreshRateDialog;
-import gui.app.message.GuiMessageSender;
+
 import gui.app.theme.Themes;
 import common.Errors;
 import common.MessageBox;
@@ -62,15 +62,15 @@ public class FileMenu
 		MenuItem reloadConfig = new MenuItem("Reload Config", Icons.createRefreshIcon());
 		reloadConfig.setOnAction(e ->
 		{			
-			try
-			{
-				new GuiMessageSender().sendRequestMessage(new UserGetRequest());			
-				new GuiMessageSender().sendRequestMessage(new ApplicationGetRequest());
-			}
-			catch (JsonTransformationException | MessageSenderException e1)
-			{
-				MessageBox.showExceptionDialog(Errors.GENERAL, e1);
-			}
+//			try
+//			{
+//				// TODO use ApiRequestor			
+//				// TODO use ApiRequestor
+//			}
+//			catch (JsonTransformationException | MessageSenderException e1)
+//			{
+//				MessageBox.showExceptionDialog(Errors.GENERAL, e1);
+//			}
 		});
 		
 		prebuiltThemes.getItems().addAll(arc, craftCms, ember, facebook, killBill, lightning, material, mint, pastel, python);		

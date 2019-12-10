@@ -6,7 +6,7 @@ import java.util.List;
 
 import gui.app.common.GuiConstants;
 import gui.app.component.menu.BugContextMenu;
-import gui.app.message.GuiMessageSender;
+
 import gui.app.theme.RowColours;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -80,15 +80,8 @@ public class BugTable
 				// Double Click
 				if (event.getClickCount() == 2 && (!row.isEmpty()))
 				{
-					try
-					{
-						BugDetailRequest request = new BugDetailRequest(row.getItem().getNumber(), GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
-						new GuiMessageSender().sendRequestMessage(request);
-					}
-					catch (JsonTransformationException | MessageSenderException e)
-					{
-						MessageBox.showExceptionDialog(Errors.COMMENTS + row.getItem().getNumber(), e);
-					}
+					BugDetailRequest request = new BugDetailRequest(row.getItem().getNumber(), GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
+					// TODO use ApiRequestor
 				}
 			});
 

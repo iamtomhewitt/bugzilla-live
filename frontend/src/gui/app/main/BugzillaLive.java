@@ -11,7 +11,7 @@ import gui.app.common.GuiMethods;
 import gui.app.component.BugTable;
 import gui.app.component.Toolbar;
 import gui.app.component.WindowsBar;
-import gui.app.message.GuiMessageReceiver;
+
 import common.Errors;
 
 import common.Fonts;
@@ -41,7 +41,6 @@ public class BugzillaLive extends Application
 	private VBox top = new VBox();
 	private VBox center = new VBox();
 	private NavBar navBar = new NavBar();
-	private GuiMessageReceiver messageReceiver = new GuiMessageReceiver();
 
 	private static Stage mainStage;
 
@@ -98,19 +97,6 @@ public class BugzillaLive extends Application
 		
 		primaryStage.show();
 		
-		Thread t = new Thread(() ->
-		{
-			try 
-			{
-				messageReceiver.start();
-			} 
-			catch (MessageReceiverException e1) 
-			{
-				MessageBox.showExceptionDialog(Errors.GENERAL, e1);
-			}
-		});
-		t.setDaemon(true);
-		t.start();
 
 		Thread refreshThread = new Thread(() ->
 		{

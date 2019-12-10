@@ -1,7 +1,7 @@
 package gui.app.component.dialog;
 
 import gui.app.component.WindowsBar;
-import gui.app.message.GuiMessageSender;
+
 import gui.app.theme.GuiStyler;
 import gui.app.theme.Sizes;
 import gui.app.common.BugTemplates;
@@ -75,20 +75,13 @@ public class AddCommentDialog extends VBox
 			}
 			if (MessageBox.showConfirmDialog("Add comment? This cannot be undone."))
 			{
-				try
-				{
-					BugCommentRequest request = new BugCommentRequest.Builder().withApiKey(GuiConstants.APIKEY)
-																				.withComment(comment.getText())
-																				.withBugNumber(number)
-																				.withPassword(GuiConstants.PASSWORD)
-																				.withUsername(GuiConstants.USERNAME)
-																				.build();
-					new GuiMessageSender().sendRequestMessage(request);
-				}
-				catch (JsonTransformationException | MessageSenderException e1)
-				{
-					MessageBox.showExceptionDialog(Errors.GENERAL, e1);
-				}
+				BugCommentRequest request = new BugCommentRequest.Builder().withApiKey(GuiConstants.APIKEY)
+																			.withComment(comment.getText())
+																			.withBugNumber(number)
+																			.withPassword(GuiConstants.PASSWORD)
+																			.withUsername(GuiConstants.USERNAME)
+																			.build();
+				// TODO use ApiRequestor
 				stage.close();
 				parentStage.close();
 			}

@@ -9,7 +9,7 @@ import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.config.ApplicationSaveRequest;
 import gui.app.common.GuiMethods;
-import gui.app.message.GuiMessageSender;
+
 
 public class Themes
 {
@@ -93,14 +93,7 @@ public class Themes
 		properties.put("infopaneheadingcolour", Colours.INFO_PANE_HEADING);
 		properties.put("infopanesubheadingcolour", Colours.INFO_PANE_SUBHEADING);
 
-		try
-		{
-			ApplicationSaveRequest request = new ApplicationSaveRequest(properties);
-			new GuiMessageSender().sendRequestMessage(request);
-		}
-		catch (JsonTransformationException | MessageSenderException e)
-		{
-			MessageBox.showExceptionDialog(Errors.GENERAL, e);
-		}
+		ApplicationSaveRequest request = new ApplicationSaveRequest(properties);
+		// TODO use ApiRequestor
 	}
 }
