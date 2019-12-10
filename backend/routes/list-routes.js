@@ -55,7 +55,7 @@ router.get('/modify', function (req, res) {
 
 	let filename = listFolder + name + '.bugList';
 
-	if (!fs.exists(filename)) {
+	if (!fs.existsSync(filename)) {
 		error = createError("Error modifying file", "File does not exist.");
 		response = failure(error);
 		res.send(response).json();
