@@ -13,7 +13,7 @@ router.get('/', function (req, res) {
 // Get existing config
 router.get('/get', function (req, res) {
 	let contents = fs.readFileSync(configFilename, 'utf-8');
-	let response = success("Config retrieved", contents)
+	let response = success(contents)
     res.send(response);
 });
 
@@ -54,11 +54,10 @@ function success(message) {
 	}
 }
 
-function success(message, config) {
+function success(config) {
 	return response = {
 		"type": "configResponse",
 		"operation": "notification",
-		"message": message,
 		"config": config
 	}
 }
