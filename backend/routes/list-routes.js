@@ -6,7 +6,7 @@ var path = require('path')
 var listFolder = path.join(__dirname, '..', 'config', 'bug-lists', '/');
 
 router.get('/', function (req, res) {
-    res.send('/list is working');
+    res.status(200).send('OK');
 });
 
 // Add a new list
