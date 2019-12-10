@@ -5,6 +5,8 @@ var path = require('path')
 var router = express.Router();
 var configFilename = path.join(__dirname, '..', 'config', 'config.json');
 var configFile = require(configFilename)
+var errorCode = 601;
+var successCode = 200;
 
 router.get('/', function (req, res) {
     res.status(200).send('OK');
@@ -14,7 +16,7 @@ router.get('/', function (req, res) {
 router.get('/get', function (req, res) {
 	let contents = fs.readFileSync(configFilename, 'utf-8');
 	let response = success(contents)
-    res.send(response);
+    res.status(successCode).send(response);
 });
 
 // Save config
@@ -27,7 +29,7 @@ router.get('/save', function (req, res) {
 	if (!key || !value)	{
 		error = createError("Missing parameters", "A key or value was missing.")
 		response = failure(error);
-		res.send(response);
+		res.status(errorCode).send(response);
 		return;
 	}
 
@@ -37,13 +39,13 @@ router.get('/save', function (req, res) {
 		if (err) {
 			error = createError("Error saving config", err.message);
 			response = failure(error);
-			res.send(response);
+			res.status(errorCode).send(response);
 			return;
 		}
 	});
 
 	response = success("Config saved");
-    res.send(response);
+    res.status(successCode).send(response);
 });
 
 function success(message) {
