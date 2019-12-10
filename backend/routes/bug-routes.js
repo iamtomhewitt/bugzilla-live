@@ -7,7 +7,7 @@ var router = express.Router();
 var bugzillaUrl;
 
 router.get('/', function (req, res) {
-    res.send('/bugs is working');
+    res.status(200).send('OK');
 });
 
 // Get bugs by numbers
@@ -16,10 +16,7 @@ router.get('/numbers', function (req, res) {
 	let error, response, bugs;
 	
 	if (!bugNumbers) {
-		error = {
-			"title": "Invalid bugs",
-			"message": "No numbers specified in query."
-		}
+		error = createError('Invalid bugs', 'No numbers specified in query.');
 		response = failure(error);
 		res.send(response);
 		return;
@@ -33,10 +30,7 @@ router.get('/numbers', function (req, res) {
 
 	request(url, function (err, response, body) {
 		if (err) {
-			error = {
-				"title": "Could not get bugs from Bugzilla",
-				"message": err.message
-			}
+			error = createError('Could not get bugs from Bugzilla', err.message);
 			response = failure(error)
 			res.send(response);
 			return;
@@ -54,10 +48,7 @@ router.get('/email', function (req, res) {
 	let error, response, bugs;
 
 	if (!email) {
-		error = {
-			"title": "Invalid email",
-			"message": "No email specified in query."
-		}
+		error = createError('Invalid email', 'No email specified in query.');
 		response = failure(error);
 		res.send(response);
 		return;
@@ -67,10 +58,7 @@ router.get('/email', function (req, res) {
 	
 	request(url, function (err, response, body) {
 		if (err) {
-			error = {
-				"title": "Could not get bugs from Bugzilla",
-				"message": err.message
-			}
+			error = createError("Error querying Bugzilla", err.message);
 			response = failure(error)
 			res.send(response);
 			return;
@@ -88,10 +76,7 @@ router.get('/:number/comments', function (req, res) {
 	let error, response;
 
 	if (!bugNumber) {
-		error = {
-			"title" : "Invalid bug number",
-			"message": "No bug number specified"
-		}
+		error = createError("Invalid bug number", 'No bug number specified.');
 		response = failure(error);
 		res.send(response);
 		return ;
@@ -101,10 +86,7 @@ router.get('/:number/comments', function (req, res) {
 
 	request(url, function (err, response, body) {
 		if (err) {
-			error = {
-				"title": "Could not get comments from Bugzilla",
-				"message": err.message
-			}
+			error = createError("Could not get comments from Bugzilla", err.message);
 			response = failure(error)
 			res.send(response);
 			return;
@@ -133,10 +115,14 @@ function failure(error) {
 	return response = {
 		"type": "bugResponse",
 		"operation": "notification",
-		"error": {
-			"title": error.title,
-			"message": error.message
-		}
+		"error": error
+	}
+}
+
+function createError(title, message) {
+	return error = {
+		"title": title,
+		"message": message
 	}
 }
 
@@ -148,6 +134,5 @@ function getBugzillaUrl() {
 	}
 	return bugzillaUrl;
 }
-
 
 module.exports = router;
