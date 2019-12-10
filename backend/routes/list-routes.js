@@ -4,9 +4,11 @@ var path = require('path')
 
 var router = express.Router();
 var listFolder = path.join(__dirname, '..', 'config', 'bug-lists', '/');
+var errorCode = 601;
+var successCode = 200;
 
 router.get('/', function (req, res) {
-    res.status(200).send('OK');
+    res.status(successCode).send('OK');
 });
 
 // Add a new list
@@ -19,7 +21,7 @@ router.get('/add', function (req, res) {
 	if (!name || !contents) {
 		error = createError("Missing parameters", "File name or file contents are missing.");
 		response = failure(error)
-		res.send(response).json();
+		res.status(errorCode).send(response).json();
 		return;
 	}
 
@@ -29,11 +31,11 @@ router.get('/add', function (req, res) {
         if (err) {
 			error = createError("Error creating file", err.message);
 			response = failure(error)
-            res.send(response).json();
+            res.status(successCode).send(response).json();
         }
         else {
 			response = success("List created.")
-            res.send(response).json();
+            res.status(successCode).send(response).json();
         }
     })
 });
@@ -49,7 +51,7 @@ router.get('/modify', function (req, res) {
 	if (!name || (!remove && !add)) {
 		error = createError("Missing parameters", "File name, contents to remove or contents to add are missing.");
 		response = failure(error);
-		res.send(response).json();
+		res.status(errorCode).send(response).json();
 		return;
 	}
 
@@ -58,7 +60,7 @@ router.get('/modify', function (req, res) {
 	if (!fs.existsSync(filename)) {
 		error = createError("Error modifying file", "File does not exist.");
 		response = failure(error);
-		res.send(response).json();
+		res.status(errorCode).send(response).json();
 		return;
 	}
 
@@ -77,7 +79,7 @@ router.get('/modify', function (req, res) {
 	fs.writeFileSync(filename, newContents, 'utf-8');
 
 	response = success("List modified");
-    res.send(response).json();
+    res.status(successCode).send(response).json();
 });
 
 // Delete a list
@@ -89,7 +91,7 @@ router.get('/delete', function (req, res) {
 	if (!name) {
 		error = createError("Missing parameters", "File name or file contents are missing.");
 		response = failure(error)
-		res.send(response).json();
+		res.status(errorCode).send(response).json();
 		return;
 	}
 
@@ -99,11 +101,11 @@ router.get('/delete', function (req, res) {
         if (err) {
 			error = createError("Error deleting file", err.message);
 			response = failure(error)
-			res.send(response).json();
+			res.status(errorCode).send(response).json();
 		}
 		else {
 			response = success("File deleted");
-    		res.send(response);
+    		res.status(successCode).send(response);
 		}
 	});
 });

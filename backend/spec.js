@@ -36,7 +36,7 @@ describe('Express app tests', function () {
 	});
 });
 
-describe('/bugs/numbers tests', function () {
+describe('/bugs tests', function () {
 	var server;
 	var timeout = 30000;
 
@@ -85,3 +85,95 @@ describe('/bugs/numbers tests', function () {
 	});
 });
 
+describe('/config tests', function () {
+	var server;
+
+	before(function () {
+		server = require('./app').listen(3002);
+	});
+
+	after(function () {
+		server.close();
+	});
+
+	it('/config/get gives 200', function test(done) {
+		request(server)
+			.get('/config/get')
+			.expect(200, done);
+	});
+
+	it('/config/save with no parameters gives 601', function test(done) {
+		request(server)
+			.get('/config/save')
+			.expect(601, done);
+	});
+
+	it('/config/save gives 200', function test(done) {
+		request(server)
+			.get('/config/save?key=test&value=myvalue')
+			.expect(200, done);
+	});
+});
+
+describe('/list tests', function () {
+	var server;
+	const fs = require('fs');
+	const path = require('path');
+
+	const directory = path.join(__dirname, '/', 'config', 'bug-lists', '/');
+
+	before(function () {
+		server = require('./app').listen(3002);
+	});
+
+	after(function () {
+		// Remove test files
+		fs.readdir(directory, (err, files) => {
+			if (err) throw err;
+		  
+			for (const file of files) {
+				fs.unlink(path.join(directory, file), err => {
+					if (err) throw err;
+				});
+			}
+		});
+
+		server.close();
+	});
+
+	it('/list/add gives 200', function test(done) {
+		request(server)
+			.get('/list/add?name=unit-test&contents=12345,6789')
+			.expect(200, done);
+	});
+
+	it('/list/add with no parameters gives 601', function test(done) {
+		request(server)
+			.get('/list/add')
+			.expect(601, done);
+	});
+
+	it('/list/modify gives 200', function test(done) {
+		request(server)
+			.get('/list/modify?name=unit-test&add=1234')
+			.expect(200, done);
+	});
+
+	it('/list/modify with no parameters gives 601', function test(done) {
+		request(server)
+			.get('/list/modify')
+			.expect(601, done);
+	});
+
+	it('/list/delete gives 200', function test(done) {
+		request(server)
+			.get('/list/delete?name=unit-test')
+			.expect(200, done);
+	});
+
+	it('/list/delete with no parameters gives 601', function test(done) {
+		request(server)
+			.get('/list/delete')
+			.expect(601, done);
+	});
+});
