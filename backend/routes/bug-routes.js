@@ -1,8 +1,10 @@
 var express = require('express')
-var router = express.Router();
 var request = require('request');
+var fs = require('fs');
+var path = require('path')
+var router = express.Router();
 
-var bugzillaUrl = 'https://bugzilla.mozilla.org'
+var bugzillaUrl;
 
 router.get('/', function (req, res) {
     res.send('/bugs is working');
@@ -23,7 +25,7 @@ router.get('/numbers', function (req, res) {
 		return;
 	}
 
-	let url = bugzillaUrl + '/rest/bug?id='
+	let url = getBugzillaUrl() + '/rest/bug?id='
 
 	for (const number of bugNumbers.split(',')) {
         url += number + ','
@@ -46,15 +48,72 @@ router.get('/numbers', function (req, res) {
 	});
 });
 
-// Get bugs by username
-router.get('/username', function (req, res) {
-    var username = req.params.username;
-    res.send('Requested bugs with username: ' + username);
+// Get bugs by email
+router.get('/email', function (req, res) {
+	let email = req.query.email;
+	let error, response, bugs;
+
+	if (!email) {
+		error = {
+			"title": "Invalid email",
+			"message": "No email specified in query."
+		}
+		response = failure(error);
+		res.send(response);
+		return;
+	}
+
+	let url = getBugzillaUrl() + '/rest/bug?assigned_to=' + email;
+	
+	request(url, function (err, response, body) {
+		if (err) {
+			error = {
+				"title": "Could not get bugs from Bugzilla",
+				"message": err.message
+			}
+			response = failure(error)
+			res.send(response);
+			return;
+		}
+		
+		bugs = JSON.parse(body, null, 4).bugs;	
+		response = success(bugs);
+		res.send(response);
+	});
 });
 
 // Get comments for a bug
 router.get('/:number/comments', function (req, res) {
-    res.send('Requested comments for bug: ' + req.params.number);
+	let bugNumber = req.params.number;
+	let error, response;
+
+	if (!bugNumber) {
+		error = {
+			"title" : "Invalid bug number",
+			"message": "No bug number specified"
+		}
+		response = failure(error);
+		res.send(response);
+		return ;
+	}
+
+	let url = getBugzillaUrl() + '/rest/bug/' + bugNumber + '/comment'
+
+	request(url, function (err, response, body) {
+		if (err) {
+			error = {
+				"title": "Could not get comments from Bugzilla",
+				"message": err.message
+			}
+			response = failure(error)
+			res.send(response);
+			return;
+		}
+		
+		comments = JSON.parse(body, null, 4)['bugs'][bugNumber];	
+		response = success(comments);
+		res.send(response);
+	});
 });
 
 // Change status for a bug
@@ -79,6 +138,15 @@ function failure(error) {
 			"message": error.message
 		}
 	}
+}
+
+function getBugzillaUrl() {
+	if (!bugzillaUrl) {
+		let configFilename = path.join(__dirname, '..', 'config', 'config.json');
+		let contents = JSON.parse(fs.readFileSync(configFilename, 'utf-8'));
+		bugzillaUrl = contents.bugzillaUrl;
+	}
+	return bugzillaUrl;
 }
 
 
