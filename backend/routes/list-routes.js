@@ -47,12 +47,48 @@ router.get('/add', function (req, res) {
 router.get('/modify', function (req, res) {
     var name = req.query.name;
     var remove = req.query.remove;
-    var add = req.query.add
+	var add = req.query.add;
 
-    console.log(name);
-    console.log(remove);
-    console.log(add);
-    res.send('/modify with name ' + name + ' and add ' + add + ' and remove ' + remove);
+	let response;
+	
+	if (!name || (!remove && !add)) {
+		let error = {
+			"title": "Missing parameters",
+			"message": "File name, contents to remove or contents to add are missing."
+		}
+		response = failure(error);
+		res.send(response).json();
+		return;
+	}
+
+	let filename = listFolder + name + '.bugList';
+
+	if (!fs.exists(filename)) {
+		let error = {
+			"title": "Error modifying file",
+			"message": "File does not exist."
+		}
+		response = failure(error);
+		res.send(response).json();
+		return;
+	}
+
+	let contents = fs.readFileSync(filename, 'utf-8');
+	let newContents;
+	
+	if (remove) {
+		newContents = contents.replace(new RegExp(remove), '');
+		newContents = newContents.replace(new RegExp(',,'), ',');
+	}
+
+	if (add) {
+		newContents += ',' + add + ',';
+	}
+
+	fs.writeFileSync(filename, newContents, 'utf-8');
+
+	response = success("List modified");
+    res.send(response).json();
 });
 
 // Delete a list
@@ -80,7 +116,6 @@ router.get('/delete', function (req, res) {
 			}
 			response = failure(error)
 			res.send(response).json();
-			return;
 		}
 		else {
 			response = success("File deleted");
