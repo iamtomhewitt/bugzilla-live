@@ -25,10 +25,7 @@ router.get('/save', function (req, res) {
 	let response;
 
 	if (!key || !value)	{
-		error = {
-			"title": "Missing parameters",
-			"message": "A key or value was missing."
-		}
+		error = createError("Missing parameters", "A key or value was missing.")
 		response = failure(error);
 		res.send(response);
 		return;
@@ -38,10 +35,7 @@ router.get('/save', function (req, res) {
 
 	fs.writeFile(configFilename, JSON.stringify(configFile, null, 4), function(err){
 		if (err) {
-			error = {
-				"title": "Error saving config",
-				"message": err.message
-			}
+			error = createError("Error saving config", err.message);
 			response = failure(error);
 			res.send(response);
 			return;
@@ -73,10 +67,14 @@ function failure(error) {
 	return response = {
 		"type": "configResponse",
 		"operation": "notification",
-		"error": {
-			"title": error.title,
-			"message": error.message
-		}
+		"error": error
+	}
+}
+
+function createError(title, message) {
+	return error = {
+		"title": title,
+		"message": message
 	}
 }
 
