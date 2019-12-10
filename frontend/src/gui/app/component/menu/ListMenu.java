@@ -8,7 +8,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.FileChooser;
 import common.Errors;
-import common.Folders;
+
 import common.MessageBox;
 import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
@@ -67,13 +67,13 @@ public class ListMenu
 	
 	private void populateMenuWithLists(Menu menu, boolean changeListMenu)
 	{
-		File folder = new File(Folders.LISTS_FOLDER);
+		File folder = new File("");
 		String[] files = folder.list();
 
 		for (int i = 0; i < files.length; i++)
 		{
 			CheckMenuItem list = new CheckMenuItem(files[i].split(".txt")[0]);
-			File configFile = new File(Folders.LISTS_FOLDER + files[i]);
+			File configFile = new File("" + files[i]);
 
 			if (GuiConstants.CURRENT_LIST_FILE != null && configFile.getName().equals(GuiConstants.CURRENT_LIST_FILE.getName()))
 			{
@@ -105,7 +105,7 @@ public class ListMenu
 	{
 		try
 		{
-			DeleteListRequest request = new DeleteListRequest(Folders.LISTS_FOLDER + filename + ".txt");
+			DeleteListRequest request = new DeleteListRequest("" + filename + ".txt");
 			new GuiMessageSender().sendRequestMessage(request);
 		}
 		catch (JsonTransformationException | MessageSenderException e)

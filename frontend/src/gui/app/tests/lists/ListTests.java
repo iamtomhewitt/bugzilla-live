@@ -14,7 +14,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import common.Folders;
+
 import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.list.CreateListRequest;
@@ -28,7 +28,7 @@ public class ListTests
     @Before
     public void clearMessageFolder()
     {
-        for (File f : new File(Folders.MESSAGE_FOLDER).listFiles())
+        for (File f : new File("").listFiles())
         {
             System.out.println("Deleting: " + f.getAbsolutePath());
             f.delete();
@@ -82,7 +82,7 @@ public class ListTests
     @Test
     public void testSendCreateListRequest() throws JsonTransformationException, MessageSenderException
     {
-        File folder = new File(Folders.MESSAGE_FOLDER);
+        File folder = new File("");
         
         CreateListRequest request = new CreateListRequest("List Name", "12345");      
         new GuiMessageSender().sendRequestMessage(request);
@@ -95,7 +95,7 @@ public class ListTests
     @Test
     public void testSendModifyListRequest() throws JsonTransformationException, MessageSenderException
     {
-        File folder = new File(Folders.MESSAGE_FOLDER);
+        File folder = new File("");
         
         ModifyListRequest request = new ModifyListRequest("List Name", "12345", "12347");      
         new GuiMessageSender().sendRequestMessage(request);
@@ -108,7 +108,7 @@ public class ListTests
     @Test
     public void testSendDeleteListRequest() throws JsonTransformationException, MessageSenderException
     {
-        File folder = new File(Folders.MESSAGE_FOLDER);
+        File folder = new File("");
         
         DeleteListRequest request = new DeleteListRequest("List Name");      
         new GuiMessageSender().sendRequestMessage(request);

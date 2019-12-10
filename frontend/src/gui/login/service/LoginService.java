@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import common.Errors;
-import common.Folders;
+
 import common.MessageBox;
 import common.exception.MessageReceiverException;
 import common.exception.MessageSenderException;
@@ -56,7 +56,7 @@ public class LoginService extends Application
 	
 	private Label title 		= new Label("Bugzilla LIVE");
 	
-	private String icon = "file:" + Folders.ICONS_FOLDER + "Icon.png";
+	private String icon = "file:" + "Icon.png";
 		
 	private LoginReceiver 	messageReceiver = new LoginReceiver();	
 	private LoginSender		messageSender 	= new LoginSender();
@@ -216,7 +216,7 @@ public class LoginService extends Application
 				messageSender.sendRequestMessage(new ApplicationGetRequest());
 				messageSender.sendRequestMessage(new UserGetRequest());
 			
-				Runtime.getRuntime().exec("java -jar \"" + Folders.GUI_SERVICE_FOLDER + "guiservice.jar\"");
+				Runtime.getRuntime().exec("java -jar \"" + "" + "guiservice.jar\"");
 				stage.close();
 				Platform.exit();
 				System.exit(0);

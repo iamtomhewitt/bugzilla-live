@@ -2,7 +2,7 @@ package gui.login.log;
 
 import java.io.File;
 
-import common.Folders;
+
 import common.Logger;
 
 /**
@@ -22,7 +22,7 @@ public class LoginLogger extends Logger
 
 	public LoginLogger()
 	{
-		this.setDirectory(Folders.LOGIN_SERVICE_FOLDER);
+		this.setDirectory("");
 		this.setLogFile(new File(this.getDirectory() + this.getFilename()));
 	}
 }

@@ -18,7 +18,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import common.Folders;
+
 import common.bug.Bug;
 import common.bug.BugAttachment;
 import common.bug.BugComment;
@@ -44,7 +44,7 @@ public class BugTests
 	@Before
 	public void clearMessageFolder()
 	{
-	    for (File f : new File(Folders.MESSAGE_FOLDER).listFiles())
+	    for (File f : new File("").listFiles())
 	    {
 	        System.out.println("Deleting: "+f.getAbsolutePath());
             f.delete();
@@ -146,7 +146,7 @@ public class BugTests
 	@Test
 	public void testSendChangeBugStatusRequest() throws JsonTransformationException, MessageSenderException
 	{
-	    File folder = new File(Folders.MESSAGE_FOLDER);
+	    File folder = new File("");
 	    ChangeBugStatusRequest request = new ChangeBugStatusRequest.Builder().withApiKey(API_KEY)
                                                                             .withComment("Comment")
                                                                             .withBugNumber("12345")
@@ -164,7 +164,7 @@ public class BugTests
 	@Test
 	public void testSendBugCommentRequest() throws JsonTransformationException, MessageSenderException
 	{
-	    File folder = new File(Folders.MESSAGE_FOLDER);
+	    File folder = new File("");
 	    BugCommentRequest request = new BugCommentRequest.Builder().withApiKey(API_KEY)
                                                                 .withComment("A comment.")
                                                                 .withBugNumber("12345")
@@ -181,7 +181,7 @@ public class BugTests
 	@Test
     public void testSendBugDetailRequest() throws JsonTransformationException, MessageSenderException
     {
-	    File folder = new File(Folders.MESSAGE_FOLDER);
+	    File folder = new File("");
 	    BugDetailRequest request = new BugDetailRequest("12345", USERNAME, PASSWORD, API_KEY);      
 
 	    new GuiMessageSender().sendRequestMessage(request);
@@ -194,7 +194,7 @@ public class BugTests
 	@Test
 	public void testSendBugsRequest() throws JsonTransformationException, MessageSenderException
     {
-	    File folder = new File(Folders.MESSAGE_FOLDER);
+	    File folder = new File("");
 	    List<String> numbers = Arrays.asList("12345", "22345");        
         BugsRequest request = new BugsRequest(numbers, USERNAME, PASSWORD, API_KEY);    
         
@@ -208,7 +208,7 @@ public class BugTests
 	@Test
     public void testSendUserBugsRequest() throws JsonTransformationException, MessageSenderException
     {
-        File folder = new File(Folders.MESSAGE_FOLDER);
+        File folder = new File("");
         UserBugsRequest request = new UserBugsRequest(USERNAME, USERNAME, PASSWORD, API_KEY);
         
         new GuiMessageSender().sendRequestMessage(request);

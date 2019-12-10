@@ -11,7 +11,7 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.List;
 
-import common.Folders;
+
 import common.exception.MessageReceiverException;
 
 /**
@@ -88,7 +88,7 @@ public abstract class MessageReceiver
 	
 	public String getMessageFolder()
 	{
-		return Folders.MESSAGE_FOLDER;
+		return "";
 	}
 
 	public List<String> getFileTypes()
