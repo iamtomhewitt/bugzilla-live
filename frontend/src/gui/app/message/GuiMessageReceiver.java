@@ -13,14 +13,14 @@ import common.Errors;
 import common.MessageBox;
 import common.exception.MessageProcessorException;
 import common.exception.MessageReceiverException;
-import common.message.MessageReceiver;
+import common.message.ApiRequestor;
 import gui.app.common.GuiMethods;
 import gui.app.log.GuiLogger;
 import gui.app.processor.BugProcessor;
 import gui.app.processor.ConfigProcessor;
 import gui.app.processor.ListProcessor;
 
-public class GuiMessageReceiver extends MessageReceiver
+public class GuiMessageReceiver extends ApiRequestor
 {
 	public GuiMessageReceiver()
 	{
