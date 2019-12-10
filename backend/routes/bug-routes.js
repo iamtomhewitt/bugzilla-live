@@ -4,10 +4,12 @@ var fs = require('fs');
 var path = require('path')
 var router = express.Router();
 
+var errorCode = 601;
+var successCode = 200;
 var bugzillaUrl;
 
 router.get('/', function (req, res) {
-    res.status(200).send('OK');
+    res.status(successCode).send('OK');
 });
 
 // Get bugs by numbers
@@ -18,7 +20,7 @@ router.get('/numbers', function (req, res) {
 	if (!bugNumbers) {
 		error = createError('Invalid bugs', 'No numbers specified in query.');
 		response = failure(error);
-		res.send(response);
+		res.status(errorCode).send(response);
 		return;
 	}
 
@@ -32,13 +34,13 @@ router.get('/numbers', function (req, res) {
 		if (err) {
 			error = createError('Could not get bugs from Bugzilla', err.message);
 			response = failure(error)
-			res.send(response);
+			res.status(errorCode).send(response);
 			return;
 		}
 		
 		bugs = JSON.parse(body, null, 4).bugs;	
 		response = success(bugs);
-		res.send(response);
+		res.status(successCode).send(response);
 	});
 });
 
