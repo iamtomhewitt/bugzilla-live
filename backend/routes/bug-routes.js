@@ -52,7 +52,7 @@ router.get('/email', function (req, res) {
 	if (!email) {
 		error = createError('Invalid email', 'No email specified in query.');
 		response = failure(error);
-		res.send(response);
+		res.status(errorCode).send(response);
 		return;
 	}
 
@@ -68,7 +68,7 @@ router.get('/email', function (req, res) {
 		
 		bugs = JSON.parse(body, null, 4).bugs;	
 		response = success(bugs);
-		res.send(response);
+		res.status(successCode).send(response);
 	});
 });
 
@@ -80,7 +80,7 @@ router.get('/:number/comments', function (req, res) {
 	if (!bugNumber) {
 		error = createError("Invalid bug number", 'No bug number specified.');
 		response = failure(error);
-		res.send(response);
+		res.status(errorCode).send(response);
 		return ;
 	}
 
@@ -90,19 +90,14 @@ router.get('/:number/comments', function (req, res) {
 		if (err) {
 			error = createError("Could not get comments from Bugzilla", err.message);
 			response = failure(error)
-			res.send(response);
+			res.status(errorCode).send(response);
 			return;
 		}
 		
 		comments = JSON.parse(body, null, 4)['bugs'][bugNumber];	
 		response = success(comments);
-		res.send(response);
+		res.status(successCode).send(response);
 	});
-});
-
-// Change status for a bug
-router.post('/:number/state/:state', function (req, res) {
-    res.send('Requested to change ' + req.params.number + ' state to: ' + req.params.state);
 });
 
 function success(bugs) {
