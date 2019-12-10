@@ -17,7 +17,7 @@ import org.json.simple.parser.ParseException;
 
 import common.Errors;
 import common.MessageBox;
-import common.message.MessageReceiver;
+import common.message.ApiRequestor;
 import common.utilities.Encryptor;
 import gui.login.log.LoginLogger;
 import javafx.application.Platform;
@@ -28,7 +28,7 @@ import javafx.application.Platform;
  * @author Tom Hewitt
  * @since 2.0.0
  */
-public class LoginReceiver extends MessageReceiver
+public class LoginReceiver extends ApiRequestor
 {
 	private String retrivedUsername;
 	private String retrievedPassword;
