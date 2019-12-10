@@ -1,8 +1,9 @@
 var express = require('express')
 var router = express.Router();
 var fs = require('fs');
+var path = require('path')
 
-var listFolder = 'C:\\temp\\'
+var listFolder = path.join(__dirname, '..', 'config', 'bug-lists', '/');
 
 router.get('/', function (req, res) {
     res.send('/list is working');
@@ -13,9 +14,11 @@ router.get('/add', function (req, res) {
     var name = req.query.name;
     var contents = req.query.contents;
 
-    let response;
+	let response;
 
-    fs.appendFile(listFolder + name + ".bugList", contents, function (err) {
+	let filename = listFolder + name + '.bugList';
+
+	fs.writeFile(filename, contents, function (err) {
         if (err) {
             response = {
                 "message": "configResponse",
