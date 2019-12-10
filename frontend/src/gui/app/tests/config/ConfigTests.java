@@ -25,7 +25,7 @@ import common.message.config.ApplicationGetRequest;
 import common.message.config.ApplicationSaveRequest;
 import common.message.config.UserGetRequest;
 import common.message.config.UserSaveRequest;
-import gui.app.message.GuiMessageSender;
+
 
 public class ConfigTests
 {
@@ -112,7 +112,7 @@ public class ConfigTests
         File folder = new File("");
         
         ApplicationGetRequest request = new ApplicationGetRequest();      
-        new GuiMessageSender().sendRequestMessage(request);
+        // TODO use ApiRequestor
         
         assertEquals(folder.listFiles().length, 1);
         assertEquals(folder.listFiles()[0].getAbsolutePath().endsWith(".configrequest"), true);
@@ -125,7 +125,7 @@ public class ConfigTests
         File folder = new File("");
         
         UserGetRequest request = new UserGetRequest();      
-        new GuiMessageSender().sendRequestMessage(request);
+        // TODO use ApiRequestor
         
         assertEquals(folder.listFiles().length, 1);
         assertEquals(folder.listFiles()[0].getAbsolutePath().endsWith(".configrequest"), true);
@@ -141,7 +141,7 @@ public class ConfigTests
         properties.put("refreshrate", "30");
         
         ApplicationSaveRequest request = new ApplicationSaveRequest(properties);     
-        new GuiMessageSender().sendRequestMessage(request);
+        // TODO use ApiRequestor
         
         assertEquals(folder.listFiles().length, 1);
         assertEquals(folder.listFiles()[0].getAbsolutePath().endsWith(".configrequest"), true);
@@ -157,7 +157,7 @@ public class ConfigTests
         properties.put("username", "");
         
         UserSaveRequest request = new UserSaveRequest(properties);     
-        new GuiMessageSender().sendRequestMessage(request);
+        // TODO use ApiRequestor
         
         assertEquals(folder.listFiles().length, 1);
         assertEquals(folder.listFiles()[0].getAbsolutePath().endsWith(".configrequest"), true);

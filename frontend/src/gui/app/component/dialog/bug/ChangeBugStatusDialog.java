@@ -8,7 +8,7 @@ import java.util.Map;
 import gui.app.common.BugTemplates;
 import gui.app.common.GuiConstants;
 import gui.app.component.WindowsBar;
-import gui.app.message.GuiMessageSender;
+
 import gui.app.theme.GuiStyler;
 import gui.app.theme.Sizes;
 import javafx.geometry.Insets;
@@ -71,21 +71,14 @@ public class ChangeBugStatusDialog extends VBox
 			}
 			if (MessageBox.showConfirmDialog("Are you sure you want to update this bug to " + selectedStatus + "?"))
 			{
-				try
-				{
-					ChangeBugStatusRequest request = new ChangeBugStatusRequest.Builder().withApiKey(GuiConstants.APIKEY)
-																						.withComment(comment.getText())
-																						.withBugNumber(number)
-																						.withPassword(GuiConstants.PASSWORD)
-																						.withStatus(selectedStatus)
-																						.withUsername(GuiConstants.USERNAME)
-																						.build();
-					new GuiMessageSender().sendRequestMessage(request);
-				}
-				catch (JsonTransformationException | MessageSenderException e1)
-				{
-					MessageBox.showExceptionDialog(Errors.GENERAL, e1);
-				}
+				ChangeBugStatusRequest request = new ChangeBugStatusRequest.Builder().withApiKey(GuiConstants.APIKEY)
+																					.withComment(comment.getText())
+																					.withBugNumber(number)
+																					.withPassword(GuiConstants.PASSWORD)
+																					.withStatus(selectedStatus)
+																					.withUsername(GuiConstants.USERNAME)
+																					.build();
+				// TODO use ApiRequestor
 				stage.close();
 			}
 		});

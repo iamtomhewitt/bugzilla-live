@@ -18,7 +18,7 @@ import common.message.bug.UserBugsRequest;
 import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.common.RequestType;
-import gui.app.message.GuiMessageSender;
+
 import gui.app.theme.GuiStyler;
 import gui.app.theme.Sizes;
 
@@ -53,15 +53,8 @@ public class GetUserBugsDialog
 			GuiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
 			GuiConstants.CURRENT_LIST_FILE = null;
 			
-			try
-			{
-				UserBugsRequest request = new UserBugsRequest(GuiConstants.USERNAME, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
-				new GuiMessageSender().sendRequestMessage(request);
-			}
-			catch (JsonTransformationException | MessageSenderException e1)
-			{
-				MessageBox.showExceptionDialog(Errors.GENERAL, e1);
-			}
+			UserBugsRequest request = new UserBugsRequest(GuiConstants.USERNAME, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
+			// TODO use ApiRequestor
 			GuiMethods.clearTable();
 			stage.close();
 		});
@@ -98,15 +91,8 @@ public class GetUserBugsDialog
 		GuiConstants.CURRENT_LIST_FILE = null;
 		GuiConstants.REQUEST_TYPE = RequestType.USER;
 				
-		try
-		{
-			UserBugsRequest request = new UserBugsRequest(usernameField.getText(), GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
-			new GuiMessageSender().sendRequestMessage(request);
-		}
-		catch (JsonTransformationException | MessageSenderException e1)
-		{
-			MessageBox.showExceptionDialog(Errors.GENERAL, e1);
-		}
+		UserBugsRequest request = new UserBugsRequest(usernameField.getText(), GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
+		// TODO use ApiRequestor
 		
 		GuiMethods.clearTable();
 		

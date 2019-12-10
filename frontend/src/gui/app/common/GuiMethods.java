@@ -22,7 +22,7 @@ import gui.app.component.BugComparator;
 import gui.app.component.BugTable;
 import gui.app.component.WindowsBar;
 import gui.app.main.BugzillaLive;
-import gui.app.message.GuiMessageSender;
+
 import gui.app.theme.Colours;
 import gui.app.theme.RowColours;
 import javafx.application.Platform;
@@ -88,15 +88,8 @@ public class GuiMethods
 		GuiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
 		GuiConstants.CURRENT_LIST_FILE = null;
 		
-		try
-		{
-			UserBugsRequest request = new UserBugsRequest(GuiConstants.USERNAME, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
-			new GuiMessageSender().sendRequestMessage(request);
-		}
-		catch (JsonTransformationException | MessageSenderException e)
-		{
-			MessageBox.showExceptionDialog(Errors.GENERAL, e);
-		}
+		UserBugsRequest request = new UserBugsRequest(GuiConstants.USERNAME, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
+		// TODO use ApiRequestor
 	}	
 	
 
@@ -119,7 +112,7 @@ public class GuiMethods
 			if (!numbers.isEmpty())
 			{
 				BugsRequest request = new BugsRequest(numbers, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
-				new GuiMessageSender().sendRequestMessage(request);
+				// TODO use ApiRequestor
 			}
 		}
 		catch (Exception e)
@@ -147,10 +140,10 @@ public class GuiMethods
 			if (!numbers.isEmpty())
 			{
 				BugsRequest request = new BugsRequest(numbers, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
-				new GuiMessageSender().sendRequestMessage(request);
+				// TODO use ApiRequestor
 			}
 		}
-		catch (JsonTransformationException | MessageSenderException e)
+		catch (JsonTransformationException e)
 		{
 			MessageBox.showExceptionDialog(Errors.REFRESH, e);
 		}

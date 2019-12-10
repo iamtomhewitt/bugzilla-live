@@ -20,7 +20,7 @@ import common.exception.MessageSenderException;
 import common.message.list.CreateListRequest;
 import common.message.list.DeleteListRequest;
 import common.message.list.ModifyListRequest;
-import gui.app.message.GuiMessageSender;
+
 
 public class ListTests
 {
@@ -85,7 +85,7 @@ public class ListTests
         File folder = new File("");
         
         CreateListRequest request = new CreateListRequest("List Name", "12345");      
-        new GuiMessageSender().sendRequestMessage(request);
+        // TODO use ApiRequestor
         
         assertEquals(folder.listFiles().length, 1);
         assertEquals(folder.listFiles()[0].getAbsolutePath().endsWith(".listrequest"), true);
@@ -98,7 +98,7 @@ public class ListTests
         File folder = new File("");
         
         ModifyListRequest request = new ModifyListRequest("List Name", "12345", "12347");      
-        new GuiMessageSender().sendRequestMessage(request);
+        // TODO use ApiRequestor
         
         assertEquals(folder.listFiles().length, 1);
         assertEquals(folder.listFiles()[0].getAbsolutePath().endsWith(".listrequest"), true);
@@ -111,7 +111,7 @@ public class ListTests
         File folder = new File("");
         
         DeleteListRequest request = new DeleteListRequest("List Name");      
-        new GuiMessageSender().sendRequestMessage(request);
+        // TODO use ApiRequestor
         
         assertEquals(folder.listFiles().length, 1);
         assertEquals(folder.listFiles()[0].getAbsolutePath().endsWith(".listrequest"), true);

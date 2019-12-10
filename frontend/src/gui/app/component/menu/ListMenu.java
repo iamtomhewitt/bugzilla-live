@@ -19,7 +19,7 @@ import gui.app.common.GuiMethods;
 import gui.app.common.RequestType;
 import gui.app.component.dialog.bug.AddBugListDialog;
 import gui.app.main.BugzillaLive;
-import gui.app.message.GuiMessageSender;
+
 
 public class ListMenu
 {
@@ -103,15 +103,8 @@ public class ListMenu
 		
 	private void deleteList(String filename)
 	{
-		try
-		{
-			DeleteListRequest request = new DeleteListRequest("" + filename + ".txt");
-			new GuiMessageSender().sendRequestMessage(request);
-		}
-		catch (JsonTransformationException | MessageSenderException e)
-		{
-			MessageBox.showExceptionDialog(Errors.GENERAL, e);
-		}
+		DeleteListRequest request = new DeleteListRequest("" + filename + ".txt");
+		// TODO use ApiRequestor
 	}
 	
 	private void switchList(File file)
