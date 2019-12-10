@@ -11,15 +11,13 @@ router.get('/', function (req, res) {
 
 // Add a new list
 router.get('/add', function (req, res) {
-    var name = req.query.name;
+    var name 	 = req.query.name;
 	var contents = req.query.contents;
-	let response;
+	
+	let error, response;
 
 	if (!name || !contents) {
-		let error = {
-			"title": "Missing parameters",
-			"message": "File name or file contents are missing."
-		}
+		error = createError("Missing parameters", "File name or file contents are missing.");
 		response = failure(error)
 		res.send(response).json();
 		return;
@@ -29,10 +27,7 @@ router.get('/add', function (req, res) {
 
 	fs.writeFile(filename, contents, function (err) {
         if (err) {
-			let error = {
-				"title": "Error creating file",
-				"message": err.message
-			}
+			error = createError("Error creating file", err.message);
 			response = failure(error)
             res.send(response).json();
         }
@@ -45,17 +40,14 @@ router.get('/add', function (req, res) {
 
 // Modify an existing list
 router.get('/modify', function (req, res) {
-    var name = req.query.name;
-    var remove = req.query.remove;
-	var add = req.query.add;
+    var name 	= req.query.name;
+    var remove 	= req.query.remove;
+	var add 	= req.query.add;
 
-	let response;
+	let error, response;
 	
 	if (!name || (!remove && !add)) {
-		let error = {
-			"title": "Missing parameters",
-			"message": "File name, contents to remove or contents to add are missing."
-		}
+		error = createError("Missing parameters", "File name, contents to remove or contents to add are missing.");
 		response = failure(error);
 		res.send(response).json();
 		return;
@@ -64,10 +56,7 @@ router.get('/modify', function (req, res) {
 	let filename = listFolder + name + '.bugList';
 
 	if (!fs.exists(filename)) {
-		let error = {
-			"title": "Error modifying file",
-			"message": "File does not exist."
-		}
+		error = createError("Error modifying file", "File does not exist.");
 		response = failure(error);
 		res.send(response).json();
 		return;
@@ -94,13 +83,11 @@ router.get('/modify', function (req, res) {
 // Delete a list
 router.get('/delete', function (req, res) {
 	var name = req.query.name;
-	let response;
+	
+	let error, response;
 
 	if (!name) {
-		let error = {
-			"title": "Missing parameters",
-			"message": "File name or file contents are missing."
-		}
+		error = createError("Missing parameters", "File name or file contents are missing.");
 		response = failure(error)
 		res.send(response).json();
 		return;
@@ -110,10 +97,7 @@ router.get('/delete', function (req, res) {
 
 	fs.unlink(filename, function (err) {
         if (err) {
-			let error = {
-				"title": "Error deleting file",
-				"message": err.message
-			}
+			error = createError("Error deleting file", err.message);
 			response = failure(error)
 			res.send(response).json();
 		}
@@ -136,10 +120,14 @@ function failure(error) {
 	return response = {
 		"type": "listResponse",
 		"operation": "notification",
-		"error": {
-			"title": error.title,
-			"message": error.message
-		}
+		"error": error
+	}
+}
+
+function createError(title, message) {
+	return error = {
+		"title": title,
+		"message": message
 	}
 }
 
