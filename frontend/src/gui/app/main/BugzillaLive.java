@@ -13,7 +13,7 @@ import gui.app.component.Toolbar;
 import gui.app.component.WindowsBar;
 import gui.app.message.GuiMessageReceiver;
 import common.Errors;
-import common.Folders;
+
 import common.Fonts;
 import common.MessageBox;
 import common.exception.JsonTransformationException;
@@ -74,7 +74,7 @@ public class BugzillaLive extends Application
 		primaryStage.setOnCloseRequest(e ->
 		{
 			// Clear out any remaining messages
-			File dir = new File(Folders.MESSAGE_FOLDER);
+			File dir = new File("");
 			for (File f : dir.listFiles())
 				f.delete();
 

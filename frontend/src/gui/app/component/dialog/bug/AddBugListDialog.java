@@ -18,7 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import common.Errors;
-import common.Folders;
+
 import common.MessageBox;
 import common.message.list.CreateListRequest;
 import common.utilities.Icons;
@@ -92,13 +92,13 @@ public class AddBugListDialog
 				return;
 			}
 			
-			CreateListRequest request = new CreateListRequest(Folders.LISTS_FOLDER + fileNameField.getText() + ".txt", bugField.getText());
+			CreateListRequest request = new CreateListRequest(fileNameField.getText() + ".txt", bugField.getText());
 			new GuiMessageSender().sendRequestMessage(request);
 			
 			GuiMethods.clearTable();
 			
 			Thread.sleep(100);
-			GuiConstants.CURRENT_LIST_FILE = new File(Folders.LISTS_FOLDER + fileNameField.getText() + ".txt");
+			GuiConstants.CURRENT_LIST_FILE = new File(fileNameField.getText() + ".txt");
 			
 			GuiMethods.requestRefreshOfBugsInList();
 

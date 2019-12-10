@@ -18,7 +18,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import common.Folders;
+
 import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.config.ApplicationGetRequest;
@@ -33,7 +33,7 @@ public class ConfigTests
     @Before
     public void clearMessageFolder()
     {
-        for (File f : new File(Folders.MESSAGE_FOLDER).listFiles())
+        for (File f : new File("").listFiles())
         {
             System.out.println("Deleting: "+f.getAbsolutePath());
             f.delete();
@@ -109,7 +109,7 @@ public class ConfigTests
     @Test
     public void testSendApplicationGetRequest() throws JsonTransformationException, MessageSenderException
     {
-        File folder = new File(Folders.MESSAGE_FOLDER);
+        File folder = new File("");
         
         ApplicationGetRequest request = new ApplicationGetRequest();      
         new GuiMessageSender().sendRequestMessage(request);
@@ -122,7 +122,7 @@ public class ConfigTests
     @Test
     public void testSendUserGetRequest() throws JsonTransformationException, MessageSenderException
     {
-        File folder = new File(Folders.MESSAGE_FOLDER);
+        File folder = new File("");
         
         UserGetRequest request = new UserGetRequest();      
         new GuiMessageSender().sendRequestMessage(request);
@@ -135,7 +135,7 @@ public class ConfigTests
     @Test
     public void testSendApplicationSaveRequest() throws JsonTransformationException, MessageSenderException
     {
-        File folder = new File(Folders.MESSAGE_FOLDER);
+        File folder = new File("");
         
         Map<String, String> properties = new HashMap<String, String>();
         properties.put("refreshrate", "30");
@@ -151,7 +151,7 @@ public class ConfigTests
     @Test
     public void testSendUserSaveRequest() throws JsonTransformationException, MessageSenderException
     {
-        File folder = new File(Folders.MESSAGE_FOLDER);
+        File folder = new File("");
         
         Map<String, String> properties = new HashMap<String, String>();
         properties.put("username", "");

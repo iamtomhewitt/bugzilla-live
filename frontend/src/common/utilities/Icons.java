@@ -1,6 +1,6 @@
 package common.utilities;
 
-import common.Folders;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -12,19 +12,19 @@ import javafx.scene.image.ImageView;
  */
 public class Icons
 {
-	public static final String ICON 		= "file:"+Folders.ICONS_FOLDER+"Icon.png";
-	public static final String BACKGROUND 	= "file:"+Folders.ICONS_FOLDER+"Background.png";
-	public static final String FIREFOX 		= "file:"+Folders.ICONS_FOLDER+"Firefox.png";
-	public static final String ADD 			= "file:"+Folders.ICONS_FOLDER+"Add.png";
-	public static final String REMOVE 		= "file:"+Folders.ICONS_FOLDER+"Remove.png";
-	public static final String HELP 		= "file:"+Folders.ICONS_FOLDER+"Help.png";
-	public static final String LISTS 		= "file:"+Folders.ICONS_FOLDER+"Lists.png";
-	public static final String REFRESH 		= "file:"+Folders.ICONS_FOLDER+"Refresh.png";
-	public static final String EXCEL 		= "file:"+Folders.ICONS_FOLDER+"Excel.png";
-	public static final String COMMENT		= "file:"+Folders.ICONS_FOLDER+"Comment.png";
-	public static final String ABOUT		= "file:"+Folders.ICONS_FOLDER+"About.png";
-	public static final String THEME		= "file:"+Folders.ICONS_FOLDER+"Theme.png";
-	public static final String CHANGE_STATUS= "file:"+Folders.ICONS_FOLDER+"Change Status.png";
+	public static final String ICON 		= "file:"+"Icon.png";
+	public static final String BACKGROUND 	= "file:"+"Background.png";
+	public static final String FIREFOX 		= "file:"+"Firefox.png";
+	public static final String ADD 			= "file:"+"Add.png";
+	public static final String REMOVE 		= "file:"+"Remove.png";
+	public static final String HELP 		= "file:"+"Help.png";
+	public static final String LISTS 		= "file:"+"Lists.png";
+	public static final String REFRESH 		= "file:"+"Refresh.png";
+	public static final String EXCEL 		= "file:"+"Excel.png";
+	public static final String COMMENT		= "file:"+"Comment.png";
+	public static final String ABOUT		= "file:"+"About.png";
+	public static final String THEME		= "file:"+"Theme.png";
+	public static final String CHANGE_STATUS= "file:"+"Change Status.png";
 
 	public static final int ICON_SIZE = 25;
 	

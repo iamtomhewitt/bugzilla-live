@@ -3,7 +3,7 @@ package gui.login.message;
 import java.io.File;
 import java.io.FileWriter;
 
-import common.Folders;
+
 import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
 import common.message.Message;
@@ -26,7 +26,7 @@ public class LoginSender implements MessageSender
 		{
 			LoginLogger.getInstance().print("Sending request message: " + message.getMessage() + "|" + message.getOperation());			
 
-			File messageFile = new File(Folders.MESSAGE_FOLDER + message.getFileExtension());
+			File messageFile = new File("" + message.getFileExtension());
 			FileWriter file = new FileWriter(messageFile);
 			file.write(message.toJson());
 			file.close();

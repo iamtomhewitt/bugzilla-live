@@ -30,7 +30,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import common.Errors;
-import common.Folders;
+
 import common.Fonts;
 import common.MessageBox;
 import common.utilities.Icons;
@@ -46,7 +46,7 @@ public class AboutDialog
 		{
 			ScrollPane scroll = new ScrollPane();
 
-			String content = new String(Files.readAllBytes(Paths.get(Folders.HELP_FOLDER + "release notes.json")));
+			String content = new String(Files.readAllBytes(Paths.get("release notes.json")));
 			content = content.replaceAll("\\*", "\n\n");
 
 			JSONParser jsonParser = new JSONParser();

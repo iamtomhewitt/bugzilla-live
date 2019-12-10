@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Base64;
 
-import common.Folders;
+
 
 /**
  * Data class of an attachment in a bug.
@@ -71,7 +71,7 @@ public class BugAttachment
 	 */
 	public void open() throws IOException
 	{
-		String filePath = Folders.ATTACHMENTS_FOLDER + this.filename;
+		String filePath = this.filename;
 
 		try
 		{

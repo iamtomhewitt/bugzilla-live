@@ -2,7 +2,7 @@ package gui.app.log;
 
 import java.io.File;
 
-import common.Folders;
+
 import common.Logger;
 
 public class GuiLogger extends Logger
@@ -16,7 +16,7 @@ public class GuiLogger extends Logger
 
 	public GuiLogger()
 	{
-		this.setDirectory(Folders.GUI_SERVICE_FOLDER);
+		this.setDirectory("");
 		this.setLogFile(new File(this.getDirectory() + this.getFilename()));
 	}
 }
