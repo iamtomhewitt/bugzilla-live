@@ -225,26 +225,26 @@ public class BugTable
 			n.setStyle(RowColours.BUILT);
 		}
 
-		// Now the status
-		else if (bug.getSeverity().equalsIgnoreCase("Critical"))
+		// Now the severity
+		else if (bug.getSeverity().equalsIgnoreCase("Blocker") || bug.getSeverity().equalsIgnoreCase("Critical"))
 		{
 			((Labeled) n).setTextFill(Color.WHITE);
 			link.setTextFill(Color.WHITE);
 			n.setStyle(RowColours.CRITICAL);
 		}
-		else if (bug.getSeverity().equalsIgnoreCase("High"))
+		else if (bug.getSeverity().equalsIgnoreCase("Major"))
 		{
 			n.setStyle(RowColours.HIGH);
 		}
-		else if (bug.getSeverity().equalsIgnoreCase("Medium"))
+		else if (bug.getSeverity().equalsIgnoreCase("Minor"))
 		{
 			n.setStyle(RowColours.MEDIUM);
 		}
-		else if (bug.getSeverity().equalsIgnoreCase("Low"))
+		else if (bug.getSeverity().equalsIgnoreCase("Normal"))
 		{
 			n.setStyle(RowColours.LOW);
 		}
-		else if (bug.getSeverity().equalsIgnoreCase("Unknown"))
+		else if (bug.getSeverity().equalsIgnoreCase("Trivial"))
 		{
 			n.setStyle(RowColours.UNKNOWN);
 		}
