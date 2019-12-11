@@ -9,18 +9,22 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
+import common.Errors;
+import common.MessageBox;
+
 /**
  * An abstract class making requests to the Node Express backend.
  *
  * @author Tom Hewitt
  */
-public class ApiRequestor {
-
-	public static String request(String endpoint) {
-		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
+public class ApiRequestor 
+{
+	public static String request(String endpoint) 
+	{
+		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) 
+		{
 			String url = "http://localhost:3001" + endpoint;
-
-			System.out.println(url);
+			
 			HttpGet request = new HttpGet(url);
 
 			HttpResponse result = httpClient.execute(request);
@@ -29,8 +33,10 @@ public class ApiRequestor {
 
 			return json;
 
-		} catch (IOException | ParseException e) {
-			e.printStackTrace();
+		} 
+		catch (IOException | ParseException e) 
+		{
+			MessageBox.showExceptionDialog(Errors.REQUEST, e);
 		}
 		return null;
 	}

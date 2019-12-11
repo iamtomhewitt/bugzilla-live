@@ -8,8 +8,6 @@ import common.Errors;
 import common.MessageBox;
 import common.exception.JsonTransformationException;
 import common.exception.MessageSenderException;
-import common.message.config.ApplicationGetRequest;
-import common.message.config.UserGetRequest;
 import common.utilities.Icons;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
