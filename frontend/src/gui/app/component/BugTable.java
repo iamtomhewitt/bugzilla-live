@@ -198,31 +198,19 @@ public class BugTable
 		{
 			n.setStyle(RowColours.FIXED);
 		}
-		else if (bug.getStatus().equalsIgnoreCase("Coded"))
-		{
-			n.setStyle(RowColours.CODED);
-		}
 		else if (bug.getStatus().equalsIgnoreCase("Closed"))
 		{
 			n.setStyle(RowColours.CLOSED);
 		}
 		else if (bug.getStatus().equalsIgnoreCase("Addressed"))
 		{
-			n.setStyle(RowColours.ADDRESSED);
+			n.setStyle(RowColours.WORKS_FOR_ME);
 		}
-		else if (bug.getStatus().equalsIgnoreCase("No Fault"))
+		else if (bug.getStatus().equalsIgnoreCase("Wontfix") || bug.getStatus().equalsIgnoreCase("Duplicate"))
 		{
 			((Labeled) n).setTextFill(Color.WHITE);
 			link.setTextFill(Color.WHITE);
 			n.setStyle(RowColours.NOFAULT);
-		}
-		else if (bug.getStatus().equalsIgnoreCase("Released"))
-		{
-			n.setStyle(RowColours.RELEASED);
-		}
-		else if (bug.getStatus().equalsIgnoreCase("Built"))
-		{
-			n.setStyle(RowColours.BUILT);
 		}
 
 		// Now the severity
@@ -234,19 +222,15 @@ public class BugTable
 		}
 		else if (bug.getSeverity().equalsIgnoreCase("Major"))
 		{
-			n.setStyle(RowColours.HIGH);
+			n.setStyle(RowColours.MAJOR);
 		}
 		else if (bug.getSeverity().equalsIgnoreCase("Minor"))
 		{
-			n.setStyle(RowColours.MEDIUM);
+			n.setStyle(RowColours.MINOR);
 		}
 		else if (bug.getSeverity().equalsIgnoreCase("Normal"))
 		{
-			n.setStyle(RowColours.LOW);
-		}
-		else if (bug.getSeverity().equalsIgnoreCase("Trivial"))
-		{
-			n.setStyle(RowColours.UNKNOWN);
+			n.setStyle(RowColours.NORMAL);
 		}
 	}
 	

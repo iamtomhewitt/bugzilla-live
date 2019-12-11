@@ -5,12 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import common.Errors;
 import common.Fonts;
-import common.MessageBox;
-import common.exception.JsonTransformationException;
-import common.exception.MessageSenderException;
-import common.message.config.ApplicationSaveRequest;
 import common.utilities.Icons;
 import gui.app.common.GuiMethods;
 import gui.app.component.BugTable;
@@ -40,19 +35,15 @@ public class ColourChooser extends VBox
 	{
 		Stage stage = new Stage();		
 		
-		ColourEntry windowBar 	= createColourEntry("Window", Colours.WINDOW);
-		ColourEntry critical 	= createColourEntry("Critical", Colours.CRITICAL);
-		ColourEntry high 		= createColourEntry("High", Colours.HIGH);
-		ColourEntry medium 		= createColourEntry("Medium", Colours.MEDIUM);
-		ColourEntry low 		= createColourEntry("Low", Colours.LOW);
-		ColourEntry unknown 	= createColourEntry("Unknown", Colours.UNKNOWN);
-		ColourEntry coded 		= createColourEntry("Coded", Colours.CODED);
-		ColourEntry built 		= createColourEntry("Built", Colours.BUILT);
-		ColourEntry released 	= createColourEntry("Released", Colours.RELEASED);
-		ColourEntry addressed 	= createColourEntry("Addressed", Colours.ADDRESSED);
-		ColourEntry fixed 		= createColourEntry("Fixed", Colours.FIXED);
-		ColourEntry closed 		= createColourEntry("Closed", Colours.CLOSED);
-		ColourEntry noFault 	= createColourEntry("No Fault", Colours.NOFAULT);
+		ColourEntry windowBar 			= createColourEntry("Window", Colours.WINDOW);
+		ColourEntry critical 			= createColourEntry("Critical", Colours.CRITICAL);
+		ColourEntry high 				= createColourEntry("Major", Colours.MAJOR);
+		ColourEntry medium 				= createColourEntry("Medium", Colours.MINOR);
+		ColourEntry low 				= createColourEntry("Normal", Colours.NORMAL);
+		ColourEntry addressed 			= createColourEntry("Works For Me", Colours.WORKS_FOR_ME);
+		ColourEntry fixed 				= createColourEntry("Fixed", Colours.FIXED);
+		ColourEntry closed 				= createColourEntry("Resolved", Colours.RESOLVED);
+		ColourEntry noFault 			= createColourEntry("WONTFIX / DUPLICATE", Colours.NOFAULT);
 		ColourEntry infoPaneBackground 	= createColourEntry("Information Pane Background", Colours.INFO_PANE_BACKGROUND);
 		ColourEntry infoPaneHeading		= createColourEntry("Information Pane Heading", Colours.INFO_PANE_HEADING);
 		ColourEntry infoPaneSubheading	= createColourEntry("Information Pane Subheading", Colours.INFO_PANE_SUBHEADING);
@@ -63,22 +54,18 @@ public class ColourChooser extends VBox
 		Button applyButton = new Button("Apply");
 		applyButton.setOnAction(e -> 
 		{
-			Colours.WINDOW 		= Colours.toHex(windowBar.getColourPicker().getValue());
-			Colours.CRITICAL 	= Colours.toHex(critical.getColourPicker().getValue());
-			Colours.HIGH 		= Colours.toHex(high.getColourPicker().getValue());
-			Colours.MEDIUM 		= Colours.toHex(medium.getColourPicker().getValue());
-			Colours.LOW 		= Colours.toHex(low.getColourPicker().getValue());
-			Colours.UNKNOWN 	= Colours.toHex(unknown.getColourPicker().getValue());
-			Colours.CODED 		= Colours.toHex(coded.getColourPicker().getValue());
-			Colours.BUILT 		= Colours.toHex(built.getColourPicker().getValue());
-			Colours.RELEASED 	= Colours.toHex(released.getColourPicker().getValue());
-			Colours.ADDRESSED 	= Colours.toHex(addressed.getColourPicker().getValue());
-			Colours.FIXED 		= Colours.toHex(fixed.getColourPicker().getValue());
-			Colours.CLOSED 		= Colours.toHex(closed.getColourPicker().getValue());
-			Colours.NOFAULT 	= Colours.toHex(noFault.getColourPicker().getValue());
+			Colours.WINDOW 					= Colours.toHex(windowBar.getColourPicker().getValue());
+			Colours.CRITICAL 				= Colours.toHex(critical.getColourPicker().getValue());
+			Colours.MAJOR 					= Colours.toHex(high.getColourPicker().getValue());
+			Colours.MINOR 					= Colours.toHex(medium.getColourPicker().getValue());
+			Colours.NORMAL 					= Colours.toHex(low.getColourPicker().getValue());
+			Colours.WORKS_FOR_ME 			= Colours.toHex(addressed.getColourPicker().getValue());
+			Colours.FIXED 					= Colours.toHex(fixed.getColourPicker().getValue());
+			Colours.RESOLVED 				= Colours.toHex(closed.getColourPicker().getValue());
+			Colours.NOFAULT 				= Colours.toHex(noFault.getColourPicker().getValue());
 			Colours.INFO_PANE_BACKGROUND	= Colours.toHex(infoPaneBackground.getColourPicker().getValue());
-			Colours.INFO_PANE_HEADING 	= Colours.toHex(infoPaneHeading.getColourPicker().getValue());
-			Colours.INFO_PANE_SUBHEADING= Colours.toHex(infoPaneSubheading.getColourPicker().getValue());
+			Colours.INFO_PANE_HEADING 		= Colours.toHex(infoPaneHeading.getColourPicker().getValue());
+			Colours.INFO_PANE_SUBHEADING	= Colours.toHex(infoPaneSubheading.getColourPicker().getValue());
 
 			BugTable.getInstance().getTableView().refresh();
 			
@@ -89,22 +76,17 @@ public class ColourChooser extends VBox
 			properties.put("windowcolour", Colours.WINDOW);		
 			properties.put("windowtextcolour", Colours.WINDOW_TEXT);	
 			properties.put("criticalcolour", Colours.CRITICAL);
-			properties.put("highcolour", Colours.HIGH);
-			properties.put("mediumcolour", Colours.MEDIUM);
-			properties.put("lowcolour", Colours.LOW);
-			properties.put("unknowncolour", Colours.UNKNOWN);
-			properties.put("codedcolour", Colours.CODED);
-			properties.put("builtcolour", Colours.BUILT);
-			properties.put("releasedcolour", Colours.RELEASED);
-			properties.put("addressedcolour", Colours.ADDRESSED);
+			properties.put("highcolour", Colours.MAJOR);
+			properties.put("mediumcolour", Colours.MINOR);
+			properties.put("lowcolour", Colours.NORMAL);
+			properties.put("addressedcolour", Colours.WORKS_FOR_ME);
 			properties.put("fixedcolour", Colours.FIXED);
-			properties.put("closedcolour", Colours.CLOSED);
+			properties.put("closedcolour", Colours.RESOLVED);
 			properties.put("nofaultcolour", Colours.NOFAULT);			
 			properties.put("infopanebackgroundcolour", Colours.INFO_PANE_BACKGROUND);
 			properties.put("infopaneheadingcolour", Colours.INFO_PANE_HEADING);
 			properties.put("infopanesubheadingcolour", Colours.INFO_PANE_SUBHEADING);
 
-			ApplicationSaveRequest request = new ApplicationSaveRequest(properties);
 			// TODO use ApiRequestor
 			stage.close();
 		});
