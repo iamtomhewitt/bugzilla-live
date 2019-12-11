@@ -2,16 +2,16 @@ package gui.app.component.menu;
 
 import java.io.File;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.FileChooser;
-import common.Errors;
-
 import common.MessageBox;
-import common.exception.JsonTransformationException;
-import common.exception.MessageSenderException;
+import common.message.ApiRequestor;
 import common.message.list.DeleteListRequest;
 import common.utilities.Icons;
 import gui.app.common.GuiConstants;
@@ -29,7 +29,9 @@ public class ListMenu
 	{
 		MenuItem createList = new MenuItem("Create List...");
 		MenuItem externalList = new MenuItem("External List...");
+		
 		Menu delete = new Menu("Delete");		
+		
 		SeparatorMenuItem separator = new SeparatorMenuItem();
 
 		createList.setOnAction(e -> new AddBugListDialog());
@@ -38,8 +40,9 @@ public class ListMenu
 		{
 			FileChooser chooser = new FileChooser();
 			chooser.setTitle("Open Bug List");
+			
 			File file = chooser.showOpenDialog(BugzillaLive.getMainStage());
-			switchList(file);
+			switchList(file.getName());
 		});
 		
 		listMenu.setGraphic(Icons.createListIcon());
@@ -67,36 +70,40 @@ public class ListMenu
 	
 	private void populateMenuWithLists(Menu menu, boolean changeListMenu)
 	{
-		File folder = new File("");
-		String[] files = folder.list();
-
-		for (int i = 0; i < files.length; i++)
+		// TODO make request to find out lists
+		String response = ApiRequestor.request("/list/lists");
+		JSONObject json = new JSONObject(response);
+		JSONArray lists = json.getJSONArray("lists");
+		
+		
+		for (int i = 0; i < lists.length(); i++)
 		{
-			CheckMenuItem list = new CheckMenuItem(files[i].split(".txt")[0]);
-			File configFile = new File("" + files[i]);
+			String filename = lists.get(i).toString();
+			
+			CheckMenuItem item = new CheckMenuItem(filename);
 
-			if (GuiConstants.CURRENT_LIST_FILE != null && configFile.getName().equals(GuiConstants.CURRENT_LIST_FILE.getName()))
+			if (GuiConstants.CURRENT_LIST_FILE != null && filename.equals(GuiConstants.CURRENT_LIST_FILE))
 			{
-				list.setSelected(true);
+				item.setSelected(true);
 			}
 
 			if (changeListMenu)
 			{
-				list.setOnAction(e -> switchList(configFile));
+				item.setOnAction(e -> switchList(filename));
 			}
 			else
 			{
-				if (!list.isSelected())
+				if (!item.isSelected())
 				{
-					list.setOnAction(e-> deleteList(list.getText()));
-					menu.getItems().remove(list);
+					item.setOnAction(e-> deleteList(item.getText()));
+					menu.getItems().remove(item);
 				}
 				else
 				{
-					list.setOnAction(e-> MessageBox.showDialog("This list is in use. Please change list and try again."));
+					item.setOnAction(e-> MessageBox.showDialog("This list is in use. Please change list and try again."));
 				}
 			}
-			menu.getItems().add(list);
+			menu.getItems().add(item);
 		}
 	}
 	
@@ -107,10 +114,10 @@ public class ListMenu
 		// TODO use ApiRequestor
 	}
 	
-	private void switchList(File file)
+	private void switchList(String filename)
 	{
 		GuiConstants.REQUEST_TYPE = RequestType.LIST;
-		GuiConstants.CURRENT_LIST_FILE = file;
+		GuiConstants.CURRENT_LIST_FILE = filename;
 		GuiMethods.clearTable();
 		GuiMethods.requestRefreshOfBugsInList();
 	}
