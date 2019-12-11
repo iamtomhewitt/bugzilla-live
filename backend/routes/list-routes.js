@@ -110,10 +110,31 @@ router.get('/delete', function (req, res) {
 	});
 });
 
+// Get existing lists
+router.get('/lists', function (req, res) {
+	let error, response
+	let lists = [];
+	
+	fs.readdir(listFolder, (err, files) => {
+		if (err) {
+			error = createError('Could not get lists', err.message);
+			response = failure(error);
+			res.status(errorCode).send(response);
+		}
+
+		files.forEach(file => {
+			lists.push(file)
+		});
+
+		response = success('Lists retrieved');
+		response['lists'] = lists;
+		res.status(successCode).send(response);
+	});
+});
+
 function success(message) {
 	return response = {
 		"type": "listResponse",
-		"operation": "notification",
 		"message": message
 	}
 }
