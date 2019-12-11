@@ -1,6 +1,8 @@
 package common.message;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
 import org.apache.http.client.methods.HttpGet;
@@ -15,9 +17,15 @@ import org.apache.http.util.EntityUtils;
  */
 public class ApiRequestor {
 	
-	public static String request(String endpoint) {
+	public static String request(String endpoint, String query) {
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
-			HttpGet request = new HttpGet("http://localhost:3001" + endpoint);
+			String url = "http://localhost:3001" + endpoint;
+			
+			if (!query.isEmpty()) {
+				url += URLEncoder.encode(query, "UTF-8");
+			}
+			
+			HttpGet request = new HttpGet(url);
 
 			HttpResponse result = httpClient.execute(request);
 
@@ -25,13 +33,14 @@ public class ApiRequestor {
 
 			return json;
 
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (IOException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		return null;
+	}
+	
+	public static String request(String endpoint) {
+		return request(endpoint, "");
 	}
 }
