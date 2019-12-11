@@ -29,9 +29,6 @@ import common.Errors;
 import common.Fonts;
 import common.MessageBox;
 import common.bug.Bug;
-import common.exception.JsonTransformationException;
-import common.exception.MessageSenderException;
-import common.message.bug.BugDetailRequest;
 import common.utilities.Utilities;
 
 /**
@@ -50,25 +47,19 @@ public class BugTable
 	{
 		instance = this;
 		
-		int X_SMALL = 3;
 		int SMALL = 5;
-		int MEDIUM = 10;
 		int LARGE = 20;
 
-		TableColumn<Bug, String> numberColumn 	= createColumn("Number", "number", X_SMALL);
-		TableColumn<Bug, String> statusColumn 	= createColumn("Status", "status", SMALL);
+		TableColumn<Bug, String> numberColumn 		= createColumn("Number", "id", SMALL);
+		TableColumn<Bug, String> statusColumn 		= createColumn("Status", "status", SMALL);
 		TableColumn<Bug, String> assignedColumn 	= createColumn("Assigned To", "assignedTo", SMALL);
-		TableColumn<Bug, String> componentColumn = createColumn("Component", "gui.app.component", SMALL);
-		TableColumn<Bug, String> severity 		= createColumn("Severity", "severity", SMALL);
-		TableColumn<Bug, String> summaryColumn 	= createColumn("Summary", "summary", LARGE);
-		TableColumn<Bug, String> genFromColumn 	= createColumn("Generated From", "generatedFrom", MEDIUM);
-		TableColumn<Bug, String> intExtColumn 	= createColumn("Int/Ext", "internalExternal", SMALL);
-		TableColumn<Bug, String> systemColumn 	= createColumn("Environment", "system", SMALL);
-		TableColumn<Bug, String> segmentColumn 	= createColumn("Segment Release", "segmentRelease", SMALL);
-		TableColumn<Bug, String> lastUpdatedColumn = createColumn("Last Updated", "lastUpdated", SMALL);
+		TableColumn<Bug, String> componentColumn 	= createColumn("Component", "component", SMALL);
+		TableColumn<Bug, String> severity 			= createColumn("Severity", "severity", SMALL);
+		TableColumn<Bug, String> summaryColumn 		= createColumn("Summary", "summary", LARGE);
+		TableColumn<Bug, String> lastUpdatedColumn 	= createColumn("Last Updated", "lastUpdated", SMALL);
 
 		tableView = new TableView<>();
-		tableView.getColumns().addAll(numberColumn, statusColumn, assignedColumn, componentColumn, severity, summaryColumn, genFromColumn, intExtColumn, systemColumn, segmentColumn, lastUpdatedColumn);
+		tableView.getColumns().addAll(numberColumn, statusColumn, assignedColumn, componentColumn, severity, summaryColumn, lastUpdatedColumn);
 		tableView.setEditable(false);
 		tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -80,7 +71,6 @@ public class BugTable
 				// Double Click
 				if (event.getClickCount() == 2 && (!row.isEmpty()))
 				{
-					BugDetailRequest request = new BugDetailRequest(row.getItem().getNumber(), GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
 					// TODO use ApiRequestor
 				}
 			});
@@ -101,7 +91,7 @@ public class BugTable
 					List<String> selectedBugNumbers = new ArrayList<String>();
 
 					for (Bug bug : selectedBugs)
-						selectedBugNumbers.add(bug.getNumber());
+						selectedBugNumbers.add(bug.getId());
 
 					if (tableView.getItems().size() > 0)
 						new BugContextMenu(tableView, selectedBugNumbers);
@@ -128,6 +118,10 @@ public class BugTable
 					@Override
 					protected void updateItem(String item, boolean empty)
 					{
+						if (item == null) {
+							return;
+						}
+						
 						if (!empty)
 						{
 							super.updateItem(item, empty);
@@ -140,13 +134,13 @@ public class BugTable
 							// First update hyperlink
 							if (columnLabel.equals("Number"))
 							{
-								link.setText(bug.getNumber());
+								link.setText(bug.getId());
 								link.setUnderline(true);
 								link.setOnAction(e ->
 								{
 									try 
 									{
-										Utilities.openBugInFirefox(GuiConstants.BUGZILLA_URL, bug.getNumber());
+										Utilities.openBugInFirefox(GuiConstants.BUGZILLA_URL, bug.getId());
 									} 
 									catch (IOException e1) 
 									{

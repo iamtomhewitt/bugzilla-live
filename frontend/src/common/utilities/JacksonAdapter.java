@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import common.UnitTestStep;
 import common.bug.Bug;
 import common.bug.BugAttachment;
@@ -19,6 +19,7 @@ import common.exception.JsonTransformationException;
  * @author Tom Hewitt
  * @since 2.3.0
  */
+
 @SuppressWarnings("rawtypes")
 public class JacksonAdapter
 {
@@ -52,6 +53,7 @@ public class JacksonAdapter
 	public static List fromJson(String json, Class c) throws JsonTransformationException
 	{
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
 		try
 		{
