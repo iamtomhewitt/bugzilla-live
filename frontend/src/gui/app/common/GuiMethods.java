@@ -122,16 +122,19 @@ public class GuiMethods
 	{	
 		try
 		{
-			List<String> numbers = new ArrayList<String>();
+			String numbers = "";
 			List<Bug> bugs = JacksonAdapter.fromJson(GuiConstants.PREFILTERED_BUG_DATA, Bug.class);
 			
 			for (Bug bug : bugs)
-				numbers.add(bug.getNumber());
+			{
+				numbers += bug.getId() + ",";
+			}
 
 			if (!numbers.isEmpty())
 			{
-				BugsRequest request = new BugsRequest(numbers, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
-				// TODO use ApiRequestor
+				String url = String.format("/bugs/numbers?numbers=%s", numbers);
+				String response = ApiRequestor.request(url);
+				updateBugsInTable(response);
 			}
 		}
 		catch (JsonTransformationException e)
