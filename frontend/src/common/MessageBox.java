@@ -3,6 +3,9 @@ package common;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import org.apache.http.HttpStatus;
+import org.json.JSONObject;
+
 import common.utilities.Icons;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -74,18 +77,25 @@ public class MessageBox
 		alert.showAndWait();
 	}
 	
-	public static void showErrorDialog(String title, String message)
+	public static void showErrorIfResponseNot200(String response)
 	{
-		Alert alert = new Alert(AlertType.ERROR);
-		
-		alert.setTitle("Error");
-		alert.setHeaderText(title);
-		alert.setContentText(message);
-		
-		Stage s = (Stage) alert.getDialogPane().getScene().getWindow();
-		s.getIcons().add(Icons.createBugzillaIcon().getImage());
-		
-		alert.showAndWait();
+		int status = new JSONObject(response).getInt("status");
+		if (status != HttpStatus.SC_OK) {				
+			JSONObject error = new JSONObject(response).getJSONObject("error");
+			String title 	= error.getString("title");
+			String message 	= error.getString("message");	
+			
+			Alert alert = new Alert(AlertType.ERROR);
+			
+			alert.setTitle("Error");
+			alert.setHeaderText(title);
+			alert.setContentText(message);
+			
+			Stage s = (Stage) alert.getDialogPane().getScene().getWindow();
+			s.getIcons().add(Icons.createBugzillaIcon().getImage());
+			
+			alert.showAndWait();
+		}
 	}
 
 	public static boolean showConfirmDialog(String message)

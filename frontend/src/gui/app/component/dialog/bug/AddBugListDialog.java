@@ -2,9 +2,6 @@ package gui.app.component.dialog.bug;
 
 import java.net.URLEncoder;
 
-import org.apache.http.HttpStatus;
-import org.json.JSONObject;
-
 import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.component.WindowsBar;
@@ -103,16 +100,7 @@ public class AddBugListDialog
 			String url = String.format("/list/add?name=%s&contents=%s", URLEncoder.encode(fileNameField.getText(), "UTF-8"), URLEncoder.encode(bugField.getText(), "UTF-8"));
 			String response = ApiRequestor.request(url);
 			
-			int status = new JSONObject(response).getInt("status");
-			
-			if (status != HttpStatus.SC_OK) {				
-				JSONObject error = new JSONObject(response).getJSONObject("error");
-				String title 	= error.getString("title");
-				String message 	= error.getString("message");
-				
-				MessageBox.showErrorDialog(title, message);
-				return;
-			}
+			MessageBox.showErrorIfResponseNot200(response);
 			
 			GuiMethods.clearTable();
 			GuiConstants.CURRENT_LIST_FILE = fileNameField.getText();

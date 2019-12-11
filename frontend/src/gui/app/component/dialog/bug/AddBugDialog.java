@@ -18,9 +18,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import org.apache.http.HttpStatus;
-import org.json.JSONObject;
-
 import common.Errors;
 import common.MessageBox;
 import common.message.ApiRequestor;
@@ -95,15 +92,7 @@ public class AddBugDialog
 				String url = String.format("/list/modify?name=%s&add=%s", filename, number);
 				String response = ApiRequestor.request(url);
 				
-				int status = new JSONObject(response).getInt("status");
-				if (status != HttpStatus.SC_OK) {				
-					JSONObject error = new JSONObject(response).getJSONObject("error");
-					String title 	= error.getString("title");
-					String message 	= error.getString("message");
-					
-					MessageBox.showErrorDialog(title, message);
-					return;
-				}				
+				MessageBox.showErrorIfResponseNot200(response);
 				
 				// Now refresh the list to pick up the new bug
 				GuiMethods.requestRefreshOfBugsInList();
