@@ -18,6 +18,7 @@ import common.MessageBox;
 import common.bug.BugAttachment;
 import common.bug.BugComment;
 import common.exception.JsonTransformationException;
+import common.message.ApiRequestor;
 import common.utilities.Icons;
 import common.utilities.JacksonAdapter;
 import gui.app.common.GuiMethods;
@@ -64,12 +65,8 @@ public class BugCommentDialog extends GridPane
 	private final int COMMENT_WIDTH = 418;
 	private final int ATTACHMENT_WIDTH = 418;
 	
-	private JSONObject json;
-
-	public BugCommentDialog(String response, String number) throws Exception
-	{
-		this.json = new JSONObject(response);
-		
+	public BugCommentDialog(String number) throws Exception
+	{		
 		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		scrollPane.setPadding(new Insets(0, 0, 10, 0));
 		scrollPane.setStyle("-fx-background-color: white");
@@ -86,7 +83,7 @@ public class BugCommentDialog extends GridPane
 		stage.centerOnScreen();
 		stage.getIcons().add(Icons.createCommentIcon().getImage());
 		
-		populateAttachments();
+		populateAttachments(number);
 		populateComments(number);
 		
 		Button addCommentButton = new Button("Add Comment");
@@ -100,9 +97,18 @@ public class BugCommentDialog extends GridPane
 		scrollPane.setContent(vbox);
 	}
 	
-	private void populateAttachments() throws JsonTransformationException 
+	private void populateAttachments(String number) throws JsonTransformationException 
 	{
-		List<BugAttachment> attachments = JacksonAdapter.fromJson(json.getString("attachments"), BugAttachment.class);
+		String url = String.format("/bugs/%s/attachments", number);
+		String response = ApiRequestor.request(url);
+		
+		if (MessageBox.showErrorIfResponseNot200(response)) {
+			return;
+		}
+		
+		JSONObject json = new JSONObject(response);
+		String bug = json.getJSONObject("bugs").getJSONArray(number).toString();
+		List<BugAttachment> attachments = JacksonAdapter.fromJson(bug, BugAttachment.class);
 		
 		for (BugAttachment attachment : attachments)
 		{			
@@ -140,8 +146,15 @@ public class BugCommentDialog extends GridPane
 
 	private void populateComments(String number) throws JsonTransformationException 
 	{
+		String url = String.format("/bugs/%s/comments", number);
+		String response = ApiRequestor.request(url);
+		
+		if (MessageBox.showErrorIfResponseNot200(response)) {
+			return;
+		}
+		
+		JSONObject json = new JSONObject(response);
 		String bug = json.getJSONObject("bugs").getJSONObject(number).getJSONArray("comments").toString();
-		System.out.println(bug);
 		List<BugComment> comments = JacksonAdapter.fromJson(bug, BugComment.class);		
 
 		for (BugComment comment : comments)
