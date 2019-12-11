@@ -104,6 +104,7 @@ function success(bugs) {
 	return response = {
 		"type": "bugResponse",
 		"operation": "bugs",
+		"status": successCode,
 		bugs
 	}
 }
@@ -112,6 +113,7 @@ function failure(error) {
 	return response = {
 		"type": "bugResponse",
 		"operation": "notification",
+		"status": errorCode,
 		"error": error
 	}
 }
