@@ -12,7 +12,6 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.FileChooser;
 import common.MessageBox;
 import common.message.ApiRequestor;
-import common.message.list.DeleteListRequest;
 import common.utilities.Icons;
 import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
@@ -70,11 +69,9 @@ public class ListMenu
 	
 	private void populateMenuWithLists(Menu menu, boolean changeListMenu)
 	{
-		// TODO make request to find out lists
 		String response = ApiRequestor.request("/list/lists");
 		JSONObject json = new JSONObject(response);
 		JSONArray lists = json.getJSONArray("lists");
-		
 		
 		for (int i = 0; i < lists.length(); i++)
 		{
@@ -82,7 +79,7 @@ public class ListMenu
 			
 			CheckMenuItem item = new CheckMenuItem(filename);
 
-			if (GuiConstants.CURRENT_LIST_FILE != null && filename.equals(GuiConstants.CURRENT_LIST_FILE))
+			if (filename.equals(GuiConstants.CURRENT_LIST_FILE))
 			{
 				item.setSelected(true);
 			}
@@ -110,8 +107,9 @@ public class ListMenu
 		
 	private void deleteList(String filename)
 	{
-		DeleteListRequest request = new DeleteListRequest("" + filename + ".txt");
-		// TODO use ApiRequestor
+		String name = filename.split("\\.")[0];
+		String response = ApiRequestor.request("/list/delete?name=", name);
+		System.out.println(response);		
 	}
 	
 	private void switchList(String filename)
