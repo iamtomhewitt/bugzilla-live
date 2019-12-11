@@ -17,9 +17,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import org.apache.http.HttpStatus;
+import org.json.JSONObject;
+
 import common.Errors;
 import common.MessageBox;
-import common.message.list.ModifyListRequest;
+import common.message.ApiRequestor;
 import common.utilities.Icons;
 
 /**
@@ -73,9 +77,12 @@ public class AddBugDialog
 	{
 		try
 		{
-			if (!input.getText().matches(GuiConstants.BUG_REGEX))
+			String filename = GuiConstants.CURRENT_LIST_FILE.split("\\.")[0];
+			String number = input.getText();
+			
+			if (!number.matches(GuiConstants.BUG_REGEX))
 			{
-				MessageBox.showDialog("Bug '" + input.getText() + "'" + Errors.INVALID_BUG);
+				MessageBox.showDialog("Bug '" + number + "'" + Errors.INVALID_BUG);
 				return;
 			}
 			if (GuiConstants.REQUEST_TYPE.equals(RequestType.USER))
@@ -83,10 +90,20 @@ public class AddBugDialog
 				MessageBox.showDialog("Cannot add a bug as a list is not being used.");
 				return;
 			}
-			if (!input.getText().equals(""))
+			if (!number.isEmpty())
 			{
-				ModifyListRequest request = new ModifyListRequest(GuiConstants.CURRENT_LIST_FILE.getAbsolutePath(), input.getText(), "");
-				// TODO use ApiRequestor
+				String url = String.format("/list/modify?name=%s&add=%s", filename, number);
+				String response = ApiRequestor.request(url);
+				
+				int status = new JSONObject(response).getInt("status");
+				if (status != HttpStatus.SC_OK) {				
+					JSONObject error = new JSONObject(response).getJSONObject("error");
+					String title 	= error.getString("title");
+					String message 	= error.getString("message");
+					
+					MessageBox.showErrorDialog(title, message);
+					return;
+				}				
 				
 				// Now refresh the list to pick up the new bug
 				GuiMethods.requestRefreshOfBugsInList();

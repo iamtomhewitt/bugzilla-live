@@ -19,5 +19,6 @@ public class Errors
 	public static final String EXCEL 			= "Could not export table to Excel.";
 	public static final String JACKSON_FROM		= "Problem parsing JSON into Object.";
 	public static final String JACKSON_TO		= "Problem turning Object into JSON.";
-	public static final String ATTACHMENT 		= "Could not open the attachment";
+	public static final String ATTACHMENT 		= "Could not open the attachment.";
+	public static final String REQUEST 			= "Could not send request to the backend service.";
 }
