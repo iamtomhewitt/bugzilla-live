@@ -15,9 +15,9 @@ import org.apache.http.util.EntityUtils;
  */
 public class ApiRequestor {
 	
-	public static String request(String url) {
+	public static String request(String endpoint) {
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
-			HttpGet request = new HttpGet(url);
+			HttpGet request = new HttpGet("http://localhost:3001" + endpoint);
 
 			HttpResponse result = httpClient.execute(request);
 
