@@ -68,7 +68,11 @@ router.get('/modify', function (req, res) {
 	let newContents = contents;
 	
 	if (remove) {
-		newContents = contents.replace(new RegExp(remove), '');
+		let array = remove.split(",");
+		array.forEach(function(number, index){
+			console.log(number);
+			newContents = newContents.replace(new RegExp(number), '');
+		});
 	}
 
 	if (add) {
