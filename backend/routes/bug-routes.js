@@ -100,6 +100,34 @@ router.get('/:number/comments', function (req, res) {
 	});
 });
 
+// Get attachments for a bug
+router.get('/:number/attachments', function (req, res) {
+	let bugNumber = req.params.number;
+	let error, response;
+
+	if (!bugNumber) {
+		error = createError("Invalid bug number", 'No bug number specified.');
+		response = failure(error);
+		res.status(errorCode).send(response);
+		return ;
+	}
+
+	let url = getBugzillaUrl() + '/rest/bug/' + bugNumber + '/attachment'
+
+	request(url, function (err, response, body) {
+		if (err) {
+			error = createError("Could not get attachments from Bugzilla", err.message);
+			response = failure(error)
+			res.status(errorCode).send(response);
+			return;
+		}
+		
+		let attachments = JSON.parse(body, null, 4)['bugs'];	
+		response = success(attachments);
+		res.status(successCode).send(response);
+	});
+});
+
 function success(bugs) {
 	return response = {
 		"type": "bugResponse",

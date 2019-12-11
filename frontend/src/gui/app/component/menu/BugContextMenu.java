@@ -92,14 +92,7 @@ public class BugContextMenu
 			try
 			{
 				String number = table.getSelectionModel().getSelectedItem().getId();
-				String url = String.format("/bugs/%s/comments", number);
-				String response = ApiRequestor.request(url);
-				
-				if (MessageBox.showErrorIfResponseNot200(response)) {
-					return;
-				}
-				
-				new BugCommentDialog(response, number);
+				new BugCommentDialog(number);
 			}
 			catch (Exception ex)
 			{

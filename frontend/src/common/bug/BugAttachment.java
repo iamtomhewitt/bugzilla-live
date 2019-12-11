@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Base64;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 
 /**
@@ -18,8 +20,9 @@ public class BugAttachment
 {
 	private String id;
 	private String description;
-	private String filename;
 	private String data;
+	@JsonProperty("file_name")
+	private String filename;
 
 	public BugAttachment()
 	{
