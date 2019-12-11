@@ -1,9 +1,5 @@
 package gui.app.common;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -87,11 +83,20 @@ public class GuiMethods
 		GuiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
 		GuiConstants.CURRENT_LIST_FILE = null;
 		
-//		UserBugsRequest request = new UserBugsRequest(GuiConstants.USERNAME, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
-		// TODO use ApiRequestor
+		// TODO get users email
+		String email = "leif@ogre.com";
+		String url = String.format("/bugs/email?email=%s", email);
+		String response = ApiRequestor.request(url);
+		
+		if(MessageBox.showErrorIfResponseNot200(response))
+		{
+			return;
+		}
+		
+		clearTable();
+		updateBugsInTable(response);
 	}	
 	
-
 	/**
 	 * Sends a request to the backend to refresh the bugs contained in the active list. Call this method when adding or removing a bug from a list, or when switching lists.
 	 */
@@ -103,6 +108,11 @@ public class GuiMethods
 		String content = new JSONObject(response).getString("contents");
 		
 		GuiConstants.REQUEST_TYPE = RequestType.LIST;
+		
+		if(MessageBox.showErrorIfResponseNot200(response))
+		{
+			return;
+		}
 
 		if (!content.isEmpty())
 		{
@@ -111,7 +121,6 @@ public class GuiMethods
 			updateBugsInTable(response);
 		}
 	}
-	
 
 	/**
 	 * Sends a request to the Bug Service to refresh the <b><i>current</i></b> set of Bugs in the table.<p>
@@ -134,6 +143,12 @@ public class GuiMethods
 			{
 				String url = String.format("/bugs/numbers?numbers=%s", numbers);
 				String response = ApiRequestor.request(url);
+				
+				if(MessageBox.showErrorIfResponseNot200(response))
+				{
+					return;
+				}
+				
 				updateBugsInTable(response);
 			}
 		}
@@ -142,7 +157,6 @@ public class GuiMethods
 			MessageBox.showExceptionDialog(Errors.REFRESH, e);
 		}
 	}
-	
 
 	/**
 	 * Called when an bug response message is received. Decodes the JSON returned, creates a list of bug objects and inserts it into the table.
@@ -203,9 +217,6 @@ public class GuiMethods
 		String lastName = lastNameFirstLetter + username.split("\\.")[1].substring(1);
 		
 		String name = firstName + " " + lastName;
-		
-		if (name.equals("Thomas Hewitt"))
-			name = "Tom Hewitt";
 		
 		return name; 
 	}

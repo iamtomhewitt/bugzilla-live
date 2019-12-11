@@ -51,15 +51,7 @@ public class GetUserBugsDialog
 			GuiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
 			GuiConstants.CURRENT_LIST_FILE = null;
 			
-			// TODO get users email
-			String email = "leif@ogre.com";
-			String url = String.format("/bugs/email?email=%s", email);
-			String response = ApiRequestor.request(url);
-			
-			MessageBox.showErrorIfResponseNot200(response);
-			
-			GuiMethods.clearTable();
-			GuiMethods.updateBugsInTable(response);
+			GuiMethods.requestRefreshOfCurrentUserBugs();
 			
 			stage.close();
 		});
