@@ -3,7 +3,6 @@ package gui.app.component.menu;
 import java.io.File;
 
 import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpGet;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -117,7 +116,9 @@ public class ListMenu
 	private void deleteList(String filename)
 	{
 		String name = filename.split("\\.")[0];
-		String response = ApiRequestor.request("/list/delete?name=", name);
+		String url = String.format("/list/delete?name=%s", name);
+		String response = ApiRequestor.request(url);
+		
 		int status = new JSONObject(response).getInt("status");
 		
 		if (status != HttpStatus.SC_OK) {

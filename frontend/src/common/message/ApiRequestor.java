@@ -16,15 +16,12 @@ import org.apache.http.util.EntityUtils;
  * @author Tom Hewitt
  */
 public class ApiRequestor {
-	
-	public static String request(String endpoint, String query) {
+
+	public static String request(String endpoint) {
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
 			String url = "http://localhost:3001" + endpoint;
-			
-			if (!query.isEmpty()) {
-				url += URLEncoder.encode(query, "UTF-8");
-			}
-			
+
+			System.out.println(url);
 			HttpGet request = new HttpGet(url);
 
 			HttpResponse result = httpClient.execute(request);
@@ -34,13 +31,8 @@ public class ApiRequestor {
 			return json;
 
 		} catch (IOException | ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 		return null;
-	}
-	
-	public static String request(String endpoint) {
-		return request(endpoint, "");
 	}
 }
