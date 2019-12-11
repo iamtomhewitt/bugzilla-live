@@ -2,6 +2,8 @@ package gui.app.component.menu;
 
 import java.io.File;
 
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpGet;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -70,6 +72,13 @@ public class ListMenu
 	private void populateMenuWithLists(Menu menu, boolean changeListMenu)
 	{
 		String response = ApiRequestor.request("/list/lists");
+		
+		int status = new JSONObject(response).getInt("status");
+		if (status != HttpStatus.SC_OK) {
+			MessageBox.showDialog(new JSONObject(response).getJSONObject("error").get("message").toString());
+			return;
+		}
+		
 		JSONObject json = new JSONObject(response);
 		JSONArray lists = json.getJSONArray("lists");
 		
@@ -109,7 +118,11 @@ public class ListMenu
 	{
 		String name = filename.split("\\.")[0];
 		String response = ApiRequestor.request("/list/delete?name=", name);
-		System.out.println(response);		
+		int status = new JSONObject(response).getInt("status");
+		
+		if (status != HttpStatus.SC_OK) {
+			MessageBox.showDialog(new JSONObject(response).getJSONObject("error").get("message").toString());
+		}
 	}
 	
 	private void switchList(String filename)
