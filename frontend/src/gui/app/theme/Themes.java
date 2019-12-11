@@ -3,11 +3,6 @@ package gui.app.theme;
 import java.util.HashMap;
 import java.util.Map;
 
-import common.Errors;
-import common.MessageBox;
-import common.exception.JsonTransformationException;
-import common.exception.MessageSenderException;
-import common.message.config.ApplicationSaveRequest;
 import gui.app.common.GuiMethods;
 
 
@@ -78,22 +73,18 @@ public class Themes
 		properties.put("windowcolour", Colours.WINDOW);
 		properties.put("windowtextcolour", Colours.WINDOW_TEXT);
 		properties.put("criticalcolour", Colours.CRITICAL);
-		properties.put("highcolour", Colours.HIGH);
-		properties.put("mediumcolour", Colours.MEDIUM);
-		properties.put("lowcolour", Colours.LOW);
-		properties.put("unknowncolour", Colours.UNKNOWN);
-		properties.put("codedcolour", Colours.CODED);
-		properties.put("builtcolour", Colours.BUILT);
-		properties.put("releasedcolour", Colours.RELEASED);
-		properties.put("addressedcolour", Colours.ADDRESSED);
+		properties.put("highcolour", Colours.MAJOR);
+		properties.put("mediumcolour", Colours.MINOR);
+		properties.put("lowcolour", Colours.NORMAL);
+		properties.put("addressedcolour", Colours.WORKS_FOR_ME);
 		properties.put("fixedcolour", Colours.FIXED);
-		properties.put("closedcolour", Colours.CLOSED);
+		properties.put("closedcolour", Colours.RESOLVED);
 		properties.put("nofaultcolour", Colours.NOFAULT);
 		properties.put("infopanebackgroundcolour", Colours.INFO_PANE_BACKGROUND);
 		properties.put("infopaneheadingcolour", Colours.INFO_PANE_HEADING);
 		properties.put("infopanesubheadingcolour", Colours.INFO_PANE_SUBHEADING);
 
-		ApplicationSaveRequest request = new ApplicationSaveRequest(properties);
+		//ApplicationSaveRequest request = new ApplicationSaveRequest(properties);
 		// TODO use ApiRequestor
 	}
 }

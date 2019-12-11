@@ -21,11 +21,10 @@ public class Bug
 	private String status;
 	private String product;
 	private String component;
-	
+	private String severity;
+
 	@JsonProperty("assigned_to")
 	private String assignedTo;
-	
-	private String severity;
 	
 	@JsonProperty("last_change_time")
 	private String lastUpdated;

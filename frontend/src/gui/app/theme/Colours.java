@@ -5,18 +5,15 @@ import javafx.scene.paint.Color;
 public class Colours
 {
 	public static String CRITICAL 				= "#ff0000";
-	public static String HIGH 					= "#ffc000";
-	public static String MEDIUM 				= "#ffff00";
-	public static String LOW 					= "#91dcff";
-	public static String UNKNOWN 				= "#d0d0d0";
+	public static String MAJOR 					= "#ffc000";
+	public static String MINOR 					= "#ffff00";
+	public static String NORMAL					= "#91dcff";
+	public static String TRIVIAL 				= "#d0d0d0";
 
-	public static String CODED 					= "#6cff00";
-	public static String BUILT 					= "#5bff00";
-	public static String RELEASED 				= "#2aff00";
 	public static String FIXED 					= "#00ff00";
-	public static String CLOSED 				= "#00ff2a";
+	public static String RESOLVED 				= "#00ff2a";
 
-	public static String ADDRESSED 				= "#00ffc6";
+	public static String WORKS_FOR_ME			= "#00ffc6";
 	public static String NOFAULT 				= "#005bff";
 
 	public static String SELECTED 				= "#000000";

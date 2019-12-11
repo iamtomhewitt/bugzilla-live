@@ -5,11 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.Callable;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 import gui.app.common.GuiConstants;
 import gui.app.component.WindowsBar;
 import javafx.animation.AnimationTimer;

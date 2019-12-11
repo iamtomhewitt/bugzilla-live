@@ -41,21 +41,17 @@ public class InformationPane
 
 		Label severity 		= createHeadingLabel("\nSeverity");
 		Label critical 		= createSubHeadingLabel("Critical", Colours.CRITICAL, severityLabels);
-		Label high 			= createSubHeadingLabel("High", Colours.HIGH, severityLabels);
-		Label medium 		= createSubHeadingLabel("Medium", Colours.MEDIUM, severityLabels);
-		Label low 			= createSubHeadingLabel("Low", Colours.LOW, severityLabels);
-		Label unknown 		= createSubHeadingLabel("Unknown", Colours.UNKNOWN, severityLabels);
+		Label high 			= createSubHeadingLabel("High", Colours.MAJOR, severityLabels);
+		Label medium 		= createSubHeadingLabel("Medium", Colours.MINOR, severityLabels);
+		Label low 			= createSubHeadingLabel("Low", Colours.NORMAL, severityLabels);
 
 		Label status 		= createHeadingLabel("\nStatus");
 		Label investigation = createSubHeadingLabel("Investigation", Colours.BLANK, statusLabels);
 		Label diagnosed 	= createSubHeadingLabel("Diagnosed", Colours.BLANK, statusLabels);
-		Label addressed		= createSubHeadingLabel("Addressed", Colours.ADDRESSED, statusLabels);
-		Label coded 		= createSubHeadingLabel("Coded", Colours.CODED, statusLabels);
-		Label built 		= createSubHeadingLabel("Built", Colours.BUILT, statusLabels);
-		Label released 		= createSubHeadingLabel("Released", Colours.RELEASED, statusLabels);
+		Label addressed		= createSubHeadingLabel("Addressed", Colours.WORKS_FOR_ME, statusLabels);
 		Label fixed			= createSubHeadingLabel("Fixed", Colours.FIXED, statusLabels);
 		Label noFault		= createSubHeadingLabel("No Fault", Colours.NOFAULT, statusLabels);
-		Label closed 		= createSubHeadingLabel("Closed", Colours.CLOSED, statusLabels);
+		Label closed 		= createSubHeadingLabel("Closed", Colours.RESOLVED, statusLabels);
 
 		refreshed = createLabel("Never", Fonts.FONT, FontWeight.BOLD, Fonts.FONT_SIZE_LARGE, Color.WHITE);
 		refreshedTitle = createHeadingLabel("Last Updated");
@@ -63,7 +59,7 @@ public class InformationPane
 
 		subheadingLabels.add(refreshed);
 
-		pane.getChildren().addAll(title, refreshedVbox, severity, critical, high, medium, low, unknown, status, investigation, diagnosed, addressed, coded, built, released, fixed, noFault, closed);
+		pane.getChildren().addAll(title, refreshedVbox, severity, critical, high, medium, low, status, investigation, diagnosed, addressed, fixed, noFault, closed);
 		pane.setSpacing(12);
 		pane.setPadding(new Insets(20, 15, 15, 15));
 		pane.setMinWidth(250);
@@ -79,7 +75,7 @@ public class InformationPane
 			@Override
 			public void run()
 			{
-				String filename = GuiConstants.CURRENT_LIST_FILE == null ? "" : GuiConstants.CURRENT_LIST_FILE.getName().split("\\.")[0] + " | ";
+				String filename = GuiConstants.CURRENT_LIST_FILE == null ? "" : GuiConstants.CURRENT_LIST_FILE.split("\\.")[0] + " | ";
 
 				title.setText(filename + BugTable.getInstance().getTableView().getItems().size() + " Bugs");
 
