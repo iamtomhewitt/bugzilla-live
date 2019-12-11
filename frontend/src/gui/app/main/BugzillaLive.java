@@ -70,16 +70,6 @@ public class BugzillaLive extends Application
 		primaryStage.getIcons().add(Icons.createBugzillaIcon().getImage());
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Bugzilla LIVE");
-		primaryStage.setOnCloseRequest(e ->
-		{
-			// Clear out any remaining messages
-			File dir = new File("");
-			for (File f : dir.listFiles())
-				f.delete();
-
-			Platform.exit();
-			System.exit(0);
-		});
 
 		Label welcomeLabel = new Label("Welcome to Bugzilla LIVE.\nTo get started, select or create a list using the File, Lists menu.\nUse the Help menu if you get stuck.");
 		welcomeLabel.setTextAlignment(TextAlignment.CENTER);
