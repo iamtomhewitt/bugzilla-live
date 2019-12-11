@@ -94,7 +94,7 @@ router.get('/:number/comments', function (req, res) {
 			return;
 		}
 		
-		comments = JSON.parse(body, null, 4)['bugs'][bugNumber];	
+		comments = JSON.parse(body, null, 4)['bugs'];	
 		response = success(comments);
 		res.status(successCode).send(response);
 	});

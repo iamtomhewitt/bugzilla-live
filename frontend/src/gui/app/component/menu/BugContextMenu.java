@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gui.app.common.GuiConstants;
+import gui.app.common.GuiMethods;
 import gui.app.component.InformationPane;
+import gui.app.component.dialog.bug.BugCommentDialog;
 import gui.app.component.dialog.bug.ChangeBugStatusDialog;
 
 import javafx.scene.control.ContextMenu;
@@ -90,8 +92,14 @@ public class BugContextMenu
 			try
 			{
 				String number = table.getSelectionModel().getSelectedItem().getId();
-				//BugDetailRequest request = new BugDetailRequest(number, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
-				// TODO use ApiRequestor
+				String url = String.format("/bugs/%s/comments", number);
+				String response = ApiRequestor.request(url);
+				
+				if (MessageBox.showErrorIfResponseNot200(response)) {
+					return;
+				}
+				
+				new BugCommentDialog(response, number);
 			}
 			catch (Exception ex)
 			{

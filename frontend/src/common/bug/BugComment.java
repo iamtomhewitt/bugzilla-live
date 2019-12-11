@@ -10,23 +10,23 @@ import java.nio.charset.StandardCharsets;
  */
 public class BugComment
 {
-	private String commenter;
+	private String creator;
 	private String time;
-	private String comment;
+	private String text;
 
 	public BugComment()
 	{
 		// Used for Jackson
 	}
 
-	public String getCommenter()
+	public String getCreator()
 	{
-		return commenter;
+		return creator;
 	}
 
-	public void setCommenter(String commenter)
+	public void setCreator(String creator)
 	{
-		this.commenter = commenter;
+		this.creator = creator;
 	}
 
 	public String getTime()
@@ -39,15 +39,15 @@ public class BugComment
 		this.time = time;
 	}
 
-	public String getComment()
+	public String getText()
 	{
-		return comment;
+		return text;
 	}
 
-	public void setComment(String comment)
+	public void setText(String text)
 	{
-		comment = comment.replaceAll("�€�", "'");
-		comment = comment.replaceAll("�€“", "-");
-		this.comment = new String(comment.getBytes(), StandardCharsets.UTF_8);
+		text = text.replaceAll("�€�", "'");
+		text = text.replaceAll("�€“", "-");
+		this.text = new String(text.getBytes(), StandardCharsets.UTF_8);
 	}
 }

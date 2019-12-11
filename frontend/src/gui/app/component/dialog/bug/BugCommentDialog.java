@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
 
 import common.Errors;
 import common.Fonts;
@@ -64,13 +64,12 @@ public class BugCommentDialog extends GridPane
 	private final int COMMENT_WIDTH = 418;
 	private final int ATTACHMENT_WIDTH = 418;
 	
-	private JSONObject message;
+	private JSONObject json;
 
-	public BugCommentDialog(JSONObject message) throws Exception
+	public BugCommentDialog(String response, String number) throws Exception
 	{
-		this.message = message;
+		this.json = new JSONObject(response);
 		
-		String number = message.get("number").toString();
 		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		scrollPane.setPadding(new Insets(0, 0, 10, 0));
 		scrollPane.setStyle("-fx-background-color: white");
@@ -88,7 +87,7 @@ public class BugCommentDialog extends GridPane
 		stage.getIcons().add(Icons.createCommentIcon().getImage());
 		
 		populateAttachments();
-		populateComments();
+		populateComments(number);
 		
 		Button addCommentButton = new Button("Add Comment");
 		addCommentButton.setOnAction(e -> new AddCommentDialog(number, stage.getX() + WINDOW_WIDTH, stage));
@@ -103,7 +102,7 @@ public class BugCommentDialog extends GridPane
 	
 	private void populateAttachments() throws JsonTransformationException 
 	{
-		List<BugAttachment> attachments = JacksonAdapter.fromJson(message.get("attachments").toString(), BugAttachment.class);
+		List<BugAttachment> attachments = JacksonAdapter.fromJson(json.getString("attachments"), BugAttachment.class);
 		
 		for (BugAttachment attachment : attachments)
 		{			
@@ -139,17 +138,19 @@ public class BugCommentDialog extends GridPane
 		attachmentsVbox.setStyle("-fx-background-color: white");
 	}
 
-	private void populateComments() throws JsonTransformationException 
+	private void populateComments(String number) throws JsonTransformationException 
 	{
-		List<BugComment> comments = JacksonAdapter.fromJson(message.get("comments").toString(), BugComment.class);		
+		String bug = json.getJSONObject("bugs").getJSONObject(number).getJSONArray("comments").toString();
+		System.out.println(bug);
+		List<BugComment> comments = JacksonAdapter.fromJson(bug, BugComment.class);		
 
 		for (BugComment comment : comments)
 		{
-			comment.setComment(comment.getComment());
+			comment.setText(comment.getText());
 			
 			GridPane commentSection = new GridPane();
 
-			Label name = createNameLabel(comment.getCommenter());
+			Label name = createNameLabel(comment.getCreator());
 			name.setFont(Font.font("System", FontWeight.BOLD, Fonts.FONT_SIZE_LARGE));
 			name.setAlignment(Pos.CENTER_LEFT);
 
@@ -158,7 +159,7 @@ public class BugCommentDialog extends GridPane
 			date.setAlignment(Pos.CENTER_LEFT);
 
 			TextArea textArea = new TextArea();
-			textArea.setText(comment.getComment());
+			textArea.setText(comment.getText());
 			textArea.setWrapText(true);
 			textArea.setEditable(false);
 			textArea.setPrefWidth(COMMENT_WIDTH);
