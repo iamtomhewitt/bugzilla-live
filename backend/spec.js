@@ -176,4 +176,10 @@ describe('/list tests', function () {
 			.get('/list/delete')
 			.expect(601, done);
 	});
+
+	it('/list/lists gives 200', function test(done) {
+		request(server)
+			.get('/list/lists')
+			.expect(200, done);
+	});
 });
