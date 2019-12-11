@@ -77,7 +77,7 @@ public class MessageBox
 		alert.showAndWait();
 	}
 	
-	public static void showErrorIfResponseNot200(String response)
+	public static boolean showErrorIfResponseNot200(String response)
 	{
 		int status = new JSONObject(response).getInt("status");
 		if (status != HttpStatus.SC_OK) {				
@@ -95,7 +95,9 @@ public class MessageBox
 			s.getIcons().add(Icons.createBugzillaIcon().getImage());
 			
 			alert.showAndWait();
+			return true;
 		}
+		return false;
 	}
 
 	public static boolean showConfirmDialog(String message)
