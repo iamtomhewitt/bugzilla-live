@@ -2,13 +2,11 @@ package common.message;
 
 import java.io.IOException;
 import org.apache.http.HttpResponse;
+import org.apache.http.ParseException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  * An abstract class making requests to the Node Express backend.
@@ -17,21 +15,23 @@ import org.json.simple.parser.ParseException;
  */
 public class ApiRequestor {
 	
-	public static JSONObject request(String url) {
+	public static String request(String url) {
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
 			HttpGet request = new HttpGet(url);
 
 			HttpResponse result = httpClient.execute(request);
 
-			String jsonString = EntityUtils.toString(result.getEntity(), "UTF-8");
-			
-			JSONObject json = (JSONObject) new JSONParser().parse(jsonString);
+			String json = EntityUtils.toString(result.getEntity(), "UTF-8");
 
 			return json;
 
-		} catch (IOException | ParseException ex) {
-			ex.printStackTrace();
-		}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		return null;
 	}
 }
