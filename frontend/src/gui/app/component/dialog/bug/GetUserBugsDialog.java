@@ -12,9 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import common.Errors;
 import common.MessageBox;
-import common.exception.JsonTransformationException;
-import common.exception.MessageSenderException;
-import common.message.bug.UserBugsRequest;
+import common.message.ApiRequestor;
 import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.common.RequestType;
@@ -53,9 +51,16 @@ public class GetUserBugsDialog
 			GuiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
 			GuiConstants.CURRENT_LIST_FILE = null;
 			
-			UserBugsRequest request = new UserBugsRequest(GuiConstants.USERNAME, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
-			// TODO use ApiRequestor
+			// TODO get users email
+			String email = "leif@ogre.com";
+			String url = String.format("/bugs/email?email=%s", email);
+			String response = ApiRequestor.request(url);
+			
+			MessageBox.showErrorIfResponseNot200(response);
+			
 			GuiMethods.clearTable();
+			GuiMethods.updateBugsInTable(response);
+			
 			stage.close();
 		});
 		
@@ -91,8 +96,12 @@ public class GetUserBugsDialog
 		GuiConstants.CURRENT_LIST_FILE = null;
 		GuiConstants.REQUEST_TYPE = RequestType.USER;
 				
-		UserBugsRequest request = new UserBugsRequest(usernameField.getText(), GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
-		// TODO use ApiRequestor
+		// TODO get actual email
+		String email = "leif@ogre.com";
+		String url = String.format("/bugs/email?email=%s", email);
+		String response = ApiRequestor.request(url);
+					
+		MessageBox.showErrorIfResponseNot200(response);
 		
 		GuiMethods.clearTable();
 		
