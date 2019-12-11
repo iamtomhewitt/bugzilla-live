@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * A data class representing the basic info of an Bug. Used to populate the main table in the GUI.
  * 
@@ -14,17 +16,18 @@ import java.util.Date;
  */
 public class Bug
 {
-	private String number;
+	private String id;
 	private String summary;
 	private String status;
 	private String product;
 	private String component;
+	
+	@JsonProperty("assigned_to")
 	private String assignedTo;
+	
 	private String severity;
-	private String generatedFrom;
-	private String internalExternal;
-	private String system;
-	private String segmentRelease;
+	
+	@JsonProperty("last_change_time")
 	private String lastUpdated;
 	
 	// Used for Jackson
@@ -32,33 +35,24 @@ public class Bug
 		
 	public String toString()
 	{		
-		return "Bug: "+number+
+		return "Bug: "+id+
 				"\nSummary: "+summary+
 				"\nStatus: "+status+
 				"\nProduct: "+product+
 				"\nComponent: "+component+
 				"\nAssigned To: "+assignedTo +
-				"\nSeverity: "+severity+
-				"\nGenerated From: "+generatedFrom+
-				"\nInt/Ext: "+internalExternal+
-				"\nEnvironment: "+system +
-				"\nSegment Release: "+segmentRelease;
+				"\nSeverity: "+severity;
 	}
 	
 	public String toExcelFormat()
 	{
-		return number + "," +
+		return id + "," +
 				status + "," +
 				assignedTo + "," +
 				product + "," +
 				component + "," +
 				severity + "," +
-				summary.replace(",", " ") + "," +
-				generatedFrom + "," +
-				internalExternal + "," +
-				system + "," +
-				segmentRelease+ "," +
-				lastUpdated;
+				summary.replace(",", " ");
 	}
 	
 	/**
@@ -69,26 +63,22 @@ public class Bug
 		str = str.toLowerCase();
 		return  getAssignedTo().toLowerCase().contains(str) ||
 				getComponent().toLowerCase().contains(str) ||
-				getGeneratedFrom().toLowerCase().contains(str)||
-				getInternalExternal().toLowerCase().contains(str)||
 				getLastUpdated().toLowerCase().contains(str)||
-				getNumber().toLowerCase().contains(str)||
+				getId().toLowerCase().contains(str)||
 				getProduct().toLowerCase().contains(str)||
-				getSegmentRelease().toLowerCase().contains(str)||
 				getSeverity().toLowerCase().contains(str)||
 				getStatus().toLowerCase().contains(str)||
-				getSummary().toLowerCase().contains(str)||
-				getSystem().toLowerCase().contains(str);
+				getSummary().toLowerCase().contains(str);
 	}
 
-	public String getNumber()
+	public String getId()
 	{
-		return number;
+		return id;
 	}
 
-	public void setNumber(String number)
+	public void setId(String id)
 	{
-		this.number = number;
+		this.id = id;
 	}
 
 	public String getSummary()
@@ -175,46 +165,6 @@ public class Bug
 	{
 		String formatted = severity.substring(0, 1).toUpperCase() + severity.substring(1);
 		this.severity = formatted;
-	}
-
-	public String getGeneratedFrom()
-	{
-		return generatedFrom;
-	}
-
-	public void setGeneratedFrom(String generatedFrom)
-	{
-		this.generatedFrom = generatedFrom;
-	}
-
-	public String getInternalExternal()
-	{
-		return internalExternal;
-	}
-
-	public void setInternalExternal(String internalExternal)
-	{
-		this.internalExternal = internalExternal;
-	}
-
-	public String getSystem()
-	{
-		return system;
-	}
-
-	public void setSystem(String system)
-	{
-		this.system = system;
-	}
-
-	public String getSegmentRelease()
-	{
-		return segmentRelease;
-	}
-
-	public void setSegmentRelease(String segmentRelease)
-	{
-		this.segmentRelease = segmentRelease;
 	}
 
 	public String getLastUpdated()

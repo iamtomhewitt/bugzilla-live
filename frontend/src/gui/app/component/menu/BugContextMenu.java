@@ -96,7 +96,7 @@ public class BugContextMenu
 		{
 			try
 			{
-				String number = table.getSelectionModel().getSelectedItem().getNumber();
+				String number = table.getSelectionModel().getSelectedItem().getId();
 				BugDetailRequest request = new BugDetailRequest(number, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
 				// TODO use ApiRequestor
 			}
@@ -109,7 +109,7 @@ public class BugContextMenu
 		changeStatus.setGraphic(Icons.createChangeStatusIcon());
 		changeStatus.setOnAction(e -> 
 		{
-			String number = table.getSelectionModel().getSelectedItem().getNumber();
+			String number = table.getSelectionModel().getSelectedItem().getId();
 			String status = table.getSelectionModel().getSelectedItem().getStatus();
 			new ChangeBugStatusDialog(number, status);
 		});
@@ -118,7 +118,7 @@ public class BugContextMenu
 		copyBugTitle.setOnAction(e -> 
 		{
 			Bug bug = table.getSelectionModel().getSelectedItem();
-			String title = "Bug" + bug.getNumber() + " - " + bug.getSummary();
+			String title = "Bug" + bug.getId() + " - " + bug.getSummary();
 			Utilities.copy(title);
 		});
 
