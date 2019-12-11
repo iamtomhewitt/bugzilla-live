@@ -73,6 +73,20 @@ public class MessageBox
 		s.getIcons().add(Icons.createBugzillaIcon().getImage());
 		alert.showAndWait();
 	}
+	
+	public static void showErrorDialog(String title, String message)
+	{
+		Alert alert = new Alert(AlertType.ERROR);
+		
+		alert.setTitle("Error");
+		alert.setHeaderText(title);
+		alert.setContentText(message);
+		
+		Stage s = (Stage) alert.getDialogPane().getScene().getWindow();
+		s.getIcons().add(Icons.createBugzillaIcon().getImage());
+		
+		alert.showAndWait();
+	}
 
 	public static boolean showConfirmDialog(String message)
 	{
