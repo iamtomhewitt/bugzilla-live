@@ -16,10 +16,7 @@ import javafx.scene.control.TableView;
 import common.Errors;
 import common.MessageBox;
 import common.bug.Bug;
-import common.exception.JsonTransformationException;
-import common.exception.MessageSenderException;
-import common.message.bug.BugDetailRequest;
-import common.message.list.ModifyListRequest;
+import common.message.ApiRequestor;
 import common.utilities.Icons;
 import common.utilities.Utilities;
 
@@ -44,29 +41,25 @@ public class BugContextMenu
 		remove.setOnAction(e ->
 		{
 			// Remove from the table view GUI
-			List<Bug> orsToRemove = new ArrayList<Bug>(table.getSelectionModel().getSelectedItems());
+			List<Bug> bugsToRemove = new ArrayList<Bug>(table.getSelectionModel().getSelectedItems());
 
 			// Start at the end of the list and work backwards, otherwise the indexes of the
 			// table shift and it will only delete the first one
-			for (int i = orsToRemove.size() - 1; i >= 0; i--)
+			for (int i = bugsToRemove.size() - 1; i >= 0; i--)
 			{
-				table.getItems().remove(orsToRemove.get(i));
+				table.getItems().remove(bugsToRemove.get(i));
 				table.refresh();
 				InformationPane.getInstance().updateTexts();
 			}
 
 			table.getSelectionModel().clearSelection();
 
-			// Now remove from the config file
-			for (String number : bugNumbers)
-			{
-				if (!number.equals(""))
-				{
-					ModifyListRequest request = new ModifyListRequest(GuiConstants.CURRENT_LIST_FILE.getAbsolutePath(), "", number);
-					// TODO APIReqesutor
-					
-				}
-			}
+			String numbers 	= String.join(",", bugNumbers);
+			String filename = GuiConstants.CURRENT_LIST_FILE.split("\\.")[0];
+			String url 		= String.format("/list/modify?name=%s&remove=%s", filename, numbers);
+			String response = ApiRequestor.request(url);
+			
+			MessageBox.showErrorIfResponseNot200(response);
 		});
 
 		firefox.setGraphic(Icons.createFirefoxIcon());
@@ -97,7 +90,7 @@ public class BugContextMenu
 			try
 			{
 				String number = table.getSelectionModel().getSelectedItem().getId();
-				BugDetailRequest request = new BugDetailRequest(number, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
+				//BugDetailRequest request = new BugDetailRequest(number, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
 				// TODO use ApiRequestor
 			}
 			catch (Exception ex)
