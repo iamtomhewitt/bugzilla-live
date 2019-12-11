@@ -132,6 +132,19 @@ router.get('/lists', function (req, res) {
 	});
 });
 
+// Get existing lists
+router.get('/:listName/contents', function (req, res) {
+	let error, response
+	
+	let filename = listFolder + req.params.listName + ".bugList";
+	let contents = fs.readFileSync(filename, 'utf-8');
+
+	response = success('Retrieved contents');
+	response['contents'] = contents;
+
+	res.status(successCode).send(response);
+});
+
 function success(message) {
 	return response = {
 		"type": "listResponse",

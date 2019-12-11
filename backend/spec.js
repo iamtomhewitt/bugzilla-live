@@ -153,6 +153,12 @@ describe('/list tests', function () {
 			.expect(601, done);
 	});
 
+	it('/list/content gives 200', function test(done) {
+		request(server)
+			.get('/list/unit-test/contents')
+			.expect(200, done);
+	});
+
 	it('/list/modify gives 200', function test(done) {
 		request(server)
 			.get('/list/modify?name=unit-test&add=1234')
