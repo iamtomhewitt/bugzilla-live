@@ -1,6 +1,8 @@
 package gui.app.component.menu;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import org.apache.http.HttpStatus;
 import org.json.JSONArray;
@@ -11,6 +13,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.FileChooser;
+import common.Errors;
 import common.MessageBox;
 import common.message.ApiRequestor;
 import common.utilities.Icons;
@@ -115,14 +118,19 @@ public class ListMenu
 		
 	private void deleteList(String filename)
 	{
-		String name = filename.split("\\.")[0];
-		String url = String.format("/list/delete?name=%s", name);
-		String response = ApiRequestor.request(url);
-		
-		int status = new JSONObject(response).getInt("status");
-		
-		if (status != HttpStatus.SC_OK) {
-			MessageBox.showDialog(new JSONObject(response).getJSONObject("error").get("message").toString());
+		try {
+			String name = filename.split("\\.")[0];
+			String url = String.format("/list/delete?name=%s", URLEncoder.encode(name, "UTF-8"));
+			String response = ApiRequestor.request(url);
+			
+			int status = new JSONObject(response).getInt("status");
+			
+			if (status != HttpStatus.SC_OK) {
+				MessageBox.showDialog(new JSONObject(response).getJSONObject("error").get("message").toString());
+			}
+		}
+		catch (UnsupportedEncodingException e) {
+			MessageBox.showExceptionDialog(Errors.CREATE_LIST, e);
 		}
 	}
 	
