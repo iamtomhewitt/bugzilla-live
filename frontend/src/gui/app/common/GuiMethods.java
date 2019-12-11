@@ -6,16 +6,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.json.simple.JSONObject;
+
+import org.json.JSONObject;
 
 import common.Errors;
 import common.Fonts;
 import common.MessageBox;
 import common.bug.Bug;
 import common.exception.JsonTransformationException;
-import common.exception.MessageSenderException;
-import common.message.bug.BugsRequest;
-import common.message.bug.UserBugsRequest;
+import common.message.ApiRequestor;
 import common.utilities.JacksonAdapter;
 import gui.app.component.InformationPane;
 import gui.app.component.BugComparator;
@@ -88,36 +87,28 @@ public class GuiMethods
 		GuiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
 		GuiConstants.CURRENT_LIST_FILE = null;
 		
-		UserBugsRequest request = new UserBugsRequest(GuiConstants.USERNAME, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
+//		UserBugsRequest request = new UserBugsRequest(GuiConstants.USERNAME, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
 		// TODO use ApiRequestor
 	}	
 	
 
 	/**
-	 * Sends a request to the Bug Details Service to refresh the Bugs contained in the active list. Call this method when adding or removing an Bug from a list, or when switching lists.
+	 * Sends a request to the backend to refresh the bugs contained in the active list. Call this method when adding or removing a bug from a list, or when switching lists.
 	 */
 	public static void requestRefreshOfBugsInList()
 	{
-		try
-		{
-			// Sleep first to allow previous file processing to complete
-			Thread.sleep(500);
+		// Get the current bug numbers in the file
+		String url = String.format("/list/%s/contents", GuiConstants.CURRENT_LIST_FILE.split("\\.")[0]);
+		String response = ApiRequestor.request(url);
+		String content = new JSONObject(response).getString("contents");
+		
+		GuiConstants.REQUEST_TYPE = RequestType.LIST;
 
-			// Get the current bug numbers in the file
-			String content = new String(Files.readAllBytes(Paths.get(GuiConstants.CURRENT_LIST_FILE.getAbsolutePath())));
-			List<String> numbers = new ArrayList<String>(Arrays.asList(content.split(",")));
-			
-			GuiConstants.REQUEST_TYPE = RequestType.LIST;
-
-			if (!numbers.isEmpty())
-			{
-				BugsRequest request = new BugsRequest(numbers, GuiConstants.USERNAME, GuiConstants.PASSWORD, GuiConstants.APIKEY);
-				// TODO use ApiRequestor
-			}
-		}
-		catch (Exception e)
+		if (!content.isEmpty())
 		{
-			MessageBox.showExceptionDialog(Errors.REFRESH, e);
+			url = String.format("/bugs/numbers?numbers=%s", content);
+			response = ApiRequestor.request(url);
+			updateBugsInTable(response);
 		}
 	}
 	
@@ -153,11 +144,12 @@ public class GuiMethods
 	/**
 	 * Called when an bug response message is received. Decodes the JSON returned, creates a list of bug objects and inserts it into the table.
 	 */
-	public static void updateBugsInTable(JSONObject jsonObject)
+	public static void updateBugsInTable(String response)
 	{		
 		try
 		{
-			ObservableList<Bug> bugs = FXCollections.observableArrayList(JacksonAdapter.fromJson(jsonObject.get("Bugs").toString(), Bug.class));
+			JSONObject jsonObject = new JSONObject(response);
+			ObservableList<Bug> bugs = FXCollections.observableArrayList(JacksonAdapter.fromJson(jsonObject.get("bugs").toString(), Bug.class));
 			FXCollections.reverse(bugs);
 			
 			GuiConstants.PREFILTERED_BUG_DATA = JacksonAdapter.toJson(bugs);
