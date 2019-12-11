@@ -2,6 +2,9 @@ package gui.app.component.dialog.bug;
 
 import java.io.File;
 
+import org.apache.http.HttpStatus;
+import org.json.JSONObject;
+
 import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.component.WindowsBar;
@@ -20,11 +23,11 @@ import javafx.stage.Stage;
 import common.Errors;
 
 import common.MessageBox;
-import common.message.list.CreateListRequest;
+import common.message.ApiRequestor;
 import common.utilities.Icons;
 
 /**
- * A dialog box used for creating a new list of bugs in the form of a .txt file.
+ * A dialog box used for creating a new list of bugs in the form of a .bugList file.
  * 
  * @author Tom Hewitt
  */
@@ -92,13 +95,26 @@ public class AddBugListDialog
 				return;
 			}
 			
-			CreateListRequest request = new CreateListRequest(fileNameField.getText() + ".txt", bugField.getText());
 			// TODO use ApiRequestor
+			String url = String.format("/list/add?name=%s&contents=%s", fileNameField.getText(), bugField.getText());
+			String response = ApiRequestor.request(url);
+			System.out.println(response);
+			
+			int status = new JSONObject(response).getInt("status");
+			
+			if (status != HttpStatus.SC_OK) {				
+				JSONObject error = new JSONObject(response).getJSONObject("error");
+				String title = error.getString("title");
+				String message = error.getString("message");
+				
+				MessageBox.showErrorDialog(title, message);
+				return;
+			}
 			
 			GuiMethods.clearTable();
 			
 			Thread.sleep(100);
-			GuiConstants.CURRENT_LIST_FILE = new File(fileNameField.getText() + ".txt");
+			GuiConstants.CURRENT_LIST_FILE = fileNameField.getText();
 			
 			GuiMethods.requestRefreshOfBugsInList();
 
