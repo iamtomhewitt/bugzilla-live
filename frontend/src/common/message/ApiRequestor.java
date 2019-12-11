@@ -1,7 +1,6 @@
 package common.message;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;

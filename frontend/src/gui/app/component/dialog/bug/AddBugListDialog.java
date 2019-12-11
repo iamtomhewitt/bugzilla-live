@@ -1,6 +1,6 @@
 package gui.app.component.dialog.bug;
 
-import java.io.File;
+import java.net.URLEncoder;
 
 import org.apache.http.HttpStatus;
 import org.json.JSONObject;
@@ -54,12 +54,17 @@ public class AddBugListDialog
 		fileNameField.setOnKeyPressed(e->
 		{
 			if (e.getCode() == KeyCode.ENTER)
+			{
 				add(bugField, fileNameField);
+			}
 		});
+		
 		bugField.setOnKeyPressed(e->
 		{
 			if (e.getCode() == KeyCode.ENTER)
+			{
 				add(bugField, fileNameField);
+			}
 		});
 		
 		vbox.getChildren().addAll(fileNameField, bugField, buttons);
@@ -86,7 +91,7 @@ public class AddBugListDialog
 		{
 			if (!bugField.getText().matches(GuiConstants.BUG_REGEX))
 			{
-				MessageBox.showDialog("Bug '"+bugField.getText()+"'" + Errors.INVALID_BUG);
+				MessageBox.showDialog("Bug '" + bugField.getText() + "'" + Errors.INVALID_BUG);
 				return;
 			}
 			if (bugField.getText().isEmpty() || fileNameField.getText().isEmpty())
@@ -95,27 +100,22 @@ public class AddBugListDialog
 				return;
 			}
 			
-			// TODO use ApiRequestor
-			String url = String.format("/list/add?name=%s&contents=%s", fileNameField.getText(), bugField.getText());
+			String url = String.format("/list/add?name=%s&contents=%s", URLEncoder.encode(fileNameField.getText(), "UTF-8"), URLEncoder.encode(bugField.getText(), "UTF-8"));
 			String response = ApiRequestor.request(url);
-			System.out.println(response);
 			
 			int status = new JSONObject(response).getInt("status");
 			
 			if (status != HttpStatus.SC_OK) {				
 				JSONObject error = new JSONObject(response).getJSONObject("error");
-				String title = error.getString("title");
-				String message = error.getString("message");
+				String title 	= error.getString("title");
+				String message 	= error.getString("message");
 				
 				MessageBox.showErrorDialog(title, message);
 				return;
 			}
 			
 			GuiMethods.clearTable();
-			
-			Thread.sleep(100);
 			GuiConstants.CURRENT_LIST_FILE = fileNameField.getText();
-			
 			GuiMethods.requestRefreshOfBugsInList();
 
 			stage.close();
