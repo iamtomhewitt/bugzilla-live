@@ -135,7 +135,8 @@ router.get('/lists', function (req, res) {
 function success(message) {
 	return response = {
 		"type": "listResponse",
-		"message": message
+		"message": message,
+		"status": successCode
 	}
 }
 
@@ -143,6 +144,7 @@ function failure(error) {
 	return response = {
 		"type": "listResponse",
 		"operation": "notification",
+		"status": errorCode,
 		"error": error
 	}
 }

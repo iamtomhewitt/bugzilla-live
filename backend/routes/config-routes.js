@@ -52,6 +52,7 @@ function success(message) {
 	return response = {
 		"type": "configResponse",
 		"operation": "notification",
+		"status": successCode,
 		"message": message
 	}
 }
@@ -60,6 +61,7 @@ function success(config) {
 	return response = {
 		"type": "configResponse",
 		"operation": "notification",
+		"status": successCode,
 		"config": config
 	}
 }
@@ -68,6 +70,7 @@ function failure(error) {
 	return response = {
 		"type": "configResponse",
 		"operation": "notification",
+		"status": errorCode,
 		"error": error
 	}
 }
