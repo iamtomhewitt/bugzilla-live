@@ -58,24 +58,24 @@ router.get('/modify', function (req, res) {
 	let filename = listFolder + name + '.bugList';
 
 	if (!fs.existsSync(filename)) {
-		error = createError("Error modifying file", "File does not exist.");
+		error = createError("Error modifying file", `File ${filename} does not exist.`);
 		response = failure(error);
 		res.status(errorCode).send(response).json();
 		return;
 	}
 
 	let contents = fs.readFileSync(filename, 'utf-8');
-	let newContents;
+	let newContents = contents;
 	
 	if (remove) {
 		newContents = contents.replace(new RegExp(remove), '');
-		newContents = newContents.replace(new RegExp(',,'), ',');
 	}
 
 	if (add) {
 		newContents += ',' + add + ',';
 	}
 
+	newContents = newContents.replace(new RegExp(',,'), ',');
 	fs.writeFileSync(filename, newContents, 'utf-8');
 
 	response = success("List modified");
