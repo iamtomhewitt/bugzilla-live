@@ -29,62 +29,62 @@ public class Icons
 	
 	public ImageView createThemeIcon()
 	{
-		return createIcon(Icons.THEME);
+		return createIcon(new Icons().THEME);
 	}
 	
 	public ImageView createAddIcon()
 	{
-		return createIcon(Icons.ADD);
+		return createIcon(new Icons().ADD);
 	}
 	
 	public ImageView createChangeStatusIcon()
 	{
-		return createIcon(Icons.CHANGE_STATUS);
+		return createIcon(new Icons().CHANGE_STATUS);
 	}
 	
 	public ImageView createRefreshIcon()
 	{
-		return createIcon(Icons.REFRESH);
+		return createIcon(new Icons().REFRESH);
 	}
 	
 	public ImageView createHelpIcon()
 	{
-		return createIcon(Icons.HELP);
+		return createIcon(new Icons().HELP);
 	}
 	
 	public ImageView createExcelIcon()
 	{
-		return createIcon(Icons.EXCEL);
+		return createIcon(new Icons().EXCEL);
 	}
 
 	public ImageView createBugzillaIcon()
 	{
-		return createIcon(Icons.ICON);
+		return createIcon(new Icons().ICON);
 	}
 	
 	public ImageView createListIcon()
 	{
-		return createIcon(Icons.LISTS);
+		return createIcon(new Icons().LISTS);
 	}
 	
 	public ImageView createFirefoxIcon()
 	{
-		return createIcon(Icons.FIREFOX);
+		return createIcon(new Icons().FIREFOX);
 	}
 	
 	public ImageView createRemoveIcon()
 	{
-		return createIcon(Icons.REMOVE);
+		return createIcon(new Icons().REMOVE);
 	}
 	
 	public ImageView createCommentIcon()
 	{
-		return createIcon(Icons.COMMENT);
+		return createIcon(new Icons().COMMENT);
 	}
 	
 	public ImageView createAboutIcon()
 	{
-		return createIcon(Icons.ABOUT);
+		return createIcon(new Icons().ABOUT);
 	}
 	
 	private ImageView createIcon(String icon)
@@ -92,8 +92,8 @@ public class Icons
 		String url = getClass().getResource("images/"+icon).toExternalForm();
 		Image iconImage = new Image(url);
 		ImageView view = new ImageView(iconImage);
-		view.setFitHeight(Icons.ICON_SIZE);
-		view.setFitWidth(Icons.ICON_SIZE);
+		view.setFitHeight(new Icons().ICON_SIZE);
+		view.setFitWidth(new Icons().ICON_SIZE);
 		return view;
 	}
 }

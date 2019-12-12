@@ -106,7 +106,7 @@ public class AboutDialog
 			scroll.setStyle("-fx-background-color: white");
 
 			Scene scene = new Scene(WindowsBar.createWindowsBar(stage, scroll, "About | Version: " + GuiConstants.VERSION), 300, 500);
-			stage.getIcons().add(Icons.createAboutIcon().getImage());
+			stage.getIcons().add(new Icons().createAboutIcon().getImage());
 			stage.setTitle("About");
 			stage.setScene(scene);
 			stage.show();

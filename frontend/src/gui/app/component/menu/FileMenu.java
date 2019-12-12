@@ -14,10 +14,10 @@ public class FileMenu
 
 	public FileMenu()
 	{
-		MenuItem refreshTime = new MenuItem("Change Refresh Time", Icons.createRefreshIcon());
+		MenuItem refreshTime = new MenuItem("Change Refresh Time", new Icons().createRefreshIcon());
 		refreshTime.setOnAction(e -> new RefreshRateDialog());
 		
-		Menu themes 		= new Menu("Themes", Icons.createThemeIcon());
+		Menu themes 		= new Menu("Themes", new Icons().createThemeIcon());
 		Menu prebuiltThemes = new Menu("Built In Themes");
 
 		MenuItem colourChooser = new MenuItem("Choose Colours");

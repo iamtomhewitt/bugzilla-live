@@ -139,7 +139,7 @@ public class NavBar
 		firefoxField.setPromptText("bugzilla");
 		firefoxField.setTooltip(new Tooltip("Enter a bug to open in Bugzilla"));		
 
-		Button firefoxButton = new Button("", Icons.createFirefoxIcon());
+		Button firefoxButton = new Button("", new Icons().createFirefoxIcon());
 		firefoxButton.setTooltip(new Tooltip("Open the bug in Bugzilla"));
 		firefoxButton.setOnAction(e ->
 		{
@@ -154,15 +154,15 @@ public class NavBar
 			firefoxField.setText("");
 		});
 
-		Button addButton = new Button("", Icons.createAddIcon());
+		Button addButton = new Button("", new Icons().createAddIcon());
 		addButton.setTooltip(new Tooltip("Add a new bug to this list"));
 		addButton.setOnAction(e -> new AddBugDialog());
 
-		Button refreshButton = new Button("", Icons.createRefreshIcon());
+		Button refreshButton = new Button("", new Icons().createRefreshIcon());
 		refreshButton.setTooltip(new Tooltip("Refresh the table"));
 		refreshButton.setOnAction(e -> GuiMethods.requestRefreshOfBugsInTable());
 
-		Button bugsButton = new Button("Get bugs", Icons.createListIcon());
+		Button bugsButton = new Button("Get bugs", new Icons().createListIcon());
 		bugsButton.setOnAction(e -> new GetBugsDialog());		
 		
 		GuiStyler.styleGraphicButton(addButton, Sizes.BUTTON_WIDTH_SMALL);
