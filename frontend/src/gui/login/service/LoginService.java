@@ -1,6 +1,9 @@
 package gui.login.service;
 
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,10 +75,9 @@ public class LoginService extends Application
 		{
 			try
 			{				
-				String cmd = "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe /userprefs.cgi?tab=apikey";
-				Runtime.getRuntime().exec(cmd);
+				Desktop.getDesktop().browse(new URI(GuiConstants.BUGZILLA_URL+"/userprefs.cgi?tab=apikey"));
 			} 
-			catch (IOException ex)
+			catch (IOException | URISyntaxException ex)
 			{
 				MessageBox.showExceptionDialog(Errors.BROWSER, ex);
 			}

@@ -35,7 +35,7 @@ public class Utilities
 	 */
 	public static void openBugInBrowser( String number) throws IOException, URISyntaxException
 	{
-		Desktop.getDesktop().browse(new URI(GuiConstants.BUGZILLA_URL + "show_bug.cgi?id=" + number));
+		Desktop.getDesktop().browse(new URI(GuiConstants.BUGZILLA_URL + "/show_bug.cgi?id=" + number));
 	}
 
 	/**
