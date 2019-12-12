@@ -23,7 +23,6 @@ import gui.app.common.RequestType;
 import gui.app.component.dialog.bug.AddBugListDialog;
 import gui.app.main.BugzillaLive;
 
-
 public class ListMenu
 {
 	public Menu listMenu = new Menu("Lists");
@@ -75,9 +74,8 @@ public class ListMenu
 	{
 		String response = ApiRequestor.request("/list/lists");
 		
-		int status = new JSONObject(response).getInt("status");
-		if (status != HttpStatus.SC_OK) {
-			MessageBox.showDialog(new JSONObject(response).getJSONObject("error").get("message").toString());
+		if (MessageBox.showErrorIfResponseNot200(response))
+		{
 			return;
 		}
 		
@@ -118,18 +116,21 @@ public class ListMenu
 		
 	private void deleteList(String filename)
 	{
-		try {
+		try 
+		{
 			String name = filename.split("\\.")[0];
 			String url = String.format("/list/delete?name=%s", URLEncoder.encode(name, "UTF-8"));
 			String response = ApiRequestor.request(url);
 			
 			int status = new JSONObject(response).getInt("status");
 			
-			if (status != HttpStatus.SC_OK) {
+			if (status != HttpStatus.SC_OK) 
+			{
 				MessageBox.showDialog(new JSONObject(response).getJSONObject("error").get("message").toString());
 			}
 		}
-		catch (UnsupportedEncodingException e) {
+		catch (UnsupportedEncodingException e) 
+		{
 			MessageBox.showExceptionDialog(Errors.CREATE_LIST, e);
 		}
 	}

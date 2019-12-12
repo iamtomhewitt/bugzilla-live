@@ -17,16 +17,11 @@ public class SortMenu
 		Menu numberMenu 		= createSortingSubMenu("Bug Number", "number");
 		Menu statusMenu 		= createSortingSubMenu("Status", "status");
 		Menu assignedMenu 		= createSortingSubMenu("Assigned To", "assignedTo");
-		Menu componentMenu 		= createSortingSubMenu("Component", "gui.app.component");
 		Menu severityMenu 		= createSortingSubMenu("Severity", "severity");
 		Menu summaryMenu 		= createSortingSubMenu("Summary", "summary");
-		Menu generatedMenu 		= createSortingSubMenu("Generated From", "generatedFrom");
-		Menu intExtMenu 		= createSortingSubMenu("Int/Ext", "internalExternal");
-		Menu systemMenu 		= createSortingSubMenu("Environment", "system");
-		Menu segmentMenu 		= createSortingSubMenu("Segment Release", "segmentRelease");
 		Menu lastUpdatedMenu 	= createSortingSubMenu("Last Updated", "lastUpdated");
 
-		sortMenu.getItems().addAll(customSort, numberMenu, statusMenu, assignedMenu, componentMenu, severityMenu, summaryMenu, generatedMenu, intExtMenu, systemMenu, segmentMenu, lastUpdatedMenu);
+		sortMenu.getItems().addAll(customSort, numberMenu, statusMenu, assignedMenu, severityMenu, summaryMenu, lastUpdatedMenu);
 	}
 	
 	public Menu getMenu()

@@ -4,10 +4,6 @@ import gui.app.component.dialog.ColourChooser;
 import gui.app.component.dialog.RefreshRateDialog;
 
 import gui.app.theme.Themes;
-import common.Errors;
-import common.MessageBox;
-import common.exception.JsonTransformationException;
-import common.exception.MessageSenderException;
 import common.utilities.Icons;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -57,23 +53,9 @@ public class FileMenu
 		MenuItem python = new MenuItem("Python");
 		python.setOnAction(e -> Themes.Python());
 		
-		MenuItem reloadConfig = new MenuItem("Reload Config", Icons.createRefreshIcon());
-		reloadConfig.setOnAction(e ->
-		{			
-//			try
-//			{
-//				// TODO use ApiRequestor			
-//				// TODO use ApiRequestor
-//			}
-//			catch (JsonTransformationException | MessageSenderException e1)
-//			{
-//				MessageBox.showExceptionDialog(Errors.GENERAL, e1);
-//			}
-		});
-		
 		prebuiltThemes.getItems().addAll(arc, craftCms, ember, facebook, killBill, lightning, material, mint, pastel, python);		
 		themes.getItems().addAll(colourChooser, prebuiltThemes);		
-		fileMenu.getItems().addAll(new ListMenu().getMenu(), themes, refreshTime, reloadConfig);
+		fileMenu.getItems().addAll(new ListMenu().getMenu(), themes, refreshTime);
 	}
 	
 	public Menu getMenu()
