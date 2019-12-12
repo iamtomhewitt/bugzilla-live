@@ -75,10 +75,14 @@ public class NavBar
 						String filterText = newValue.toLowerCase();
 
 						if (newValue == null || newValue.isEmpty())
+						{
 							return true;
+						}
 						
 						if (bug.contains(filterText))
+						{
 							return true;
+						}
 						
 						if (filterText.contains("severity:".toLowerCase()))
 						{
@@ -89,10 +93,14 @@ public class NavBar
 								String severity = s[1];
 								
 								if (severity == null)
+								{
 									return false;
+								}
 								
 								if (bug.getSeverity().toLowerCase().contains(severity))
+								{
 									return true;
+								}
 							}
 						}
 
