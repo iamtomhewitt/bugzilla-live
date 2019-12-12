@@ -173,6 +173,7 @@ public class GuiMethods
 			BugTable.getInstance().getTableView().getItems().clear();
 			BugTable.getInstance().getTableView().setItems(bugs);
 			BugTable.getInstance().getTableView().refresh();
+			InformationPane.getInstance().updateTexts();
 		}
 		catch (JsonTransformationException e1)
 		{
