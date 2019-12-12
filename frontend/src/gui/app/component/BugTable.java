@@ -1,10 +1,10 @@
 package gui.app.component;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import gui.app.common.GuiConstants;
 import gui.app.component.menu.BugContextMenu;
 
 import gui.app.theme.RowColours;
@@ -140,11 +140,11 @@ public class BugTable
 								{
 									try 
 									{
-										Utilities.openBugInFirefox(GuiConstants.BUGZILLA_URL, bug.getId());
+										Utilities.openBugInBrowser(bug.getId());
 									} 
-									catch (IOException e1) 
+									catch (IOException | URISyntaxException e1) 
 									{
-										MessageBox.showExceptionDialog(Errors.FIREFOX, e1);
+										MessageBox.showExceptionDialog(Errors.BROWSER, e1);
 									}
 								});
 								setGraphic(link);

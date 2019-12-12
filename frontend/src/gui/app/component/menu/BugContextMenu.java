@@ -2,6 +2,7 @@ package gui.app.component.menu;
 
 import java.awt.MouseInfo;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,11 +73,11 @@ public class BugContextMenu
 				{
 					try 
 					{
-						Utilities.openBugInFirefox(GuiConstants.BUGZILLA_URL, i);
+						Utilities.openBugInBrowser(i);
 					} 
-					catch (IOException e1) 
+					catch (IOException | URISyntaxException e1) 
 					{
-						MessageBox.showExceptionDialog(Errors.FIREFOX, e1);
+						MessageBox.showExceptionDialog(Errors.BROWSER, e1);
 					}
 				}
 			}
