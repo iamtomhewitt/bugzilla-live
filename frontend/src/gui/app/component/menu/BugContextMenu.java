@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gui.app.common.GuiConstants;
-import gui.app.common.GuiMethods;
 import gui.app.component.InformationPane;
 import gui.app.component.dialog.bug.BugCommentDialog;
 import gui.app.component.dialog.bug.ChangeBugStatusDialog;
