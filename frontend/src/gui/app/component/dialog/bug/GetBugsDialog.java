@@ -25,7 +25,7 @@ public class GetBugsDialog extends VBox
 
         stage.setScene(new Scene(WindowsBar.createWindowsBar(stage, this, "Get Bugs"), 300, 325));
         stage.show();
-        stage.getIcons().add(Icons.createBugzillaIcon().getImage());
+        stage.getIcons().add(new Icons().createBugzillaIcon().getImage());
         stage.centerOnScreen();
     }
 }

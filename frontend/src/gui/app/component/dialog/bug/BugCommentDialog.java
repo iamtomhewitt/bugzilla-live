@@ -78,18 +78,18 @@ public class BugCommentDialog extends GridPane
 		stage.setScene(scene);
 		stage.show();
 		stage.centerOnScreen();
-		stage.getIcons().add(Icons.createCommentIcon().getImage());
+		stage.getIcons().add(new Icons().createCommentIcon().getImage());
 
 		Button addCommentButton = new Button("Add Comment");
 		addCommentButton.setOnAction(e -> new AddCommentDialog(number, stage.getX() + WINDOW_WIDTH, stage));
 		GuiStyler.stylePrimaryButton(addCommentButton, Sizes.BUTTON_WIDTH_MEDIUM, Sizes.BUTTON_HEIGHT_SMALL);
 
+		populateAttachments(number);
+		populateComments(number);
+		
 		vbox.getChildren().add(addCommentButton);
 		vbox.setStyle("-fx-background-color: white");
 		vbox.setAlignment(Pos.CENTER);
-
-		populateAttachments(number);
-		populateComments(number);
 		
 		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		scrollPane.setPadding(new Insets(0, 0, 10, 0));

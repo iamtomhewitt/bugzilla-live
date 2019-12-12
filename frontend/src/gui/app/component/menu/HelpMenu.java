@@ -16,7 +16,7 @@ public class HelpMenu
 
 	public HelpMenu()
 	{
-		MenuItem howTo = new MenuItem("Show Help", Icons.createHelpIcon());
+		MenuItem howTo = new MenuItem("Show Help", new Icons().createHelpIcon());
 		howTo.setOnAction(e -> 
 		{
 			try 
@@ -29,7 +29,7 @@ public class HelpMenu
 			}
 		});
 		
-		MenuItem about = new MenuItem("About", Icons.createAboutIcon());
+		MenuItem about = new MenuItem("About", new Icons().createAboutIcon());
 		about.setOnAction(e -> new AboutDialog());
 		
 		helpMenu.getItems().addAll(about, howTo);

@@ -90,7 +90,7 @@ public class ChangeBugStatusDialog extends VBox
 
 		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, this, "Bug" + number + " Change Status"), 375, 400);
 		stage.setTitle("Bug" + number + " Change Status");
-		stage.getIcons().add(Icons.createChangeStatusIcon().getImage());
+		stage.getIcons().add(new Icons().createChangeStatusIcon().getImage());
 		stage.setScene(scene);
 		stage.centerOnScreen();
 		stage.show();

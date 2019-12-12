@@ -64,7 +64,7 @@ public class AddBugDialog
 		Platform.runLater(() -> addButton.requestFocus());
         
 		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, hbox, "Add Bug"), 275, 125);
-		stage.getIcons().add(Icons.createAddIcon().getImage());
+		stage.getIcons().add(new Icons().createAddIcon().getImage());
 		stage.setScene(scene);
 		stage.show();
 		stage.centerOnScreen();

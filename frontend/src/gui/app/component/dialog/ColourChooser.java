@@ -120,7 +120,7 @@ public class ColourChooser extends VBox
 		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, this, "Change Colours"), 300, 600);
 		stage.setScene(scene);
 		stage.setTitle("Change Colours");
-		stage.getIcons().add(Icons.createThemeIcon().getImage());
+		stage.getIcons().add(new Icons().createThemeIcon().getImage());
 		stage.show();
 		stage.centerOnScreen();
 	}
