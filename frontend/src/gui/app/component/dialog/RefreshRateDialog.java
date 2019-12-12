@@ -1,20 +1,14 @@
 package gui.app.component.dialog;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import gui.app.common.GuiConstants;
 import gui.app.component.WindowsBar;
 
 import gui.app.theme.GuiStyler;
 import gui.app.theme.Sizes;
-import common.Errors;
 import common.MessageBox;
-import common.exception.JsonTransformationException;
-import common.exception.MessageSenderException;
-import common.message.config.ApplicationSaveRequest;
+import common.message.ApiRequestor;
 import common.utilities.Icons;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -39,18 +33,24 @@ public class RefreshRateDialog
 		
 		// Show the currently selected rate first
 		for (String s : values)
+		{
 			if (String.valueOf(GuiConstants.REFRESH_TIME).equals(s))
+			{
 				combo.getSelectionModel().select(values.indexOf(s));
+			}
+		}
 		
 		Button applyButton = new Button("Apply");
 		applyButton.setOnAction(e ->
-		{
-			// Create a new request message telling the config service that we want to save the refresh rate
-			Map<String, String> properties = new HashMap<String, String>();
-			properties.put("refreshrate", combo.getSelectionModel().getSelectedItem());
+		{			
+			String url = String.format("/config/save?key=%s&value=%s", "refreshRate", combo.getSelectionModel().getSelectedItem());
+			String response = ApiRequestor.request(url);
+			
+			if (MessageBox.showErrorIfResponseNot200(response))
+			{
+				return;
+			}
 
-			ApplicationSaveRequest request = new ApplicationSaveRequest(properties);
-			// TODO use APIReqeusotr
 			GuiConstants.REFRESH_TIME = Integer.valueOf(combo.getSelectionModel().getSelectedItem());
 			stage.close();
 		});

@@ -5,7 +5,6 @@ import gui.app.component.WindowsBar;
 import gui.app.theme.GuiStyler;
 import gui.app.theme.Sizes;
 import gui.app.common.BugTemplates;
-import gui.app.common.GuiConstants;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,12 +17,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
-import common.Errors;
 import common.Fonts;
 import common.MessageBox;
-import common.exception.JsonTransformationException;
-import common.exception.MessageSenderException;
-import common.message.bug.BugCommentRequest;
 import common.utilities.Icons;
 
 public class AddCommentDialog extends VBox 
@@ -75,12 +70,6 @@ public class AddCommentDialog extends VBox
 			}
 			if (MessageBox.showConfirmDialog("Add comment? This cannot be undone."))
 			{
-				BugCommentRequest request = new BugCommentRequest.Builder().withApiKey(GuiConstants.APIKEY)
-																			.withComment(comment.getText())
-																			.withBugNumber(number)
-																			.withPassword(GuiConstants.PASSWORD)
-																			.withUsername(GuiConstants.USERNAME)
-																			.build();
 				// TODO use ApiRequestor
 				stage.close();
 				parentStage.close();
