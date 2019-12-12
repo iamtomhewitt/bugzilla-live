@@ -1,6 +1,5 @@
 package gui.app.main;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -10,18 +9,14 @@ import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.component.BugTable;
 import gui.app.component.Toolbar;
-import gui.app.component.WindowsBar;
-
 import common.Errors;
 
 import common.Fonts;
 import common.MessageBox;
 import common.exception.JsonTransformationException;
-import common.exception.MessageReceiverException;
 import common.utilities.Icons;
 import common.utilities.JacksonAdapter;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -66,10 +61,11 @@ public class BugzillaLive extends Application
 		BorderPane.setAlignment(top, Pos.CENTER);
 		BorderPane.setAlignment(center, Pos.CENTER);
 
-		Scene scene = new Scene(WindowsBar.createApplicationBar(primaryStage, border, "Bugzilla Live"), 1920, 1050);
+		Scene scene = new Scene(border);
 		primaryStage.getIcons().add(Icons.createBugzillaIcon().getImage());
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Bugzilla LIVE");
+		primaryStage.setMaximized(true);
 
 		Label welcomeLabel = new Label("Welcome to Bugzilla LIVE.\nTo get started, select or create a list using the File, Lists menu.\nUse the Help menu if you get stuck.");
 		welcomeLabel.setTextAlignment(TextAlignment.CENTER);

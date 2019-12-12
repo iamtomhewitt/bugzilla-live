@@ -48,12 +48,13 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
- * Shows the comments as well as attachments (which come through as comments as well) for a given Bug number.
+ * Shows the comments as well as attachments (which come through as comments as
+ * well) for a given Bug number.
  * 
  * @author Tom Hewitt
  */
 @SuppressWarnings("unchecked")
-public class BugCommentDialog extends GridPane 
+public class BugCommentDialog extends GridPane
 {
 	private Stage stage = new Stage();
 	private VBox vbox = new VBox();
@@ -64,54 +65,54 @@ public class BugCommentDialog extends GridPane
 	private final int WINDOW_WIDTH = 475;
 	private final int COMMENT_WIDTH = 418;
 	private final int ATTACHMENT_WIDTH = 418;
-	
+
 	public BugCommentDialog(String number) throws Exception
-	{		
-		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
-		scrollPane.setPadding(new Insets(0, 0, 10, 0));
-		scrollPane.setStyle("-fx-background-color: white");
-		
+	{
 		StackPane stackpane = new StackPane();
 		stackpane.getChildren().add(scrollPane);
 		stackpane.setStyle("-fx-background-color: white; -fx-border-color: white; -fx-border-size: 5");
 
-		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, stackpane, "Bug" + number + " Comments"), WINDOW_WIDTH, 900);
+		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, stackpane, "Bug " + number + " Comments"), WINDOW_WIDTH, 900);
 		stage.setResizable(false);
-		stage.setTitle("Bug" + number + " Comments");
+		stage.setTitle("Bug " + number + " Comments");
 		stage.setScene(scene);
 		stage.show();
 		stage.centerOnScreen();
 		stage.getIcons().add(Icons.createCommentIcon().getImage());
-		
-		populateAttachments(number);
-		populateComments(number);
-		
+
 		Button addCommentButton = new Button("Add Comment");
 		addCommentButton.setOnAction(e -> new AddCommentDialog(number, stage.getX() + WINDOW_WIDTH, stage));
 		GuiStyler.stylePrimaryButton(addCommentButton, Sizes.BUTTON_WIDTH_MEDIUM, Sizes.BUTTON_HEIGHT_SMALL);
-		
+
 		vbox.getChildren().add(addCommentButton);
 		vbox.setStyle("-fx-background-color: white");
 		vbox.setAlignment(Pos.CENTER);
+
+		populateAttachments(number);
+		populateComments(number);
 		
+		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+		scrollPane.setPadding(new Insets(0, 0, 10, 0));
+		scrollPane.setStyle("-fx-background-color: white");
 		scrollPane.setContent(vbox);
 	}
-	
-	private void populateAttachments(String number) throws JsonTransformationException 
+
+	private void populateAttachments(String number) throws JsonTransformationException
 	{
 		String url = String.format("/bugs/%s/attachments", number);
 		String response = ApiRequestor.request(url);
-		
-		if (MessageBox.showErrorIfResponseNot200(response)) {
+
+		if (MessageBox.showErrorIfResponseNot200(response))
+		{
 			return;
 		}
-		
+
 		JSONObject json = new JSONObject(response);
 		String bug = json.getJSONObject("bugs").getJSONArray(number).toString();
 		List<BugAttachment> attachments = JacksonAdapter.fromJson(bug, BugAttachment.class);
-		
+
 		for (BugAttachment attachment : attachments)
-		{			
+		{
 			Hyperlink link = new Hyperlink();
 			link.setText("Attachment " + attachment.getId() + " | " + attachment.getDescription() + " (" + attachment.getFilename() + ")");
 			link.setFont(Font.font("System", FontWeight.BOLD, Fonts.FONT_SIZE_NORMAL));
@@ -121,13 +122,13 @@ public class BugCommentDialog extends GridPane
 			link.setMinHeight(20);
 			link.setStyle("-fx-border-color: #99D9EA; -fx-border-width: 1; -fx-background-color: #99D9EA");
 
-			link.setOnAction(e -> 
+			link.setOnAction(e ->
 			{
-				try 
+				try
 				{
 					attachment.open();
 				} 
-				catch (IOException e1) 
+				catch (IOException e1)
 				{
 					MessageBox.showExceptionDialog(Errors.ATTACHMENT, e1);
 				}
@@ -144,23 +145,24 @@ public class BugCommentDialog extends GridPane
 		attachmentsVbox.setStyle("-fx-background-color: white");
 	}
 
-	private void populateComments(String number) throws JsonTransformationException 
+	private void populateComments(String number) throws JsonTransformationException
 	{
 		String url = String.format("/bugs/%s/comments", number);
 		String response = ApiRequestor.request(url);
-		
-		if (MessageBox.showErrorIfResponseNot200(response)) {
+
+		if (MessageBox.showErrorIfResponseNot200(response))
+		{
 			return;
 		}
-		
+
 		JSONObject json = new JSONObject(response);
 		String bug = json.getJSONObject("bugs").getJSONObject(number).getJSONArray("comments").toString();
-		List<BugComment> comments = JacksonAdapter.fromJson(bug, BugComment.class);		
+		List<BugComment> comments = JacksonAdapter.fromJson(bug, BugComment.class);
 
 		for (BugComment comment : comments)
 		{
 			comment.setText(comment.getText());
-			
+
 			GridPane commentSection = new GridPane();
 
 			Label name = createNameLabel(comment.getCreator());
@@ -216,7 +218,7 @@ public class BugCommentDialog extends GridPane
 		commentsVbox.setPadding(new Insets(10, 25, 10, 25));
 		commentsVbox.setSpacing(15);
 		commentsVbox.setStyle("-fx-background-color: white");
-		
+
 		vbox.getChildren().add(commentsVbox);
 	}
 
@@ -232,7 +234,7 @@ public class BugCommentDialog extends GridPane
 		{
 			date = dateFormatter.parse(time);
 			calendar.setTime(date);
-		}
+		} 
 		catch (ParseException e)
 		{
 			date = null;
@@ -247,9 +249,11 @@ public class BugCommentDialog extends GridPane
 			dateString += decimalFormatter.format(calendar.get(Calendar.HOUR_OF_DAY)) + ":";
 			dateString += decimalFormatter.format(calendar.get(Calendar.MINUTE)) + " ";
 			dateString += calendar.get(Calendar.YEAR);
-		}
+		} 
 		else
+		{
 			dateString = "Unknown";
+		}
 
 		return new Label(dateString);
 	}
@@ -261,7 +265,9 @@ public class BugCommentDialog extends GridPane
 
 		// A name might only have first name, for example "Git-SCM" so only format if the split has 2 parts
 		if (names.length > 1)
+		{
 			username = GuiMethods.createDisplayName(username);
+		}
 
 		return new Label(username);
 	}
