@@ -46,54 +46,54 @@ public class AboutDialog
 			String content = new String(Files.readAllBytes(Paths.get("release notes.json")));
 			content = content.replaceAll("\\*", "\n\n");
 
-			JSONParser jsonParser = new JSONParser();
-			JSONObject jsonObject = (JSONObject) jsonParser.parse(content);
-			JSONArray builds = (JSONArray) jsonObject.get("builds");
-
-			for (int i = 0; i < builds.size(); i++)
-			{
-				JSONObject build = (JSONObject) builds.get(i);
-
-				String version = build.get("version").toString();
-				String date = build.get("date").toString();
-				String title = build.get("title").toString();
-				String description = build.get("description").toString();
-
-				BorderPane border = new BorderPane();
-
-				Label versionLabel = new Label(version);
-				versionLabel.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, Fonts.FONT_SIZE_NORMAL));
-				
-				Label dateLabel = new Label(date);
-				dateLabel.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, Fonts.FONT_SIZE_NORMAL));
-				
-				Label titleLabel = new Label(title);
-				titleLabel.setWrapText(true);
-				titleLabel.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, Fonts.FONT_SIZE_LARGE));
-				
-				Label descriptionLabel = new Label(description);
-				descriptionLabel.setWrapText(true);
-				descriptionLabel.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, Fonts.FONT_SIZE_NORMAL));
-				autosize(descriptionLabel);
-
-				Pane spacer = new Pane();
-				HBox.setHgrow(spacer, Priority.ALWAYS);
-				HBox buildData = new HBox(versionLabel, spacer, dateLabel);
-				buildData.setMinHeight(20);
-				buildData.setAlignment(Pos.CENTER);
-
-				VBox buildInfo = new VBox(titleLabel, descriptionLabel);
-				buildInfo.setPadding(new Insets(10));
-				buildInfo.setSpacing(5);
-				
-				border.setTop(buildData);
-				border.setCenter(buildInfo);
-				border.getCenter().setStyle("-fx-background-color: white");
-				border.getTop().setStyle("-fx-background-color: #f4f5f7");
-				border.setStyle("-fx-border-color: #f4f5f7; -fx-border-width: 2;");
-				
-				vbox.getChildren().add(border);
-			}
+//			JSONParser jsonParser = new JSONParser();
+//			JSONObject jsonObject = (JSONObject) jsonParser.parse(content);
+//			JSONArray builds = (JSONArray) jsonObject.get("builds");
+//
+//			for (int i = 0; i < builds.size(); i++)
+//			{
+//				JSONObject build = (JSONObject) builds.get(i);
+//
+//				String version = build.get("version").toString();
+//				String date = build.get("date").toString();
+//				String title = build.get("title").toString();
+//				String description = build.get("description").toString();
+//
+//				BorderPane border = new BorderPane();
+//
+//				Label versionLabel = new Label(version);
+//				versionLabel.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, Fonts.FONT_SIZE_NORMAL));
+//				
+//				Label dateLabel = new Label(date);
+//				dateLabel.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, Fonts.FONT_SIZE_NORMAL));
+//				
+//				Label titleLabel = new Label(title);
+//				titleLabel.setWrapText(true);
+//				titleLabel.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, Fonts.FONT_SIZE_LARGE));
+//				
+//				Label descriptionLabel = new Label(description);
+//				descriptionLabel.setWrapText(true);
+//				descriptionLabel.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, Fonts.FONT_SIZE_NORMAL));
+//				autosize(descriptionLabel);
+//
+//				Pane spacer = new Pane();
+//				HBox.setHgrow(spacer, Priority.ALWAYS);
+//				HBox buildData = new HBox(versionLabel, spacer, dateLabel);
+//				buildData.setMinHeight(20);
+//				buildData.setAlignment(Pos.CENTER);
+//
+//				VBox buildInfo = new VBox(titleLabel, descriptionLabel);
+//				buildInfo.setPadding(new Insets(10));
+//				buildInfo.setSpacing(5);
+//				
+//				border.setTop(buildData);
+//				border.setCenter(buildInfo);
+//				border.getCenter().setStyle("-fx-background-color: white");
+//				border.getTop().setStyle("-fx-background-color: #f4f5f7");
+//				border.setStyle("-fx-border-color: #f4f5f7; -fx-border-width: 2;");
+//				
+//				vbox.getChildren().add(border);
+//			}
 
 			vbox.setSpacing(25);
 			vbox.setAlignment(Pos.CENTER);
@@ -112,7 +112,7 @@ public class AboutDialog
 			stage.show();
 			stage.centerOnScreen();
 		} 
-		catch (IOException | ParseException e)
+		catch (IOException e)
 		{
 			MessageBox.showExceptionDialog(Errors.GENERAL, e);
 		}
