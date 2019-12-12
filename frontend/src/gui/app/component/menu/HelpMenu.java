@@ -1,6 +1,7 @@
 package gui.app.component.menu;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import common.Errors;
 import common.MessageBox;
@@ -21,11 +22,11 @@ public class HelpMenu
 		{
 			try 
 			{
-				Utilities.openUrlInFirefox("");
+				Utilities.openUrlInBrowser("");
 			} 
-			catch (IOException e1) 
+			catch (IOException | URISyntaxException e1) 
 			{
-				MessageBox.showExceptionDialog(Errors.FIREFOX, e1);
+				MessageBox.showExceptionDialog(Errors.BROWSER, e1);
 			}
 		});
 		

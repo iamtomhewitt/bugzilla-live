@@ -1,6 +1,7 @@
 package gui.app.component;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
@@ -133,11 +134,11 @@ public class NavBar
 			}
 		});
 
-		TextField firefoxField = new TextField();
-		firefoxField.setMinHeight(fieldHeight);
-		firefoxField.setAlignment(Pos.CENTER);
-		firefoxField.setPromptText("bugzilla");
-		firefoxField.setTooltip(new Tooltip("Enter a bug to open in Bugzilla"));		
+		TextField browserField = new TextField();
+		browserField.setMinHeight(fieldHeight);
+		browserField.setAlignment(Pos.CENTER);
+		browserField.setPromptText("bugzilla");
+		browserField.setTooltip(new Tooltip("Enter a bug to open in Bugzilla"));		
 
 		Button firefoxButton = new Button("", new Icons().createFirefoxIcon());
 		firefoxButton.setTooltip(new Tooltip("Open the bug in Bugzilla"));
@@ -145,13 +146,13 @@ public class NavBar
 		{
 			try 
 			{
-				Utilities.openBugInFirefox(GuiConstants.BUGZILLA_URL, firefoxField.getText());
+				Utilities.openBugInBrowser(browserField.getText());
 			} 
-			catch (IOException e1) 
+			catch (IOException | URISyntaxException e1) 
 			{
-				MessageBox.showExceptionDialog(Errors.FIREFOX, e1);
+				MessageBox.showExceptionDialog(Errors.BROWSER, e1);
 			}
-			firefoxField.setText("");
+			browserField.setText("");
 		});
 
 		Button addButton = new Button("", new Icons().createAddIcon());
@@ -170,25 +171,25 @@ public class NavBar
 		GuiStyler.styleGraphicButton(refreshButton, Sizes.BUTTON_WIDTH_SMALL);
 		GuiStyler.styleGraphicButton(bugsButton, Sizes.BUTTON_WIDTH_MEDIUM);
 		GuiStyler.styleTextField(filterField, Sizes.INPUT_WIDTH_X_LARGE, fieldHeight);
-		GuiStyler.styleTextField(firefoxField, Sizes.INPUT_WIDTH_LARGE, fieldHeight);
+		GuiStyler.styleTextField(browserField, Sizes.INPUT_WIDTH_LARGE, fieldHeight);
 		
-		firefoxField.setOnKeyPressed(e ->
+		browserField.setOnKeyPressed(e ->
 		{
 			if (e.getCode() == KeyCode.ENTER)
 			{
 				try 
 				{
-					Utilities.openBugInFirefox(GuiConstants.BUGZILLA_URL, firefoxField.getText());
+					Utilities.openBugInBrowser(browserField.getText());
 				} 
-				catch (IOException e1) 
+				catch (IOException | URISyntaxException e1) 
 				{
-					MessageBox.showExceptionDialog(Errors.FIREFOX, e1);
+					MessageBox.showExceptionDialog(Errors.BROWSER, e1);
 				}
-				firefoxField.setText("");
+				browserField.setText("");
 			}
 		});
 		
-		navBar.getChildren().addAll(filterField, createRegion(50), firefoxField, firefoxButton, addButton, refreshButton, bugsButton, createRegion(50), pause);
+		navBar.getChildren().addAll(filterField, createRegion(50), browserField, firefoxButton, addButton, refreshButton, bugsButton, createRegion(50), pause);
 		navBar.setAlignment(Pos.CENTER);
 		navBar.setSpacing(10);
 		navBar.setPadding(new Insets(10, 5, 5, 5));
