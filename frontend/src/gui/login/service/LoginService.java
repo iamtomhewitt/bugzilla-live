@@ -9,6 +9,7 @@ import common.Errors;
 import common.MessageBox;
 import common.message.ApiRequestor;
 import common.utilities.Encryptor;
+import gui.app.main.BugzillaLive;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -173,25 +174,15 @@ public class LoginService extends Application
 			properties.put("password", Encryptor.encrypt(passwordInput.getText()));
 			properties.put("api_key", apiKeyInput.getText());
 
-			try
+			for (Map.Entry<String, String> entry : properties.entrySet())
 			{
-				for (Map.Entry<String, String> entry : properties.entrySet())
-				{
-					String url = String.format("/config/save?key=%s&value=%s", entry.getKey(), entry.getValue());
-					String response = ApiRequestor.request(url);					
-					MessageBox.showErrorIfResponseNot200(response);
-					System.out.println(response);
-				}
-			
-				Runtime.getRuntime().exec("java -jar \"" + "" + "guiservice.jar\"");
-				stage.close();
-				Platform.exit();
-				System.exit(0);
-			} 
-			catch (IOException ex)
-			{
-				MessageBox.showExceptionDialog(Errors.GENERAL, ex);
+				String url = String.format("/config/save?key=%s&value=%s", entry.getKey(), entry.getValue());
+				String response = ApiRequestor.request(url);					
+				MessageBox.showErrorIfResponseNot200(response);
 			}
+
+			new BugzillaLive();
+			stage.close();
 		}
 		else
 		{

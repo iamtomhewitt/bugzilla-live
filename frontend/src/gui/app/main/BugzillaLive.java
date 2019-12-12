@@ -1,8 +1,5 @@
 package gui.app.main;
 
-import java.io.IOException;
-import java.text.ParseException;
-
 import gui.app.component.InformationPane;
 import gui.app.component.NavBar;
 import gui.app.common.GuiConstants;
@@ -16,7 +13,6 @@ import common.MessageBox;
 import common.exception.JsonTransformationException;
 import common.utilities.Icons;
 import common.utilities.JacksonAdapter;
-import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -27,7 +23,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-public class BugzillaLive extends Application
+public class BugzillaLive
 {
 	private BugTable table = new BugTable();
 	private BorderPane border = new BorderPane();
@@ -38,15 +34,10 @@ public class BugzillaLive extends Application
 	private NavBar navBar = new NavBar();
 
 	private static Stage mainStage;
-
-	public static void main(String[] args) throws IOException, ParseException
+	
+	public BugzillaLive()
 	{
-		launch(args);
-	}
-
-	@Override
-	public void start(Stage primaryStage)
-	{
+		Stage primaryStage = new Stage();
 		BugzillaLive.mainStage = primaryStage;
 		
 		top.getChildren().add(toolbar.getMenuBar());
