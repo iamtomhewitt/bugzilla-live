@@ -1,8 +1,12 @@
 package common.utilities;
 
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import common.bug.Bug;
+import gui.app.common.GuiConstants;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.input.Clipboard;
@@ -18,18 +22,20 @@ public class Utilities
 {
 	/**
 	 * Opens a specific url in Firefox.
+	 * @throws URISyntaxException 
 	 */
-	public static void openUrlInFirefox(String url) throws IOException
+	public static void openUrlInBrowser(String url) throws IOException, URISyntaxException
 	{
-		Runtime.getRuntime().exec("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe " + url);
+        Desktop.getDesktop().browse(new URI(url));
 	}
 
 	/**
 	 * Opens a bug in Firefox.
+	 * @throws URISyntaxException 
 	 */
-	public static void openBugInFirefox(String bugzillaUrl, String number) throws IOException
+	public static void openBugInBrowser( String number) throws IOException, URISyntaxException
 	{
-		Runtime.getRuntime().exec("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe " + bugzillaUrl + "show_bug.cgi?id=" + number);
+		Desktop.getDesktop().browse(new URI(GuiConstants.BUGZILLA_URL + "/show_bug.cgi?id=" + number));
 	}
 
 	/**

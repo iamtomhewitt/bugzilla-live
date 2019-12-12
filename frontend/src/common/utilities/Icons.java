@@ -13,7 +13,7 @@ public class Icons
 {
 	public static final String ICON 		= "Icon.png";
 	public static final String BACKGROUND 	= "Background.png";
-	public static final String FIREFOX 		= "Firefox.png";
+	public static final String BROWSER 		= "Browser.png";
 	public static final String ADD 			= "Add.png";
 	public static final String REMOVE 		= "Remove.png";
 	public static final String HELP 		= "Help.png";
@@ -29,62 +29,62 @@ public class Icons
 	
 	public ImageView createThemeIcon()
 	{
-		return createIcon(new Icons().THEME);
+		return createIcon(Icons.THEME);
 	}
 	
 	public ImageView createAddIcon()
 	{
-		return createIcon(new Icons().ADD);
+		return createIcon(Icons.ADD);
 	}
 	
 	public ImageView createChangeStatusIcon()
 	{
-		return createIcon(new Icons().CHANGE_STATUS);
+		return createIcon(Icons.CHANGE_STATUS);
 	}
 	
 	public ImageView createRefreshIcon()
 	{
-		return createIcon(new Icons().REFRESH);
+		return createIcon(Icons.REFRESH);
 	}
 	
 	public ImageView createHelpIcon()
 	{
-		return createIcon(new Icons().HELP);
+		return createIcon(Icons.HELP);
 	}
 	
 	public ImageView createExcelIcon()
 	{
-		return createIcon(new Icons().EXCEL);
+		return createIcon(Icons.EXCEL);
 	}
 
 	public ImageView createBugzillaIcon()
 	{
-		return createIcon(new Icons().ICON);
+		return createIcon(Icons.ICON);
 	}
 	
 	public ImageView createListIcon()
 	{
-		return createIcon(new Icons().LISTS);
+		return createIcon(Icons.LISTS);
 	}
 	
-	public ImageView createFirefoxIcon()
+	public ImageView createBrowserIcon()
 	{
-		return createIcon(new Icons().FIREFOX);
+		return createIcon(Icons.BROWSER);
 	}
 	
 	public ImageView createRemoveIcon()
 	{
-		return createIcon(new Icons().REMOVE);
+		return createIcon(Icons.REMOVE);
 	}
 	
 	public ImageView createCommentIcon()
 	{
-		return createIcon(new Icons().COMMENT);
+		return createIcon(Icons.COMMENT);
 	}
 	
 	public ImageView createAboutIcon()
 	{
-		return createIcon(new Icons().ABOUT);
+		return createIcon(Icons.ABOUT);
 	}
 	
 	private ImageView createIcon(String icon)
@@ -92,8 +92,8 @@ public class Icons
 		String url = getClass().getResource("images/"+icon).toExternalForm();
 		Image iconImage = new Image(url);
 		ImageView view = new ImageView(iconImage);
-		view.setFitHeight(new Icons().ICON_SIZE);
-		view.setFitWidth(new Icons().ICON_SIZE);
+		view.setFitHeight(Icons.ICON_SIZE);
+		view.setFitWidth(Icons.ICON_SIZE);
 		return view;
 	}
 }
