@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import gui.app.common.BugTemplates;
-import gui.app.common.GuiConstants;
 import gui.app.component.WindowsBar;
 
 import gui.app.theme.GuiStyler;
@@ -26,9 +25,6 @@ import javafx.stage.Stage;
 import common.Errors;
 import common.Fonts;
 import common.MessageBox;
-import common.exception.JsonTransformationException;
-import common.exception.MessageSenderException;
-import common.message.bug.ChangeBugStatusRequest;
 import common.utilities.Icons;
 
 public class ChangeBugStatusDialog extends VBox 
@@ -58,7 +54,9 @@ public class ChangeBugStatusDialog extends VBox
 			comment.setText("Updated to " + selectedStatus + ".");
 			
 			if (selectedStatus.equalsIgnoreCase("Coded"))
+			{
 				comment.setText(BugTemplates.CODED);
+			}
 		});
 
 		Button submitButton = new Button("Submit");
@@ -70,14 +68,7 @@ public class ChangeBugStatusDialog extends VBox
 				return;
 			}
 			if (MessageBox.showConfirmDialog("Are you sure you want to update this bug to " + selectedStatus + "?"))
-			{
-				ChangeBugStatusRequest request = new ChangeBugStatusRequest.Builder().withApiKey(GuiConstants.APIKEY)
-																					.withComment(comment.getText())
-																					.withBugNumber(number)
-																					.withPassword(GuiConstants.PASSWORD)
-																					.withStatus(selectedStatus)
-																					.withUsername(GuiConstants.USERNAME)
-																					.build();
+			{				
 				// TODO use ApiRequestor
 				stage.close();
 			}

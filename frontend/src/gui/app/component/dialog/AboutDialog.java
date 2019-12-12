@@ -39,6 +39,8 @@ public class AboutDialog
 	{
 		try
 		{
+			// TODO fetch this from Github releases page?
+			
 			ScrollPane scroll = new ScrollPane();
 
 			String content = new String(Files.readAllBytes(Paths.get("release notes.json")));
