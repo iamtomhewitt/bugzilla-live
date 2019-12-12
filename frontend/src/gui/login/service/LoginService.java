@@ -4,12 +4,15 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONObject;
+
 import common.Errors;
 
 import common.MessageBox;
 import common.message.ApiRequestor;
 import common.utilities.Encryptor;
 import common.utilities.Icons;
+import gui.app.common.GuiConstants;
 import gui.app.main.BugzillaLive;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -56,6 +59,13 @@ public class LoginService extends Application
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{	
+		String url = "/config/get";
+		String response = ApiRequestor.request(url);
+		JSONObject json = new JSONObject(response);
+		JSONObject config = new JSONObject(json.getString("config"));
+		
+		GuiConstants.BUGZILLA_URL = config.getString("bugzillaUrl");
+		
 		loginButton.setOnAction(e -> execute());
 		
 		apiKeyButton.setOnAction(e ->
@@ -67,7 +77,7 @@ public class LoginService extends Application
 			} 
 			catch (IOException ex)
 			{
-				MessageBox.showExceptionDialog(Errors.FIREFOX, ex);
+				MessageBox.showExceptionDialog(Errors.BROWSER, ex);
 			}
 		});
 		
