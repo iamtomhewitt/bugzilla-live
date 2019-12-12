@@ -8,7 +8,7 @@ package common;
  */
 public class Errors 
 {
-	public static final String FIREFOX 			= "Could not open Firefox.";
+	public static final String BROWSER 			= "There was a problem trying to use the browser";
 	public static final String CREATE_LIST 		= "Could not create new list.";
 	public static final String HELP 			= "Could not open Help.";
 	public static final String COMMENTS 		= "Could not open comments for bug.";
