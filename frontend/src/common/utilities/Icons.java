@@ -1,6 +1,5 @@
 package common.utilities;
 
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -12,85 +11,86 @@ import javafx.scene.image.ImageView;
  */
 public class Icons
 {
-	public static final String ICON 		= "file:"+"Icon.png";
-	public static final String BACKGROUND 	= "file:"+"Background.png";
-	public static final String FIREFOX 		= "file:"+"Firefox.png";
-	public static final String ADD 			= "file:"+"Add.png";
-	public static final String REMOVE 		= "file:"+"Remove.png";
-	public static final String HELP 		= "file:"+"Help.png";
-	public static final String LISTS 		= "file:"+"Lists.png";
-	public static final String REFRESH 		= "file:"+"Refresh.png";
-	public static final String EXCEL 		= "file:"+"Excel.png";
-	public static final String COMMENT		= "file:"+"Comment.png";
-	public static final String ABOUT		= "file:"+"About.png";
-	public static final String THEME		= "file:"+"Theme.png";
-	public static final String CHANGE_STATUS= "file:"+"Change Status.png";
+	public static final String ICON 		= "Icon.png";
+	public static final String BACKGROUND 	= "Background.png";
+	public static final String FIREFOX 		= "Firefox.png";
+	public static final String ADD 			= "Add.png";
+	public static final String REMOVE 		= "Remove.png";
+	public static final String HELP 		= "Help.png";
+	public static final String LISTS 		= "Lists.png";
+	public static final String REFRESH 		= "Refresh.png";
+	public static final String EXCEL 		= "Excel.png";
+	public static final String COMMENT		= "Comment.png";
+	public static final String ABOUT		= "About.png";
+	public static final String THEME		= "Theme.png";
+	public static final String CHANGE_STATUS= "Change Status.png";
 
 	public static final int ICON_SIZE = 25;
 	
-	public static ImageView createThemeIcon()
+	public ImageView createThemeIcon()
 	{
 		return createIcon(Icons.THEME);
 	}
 	
-	public static ImageView createAddIcon()
+	public ImageView createAddIcon()
 	{
 		return createIcon(Icons.ADD);
 	}
 	
-	public static ImageView createChangeStatusIcon()
+	public ImageView createChangeStatusIcon()
 	{
 		return createIcon(Icons.CHANGE_STATUS);
 	}
 	
-	public static ImageView createRefreshIcon()
+	public ImageView createRefreshIcon()
 	{
 		return createIcon(Icons.REFRESH);
 	}
 	
-	public static ImageView createHelpIcon()
+	public ImageView createHelpIcon()
 	{
 		return createIcon(Icons.HELP);
 	}
 	
-	public static ImageView createExcelIcon()
+	public ImageView createExcelIcon()
 	{
 		return createIcon(Icons.EXCEL);
 	}
 
-	public static ImageView createBugzillaIcon()
+	public ImageView createBugzillaIcon()
 	{
 		return createIcon(Icons.ICON);
 	}
 	
-	public static ImageView createListIcon()
+	public ImageView createListIcon()
 	{
 		return createIcon(Icons.LISTS);
 	}
 	
-	public static ImageView createFirefoxIcon()
+	public ImageView createFirefoxIcon()
 	{
 		return createIcon(Icons.FIREFOX);
 	}
 	
-	public static ImageView createRemoveIcon()
+	public ImageView createRemoveIcon()
 	{
 		return createIcon(Icons.REMOVE);
 	}
 	
-	public static ImageView createCommentIcon()
+	public ImageView createCommentIcon()
 	{
 		return createIcon(Icons.COMMENT);
 	}
 	
-	public static ImageView createAboutIcon()
+	public ImageView createAboutIcon()
 	{
 		return createIcon(Icons.ABOUT);
 	}
 	
-	private static ImageView createIcon(String icon)
+	private ImageView createIcon(String icon)
 	{
-		Image iconImage = new Image(icon);
+		String url = getClass().getResource("images/"+icon).toExternalForm();
+		Image iconImage = new Image(url);
 		ImageView view = new ImageView(iconImage);
 		view.setFitHeight(Icons.ICON_SIZE);
 		view.setFitWidth(Icons.ICON_SIZE);
