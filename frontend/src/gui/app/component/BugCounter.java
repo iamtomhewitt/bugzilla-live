@@ -14,6 +14,6 @@ public class BugCounter
 
 	public static int countActiveSeverityBugs(String severity)
 	{
-		return (int) BugTable.getInstance().getTableView().getItems().stream().filter(o -> o.getSeverity().equalsIgnoreCase(severity) && (o.getStatus().equalsIgnoreCase("Investigation") || o.getStatus().equalsIgnoreCase("Diagnosed"))).count();
+		return (int) BugTable.getInstance().getTableView().getItems().stream().filter(o -> o.getSeverity().equalsIgnoreCase(severity)).count();
 	}
 }

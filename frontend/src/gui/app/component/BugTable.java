@@ -193,20 +193,23 @@ public class BugTable
 
 	private void colour(Node n, Bug bug, Hyperlink link)
 	{
+		String status = bug.getStatus();
+		String severity = bug.getSeverity();
+		
 		// Colour based on if fixed or not first
-		if (bug.getStatus().equalsIgnoreCase("Fixed"))
+		if (status.equalsIgnoreCase("Fixed"))
 		{
 			n.setStyle(RowColours.FIXED);
 		}
-		else if (bug.getStatus().equalsIgnoreCase("Closed"))
+		else if (status.equalsIgnoreCase("Closed"))
 		{
 			n.setStyle(RowColours.CLOSED);
 		}
-		else if (bug.getStatus().equalsIgnoreCase("Addressed"))
+		else if (status.equalsIgnoreCase("Worksforme"))
 		{
 			n.setStyle(RowColours.WORKS_FOR_ME);
 		}
-		else if (bug.getStatus().equalsIgnoreCase("Wontfix") || bug.getStatus().equalsIgnoreCase("Duplicate"))
+		else if (status.equalsIgnoreCase("Wontfix") || status.equalsIgnoreCase("Duplicate"))
 		{
 			((Labeled) n).setTextFill(Color.WHITE);
 			link.setTextFill(Color.WHITE);
@@ -214,21 +217,21 @@ public class BugTable
 		}
 
 		// Now the severity
-		else if (bug.getSeverity().equalsIgnoreCase("Blocker") || bug.getSeverity().equalsIgnoreCase("Critical"))
+		else if (severity.equalsIgnoreCase("Blocker") || severity.equalsIgnoreCase("Critical"))
 		{
 			((Labeled) n).setTextFill(Color.WHITE);
 			link.setTextFill(Color.WHITE);
 			n.setStyle(RowColours.CRITICAL);
 		}
-		else if (bug.getSeverity().equalsIgnoreCase("Major"))
+		else if (severity.equalsIgnoreCase("Major"))
 		{
 			n.setStyle(RowColours.MAJOR);
 		}
-		else if (bug.getSeverity().equalsIgnoreCase("Minor"))
+		else if (severity.equalsIgnoreCase("Minor"))
 		{
 			n.setStyle(RowColours.MINOR);
 		}
-		else if (bug.getSeverity().equalsIgnoreCase("Normal"))
+		else if (severity.equalsIgnoreCase("Normal"))
 		{
 			n.setStyle(RowColours.NORMAL);
 		}

@@ -40,17 +40,16 @@ public class InformationPane
 		title.setWrapText(true);
 
 		Label severity 		= createHeadingLabel("\nSeverity");
+		Label blocker 		= createSubHeadingLabel("Blocker", Colours.CRITICAL, severityLabels);
 		Label critical 		= createSubHeadingLabel("Critical", Colours.CRITICAL, severityLabels);
-		Label high 			= createSubHeadingLabel("High", Colours.MAJOR, severityLabels);
-		Label medium 		= createSubHeadingLabel("Medium", Colours.MINOR, severityLabels);
-		Label low 			= createSubHeadingLabel("Low", Colours.NORMAL, severityLabels);
+		Label major 		= createSubHeadingLabel("Major", Colours.MAJOR, severityLabels);
+		Label minor 		= createSubHeadingLabel("Minor", Colours.MINOR, severityLabels);
+		Label normal		= createSubHeadingLabel("Normal", Colours.NORMAL, severityLabels);
 
 		Label status 		= createHeadingLabel("\nStatus");
-		Label investigation = createSubHeadingLabel("Investigation", Colours.BLANK, statusLabels);
-		Label diagnosed 	= createSubHeadingLabel("Diagnosed", Colours.BLANK, statusLabels);
-		Label addressed		= createSubHeadingLabel("Addressed", Colours.WORKS_FOR_ME, statusLabels);
+		Label worksForMe	= createSubHeadingLabel("Works For Me", Colours.WORKS_FOR_ME, statusLabels);
 		Label fixed			= createSubHeadingLabel("Fixed", Colours.FIXED, statusLabels);
-		Label noFault		= createSubHeadingLabel("No Fault", Colours.NOFAULT, statusLabels);
+		Label wontFix		= createSubHeadingLabel("Won't Fix", Colours.NOFAULT, statusLabels);
 		Label closed 		= createSubHeadingLabel("Closed", Colours.RESOLVED, statusLabels);
 
 		refreshed = createLabel("Never", Fonts.FONT, FontWeight.BOLD, Fonts.FONT_SIZE_LARGE, Color.WHITE);
@@ -59,7 +58,7 @@ public class InformationPane
 
 		subheadingLabels.add(refreshed);
 
-		pane.getChildren().addAll(title, refreshedVbox, severity, critical, high, medium, low, status, investigation, diagnosed, addressed, fixed, noFault, closed);
+		pane.getChildren().addAll(title, refreshedVbox, severity, blocker, critical, major, minor, normal, status, worksForMe, fixed, wontFix, closed);
 		pane.setSpacing(12);
 		pane.setPadding(new Insets(20, 15, 15, 15));
 		pane.setMinWidth(250);
@@ -142,7 +141,9 @@ public class InformationPane
 		Color colour = Color.web(Colours.INFO_PANE_HEADING);
 
 		for (Label l : headingLabels)
+		{
 			l.setTextFill(colour);
+		}
 	}
 
 	public void updateSubheadingColour()
@@ -150,7 +151,9 @@ public class InformationPane
 		Color colour = Color.web(Colours.INFO_PANE_SUBHEADING);
 
 		for (Label l : subheadingLabels)
+		{
 			l.setTextFill(colour);
+		}
 	}
 	
 	public Label getTitle()

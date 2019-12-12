@@ -1,7 +1,5 @@
 package gui.app.common;
 
-import java.io.File;
-
 /**
  * Keeps track of specific information to be used when making requests.
  * 

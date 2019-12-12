@@ -29,12 +29,12 @@ public class BugComparator implements Comparator<Bug>
 		{
 			if (fieldSortOrder.contains("severity"))
 			{
-				List<String> definedOrder = Arrays.asList("Unknown", "Low", "Medium", "High", "Critical");
+				List<String> definedOrder = Arrays.asList("Trivial", "Normal", "Minor", "Major", "Critical", "Blocker");
 				return Integer.valueOf(definedOrder.indexOf(b1.getSeverity())).compareTo(Integer.valueOf(definedOrder.indexOf(b2.getSeverity())));				 
 			}
 			else if (fieldSortOrder.contains("status"))
 			{
-				List<String> definedOrder = Arrays.asList("Investigation", "Diagnosed","Coded", "Built", "Released", "Fixed",  "Addressed", "CLOSED", "No Fault");
+				List<String> definedOrder = Arrays.asList("Fixed", "Closed", "WontFix", "Duplicate");
 				return Integer.valueOf(definedOrder.indexOf(b1.getStatus())).compareTo(Integer.valueOf(definedOrder.indexOf(b2.getStatus())));
 			}
 			else if (fieldSortOrder.contains("lastUpdated"))
@@ -68,7 +68,9 @@ public class BugComparator implements Comparator<Bug>
 	private int cmp(Bug a, Bug b, final List<String> fields) throws Exception
 	{
 		if (fields.isEmpty())
+		{
 			return 0;
+		}
 		
 		PropertyDescriptor pd = new PropertyDescriptor(fields.get(0), Bug.class);
 		
@@ -76,8 +78,12 @@ public class BugComparator implements Comparator<Bug>
 		String secondString = (String) pd.getReadMethod().invoke(b);
 		
 		if (firstString.compareTo(secondString) == 0)
+		{
 			return cmp(a, b, fields.subList(1, fields.size()));
+		}
 		else
+		{
 			return firstString.compareTo(secondString);
+		}
 	}
 }
