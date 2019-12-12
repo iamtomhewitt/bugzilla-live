@@ -64,7 +64,7 @@ public class BugContextMenu
 			MessageBox.showErrorIfResponseNot200(response);
 		});
 
-		firefox.setGraphic(new Icons().createFirefoxIcon());
+		firefox.setGraphic(new Icons().createBrowserIcon());
 		firefox.setOnAction(e ->
 		{
 			for (String i : bugNumbers)
