@@ -7,11 +7,7 @@ import java.util.Map;
 import common.Errors;
 
 import common.MessageBox;
-import common.exception.MessageReceiverException;
-import common.exception.MessageSenderException;
-import common.message.config.ApplicationGetRequest;
-import common.message.config.UserGetRequest;
-import common.message.config.UserSaveRequest;
+import common.message.ApiRequestor;
 import common.utilities.Encryptor;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -43,20 +39,20 @@ public class LoginService extends Application
 
 	private Stage stage;
 
-	private TextField usernameInput;
-	private PasswordField passwordInput;
+	private TextField emailInput;
 	private TextField apiKeyInput;
+	private PasswordField passwordInput;
 	
 	private VBox vbox 			= new VBox();
 	private VBox fieldsVbox		= new VBox();
 	private VBox titleVbox		= new VBox();
 	private VBox buttonsVbox 	= new VBox();
 	
-	private Label title 		= new Label("Bugzilla LIVE");
+	private Label title = new Label("Bugzilla LIVE");
 	
 	private String icon = "file:" + "Icon.png";
 		
-	private LoginStyler 	styler 			= new LoginStyler();
+	private LoginStyler styler 	= new LoginStyler();
 
 	@Override
 	public void start(Stage primaryStage) throws Exception
@@ -78,13 +74,15 @@ public class LoginService extends Application
 		
 		ImageView logo = new ImageView(new Image(icon));
 		
-		usernameInput = new TextField();
-		usernameInput.setPromptText("username");
-		usernameInput.setAlignment(Pos.CENTER);
-		usernameInput.setOnKeyPressed(e -> 
+		emailInput = new TextField();
+		emailInput.setPromptText("email address");
+		emailInput.setAlignment(Pos.CENTER);
+		emailInput.setOnKeyPressed(e -> 
 		{
 			if (e.getCode() == KeyCode.ENTER)
+			{
 				execute();
+			}
 		});
 
 		passwordInput = new PasswordField();
@@ -93,7 +91,9 @@ public class LoginService extends Application
 		passwordInput.setOnKeyPressed(e -> 
 		{
 			if (e.getCode() == KeyCode.ENTER)
+			{
 				execute();
+			}
 		});
 
 		apiKeyInput = new TextField();
@@ -102,18 +102,20 @@ public class LoginService extends Application
 		apiKeyInput.setOnKeyPressed(e -> 
 		{
 			if (e.getCode() == KeyCode.ENTER)
+			{
 				execute();
+			}
 		});
 		
 		Tooltip usernameTooltip = new Tooltip();
 		usernameTooltip.setText("(e.g. thomas.hewitt)");
-		usernameInput.setTooltip(usernameTooltip);
+		emailInput.setTooltip(usernameTooltip);
 		
 		Tooltip apiKeyTooltip = new Tooltip();
 		apiKeyTooltip.setText("Click the blue button if you do not have an API key");
 		apiKeyInput.setTooltip(apiKeyTooltip);
 		
-		styler.styleInputField(usernameInput);
+		styler.styleInputField(emailInput);
 		styler.styleInputField(passwordInput);
 		styler.styleInputField(apiKeyInput);
 		styler.styleLoginButton(loginButton);
@@ -126,7 +128,7 @@ public class LoginService extends Application
 		titleVbox.setSpacing(10);
 		titleVbox.setPadding(new Insets(15));
 		
-		fieldsVbox.getChildren().addAll(usernameInput, passwordInput, apiKeyInput);
+		fieldsVbox.getChildren().addAll(emailInput, passwordInput, apiKeyInput);
 		fieldsVbox.setAlignment(Pos.CENTER);
 		fieldsVbox.setSpacing(10);
 		fieldsVbox.setPadding(new Insets(15));
@@ -156,7 +158,7 @@ public class LoginService extends Application
 	 */
 	private boolean canLogin()
 	{
-		return !(usernameInput.getText().equals("") || passwordInput.getText().equals("") || apiKeyInput.getText().contentEquals(""));
+		return !(emailInput.getText().equals("") || passwordInput.getText().equals("") || apiKeyInput.getText().contentEquals(""));
 	}
 	
 	/*
@@ -166,14 +168,20 @@ public class LoginService extends Application
 	{
 		if (canLogin())
 		{
-			Map<String, String> userPropertiesToSave = new HashMap<String, String>();
-			userPropertiesToSave.put("username", usernameInput.getText());
-			userPropertiesToSave.put("password", Encryptor.encrypt(passwordInput.getText()));
-			userPropertiesToSave.put("api_key", apiKeyInput.getText());
+			Map<String, String> properties = new HashMap<String, String>();
+			properties.put("username", emailInput.getText());
+			properties.put("password", Encryptor.encrypt(passwordInput.getText()));
+			properties.put("api_key", apiKeyInput.getText());
 
 			try
 			{
-				// TODO use ApiRequestor
+				for (Map.Entry<String, String> entry : properties.entrySet())
+				{
+					String url = String.format("/config/save?key=%s&value=%s", entry.getKey(), entry.getValue());
+					String response = ApiRequestor.request(url);					
+					MessageBox.showErrorIfResponseNot200(response);
+					System.out.println(response);
+				}
 			
 				Runtime.getRuntime().exec("java -jar \"" + "" + "guiservice.jar\"");
 				stage.close();
