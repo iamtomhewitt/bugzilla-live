@@ -13,7 +13,7 @@ public class Icons
 {
 	public static final String ICON 		= "Icon.png";
 	public static final String BACKGROUND 	= "Background.png";
-	public static final String FIREFOX 		= "Firefox.png";
+	public static final String BROWSER 		= "Browser.png";
 	public static final String ADD 			= "Add.png";
 	public static final String REMOVE 		= "Remove.png";
 	public static final String HELP 		= "Help.png";
@@ -69,7 +69,7 @@ public class Icons
 	
 	public ImageView createFirefoxIcon()
 	{
-		return createIcon(Icons.FIREFOX);
+		return createIcon(Icons.BROWSER);
 	}
 	
 	public ImageView createRemoveIcon()
