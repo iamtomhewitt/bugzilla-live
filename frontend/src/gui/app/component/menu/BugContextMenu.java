@@ -38,7 +38,7 @@ public class BugContextMenu
 		MenuItem changeStatus 	= new MenuItem("Change Bug Status");
 		MenuItem copyBugTitle 	= new MenuItem("Copy Bug Title");
 
-		remove.setGraphic(Icons.createRemoveIcon());
+		remove.setGraphic(new Icons().createRemoveIcon());
 		remove.setOnAction(e ->
 		{
 			// Remove from the table view GUI
@@ -63,7 +63,7 @@ public class BugContextMenu
 			MessageBox.showErrorIfResponseNot200(response);
 		});
 
-		firefox.setGraphic(Icons.createFirefoxIcon());
+		firefox.setGraphic(new Icons().createFirefoxIcon());
 		firefox.setOnAction(e ->
 		{
 			for (String i : bugNumbers)
@@ -82,10 +82,10 @@ public class BugContextMenu
 			}
 		});
 
-		copy.setGraphic(Icons.createListIcon());
+		copy.setGraphic(new Icons().createListIcon());
 		copy.setOnAction(e -> Utilities.copy(table));
 
-		comment.setGraphic(Icons.createCommentIcon());
+		comment.setGraphic(new Icons().createCommentIcon());
 		comment.setOnAction(e ->
 		{
 			try
@@ -99,7 +99,7 @@ public class BugContextMenu
 			}
 		});
 		
-		changeStatus.setGraphic(Icons.createChangeStatusIcon());
+		changeStatus.setGraphic(new Icons().createChangeStatusIcon());
 		changeStatus.setOnAction(e -> 
 		{
 			String number = table.getSelectionModel().getSelectedItem().getId();
@@ -107,7 +107,7 @@ public class BugContextMenu
 			new ChangeBugStatusDialog(number, status);
 		});
 		
-		copyBugTitle.setGraphic(Icons.createListIcon());
+		copyBugTitle.setGraphic(new Icons().createListIcon());
 		copyBugTitle.setOnAction(e -> 
 		{
 			Bug bug = table.getSelectionModel().getSelectedItem();

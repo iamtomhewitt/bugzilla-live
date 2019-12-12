@@ -73,7 +73,7 @@ public class RefreshRateDialog
 
 		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, vbox, "Change Refresh Rate"), 225, 125);
 		stage.setScene(scene);
-		stage.getIcons().add(Icons.createRefreshIcon().getImage());
+		stage.getIcons().add(new Icons().createRefreshIcon().getImage());
 		stage.show();
 		stage.centerOnScreen();
 	}

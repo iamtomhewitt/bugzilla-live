@@ -47,7 +47,7 @@ public class ListMenu
 			switchList(file.getName());
 		});
 		
-		listMenu.setGraphic(Icons.createListIcon());
+		listMenu.setGraphic(new Icons().createListIcon());
 
 		// Even though it gets added later, not doing this will cause an empty list
 		listMenu.getItems().add(createList);

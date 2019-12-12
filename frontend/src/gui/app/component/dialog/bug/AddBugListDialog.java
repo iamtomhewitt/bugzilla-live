@@ -76,7 +76,7 @@ public class AddBugListDialog
 		Platform.runLater(() -> createButton.requestFocus());
 		
 		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, vbox, "Add Bug List"), 275, 175);	
-		stage.getIcons().add(Icons.createListIcon().getImage());
+		stage.getIcons().add(new Icons().createListIcon().getImage());
 		stage.setScene(scene);
 		stage.show();
 		stage.centerOnScreen();

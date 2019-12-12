@@ -58,7 +58,7 @@ public class MessageBox
 				expContent.add(textArea, 0, 1);
 				
 				Stage s = (Stage) alert.getDialogPane().getScene().getWindow();
-				s.getIcons().add(Icons.createBugzillaIcon().getImage());
+				s.getIcons().add(new Icons().createBugzillaIcon().getImage());
 				
 				alert.getDialogPane().setExpandableContent(expContent);
 				alert.showAndWait();
@@ -73,7 +73,7 @@ public class MessageBox
 		alert.setHeaderText("Information");
 		alert.setContentText(message);
 		Stage s = (Stage) alert.getDialogPane().getScene().getWindow();
-		s.getIcons().add(Icons.createBugzillaIcon().getImage());
+		s.getIcons().add(new Icons().createBugzillaIcon().getImage());
 		alert.showAndWait();
 	}
 	
@@ -92,7 +92,7 @@ public class MessageBox
 			alert.setContentText(message);
 			
 			Stage s = (Stage) alert.getDialogPane().getScene().getWindow();
-			s.getIcons().add(Icons.createBugzillaIcon().getImage());
+			s.getIcons().add(new Icons().createBugzillaIcon().getImage());
 			
 			alert.showAndWait();
 			return true;
@@ -106,7 +106,7 @@ public class MessageBox
 		alert.setTitle("");
 		alert.setContentText(message);
 		Stage s = (Stage) alert.getDialogPane().getScene().getWindow();
-		s.getIcons().add(Icons.createBugzillaIcon().getImage());
+		s.getIcons().add(new Icons().createBugzillaIcon().getImage());
 		alert.showAndWait();
 				
 		return alert.getResult() == ButtonType.OK;

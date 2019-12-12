@@ -53,7 +53,7 @@ public class BugzillaLive
 		BorderPane.setAlignment(center, Pos.CENTER);
 
 		Scene scene = new Scene(border);
-		primaryStage.getIcons().add(Icons.createBugzillaIcon().getImage());
+		primaryStage.getIcons().add(new Icons().createBugzillaIcon().getImage());
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Bugzilla LIVE");
 		primaryStage.setMaximized(true);

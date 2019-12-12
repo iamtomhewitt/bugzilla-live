@@ -87,7 +87,7 @@ public class AddCommentDialog extends VBox
 
 		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, this, "Bug" + number + " Add Comment"), 375, 475);
 		stage.setTitle("Add New Comment");
-		stage.getIcons().add(Icons.createAddIcon().getImage());
+		stage.getIcons().add(new Icons().createAddIcon().getImage());
 		stage.setX(xPosition);
 		stage.setScene(scene);
 		stage.show();
