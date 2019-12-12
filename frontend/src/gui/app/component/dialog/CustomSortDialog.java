@@ -72,7 +72,7 @@ public class CustomSortDialog extends VBox
 		
 		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, this, "Custom Sort"), 175, 250);
 		stage.setScene(scene);
-		stage.getIcons().add(Icons.createListIcon().getImage());
+		stage.getIcons().add(new Icons().createListIcon().getImage());
 		stage.show();
 		stage.centerOnScreen();
 	}

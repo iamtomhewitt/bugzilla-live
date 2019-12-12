@@ -9,6 +9,7 @@ import common.Errors;
 import common.MessageBox;
 import common.message.ApiRequestor;
 import common.utilities.Encryptor;
+import common.utilities.Icons;
 import gui.app.main.BugzillaLive;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -20,7 +21,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
@@ -50,9 +50,7 @@ public class LoginService extends Application
 	private VBox buttonsVbox 	= new VBox();
 	
 	private Label title = new Label("Bugzilla LIVE");
-	
-	private String icon = "file:" + "Icon.png";
-		
+			
 	private LoginStyler styler 	= new LoginStyler();
 
 	@Override
@@ -73,7 +71,7 @@ public class LoginService extends Application
 			}
 		});
 		
-		ImageView logo = new ImageView(new Image(icon));
+		ImageView logo = new Icons().createBugzillaIcon();
 		
 		emailInput = new TextField();
 		emailInput.setPromptText("email address");
@@ -148,7 +146,7 @@ public class LoginService extends Application
 		stage = new Stage();
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setTitle("Login");
-		stage.getIcons().add(new Image(icon));
+		stage.getIcons().add(logo.getImage());
 		stage.setScene(scene);
 		stage.show();
 		stage.centerOnScreen();
