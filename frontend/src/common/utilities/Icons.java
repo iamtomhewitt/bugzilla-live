@@ -67,7 +67,7 @@ public class Icons
 		return createIcon(Icons.LISTS);
 	}
 	
-	public ImageView createFirefoxIcon()
+	public ImageView createBrowserIcon()
 	{
 		return createIcon(Icons.BROWSER);
 	}

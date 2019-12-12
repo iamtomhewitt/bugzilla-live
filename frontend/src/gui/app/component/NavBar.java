@@ -140,7 +140,7 @@ public class NavBar
 		browserField.setPromptText("bugzilla");
 		browserField.setTooltip(new Tooltip("Enter a bug to open in Bugzilla"));		
 
-		Button firefoxButton = new Button("", new Icons().createFirefoxIcon());
+		Button firefoxButton = new Button("", new Icons().createBrowserIcon());
 		firefoxButton.setTooltip(new Tooltip("Open the bug in Bugzilla"));
 		firefoxButton.setOnAction(e ->
 		{
