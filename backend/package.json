@@ -8,6 +8,7 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "mocha": "^6.2.2",
+    "nexe": "^3.3.2",
     "path": "^0.12.7",
     "request": "^2.88.0",
     "supertest": "^4.0.2"
