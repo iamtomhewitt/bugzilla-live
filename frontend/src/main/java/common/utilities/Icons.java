@@ -89,7 +89,7 @@ public class Icons
 	
 	private ImageView createIcon(String icon)
 	{
-		String url = getClass().getResource("images/"+icon).toExternalForm();
+		String url = getClass().getResource("/" + icon).toExternalForm();
 		Image iconImage = new Image(url);
 		ImageView view = new ImageView(iconImage);
 		view.setFitHeight(Icons.ICON_SIZE);
