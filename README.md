@@ -5,11 +5,7 @@ An application to show bugs from Bugzilla using the provided API. Originally as 
 ## 🔧 Getting Started
 The app is split into a JavaFX frontend, and a Node Express backend. The front end makes requests to the backend, which in turn makes requests to the Bugzilla API or makes config changes etc.
 
-### 💡 Software
-* JavaFX
-* Node / npm
-
-## 🏃‍♂️Run Locally
+## 🏃‍♂️ Run Locally
 
 ### Frontend
 * Run `gui.login.service.LoginService` in your IDE.
@@ -18,7 +14,7 @@ The app is split into a JavaFX frontend, and a Node Express backend. The front e
 * `npm install`
 * `node app.js`
 
-## 👷🏻‍♂️Build
+## 👷🏻‍♂️ Build
 ### Frontend
 * Use `mvn clean install package` to create the jar file.
 * Run `java -jar target/bugzilla-version.jar` to run the built jar.
@@ -27,6 +23,6 @@ The app is split into a JavaFX frontend, and a Node Express backend. The front e
 * Use `nexe app.js -n "bugzilla-live-backend"` to create an executable of the backend.
 * Run the produced executable.
 
-## 🎉Contributing
+## 🎉 Contributing
 Visit the issues tab or create a new one.
 Follow [this guide](CODESTYLE.md) for a guide on how code should look! 🙂
