@@ -1,5 +1,8 @@
 package gui.app.component.dialog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.Callable;
 
 import org.json.JSONArray;
@@ -37,12 +40,15 @@ public class AboutDialog {
 		String url = "http://api.github.com/repos/iamtomhewitt/bugzilla-live/releases";
 		String response = ApiRequestor.requestExternal(url);
 
+		SimpleDateFormat input 	= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		SimpleDateFormat output = new SimpleDateFormat("dd/MM/yyyy");
+		
 		JSONArray json = new JSONArray(response);
 		for (int i = 0; i < json.length(); i++) {
 			JSONObject release = json.getJSONObject(i);
 
 			String version = release.getString("tag_name");
-			String date = release.getString("published_at");
+			String publishedDate = release.getString("published_at");
 			String title = release.getString("name");
 			String description = release.getString("body");
 
@@ -51,7 +57,20 @@ public class AboutDialog {
 			Label versionLabel = new Label(version);
 			versionLabel.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, Fonts.FONT_SIZE_NORMAL));
 
-			Label dateLabel = new Label(date);
+			Date date = null;
+			String formattedDate = "";
+			
+			try 
+			{
+			   date = input.parse(publishedDate);
+			   formattedDate = output.format(date);
+			} 
+			catch (ParseException e) 
+			{
+			   formattedDate = "Unknown";
+			}
+			
+			Label dateLabel = new Label(formattedDate);
 			dateLabel.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, Fonts.FONT_SIZE_NORMAL));
 
 			Label titleLabel = new Label(title);
@@ -92,8 +111,7 @@ public class AboutDialog {
 		scroll.setHbarPolicy(ScrollBarPolicy.NEVER);
 		scroll.setStyle("-fx-background-color: white");
 
-		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, scroll, "About"),
-				300, 500);
+		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, scroll, "About"), 300, 500);
 		stage.getIcons().add(new Icons().createAboutIcon().getImage());
 		stage.setTitle("About");
 		stage.setScene(scene);
