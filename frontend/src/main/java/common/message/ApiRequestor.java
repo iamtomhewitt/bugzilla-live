@@ -18,13 +18,22 @@ import common.MessageBox;
  * @author Tom Hewitt
  */
 public class ApiRequestor 
-{
+{	
 	public static String request(String endpoint) 
 	{
+		String url = "http://localhost:3001" + endpoint;
+		return makeRequest(url);
+	}
+	
+	public static String requestExternal(String url)
+	{
+		return makeRequest(url);
+	}
+	
+	private static String makeRequest(String url)
+	{
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) 
-		{
-			String url = "http://localhost:3001" + endpoint;
-			
+		{			
 			HttpGet request = new HttpGet(url);
 
 			HttpResponse result = httpClient.execute(request);
