@@ -5,7 +5,6 @@ import java.util.concurrent.Callable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import gui.app.common.GuiConstants;
 import gui.app.component.WindowsBar;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
@@ -93,7 +92,7 @@ public class AboutDialog {
 		scroll.setHbarPolicy(ScrollBarPolicy.NEVER);
 		scroll.setStyle("-fx-background-color: white");
 
-		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, scroll, "About | Version: " + GuiConstants.VERSION),
+		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, scroll, "About"),
 				300, 500);
 		stage.getIcons().add(new Icons().createAboutIcon().getImage());
 		stage.setTitle("About");
