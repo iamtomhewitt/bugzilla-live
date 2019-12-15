@@ -29,22 +29,25 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import common.message.ApiRequestor;
+import common.message.Endpoints;
 
-public class AboutDialog {
+public class AboutDialog
+{
 	private Stage stage = new Stage();
 	private VBox vbox = new VBox();
 
-	public AboutDialog() {
+	public AboutDialog()
+	{
 		ScrollPane scroll = new ScrollPane();
 
-		String url = "http://api.github.com/repos/iamtomhewitt/bugzilla-live/releases";
-		String response = ApiRequestor.requestExternal(url);
+		String response = ApiRequestor.request(Endpoints.GITHUB_RELEASES);
 
-		SimpleDateFormat input 	= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 		SimpleDateFormat output = new SimpleDateFormat("dd/MM/yyyy");
-		
+
 		JSONArray json = new JSONArray(response);
-		for (int i = 0; i < json.length(); i++) {
+		for (int i = 0; i < json.length(); i++)
+		{
 			JSONObject release = json.getJSONObject(i);
 
 			String version = release.getString("tag_name");
@@ -59,17 +62,17 @@ public class AboutDialog {
 
 			Date date = null;
 			String formattedDate = "";
-			
-			try 
+
+			try
 			{
-			   date = input.parse(publishedDate);
-			   formattedDate = output.format(date);
+				date = input.parse(publishedDate);
+				formattedDate = output.format(date);
 			} 
-			catch (ParseException e) 
+			catch (ParseException e)
 			{
-			   formattedDate = "Unknown";
+				formattedDate = "Unknown";
 			}
-			
+
 			Label dateLabel = new Label(formattedDate);
 			dateLabel.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, Fonts.FONT_SIZE_NORMAL));
 
@@ -119,16 +122,22 @@ public class AboutDialog {
 		stage.centerOnScreen();
 	}
 
-	private void autosize(Label l) {
+	private void autosize(Label l)
+	{
 		// Autosize height
-		new AnimationTimer() {
+		new AnimationTimer()
+		{
 			@Override
-			public void handle(long now) {
+			public void handle(long now)
+			{
 				Node text = l.lookup(".text");
-				if (text != null) {
-					l.prefHeightProperty().bind(Bindings.createDoubleBinding(new Callable<Double>() {
+				if (text != null)
+				{
+					l.prefHeightProperty().bind(Bindings.createDoubleBinding(new Callable<Double>()
+					{
 						@Override
-						public Double call() throws Exception {
+						public Double call() throws Exception
+						{
 							return text.getBoundsInLocal().getHeight();
 						}
 					}, text.boundsInLocalProperty()).add(20));

@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import common.exception.Errors;
 import common.message.ApiRequestor;
+import common.message.Endpoints;
 import common.message.MessageBox;
 import common.utilities.Encryptor;
 import gui.app.common.GuiConstants;
@@ -61,8 +62,7 @@ public class LoginService extends Application
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{	
-		String url = "/config/get";
-		String response = ApiRequestor.request(url);
+		String response = ApiRequestor.request(Endpoints.CONFIG_GET);
 		JSONObject json = new JSONObject(response);
 		JSONObject config = new JSONObject(json.getString("config"));
 		
@@ -185,8 +185,7 @@ public class LoginService extends Application
 
 			for (Map.Entry<String, String> entry : properties.entrySet())
 			{
-				String url = String.format("/config/save?key=%s&value=%s", entry.getKey(), entry.getValue());
-				String response = ApiRequestor.request(url);					
+				String response = ApiRequestor.request(Endpoints.CONFIG_SAVE(entry.getKey(), entry.getValue()));					
 				MessageBox.showErrorIfResponseNot200(response);
 			}
 

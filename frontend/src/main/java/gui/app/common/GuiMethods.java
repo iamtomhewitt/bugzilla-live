@@ -9,6 +9,7 @@ import common.bug.Bug;
 import common.exception.Errors;
 import common.exception.JsonTransformationException;
 import common.message.ApiRequestor;
+import common.message.Endpoints;
 import common.message.MessageBox;
 import common.utilities.JacksonAdapter;
 import gui.app.component.InformationPane;
@@ -85,8 +86,7 @@ public class GuiMethods
 		
 		// TODO get users email
 		String email = "leif@ogre.com";
-		String url = String.format("/bugs/email?email=%s", email);
-		String response = ApiRequestor.request(url);
+		String response = ApiRequestor.request(Endpoints.BUGS_EMAIL(email));
 		
 		if(MessageBox.showErrorIfResponseNot200(response))
 		{
@@ -103,8 +103,7 @@ public class GuiMethods
 	public static void requestRefreshOfBugsInList()
 	{
 		// Get the current bug numbers in the file
-		String url = String.format("/list/%s/contents", GuiConstants.CURRENT_LIST_FILE.split("\\.")[0]);
-		String response = ApiRequestor.request(url);
+		String response = ApiRequestor.request(Endpoints.LIST_CONTENTS(GuiConstants.CURRENT_LIST_FILE.split("\\.")[0]));
 		String content = new JSONObject(response).getString("contents");
 		
 		GuiConstants.REQUEST_TYPE = RequestType.LIST;
@@ -116,8 +115,7 @@ public class GuiMethods
 
 		if (!content.isEmpty())
 		{
-			url = String.format("/bugs/numbers?numbers=%s", content);
-			response = ApiRequestor.request(url);
+			response = ApiRequestor.request(Endpoints.BUGS_NUMBERS(content));
 			updateBugsInTable(response);
 		}
 	}
@@ -141,8 +139,7 @@ public class GuiMethods
 
 			if (!numbers.isEmpty())
 			{
-				String url = String.format("/bugs/numbers?numbers=%s", numbers);
-				String response = ApiRequestor.request(url);
+				String response = ApiRequestor.request(Endpoints.BUGS_NUMBERS(numbers));
 				
 				if(MessageBox.showErrorIfResponseNot200(response))
 				{
