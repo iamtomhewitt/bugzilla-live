@@ -19,8 +19,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import common.Errors;
-import common.MessageBox;
 import common.message.ApiRequestor;
+import common.message.MessageBox;
 import common.utilities.Icons;
 
 /**

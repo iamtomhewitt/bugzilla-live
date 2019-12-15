@@ -10,9 +10,8 @@ import java.util.Map;
 import org.json.JSONObject;
 
 import common.Errors;
-
-import common.MessageBox;
 import common.message.ApiRequestor;
+import common.message.MessageBox;
 import common.utilities.Encryptor;
 import common.utilities.Icons;
 import gui.app.common.GuiConstants;

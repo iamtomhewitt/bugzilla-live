@@ -14,11 +14,11 @@ import org.json.JSONObject;
 
 import common.Errors;
 import common.Fonts;
-import common.MessageBox;
 import common.bug.BugAttachment;
 import common.bug.BugComment;
 import common.exception.JsonTransformationException;
 import common.message.ApiRequestor;
+import common.message.MessageBox;
 import common.utilities.Icons;
 import common.utilities.JacksonAdapter;
 import gui.app.common.GuiMethods;

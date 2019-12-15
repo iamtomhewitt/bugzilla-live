@@ -16,9 +16,9 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
 
 import common.Errors;
-import common.MessageBox;
 import common.bug.Bug;
 import common.message.ApiRequestor;
+import common.message.MessageBox;
 import common.utilities.Icons;
 import common.utilities.Utilities;
 

@@ -24,7 +24,7 @@ import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
 import common.Errors;
 import common.Fonts;
-import common.MessageBox;
+import common.message.MessageBox;
 import common.utilities.Icons;
 
 public class ChangeBugStatusDialog extends VBox 

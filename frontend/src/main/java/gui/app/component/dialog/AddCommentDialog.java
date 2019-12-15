@@ -18,7 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
 import common.Fonts;
-import common.MessageBox;
+import common.message.MessageBox;
 import common.utilities.Icons;
 
 public class AddCommentDialog extends VBox 

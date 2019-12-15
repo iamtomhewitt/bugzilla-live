@@ -7,10 +7,10 @@ import org.json.JSONObject;
 
 import common.Errors;
 import common.Fonts;
-import common.MessageBox;
 import common.bug.Bug;
 import common.exception.JsonTransformationException;
 import common.message.ApiRequestor;
+import common.message.MessageBox;
 import common.utilities.JacksonAdapter;
 import gui.app.component.InformationPane;
 import gui.app.component.BugComparator;
