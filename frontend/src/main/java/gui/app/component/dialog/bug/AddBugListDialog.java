@@ -1,7 +1,5 @@
 package gui.app.component.dialog.bug;
 
-import java.net.URLEncoder;
-
 import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.component.WindowsBar;
@@ -20,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import common.exception.Errors;
 import common.message.ApiRequestor;
+import common.message.Endpoints;
 import common.message.MessageBox;
 
 /**
@@ -96,8 +95,7 @@ public class AddBugListDialog
 				return;
 			}
 			
-			String url = String.format("/list/add?name=%s&contents=%s", URLEncoder.encode(fileNameField.getText(), "UTF-8"), URLEncoder.encode(bugField.getText(), "UTF-8"));
-			String response = ApiRequestor.request(url);
+			String response = ApiRequestor.request(Endpoints.LIST_ADD(fileNameField.getText(), bugField.getText()));
 			
 			MessageBox.showErrorIfResponseNot200(response);
 			

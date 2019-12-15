@@ -9,6 +9,7 @@ import gui.app.theme.GuiStyler;
 import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 import common.message.ApiRequestor;
+import common.message.Endpoints;
 import common.message.MessageBox;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -43,8 +44,7 @@ public class RefreshRateDialog
 		Button applyButton = new Button("Apply");
 		applyButton.setOnAction(e ->
 		{			
-			String url = String.format("/config/save?key=%s&value=%s", "refreshRate", combo.getSelectionModel().getSelectedItem());
-			String response = ApiRequestor.request(url);
+			String response = ApiRequestor.request(Endpoints.CONFIG_SAVE("refreshRate", combo.getSelectionModel().getSelectedItem()));
 			
 			if (MessageBox.showErrorIfResponseNot200(response))
 			{

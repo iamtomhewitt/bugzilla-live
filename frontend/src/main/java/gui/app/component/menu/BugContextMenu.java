@@ -17,6 +17,7 @@ import javafx.scene.control.TableView;
 import common.bug.Bug;
 import common.exception.Errors;
 import common.message.ApiRequestor;
+import common.message.Endpoints;
 import common.message.MessageBox;
 import common.utilities.Utilities;
 
@@ -56,8 +57,7 @@ public class BugContextMenu
 
 			String numbers 	= String.join(",", bugNumbers);
 			String filename = GuiConstants.CURRENT_LIST_FILE.split("\\.")[0];
-			String url 		= String.format("/list/modify?name=%s&remove=%s", filename, numbers);
-			String response = ApiRequestor.request(url);
+			String response = ApiRequestor.request(Endpoints.LIST_MODIFY(filename, "", numbers));
 			
 			MessageBox.showErrorIfResponseNot200(response);
 		});

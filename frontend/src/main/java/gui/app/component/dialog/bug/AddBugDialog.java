@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import common.exception.Errors;
 import common.message.ApiRequestor;
+import common.message.Endpoints;
 import common.message.MessageBox;
 
 /**
@@ -88,8 +89,7 @@ public class AddBugDialog
 			}
 			if (!number.isEmpty())
 			{
-				String url = String.format("/list/modify?name=%s&add=%s", filename, number);
-				String response = ApiRequestor.request(url);
+				String response = ApiRequestor.request(Endpoints.LIST_MODIFY(filename, number, ""));
 				
 				MessageBox.showErrorIfResponseNot200(response);
 				

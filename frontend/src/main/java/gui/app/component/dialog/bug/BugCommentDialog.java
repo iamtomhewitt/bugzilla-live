@@ -17,6 +17,7 @@ import common.bug.BugComment;
 import common.exception.Errors;
 import common.exception.JsonTransformationException;
 import common.message.ApiRequestor;
+import common.message.Endpoints;
 import common.message.MessageBox;
 import common.utilities.JacksonAdapter;
 import gui.app.common.GuiMethods;
@@ -99,8 +100,7 @@ public class BugCommentDialog extends GridPane
 
 	private void populateAttachments(String number) throws JsonTransformationException
 	{
-		String url = String.format("/bugs/%s/attachments", number);
-		String response = ApiRequestor.request(url);
+		String response = ApiRequestor.request(Endpoints.BUGS_ATTACHMENTS(number));
 
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{
@@ -147,8 +147,7 @@ public class BugCommentDialog extends GridPane
 
 	private void populateComments(String number) throws JsonTransformationException
 	{
-		String url = String.format("/bugs/%s/comments", number);
-		String response = ApiRequestor.request(url);
+		String response = ApiRequestor.request(Endpoints.BUGS_COMMENTS(number));
 
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{

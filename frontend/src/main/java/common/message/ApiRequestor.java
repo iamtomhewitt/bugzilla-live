@@ -18,18 +18,7 @@ import common.exception.Errors;
  */
 public class ApiRequestor 
 {	
-	public static String request(String endpoint) 
-	{
-		String url = "http://localhost:3001" + endpoint;
-		return makeRequest(url);
-	}
-	
-	public static String requestExternal(String url)
-	{
-		return makeRequest(url);
-	}
-	
-	private static String makeRequest(String url)
+	public static String request(String url) 
 	{
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) 
 		{			
