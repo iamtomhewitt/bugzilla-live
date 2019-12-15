@@ -3,11 +3,11 @@ package gui.app.component.menu;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import common.Errors;
+import common.exception.Errors;
 import common.message.MessageBox;
-import common.utilities.Icons;
 import common.utilities.Utilities;
 import gui.app.component.dialog.AboutDialog;
+import gui.app.theme.Icons;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 

@@ -6,7 +6,7 @@ import java.io.StringWriter;
 import org.apache.http.HttpStatus;
 import org.json.JSONObject;
 
-import common.utilities.Icons;
+import gui.app.theme.Icons;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

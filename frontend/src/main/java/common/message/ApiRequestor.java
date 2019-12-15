@@ -9,7 +9,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
-import common.Errors;
+import common.exception.Errors;
 
 /**
  * An abstract class making requests to the Node Express backend.

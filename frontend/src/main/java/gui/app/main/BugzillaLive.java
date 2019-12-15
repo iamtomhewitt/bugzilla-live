@@ -6,12 +6,11 @@ import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.component.BugTable;
 import gui.app.component.Toolbar;
-import common.Errors;
-
-import common.Fonts;
+import gui.app.theme.Fonts;
+import gui.app.theme.Icons;
+import common.exception.Errors;
 import common.exception.JsonTransformationException;
 import common.message.MessageBox;
-import common.utilities.Icons;
 import common.utilities.JacksonAdapter;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

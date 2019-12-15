@@ -13,27 +13,19 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 
 /**
- * A class of useful methods that cannot be incorporated into a micro service.
+ * A class of useful methods.
  * 
  * @author Tom Hewitt
  * @since 2.2.1
  */
 public class Utilities
 {
-	/**
-	 * Opens a specific url in Firefox.
-	 * @throws URISyntaxException 
-	 */
 	public static void openUrlInBrowser(String url) throws IOException, URISyntaxException
 	{
         Desktop.getDesktop().browse(new URI(url));
 	}
 
-	/**
-	 * Opens a bug in Firefox.
-	 * @throws URISyntaxException 
-	 */
-	public static void openBugInBrowser( String number) throws IOException, URISyntaxException
+	public static void openBugInBrowser(String number) throws IOException, URISyntaxException
 	{
 		Desktop.getDesktop().browse(new URI(GuiConstants.BUGZILLA_URL + "/show_bug.cgi?id=" + number));
 	}

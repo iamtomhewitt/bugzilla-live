@@ -9,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import gui.app.component.WindowsBar;
+import gui.app.theme.Fonts;
+import gui.app.theme.Icons;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
@@ -26,9 +28,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import common.Fonts;
 import common.message.ApiRequestor;
-import common.utilities.Icons;
 
 public class AboutDialog {
 	private Stage stage = new Stage();

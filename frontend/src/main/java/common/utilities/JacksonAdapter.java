@@ -18,7 +18,6 @@ import common.exception.JsonTransformationException;
  * @author Tom Hewitt
  * @since 2.3.0
  */
-
 @SuppressWarnings("rawtypes")
 public class JacksonAdapter
 {

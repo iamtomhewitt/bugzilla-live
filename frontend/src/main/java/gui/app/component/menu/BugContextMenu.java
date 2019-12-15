@@ -10,16 +10,14 @@ import gui.app.common.GuiConstants;
 import gui.app.component.InformationPane;
 import gui.app.component.dialog.bug.BugCommentDialog;
 import gui.app.component.dialog.bug.ChangeBugStatusDialog;
-
+import gui.app.theme.Icons;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
-
-import common.Errors;
 import common.bug.Bug;
+import common.exception.Errors;
 import common.message.ApiRequestor;
 import common.message.MessageBox;
-import common.utilities.Icons;
 import common.utilities.Utilities;
 
 public class BugContextMenu

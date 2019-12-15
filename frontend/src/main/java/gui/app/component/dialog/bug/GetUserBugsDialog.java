@@ -10,7 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import common.Errors;
+import common.exception.Errors;
 import common.message.ApiRequestor;
 import common.message.MessageBox;
 import gui.app.common.GuiConstants;

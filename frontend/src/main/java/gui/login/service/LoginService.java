@@ -9,13 +9,13 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
-import common.Errors;
+import common.exception.Errors;
 import common.message.ApiRequestor;
 import common.message.MessageBox;
 import common.utilities.Encryptor;
-import common.utilities.Icons;
 import gui.app.common.GuiConstants;
 import gui.app.main.BugzillaLive;
+import gui.app.theme.Icons;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
