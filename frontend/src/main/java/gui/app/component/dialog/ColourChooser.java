@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import common.Fonts;
-import common.utilities.Icons;
 import gui.app.common.GuiMethods;
 import gui.app.component.BugTable;
 import gui.app.component.WindowsBar;
 
 import gui.app.theme.Colours;
+import gui.app.theme.Fonts;
 import gui.app.theme.GuiStyler;
+import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

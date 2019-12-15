@@ -1,6 +1,5 @@
 package gui.app.theme;
 
-import common.Fonts;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

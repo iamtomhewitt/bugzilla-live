@@ -1,4 +1,4 @@
-package common;
+package gui.app.theme;
 
 /**
  * Fonts and sizes used in the application.

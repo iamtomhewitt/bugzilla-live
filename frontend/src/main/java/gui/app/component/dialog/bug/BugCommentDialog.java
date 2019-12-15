@@ -12,20 +12,21 @@ import java.util.concurrent.Callable;
 
 import org.json.JSONObject;
 
-import common.Errors;
-import common.Fonts;
-import common.MessageBox;
 import common.bug.BugAttachment;
 import common.bug.BugComment;
+import common.exception.Errors;
 import common.exception.JsonTransformationException;
 import common.message.ApiRequestor;
-import common.utilities.Icons;
+import common.message.Endpoints;
+import common.message.MessageBox;
 import common.utilities.JacksonAdapter;
 import gui.app.common.GuiMethods;
 import gui.app.component.WindowsBar;
 import gui.app.component.dialog.AddCommentDialog;
 import gui.app.log.GuiLogger;
+import gui.app.theme.Fonts;
 import gui.app.theme.GuiStyler;
+import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
@@ -99,8 +100,7 @@ public class BugCommentDialog extends GridPane
 
 	private void populateAttachments(String number) throws JsonTransformationException
 	{
-		String url = String.format("/bugs/%s/attachments", number);
-		String response = ApiRequestor.request(url);
+		String response = ApiRequestor.request(Endpoints.BUGS_ATTACHMENTS(number));
 
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{
@@ -147,8 +147,7 @@ public class BugCommentDialog extends GridPane
 
 	private void populateComments(String number) throws JsonTransformationException
 	{
-		String url = String.format("/bugs/%s/comments", number);
-		String response = ApiRequestor.request(url);
+		String response = ApiRequestor.request(Endpoints.BUGS_COMMENTS(number));
 
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{

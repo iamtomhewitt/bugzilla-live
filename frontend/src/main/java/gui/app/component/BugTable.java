@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gui.app.component.menu.BugContextMenu;
-
+import gui.app.theme.Fonts;
 import gui.app.theme.RowColours;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -25,10 +25,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
-import common.Errors;
-import common.Fonts;
-import common.MessageBox;
 import common.bug.Bug;
+import common.exception.Errors;
+import common.message.MessageBox;
 import common.utilities.Utilities;
 
 /**

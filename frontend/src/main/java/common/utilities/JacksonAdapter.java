@@ -7,7 +7,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import common.UnitTestStep;
 import common.bug.Bug;
 import common.bug.BugAttachment;
 import common.bug.BugComment;
@@ -19,7 +18,6 @@ import common.exception.JsonTransformationException;
  * @author Tom Hewitt
  * @since 2.3.0
  */
-
 @SuppressWarnings("rawtypes")
 public class JacksonAdapter
 {
@@ -68,10 +66,6 @@ public class JacksonAdapter
 			if (c == BugAttachment.class)
 			{
 				return Arrays.asList(mapper.readValue(json, BugAttachment[].class));
-			}
-			if (c == UnitTestStep.class)
-			{
-				return Arrays.asList(mapper.readValue(json, UnitTestStep[].class));
 			}
 		}
 		catch (IOException e)

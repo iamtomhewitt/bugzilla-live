@@ -10,9 +10,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import common.Errors;
-import common.MessageBox;
+import common.exception.Errors;
 import common.message.ApiRequestor;
+import common.message.Endpoints;
+import common.message.MessageBox;
 import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.common.RequestType;
@@ -90,8 +91,7 @@ public class GetUserBugsDialog
 				
 		// TODO get actual email
 		String email = "leif@ogre.com";
-		String url = String.format("/bugs/email?email=%s", email);
-		String response = ApiRequestor.request(url);
+		String response = ApiRequestor.request(Endpoints.BUGS_EMAIL(email));
 					
 		MessageBox.showErrorIfResponseNot200(response);
 		
