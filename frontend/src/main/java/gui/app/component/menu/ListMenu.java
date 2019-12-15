@@ -1,6 +1,8 @@
 package gui.app.component.menu;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -9,6 +11,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.FileChooser;
+import common.exception.Errors;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
@@ -108,14 +111,20 @@ public class ListMenu
 			menu.getItems().add(item);
 		}
 	}
-	
-		
+			
 	private void deleteList(String filename)
 	{
-		String name = filename.split("\\.")[0];
-		String response = ApiRequestor.request(Endpoints.LIST_DELETE(name));
-		
-		MessageBox.showErrorIfResponseNot200(response);
+		try
+		{
+			String name = filename.split("\\.")[0];
+			String response = ApiRequestor.request(Endpoints.LIST_DELETE(name));
+			
+			MessageBox.showErrorIfResponseNot200(response);
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			MessageBox.showExceptionDialog(Errors.REQUEST, e);
+		}
 	}
 	
 	private void switchList(String filename)
