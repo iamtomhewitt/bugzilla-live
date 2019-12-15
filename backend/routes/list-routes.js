@@ -13,7 +13,7 @@ router.get('/', function (req, res) {
 
 // Add a new list
 router.get('/add', function (req, res) {
-    var name 	 = req.query.name;
+    var name 	 = req.query.name.replace("+", " ");
 	var contents = req.query.contents;
 	
 	let error, response;
@@ -140,7 +140,7 @@ router.get('/lists', function (req, res) {
 router.get('/:listName/contents', function (req, res) {
 	let error, response
 	
-	let filename = listFolder + req.params.listName + ".bugList";
+	let filename = listFolder + req.params.listName.replace("+", " ") + ".bugList";
 	let contents = fs.readFileSync(filename, 'utf-8');
 
 	response = success('Retrieved contents');

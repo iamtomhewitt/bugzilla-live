@@ -1,5 +1,6 @@
 package gui.app.common;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.List;
 
@@ -102,21 +103,28 @@ public class GuiMethods
 	 */
 	public static void requestRefreshOfBugsInList()
 	{
-		// Get the current bug numbers in the file
-		String response = ApiRequestor.request(Endpoints.LIST_CONTENTS(GuiConstants.CURRENT_LIST_FILE.split("\\.")[0]));
-		String content = new JSONObject(response).getString("contents");
-		
-		GuiConstants.REQUEST_TYPE = RequestType.LIST;
-		
-		if(MessageBox.showErrorIfResponseNot200(response))
+		try
 		{
-			return;
-		}
+			// Get the current bug numbers in the file
+			String response = ApiRequestor.request(Endpoints.LIST_CONTENTS(GuiConstants.CURRENT_LIST_FILE.split("\\.")[0]));
+			String content = new JSONObject(response).getString("contents");
 
-		if (!content.isEmpty())
+			GuiConstants.REQUEST_TYPE = RequestType.LIST;
+
+			if (MessageBox.showErrorIfResponseNot200(response))
+			{
+				return;
+			}
+
+			if (!content.isEmpty())
+			{
+				response = ApiRequestor.request(Endpoints.BUGS_NUMBERS(content));
+				updateBugsInTable(response);
+			}
+		} 
+		catch (UnsupportedEncodingException e)
 		{
-			response = ApiRequestor.request(Endpoints.BUGS_NUMBERS(content));
-			updateBugsInTable(response);
+			MessageBox.showExceptionDialog(Errors.REQUEST, e);
 		}
 	}
 
