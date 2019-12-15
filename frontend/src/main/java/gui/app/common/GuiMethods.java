@@ -1,16 +1,17 @@
 package gui.app.common;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONObject;
 
-import common.Errors;
-import common.Fonts;
-import common.MessageBox;
 import common.bug.Bug;
+import common.exception.Errors;
 import common.exception.JsonTransformationException;
 import common.message.ApiRequestor;
+import common.message.Endpoints;
+import common.message.MessageBox;
 import common.utilities.JacksonAdapter;
 import gui.app.component.InformationPane;
 import gui.app.component.BugComparator;
@@ -19,6 +20,7 @@ import gui.app.component.WindowsBar;
 import gui.app.main.BugzillaLive;
 
 import gui.app.theme.Colours;
+import gui.app.theme.Fonts;
 import gui.app.theme.RowColours;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -85,8 +87,7 @@ public class GuiMethods
 		
 		// TODO get users email
 		String email = "leif@ogre.com";
-		String url = String.format("/bugs/email?email=%s", email);
-		String response = ApiRequestor.request(url);
+		String response = ApiRequestor.request(Endpoints.BUGS_EMAIL(email));
 		
 		if(MessageBox.showErrorIfResponseNot200(response))
 		{
@@ -102,23 +103,28 @@ public class GuiMethods
 	 */
 	public static void requestRefreshOfBugsInList()
 	{
-		// Get the current bug numbers in the file
-		String url = String.format("/list/%s/contents", GuiConstants.CURRENT_LIST_FILE.split("\\.")[0]);
-		String response = ApiRequestor.request(url);
-		String content = new JSONObject(response).getString("contents");
-		
-		GuiConstants.REQUEST_TYPE = RequestType.LIST;
-		
-		if(MessageBox.showErrorIfResponseNot200(response))
+		try
 		{
-			return;
-		}
+			// Get the current bug numbers in the file
+			String response = ApiRequestor.request(Endpoints.LIST_CONTENTS(GuiConstants.CURRENT_LIST_FILE.split("\\.")[0]));
+			String content = new JSONObject(response).getString("contents");
 
-		if (!content.isEmpty())
+			GuiConstants.REQUEST_TYPE = RequestType.LIST;
+
+			if (MessageBox.showErrorIfResponseNot200(response))
+			{
+				return;
+			}
+
+			if (!content.isEmpty())
+			{
+				response = ApiRequestor.request(Endpoints.BUGS_NUMBERS(content));
+				updateBugsInTable(response);
+			}
+		} 
+		catch (UnsupportedEncodingException e)
 		{
-			url = String.format("/bugs/numbers?numbers=%s", content);
-			response = ApiRequestor.request(url);
-			updateBugsInTable(response);
+			MessageBox.showExceptionDialog(Errors.REQUEST, e);
 		}
 	}
 
@@ -141,8 +147,7 @@ public class GuiMethods
 
 			if (!numbers.isEmpty())
 			{
-				String url = String.format("/bugs/numbers?numbers=%s", numbers);
-				String response = ApiRequestor.request(url);
+				String response = ApiRequestor.request(Endpoints.BUGS_NUMBERS(numbers));
 				
 				if(MessageBox.showErrorIfResponseNot200(response))
 				{

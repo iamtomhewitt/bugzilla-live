@@ -1,12 +1,11 @@
 package gui.app.component.dialog.bug;
 
-import java.net.URLEncoder;
-
 import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.component.WindowsBar;
 
 import gui.app.theme.GuiStyler;
+import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -17,11 +16,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import common.Errors;
-
-import common.MessageBox;
+import common.exception.Errors;
 import common.message.ApiRequestor;
-import common.utilities.Icons;
+import common.message.Endpoints;
+import common.message.MessageBox;
 
 /**
  * A dialog box used for creating a new list of bugs in the form of a .bugList file.
@@ -97,8 +95,7 @@ public class AddBugListDialog
 				return;
 			}
 			
-			String url = String.format("/list/add?name=%s&contents=%s", URLEncoder.encode(fileNameField.getText(), "UTF-8"), URLEncoder.encode(bugField.getText(), "UTF-8"));
-			String response = ApiRequestor.request(url);
+			String response = ApiRequestor.request(Endpoints.LIST_ADD(fileNameField.getText(), bugField.getText()));
 			
 			MessageBox.showErrorIfResponseNot200(response);
 			

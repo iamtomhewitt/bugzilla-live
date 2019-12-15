@@ -9,8 +9,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
-import common.Errors;
-import common.MessageBox;
+import common.exception.Errors;
 
 /**
  * An abstract class making requests to the Node Express backend.
@@ -19,18 +18,7 @@ import common.MessageBox;
  */
 public class ApiRequestor 
 {	
-	public static String request(String endpoint) 
-	{
-		String url = "http://localhost:3001" + endpoint;
-		return makeRequest(url);
-	}
-	
-	public static String requestExternal(String url)
-	{
-		return makeRequest(url);
-	}
-	
-	private static String makeRequest(String url)
+	public static String request(String url) 
 	{
 		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) 
 		{			

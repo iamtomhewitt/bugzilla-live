@@ -1,7 +1,7 @@
 package gui.app.component;
 
-import common.Fonts;
 import gui.app.theme.Colours;
+import gui.app.theme.Fonts;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;

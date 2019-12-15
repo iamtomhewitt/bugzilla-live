@@ -20,19 +20,19 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import common.Errors;
-import common.Fonts;
-import common.MessageBox;
 import common.bug.Bug;
+import common.exception.Errors;
 import common.exception.JsonTransformationException;
-import common.utilities.Icons;
+import common.message.MessageBox;
 import common.utilities.JacksonAdapter;
 import common.utilities.Utilities;
 import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.component.dialog.bug.AddBugDialog;
 import gui.app.component.dialog.bug.GetBugsDialog;
+import gui.app.theme.Fonts;
 import gui.app.theme.GuiStyler;
+import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 
 /**

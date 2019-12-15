@@ -2,6 +2,7 @@ package gui.app.component.menu;
 
 import java.awt.MouseInfo;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,16 +11,15 @@ import gui.app.common.GuiConstants;
 import gui.app.component.InformationPane;
 import gui.app.component.dialog.bug.BugCommentDialog;
 import gui.app.component.dialog.bug.ChangeBugStatusDialog;
-
+import gui.app.theme.Icons;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
-
-import common.Errors;
-import common.MessageBox;
 import common.bug.Bug;
+import common.exception.Errors;
 import common.message.ApiRequestor;
-import common.utilities.Icons;
+import common.message.Endpoints;
+import common.message.MessageBox;
 import common.utilities.Utilities;
 
 public class BugContextMenu
@@ -55,13 +55,19 @@ public class BugContextMenu
 			}
 
 			table.getSelectionModel().clearSelection();
-
-			String numbers 	= String.join(",", bugNumbers);
-			String filename = GuiConstants.CURRENT_LIST_FILE.split("\\.")[0];
-			String url 		= String.format("/list/modify?name=%s&remove=%s", filename, numbers);
-			String response = ApiRequestor.request(url);
 			
-			MessageBox.showErrorIfResponseNot200(response);
+			try
+			{
+				String numbers 	= String.join(",", bugNumbers);
+				String filename = GuiConstants.CURRENT_LIST_FILE.split("\\.")[0];
+				String response = ApiRequestor.request(Endpoints.LIST_MODIFY(filename, "", numbers));
+			
+				MessageBox.showErrorIfResponseNot200(response);
+			} 
+			catch (UnsupportedEncodingException e1)
+			{
+				MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+			}
 		});
 
 		firefox.setGraphic(new Icons().createBrowserIcon());

@@ -1,4 +1,4 @@
-package common.utilities;
+package gui.app.theme;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

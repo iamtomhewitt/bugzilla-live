@@ -1,8 +1,9 @@
 package gui.app.component.dialog;
 
 import gui.app.component.WindowsBar;
-
+import gui.app.theme.Fonts;
 import gui.app.theme.GuiStyler;
+import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 import gui.app.common.BugTemplates;
 import javafx.geometry.Insets;
@@ -17,9 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
-import common.Fonts;
-import common.MessageBox;
-import common.utilities.Icons;
+import common.message.MessageBox;
 
 public class AddCommentDialog extends VBox 
 {
