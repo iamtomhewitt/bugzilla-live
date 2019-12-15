@@ -12,20 +12,20 @@ import java.util.concurrent.Callable;
 
 import org.json.JSONObject;
 
-import common.Errors;
-import common.Fonts;
 import common.bug.BugAttachment;
 import common.bug.BugComment;
+import common.exception.Errors;
 import common.exception.JsonTransformationException;
 import common.message.ApiRequestor;
 import common.message.MessageBox;
-import common.utilities.Icons;
 import common.utilities.JacksonAdapter;
 import gui.app.common.GuiMethods;
 import gui.app.component.WindowsBar;
 import gui.app.component.dialog.AddCommentDialog;
 import gui.app.log.GuiLogger;
+import gui.app.theme.Fonts;
 import gui.app.theme.GuiStyler;
+import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;

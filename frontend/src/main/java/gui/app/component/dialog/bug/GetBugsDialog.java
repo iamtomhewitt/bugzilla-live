@@ -1,7 +1,7 @@
 package gui.app.component.dialog.bug;
 
-import common.utilities.Icons;
 import gui.app.component.WindowsBar;
+import gui.app.theme.Icons;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

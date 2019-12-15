@@ -7,8 +7,9 @@ import java.util.Map;
 
 import gui.app.common.BugTemplates;
 import gui.app.component.WindowsBar;
-
+import gui.app.theme.Fonts;
 import gui.app.theme.GuiStyler;
+import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -22,10 +23,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
-import common.Errors;
-import common.Fonts;
+import common.exception.Errors;
 import common.message.MessageBox;
-import common.utilities.Icons;
 
 public class ChangeBugStatusDialog extends VBox 
 {

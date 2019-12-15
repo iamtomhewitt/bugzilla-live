@@ -13,15 +13,15 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.FileChooser;
-import common.Errors;
+import common.exception.Errors;
 import common.message.ApiRequestor;
 import common.message.MessageBox;
-import common.utilities.Icons;
 import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.common.RequestType;
 import gui.app.component.dialog.bug.AddBugListDialog;
 import gui.app.main.BugzillaLive;
+import gui.app.theme.Icons;
 
 public class ListMenu
 {

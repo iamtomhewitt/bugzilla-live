@@ -5,9 +5,8 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import common.Errors;
-import common.Fonts;
 import common.bug.Bug;
+import common.exception.Errors;
 import common.exception.JsonTransformationException;
 import common.message.ApiRequestor;
 import common.message.MessageBox;
@@ -19,6 +18,7 @@ import gui.app.component.WindowsBar;
 import gui.app.main.BugzillaLive;
 
 import gui.app.theme.Colours;
+import gui.app.theme.Fonts;
 import gui.app.theme.RowColours;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

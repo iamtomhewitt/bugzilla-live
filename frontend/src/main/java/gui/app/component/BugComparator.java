@@ -9,8 +9,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import common.Errors;
 import common.bug.Bug;
+import common.exception.Errors;
 import common.message.MessageBox;
 
 public class BugComparator implements Comparator<Bug>

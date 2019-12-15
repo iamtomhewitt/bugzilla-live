@@ -5,6 +5,7 @@ import gui.app.common.GuiMethods;
 import gui.app.common.RequestType;
 import gui.app.component.WindowsBar;
 import gui.app.theme.GuiStyler;
+import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -17,11 +18,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import common.Errors;
+import common.exception.Errors;
 import common.message.ApiRequestor;
 import common.message.MessageBox;
-import common.utilities.Icons;
 
 /**
  * A simple dialog box that takes in an bug number and adds it to the current list of bugs that the GUI is displaying.

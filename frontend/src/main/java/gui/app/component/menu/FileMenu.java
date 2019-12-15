@@ -2,9 +2,8 @@ package gui.app.component.menu;
 
 import gui.app.component.dialog.ColourChooser;
 import gui.app.component.dialog.RefreshRateDialog;
-
+import gui.app.theme.Icons;
 import gui.app.theme.Themes;
-import common.utilities.Icons;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
