@@ -27,8 +27,8 @@ import javafx.scene.text.Font;
 import javafx.util.Callback;
 import common.Errors;
 import common.Fonts;
-import common.MessageBox;
 import common.bug.Bug;
+import common.message.MessageBox;
 import common.utilities.Utilities;
 
 /**

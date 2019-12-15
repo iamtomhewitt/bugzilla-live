@@ -9,8 +9,8 @@ import gui.app.component.Toolbar;
 import common.Errors;
 
 import common.Fonts;
-import common.MessageBox;
 import common.exception.JsonTransformationException;
+import common.message.MessageBox;
 import common.utilities.Icons;
 import common.utilities.JacksonAdapter;
 import javafx.geometry.Pos;

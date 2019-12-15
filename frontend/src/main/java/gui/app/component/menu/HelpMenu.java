@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import common.Errors;
-import common.MessageBox;
+import common.message.MessageBox;
 import common.utilities.Icons;
 import common.utilities.Utilities;
 import gui.app.component.dialog.AboutDialog;

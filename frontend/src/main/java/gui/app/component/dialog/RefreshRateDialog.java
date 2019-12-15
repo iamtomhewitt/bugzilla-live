@@ -7,8 +7,8 @@ import gui.app.component.WindowsBar;
 
 import gui.app.theme.GuiStyler;
 import gui.app.theme.Sizes;
-import common.MessageBox;
 import common.message.ApiRequestor;
+import common.message.MessageBox;
 import common.utilities.Icons;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
