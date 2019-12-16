@@ -93,7 +93,7 @@ router.get('/delete', function (req, res) {
 	let error, response;
 
 	if (!name) {
-		error = createError("Missing parameters", "File name or file contents are missing.");
+		error = createError("Missing parameters", "File name is missing.");
 		response = failure(error)
 		res.status(errorCode).send(response).json();
 		return;

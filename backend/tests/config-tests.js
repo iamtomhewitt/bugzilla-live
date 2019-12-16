@@ -2,13 +2,6 @@ var request = require('supertest');
 var assert = require('assert');
 
 describe('Config route tests', function () {
-	/**
-	 * test plan:
-	 * - test each route for 200
-	 * - test each route for 601
-	 * - test the response message contains config on 200
-	 * - test the response message has a certain error message	 
-	 */
 	var server;
 
 	before(function () {
