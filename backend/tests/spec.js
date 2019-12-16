@@ -4,7 +4,7 @@ describe('Express app tests', function () {
 	var server;
 
 	before(function () {
-		server = require('./app').listen(3002);
+		server = require('../app').listen(3002);
 	});
 
 	after(function () {
@@ -41,7 +41,7 @@ describe('/bugs tests', function () {
 	var timeout = 30000;
 
 	before(function () {
-		server = require('./app').listen(3002);
+		server = require('../app').listen(3002);
 	});
 
 	after(function () {
@@ -89,7 +89,7 @@ describe('/config tests', function () {
 	var server;
 
 	before(function () {
-		server = require('./app').listen(3002);
+		server = require('../app').listen(3002);
 	});
 
 	after(function () {
@@ -123,7 +123,7 @@ describe('/list tests', function () {
 	const directory = path.join(__dirname, '/', 'config', 'bug-lists', '/');
 
 	before(function () {
-		server = require('./app').listen(3002);
+		server = require('../app').listen(3002);
 	});
 
 	after(function () {
