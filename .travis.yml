@@ -1,6 +1,5 @@
 language: node_js
-before_script: cd backend
 install:
-  - npm install
+  - cd backend && npm install && cd ..
 script:
-  - npm test
+  - cd backend && npm test
