@@ -27,8 +27,6 @@ router.get('/add', function (req, res) {
 
 	let filename = listFolder + name + '.bugList';
 
-	console.log('Adding: ' + filename);
-
 	fs.writeFile(filename, contents, function (err) {
         if (err) {
 			error = createError("Error creating file", err.message);
@@ -58,8 +56,6 @@ router.get('/modify', function (req, res) {
 	}
 
 	let filename = listFolder + name + '.bugList';
-
-	console.log('Modifying: ' + filename);
 
 	if (!fs.existsSync(filename)) {
 		error = createError("Error modifying file", `File ${filename} does not exist.`);
@@ -105,8 +101,6 @@ router.get('/delete', function (req, res) {
 
 	let filename = listFolder + name + '.bugList';
 
-	console.log('Deleting: ' + filename);
-
 	fs.unlink(filename, function (err) {
         if (err) {
 			error = createError("Error deleting file", err.message);
@@ -124,8 +118,6 @@ router.get('/delete', function (req, res) {
 router.get('/lists', function (req, res) {
 	let error, response
 	let lists = [];
-
-	console.log('Getting lists from: ' + listFolder);
 	
 	fs.readdir(listFolder, (err, files) => {
 		if (err) {
@@ -149,8 +141,6 @@ router.get('/:listName/contents', function (req, res) {
 	let error, response
 	
 	let filename = listFolder + req.params.listName.replace("+", " ") + ".bugList";
-
-	console.log('Getting contents of: ' + filename);
 
 	let contents = fs.readFileSync(filename, 'utf-8');
 
