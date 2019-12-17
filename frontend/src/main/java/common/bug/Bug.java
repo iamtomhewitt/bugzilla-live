@@ -136,23 +136,9 @@ public class Bug
 
 	public void setAssignedTo(String assignedTo)
 	{
-		String[] email = assignedTo.split("@");
-
-		String username = email[0];
-		String[] names = username.split("\\.");			
+		String username = assignedTo.split("@")[0];
 		
-		String firstName = names[0].substring(0, 1).toUpperCase() + names[0].substring(1);
-		String secondName = "";
-		
-		if (names.length > 1)
-			secondName = names[1].substring(0, 1).toUpperCase() + names[1].substring(1);
-		
-		String name = firstName + " " + secondName;
-		
-		if (name.equals("Thomas Hewitt"))
-			name = "Tom Hewitt";
-		
-		this.assignedTo = name;
+		this.assignedTo = username;
 	}
 
 	public String getSeverity()

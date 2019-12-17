@@ -84,7 +84,6 @@ public class Themes
 		properties.put("infopaneheadingcolour", Colours.INFO_PANE_HEADING);
 		properties.put("infopanesubheadingcolour", Colours.INFO_PANE_SUBHEADING);
 
-		//ApplicationSaveRequest request = new ApplicationSaveRequest(properties);
 		// TODO use ApiRequestor
 	}
 }
