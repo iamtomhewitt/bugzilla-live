@@ -3,11 +3,7 @@ var assert = require('assert');
 
 describe('List route tests', function () {
 	var server;
-	const fs = require('fs');
-	const path = require('path');
-
-	const directory = path.join(__dirname, '/', 'config', 'bug-lists', '/');
-
+	
 	before(function () {
 		server = require('../app').listen(3002);
 	});
