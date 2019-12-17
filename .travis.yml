@@ -3,6 +3,6 @@ node_js:
   - "stable"
 dist: trusty
 install:
-  - cd backend && mkdir /tests/config && npm install && cd ..
+  - cd backend && npm install && cd ..
 script:
   - cd backend && npm test
