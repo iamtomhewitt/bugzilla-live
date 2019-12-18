@@ -227,7 +227,7 @@ public class LoginService extends Application
 		stage.show();
 		stage.centerOnScreen();
 		stage.setTitle("Please Close This Window");
-		MessageBox.showExceptionDialog("Unable to connect.", e);
+		MessageBox.showExceptionDialog(Errors.CANNOT_CONNECT, e);
 	}
 	
 	public static void main(String[] args)

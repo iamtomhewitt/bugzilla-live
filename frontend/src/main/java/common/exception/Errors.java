@@ -21,4 +21,5 @@ public class Errors
 	public static final String JACKSON_TO		= "Problem turning Object into JSON.";
 	public static final String ATTACHMENT 		= "Could not open the attachment.";
 	public static final String REQUEST 			= "Could not send request to the backend service.";
+	public static final String CANNOT_CONNECT	= "Cannot connect to the backend service. Please check it is running, and restart Bugzilla Live.";
 }
