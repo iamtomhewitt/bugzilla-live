@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -121,5 +122,10 @@ public class Styler
 		combo.setStyle(normalStyle);
 		combo.setOnMouseEntered(e -> combo.setStyle(hoverStyle));
 		combo.setOnMouseExited(e -> combo.setStyle(normalStyle));
+	}
+
+	public static void styleLogo(ImageView logo) 
+	{
+		// TODO Auto-generated method stub
 	}
 }
