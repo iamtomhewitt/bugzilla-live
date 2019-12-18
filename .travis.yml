@@ -1,8 +1,10 @@
-language: node_js
-node_js: 
-  - "stable"
-dist: trusty
-install:
-  - cd backend && npm install && cd ..
-script:
-  - cd backend && npm test
+matrix:
+  include:
+    - language: node_js
+      node_js: 
+        - "stable"
+      dist: trusty
+      install:
+        - cd backend && npm install && cd ..
+      script:
+        - cd backend && npm test
