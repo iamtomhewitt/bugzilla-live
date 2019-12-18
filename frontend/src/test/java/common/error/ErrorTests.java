@@ -85,4 +85,10 @@ public class ErrorTests
 	{
 		assertEquals("Could not send request to the backend service.", Errors.REQUEST);
 	}
+	
+	@Test
+	public void correctCannotConnectErrorMessage()
+	{
+		assertEquals("Cannot connect to the backend service. Please check it is running, and restart Bugzilla Live.", Errors.CANNOT_CONNECT);
+	}
 }
