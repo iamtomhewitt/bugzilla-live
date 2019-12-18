@@ -7,4 +7,10 @@ matrix:
       install:
         - cd backend && npm install && cd ..
       script:
-        - cd backend && npm test
+        - cd backend && npm test && cd ..
+
+    - language: java
+      jdk:
+        - oraclejdk8
+      script:
+        - cd frontend && mvn test
