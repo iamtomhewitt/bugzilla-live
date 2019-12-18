@@ -60,9 +60,20 @@ public class LoginService extends Application
 	private LoginStyler styler 	= new LoginStyler();
 
 	@Override
-	public void start(Stage primaryStage) throws Exception
+	public void start(Stage primaryStage)
 	{	
-		String response = ApiRequestor.request(Endpoints.CONFIG_GET);
+		String response;
+		try 
+		{
+			response = ApiRequestor.request(Endpoints.CONFIG_GET);
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			Platform.exit();
+			return;
+		}
+		
 		JSONObject json = new JSONObject(response);
 		JSONObject config = new JSONObject(json.getString("config"));
 		
