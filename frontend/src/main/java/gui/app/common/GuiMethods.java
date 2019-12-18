@@ -189,14 +189,17 @@ public class GuiMethods
 	/**
 	 * Sorts the bug table based on up to two parameters.
 	 */
-	public static void sortBugs(boolean descending, String... sort)
+	public static List<Bug> sortBugs(List<Bug> bugs, boolean descending, String... sort)
 	{
 		BugComparator comparator = new BugComparator(sort);
-		ObservableList<Bug> listOfBugs = BugTable.getInstance().getTableView().getItems();
-		listOfBugs.sort(comparator);
+		bugs.sort(comparator);
 
 		if (descending)
-			Collections.reverse(listOfBugs);
+		{
+			Collections.reverse(bugs);
+		}
+		
+		return bugs;
 	}
 	
 	/**
@@ -214,17 +217,9 @@ public class GuiMethods
 	 * Creates a display name from the current username. <p>
 	 * E.g. 'thomas.hewitt' would return 'Thomas Hewitt'
 	 */
-	public static String createDisplayName(String username)
+	public static String createDisplayName(String email)
 	{
-		char firstNameFirstLetter = Character.toUpperCase(username.charAt(0));
-		char lastNameFirstLetter  = Character.toUpperCase(username.split("\\.")[1].charAt(0));
-		
-		String firstName = firstNameFirstLetter + username.split("\\.")[0].substring(1);
-		String lastName = lastNameFirstLetter + username.split("\\.")[1].substring(1);
-		
-		String name = firstName + " " + lastName;
-		
-		return name; 
+		return email.split("@")[0]; 
 	}
 	
 	/**
