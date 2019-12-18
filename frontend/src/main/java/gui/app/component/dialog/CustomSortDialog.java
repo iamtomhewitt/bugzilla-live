@@ -1,6 +1,7 @@
 package gui.app.component.dialog;
 
 import java.util.Collections;
+import java.util.List;
 
 import gui.app.common.GuiMethods;
 import gui.app.component.BugTable;
@@ -49,7 +50,8 @@ public class CustomSortDialog extends VBox
 			primary 	= primaryComboBox.getSelectionModel().getSelectedItem();
 			secondary 	= secondaryComboBox.getSelectionModel().getSelectedItem();
 
-			GuiMethods.sortBugs(true, primary, secondary);
+			GuiMethods.sortBugs(BugTable.getInstance().getTableView().getItems(), true, primary, secondary);
+			
 			stage.close();
 		});
 		

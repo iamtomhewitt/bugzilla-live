@@ -1,6 +1,7 @@
 package gui.app.component.menu;
 
 import gui.app.common.GuiMethods;
+import gui.app.component.BugTable;
 import gui.app.component.dialog.CustomSortDialog;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -8,12 +9,12 @@ import javafx.scene.control.MenuItem;
 public class SortMenu
 {
 	public Menu sortMenu = new Menu("Sort");
-
+	
 	public SortMenu()
 	{
 		MenuItem customSort = new MenuItem("Custom...");
 		customSort.setOnAction(e -> new CustomSortDialog());
-
+		
 		Menu numberMenu 		= createSortingSubMenu("Bug Number", "number");
 		Menu statusMenu 		= createSortingSubMenu("Status", "status");
 		Menu assignedMenu 		= createSortingSubMenu("Assigned To", "assignedTo");
@@ -35,8 +36,8 @@ public class SortMenu
 		MenuItem ascending = new MenuItem("Ascending");
 		MenuItem descending = new MenuItem("Descending");
 
-		ascending .setOnAction(e -> GuiMethods.sortBugs(false, sortingProperty));
-		descending.setOnAction(e -> GuiMethods.sortBugs(true, sortingProperty));
+		ascending .setOnAction(e -> GuiMethods.sortBugs(BugTable.getInstance().getTableView().getItems(), false, sortingProperty));		
+		descending.setOnAction(e -> GuiMethods.sortBugs(BugTable.getInstance().getTableView().getItems(), true, sortingProperty));
 
 		m.getItems().addAll(ascending, descending);
 		return m;
