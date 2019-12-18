@@ -25,7 +25,7 @@ import gui.app.component.WindowsBar;
 import gui.app.component.dialog.AddCommentDialog;
 import gui.app.log.GuiLogger;
 import gui.app.theme.Fonts;
-import gui.app.theme.GuiStyler;
+import gui.app.theme.Styler;
 import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 import javafx.animation.AnimationTimer;
@@ -83,7 +83,7 @@ public class BugCommentDialog extends GridPane
 
 		Button addCommentButton = new Button("Add Comment");
 		addCommentButton.setOnAction(e -> new AddCommentDialog(number, stage.getX() + WINDOW_WIDTH, stage));
-		GuiStyler.stylePrimaryButton(addCommentButton, Sizes.BUTTON_WIDTH_MEDIUM, Sizes.BUTTON_HEIGHT_SMALL);
+		Styler.stylePrimaryButton(addCommentButton, Sizes.BUTTON_WIDTH_MEDIUM, Sizes.BUTTON_HEIGHT_SMALL);
 
 		populateAttachments(number);
 		populateComments(number);

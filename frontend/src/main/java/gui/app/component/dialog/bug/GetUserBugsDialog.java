@@ -18,7 +18,7 @@ import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.common.RequestType;
 
-import gui.app.theme.GuiStyler;
+import gui.app.theme.Styler;
 import gui.app.theme.Sizes;
 
 public class GetUserBugsDialog
@@ -65,10 +65,10 @@ public class GetUserBugsDialog
 			stage.close();
 		});
 		
-		GuiStyler.stylePrimaryButton(getBugsButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
-		GuiStyler.stylePrimaryButton(myBugsButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
-		GuiStyler.styleTextField(usernameField, Sizes.INPUT_WIDTH_LARGE, 30);
-		GuiStyler.styleTitle(title);
+		Styler.stylePrimaryButton(getBugsButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
+		Styler.stylePrimaryButton(myBugsButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
+		Styler.styleTextField(usernameField, Sizes.INPUT_WIDTH_LARGE, 30);
+		Styler.styleTitle(title);
 		
 		fields.getChildren().addAll(usernameField);
 		fields.setAlignment(Pos.CENTER);
