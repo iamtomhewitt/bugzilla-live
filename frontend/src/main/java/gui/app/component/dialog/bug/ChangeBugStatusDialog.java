@@ -7,7 +7,7 @@ import java.util.Map;
 
 import gui.app.component.WindowsBar;
 import gui.app.theme.Fonts;
-import gui.app.theme.GuiStyler;
+import gui.app.theme.Styler;
 import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 import javafx.geometry.Insets;
@@ -77,9 +77,9 @@ public class ChangeBugStatusDialog extends VBox
 		this.setSpacing(10);
 		this.setAlignment(Pos.CENTER);
 
-		GuiStyler.stylePrimaryButton(submitButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
-		GuiStyler.styleTitle(statusLabel);
-		GuiStyler.styleComboBox(statusComboBox);
+		Styler.stylePrimaryButton(submitButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
+		Styler.styleTitle(statusLabel);
+		Styler.styleComboBox(statusComboBox);
 
 		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, this, "Bug" + number + " Change Status"), 375, 400);
 		stage.setTitle("Bug" + number + " Change Status");
