@@ -11,5 +11,5 @@ matrix:
 
     - language: java
       jdk:
-        - oraclejdk8
+        - oraclejdk11
       script: cd frontend && mvn test
