@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import gui.app.common.BugTemplates;
 import gui.app.component.WindowsBar;
 import gui.app.theme.Fonts;
 import gui.app.theme.GuiStyler;
@@ -43,7 +42,7 @@ public class ChangeBugStatusDialog extends VBox
 		comment.setFont(Font.font(Fonts.FONT, FontPosture.REGULAR, Fonts.FONT_SIZE_NORMAL));
 		comment.setWrapText(true);
 
-		selectedStatus = statusMap.get(status).get(0);
+		//selectedStatus = statusMap.get(status).get(0);
 
 		ComboBox<String> statusComboBox = new ComboBox<String>();
 		statusComboBox.getItems().addAll(statusMap.get(status));
@@ -51,11 +50,6 @@ public class ChangeBugStatusDialog extends VBox
 		{
 			selectedStatus = statusComboBox.getSelectionModel().getSelectedItem();
 			comment.setText("Updated to " + selectedStatus + ".");
-			
-			if (selectedStatus.equalsIgnoreCase("Coded"))
-			{
-				comment.setText(BugTemplates.CODED);
-			}
 		});
 
 		Button submitButton = new Button("Submit");
