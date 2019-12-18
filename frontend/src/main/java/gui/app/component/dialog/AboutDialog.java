@@ -28,8 +28,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import common.exception.Errors;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
+import common.message.MessageBox;
 
 public class AboutDialog
 {
@@ -40,7 +42,16 @@ public class AboutDialog
 	{
 		ScrollPane scroll = new ScrollPane();
 
-		String response = ApiRequestor.request(Endpoints.GITHUB_RELEASES);
+		String response;
+		try
+		{
+			response = ApiRequestor.request(Endpoints.GITHUB_RELEASES);
+		} 
+		catch (Exception e)
+		{
+			MessageBox.showExceptionDialog(Errors.REQUEST, e);
+			return;
+		}
 
 		SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 		SimpleDateFormat output = new SimpleDateFormat("dd/MM/yyyy");

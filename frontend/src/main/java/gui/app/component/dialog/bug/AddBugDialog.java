@@ -42,7 +42,9 @@ public class AddBugDialog
 		input.setOnKeyPressed(e->
 		{
 			if (e.getCode() == KeyCode.ENTER)
+			{
 				add(input);
+			}
 		});
 		
 		Button addButton = new Button("Add");

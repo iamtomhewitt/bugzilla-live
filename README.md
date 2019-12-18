@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/iamtomhewitt/bugzilla-live.svg?branch=Issue%2311)](https://travis-ci.org/iamtomhewitt/bugzilla-live)
+
 # 🐛 Bugzilla Live
 
 An application to show bugs from Bugzilla using the provided API. Originally as a desktop tool to help avoid spreadsheets to manage bugs at work, it has now become a hobby project to try out new languages or programming techniques.

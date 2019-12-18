@@ -82,14 +82,19 @@ public class BugzillaLive
 				{
 					// If for some reason the refresh time didn't get retrieved, just set to a normal value
 					if (GuiConstants.REFRESH_TIME == 0)
+					{
 						GuiConstants.REFRESH_TIME = 60;
-
+					}
+					
 					Thread.sleep(GuiConstants.REFRESH_TIME * 1000);
 					
-					if (!GuiConstants.PAUSED) GuiMethods.requestBugRefresh();
+					if (!GuiConstants.PAUSED) 
+					{
+						GuiMethods.requestBugRefresh();
+					}
 				}
 			}
-			catch (InterruptedException e)
+			catch (Exception e)
 			{
 				MessageBox.showExceptionDialog(Errors.REFRESH, e);
 			}

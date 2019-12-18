@@ -2,7 +2,6 @@ package gui.app.component.menu;
 
 import java.awt.MouseInfo;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,18 +55,21 @@ public class BugContextMenu
 
 			table.getSelectionModel().clearSelection();
 			
+			String numbers 	= String.join(",", bugNumbers);
+			String filename = GuiConstants.CURRENT_LIST_FILE.split("\\.")[0];
+			String response;
+			
 			try
 			{
-				String numbers 	= String.join(",", bugNumbers);
-				String filename = GuiConstants.CURRENT_LIST_FILE.split("\\.")[0];
-				String response = ApiRequestor.request(Endpoints.LIST_MODIFY(filename, "", numbers));
-			
-				MessageBox.showErrorIfResponseNot200(response);
+				response = ApiRequestor.request(Endpoints.LIST_MODIFY(filename, "", numbers));
 			} 
-			catch (UnsupportedEncodingException e1)
+			catch (Exception e1)
 			{
 				MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+				return;
 			}
+
+			MessageBox.showErrorIfResponseNot200(response);
 		});
 
 		firefox.setGraphic(new Icons().createBrowserIcon());

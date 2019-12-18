@@ -100,8 +100,17 @@ public class BugCommentDialog extends GridPane
 
 	private void populateAttachments(String number) throws JsonTransformationException
 	{
-		String response = ApiRequestor.request(Endpoints.BUGS_ATTACHMENTS(number));
-
+		String response;
+		try
+		{
+			response = ApiRequestor.request(Endpoints.BUGS_ATTACHMENTS(number));
+		} 
+		catch (Exception e)
+		{
+			MessageBox.showExceptionDialog(Errors.REQUEST, e);
+			return;
+		}
+		
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{
 			return;
@@ -147,7 +156,16 @@ public class BugCommentDialog extends GridPane
 
 	private void populateComments(String number) throws JsonTransformationException
 	{
-		String response = ApiRequestor.request(Endpoints.BUGS_COMMENTS(number));
+		String response;
+		try
+		{
+			response = ApiRequestor.request(Endpoints.BUGS_COMMENTS(number));
+		} 
+		catch (Exception e)
+		{
+			MessageBox.showExceptionDialog(Errors.REQUEST, e);
+			return;
+		}
 
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{

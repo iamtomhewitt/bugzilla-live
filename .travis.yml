@@ -1,0 +1,15 @@
+matrix:
+  include:
+    - language: node_js
+      node_js: 
+        - "stable"
+      dist: trusty
+      install:
+        - cd backend && npm install && cd ..
+      script:
+        - cd backend && npm test && cd ..
+
+    - language: java
+      jdk:
+        - openjdk8
+      script: cd frontend && mvn test
