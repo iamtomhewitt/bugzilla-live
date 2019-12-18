@@ -60,9 +60,19 @@ public class LoginService extends Application
 	private LoginStyler styler 	= new LoginStyler();
 
 	@Override
-	public void start(Stage primaryStage) throws Exception
+	public void start(Stage primaryStage)
 	{	
-		String response = ApiRequestor.request(Endpoints.CONFIG_GET);
+		String response;
+		try 
+		{
+			response = ApiRequestor.request(Endpoints.CONFIG_GET);
+		} 
+		catch (Exception e) 
+		{
+			showCannotConnect(e);
+			return;
+		}
+		
 		JSONObject json = new JSONObject(response);
 		JSONObject config = new JSONObject(json.getString("config"));
 		
@@ -207,6 +217,17 @@ public class LoginService extends Application
 		{
 			MessageBox.showDialog(Errors.MISSING_FIELD);
 		}
+	}
+	
+	private void showCannotConnect(Exception e)
+	{
+		Scene scene = new Scene(new VBox(), 250, 20);
+		stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
+		stage.centerOnScreen();
+		stage.setTitle("Please Close This Window");
+		MessageBox.showExceptionDialog(Errors.CANNOT_CONNECT, e);
 	}
 	
 	public static void main(String[] args)
