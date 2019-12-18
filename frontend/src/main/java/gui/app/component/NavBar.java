@@ -161,7 +161,18 @@ public class NavBar
 
 		Button refreshButton = new Button("", new Icons().createRefreshIcon());
 		refreshButton.setTooltip(new Tooltip("Refresh the table"));
-		refreshButton.setOnAction(e -> GuiMethods.requestRefreshOfBugsInTable());
+		refreshButton.setOnAction(e -> 
+		{
+			try
+			{
+				GuiMethods.requestRefreshOfBugsInTable();
+			} 
+			catch (Exception ex)
+			{
+				MessageBox.showExceptionDialog(Errors.REQUEST, ex);
+				return;
+			}
+		});
 
 		Button bugsButton = new Button("Get bugs", new Icons().createListIcon());
 		bugsButton.setOnAction(e -> new GetBugsDialog());		

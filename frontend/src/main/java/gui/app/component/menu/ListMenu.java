@@ -1,8 +1,6 @@
 package gui.app.component.menu;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -43,7 +41,16 @@ public class ListMenu
 			chooser.setTitle("Open Bug List");
 			
 			File file = chooser.showOpenDialog(BugzillaLive.getMainStage());
-			switchList(file.getName());
+			
+			try
+			{
+				switchList(file.getName());
+			} 
+			catch (Exception ex)
+			{
+				MessageBox.showExceptionDialog(Errors.REQUEST, ex);
+				return;
+			}
 		});
 		
 		listMenu.setGraphic(new Icons().createListIcon());
@@ -62,14 +69,22 @@ public class ListMenu
 			listMenu.getItems().add(delete);
 			listMenu.getItems().add(separator);
 
-			populateMenuWithLists(listMenu, true);
-
-			delete.getItems().clear();
-			populateMenuWithLists(delete, false);
+			try
+			{
+				populateMenuWithLists(listMenu, true);
+	
+				delete.getItems().clear();
+				populateMenuWithLists(delete, false);
+			} 
+			catch (Exception ex)
+			{
+				MessageBox.showExceptionDialog(Errors.REQUEST, ex);
+				return;
+			}
 		});
 	}
 	
-	private void populateMenuWithLists(Menu menu, boolean changeListMenu)
+	private void populateMenuWithLists(Menu menu, boolean changeListMenu) throws Exception
 	{
 		String response = ApiRequestor.request(Endpoints.LISTS);
 		
@@ -94,13 +109,35 @@ public class ListMenu
 
 			if (changeListMenu)
 			{
-				item.setOnAction(e -> switchList(filename));
+				item.setOnAction(e -> 
+				{
+					try
+					{
+						switchList(filename);
+					} 
+					catch (Exception ex)
+					{
+						MessageBox.showExceptionDialog(Errors.REQUEST, ex);
+						return;
+					}
+				});
 			}
 			else
 			{
 				if (!item.isSelected())
 				{
-					item.setOnAction(e-> deleteList(item.getText()));
+					item.setOnAction(e-> 
+					{
+						try
+						{
+							deleteList(item.getText());
+						} 
+						catch (Exception ex)
+						{
+							MessageBox.showExceptionDialog(Errors.REQUEST, ex);
+							return;
+						}
+					});
 					menu.getItems().remove(item);
 				}
 				else
@@ -112,22 +149,14 @@ public class ListMenu
 		}
 	}
 			
-	private void deleteList(String filename)
+	private void deleteList(String filename) throws Exception
 	{
-		try
-		{
-			String name = filename.split("\\.")[0];
-			String response = ApiRequestor.request(Endpoints.LIST_DELETE(name));
-			
-			MessageBox.showErrorIfResponseNot200(response);
-		}
-		catch (UnsupportedEncodingException e)
-		{
-			MessageBox.showExceptionDialog(Errors.REQUEST, e);
-		}
+		String name = filename.split("\\.")[0];
+		String response = ApiRequestor.request(Endpoints.LIST_DELETE(name));
+		MessageBox.showErrorIfResponseNot200(response);
 	}
 	
-	private void switchList(String filename)
+	private void switchList(String filename) throws Exception
 	{
 		GuiConstants.REQUEST_TYPE = RequestType.LIST;
 		GuiConstants.CURRENT_LIST_FILE = filename;

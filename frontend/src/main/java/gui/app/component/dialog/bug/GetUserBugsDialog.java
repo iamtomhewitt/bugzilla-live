@@ -52,7 +52,15 @@ public class GetUserBugsDialog
 			GuiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
 			GuiConstants.CURRENT_LIST_FILE = null;
 			
-			GuiMethods.requestRefreshOfCurrentUserBugs();
+			try
+			{
+				GuiMethods.requestRefreshOfCurrentUserBugs();
+			} 
+			catch (Exception e1)
+			{
+				MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+				return;
+			}
 			
 			stage.close();
 		});
@@ -91,7 +99,16 @@ public class GetUserBugsDialog
 				
 		// TODO get actual email
 		String email = "leif@ogre.com";
-		String response = ApiRequestor.request(Endpoints.BUGS_EMAIL(email));
+		String response;
+		try
+		{
+			response = ApiRequestor.request(Endpoints.BUGS_EMAIL(email));
+		} 
+		catch (Exception e)
+		{
+			MessageBox.showExceptionDialog(Errors.REQUEST, e);
+			return;
+		}
 					
 		MessageBox.showErrorIfResponseNot200(response);
 		
