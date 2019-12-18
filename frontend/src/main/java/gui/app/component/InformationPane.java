@@ -83,13 +83,13 @@ public class InformationPane
 				for (Label l : severityLabels)
 				{
 					String severity = l.getText().split(":")[0];
-					l.setText(severity + ": " + BugCounter.countSeverityBugs(severity) + " (Active: " + BugCounter.countActiveSeverityBugs(severity) + ")");
+					l.setText(severity + ": " + BugCounter.countSeverityBugs(BugTable.getInstance().getTableView().getItems(), severity) + " (Active: " + BugCounter.countActiveSeverityBugs(BugTable.getInstance().getTableView().getItems(), severity) + ")");
 				}
 
 				for (Label l : statusLabels)
 				{
 					String status = l.getText().split(":")[0];
-					l.setText(status + ": " + BugCounter.countStatusBugs(status));
+					l.setText(status + ": " + BugCounter.countStatusBugs(BugTable.getInstance().getTableView().getItems(), status));
 				}
 			}
 		});
