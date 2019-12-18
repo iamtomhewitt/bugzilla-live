@@ -17,6 +17,8 @@ import common.utilities.Encryptor;
 import gui.app.common.GuiConstants;
 import gui.app.main.BugzillaLive;
 import gui.app.theme.Icons;
+import gui.app.theme.Sizes;
+import gui.app.theme.Styler;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -30,6 +32,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -57,8 +60,6 @@ public class LoginService extends Application
 	
 	private Label title = new Label("Bugzilla LIVE");
 			
-	private LoginStyler styler 	= new LoginStyler();
-
 	@Override
 	public void start(Stage primaryStage)
 	{	
@@ -135,13 +136,13 @@ public class LoginService extends Application
 		apiKeyTooltip.setText("Click the blue button if you do not have an API key");
 		apiKeyInput.setTooltip(apiKeyTooltip);
 		
-		styler.styleInputField(emailInput);
-		styler.styleInputField(passwordInput);
-		styler.styleInputField(apiKeyInput);
-		styler.styleLoginButton(loginButton);
-		styler.styleAPIButton(apiKeyButton);
-		styler.styleTitle(title);
-		styler.styleLogo(logo);		
+		Styler.styleTextField(emailInput, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
+		Styler.styleTextField(passwordInput, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
+		Styler.styleTextField(apiKeyInput, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
+		Styler.stylePrimaryButton(loginButton, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
+		Styler.styleSecondaryButton(apiKeyButton, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL, FontWeight.NORMAL);
+		Styler.styleTitle(title);
+		Styler.styleLogo(logo);		
 		
 		titleVbox.getChildren().addAll(logo, title);
 		titleVbox.setAlignment(Pos.CENTER);
