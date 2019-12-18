@@ -69,8 +69,7 @@ public class LoginService extends Application
 		} 
 		catch (Exception e) 
 		{
-			e.printStackTrace();
-			Platform.exit();
+			showCannotConnect(e);
 			return;
 		}
 		
@@ -218,6 +217,17 @@ public class LoginService extends Application
 		{
 			MessageBox.showDialog(Errors.MISSING_FIELD);
 		}
+	}
+	
+	private void showCannotConnect(Exception e)
+	{
+		Scene scene = new Scene(new VBox(), 250, 20);
+		stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
+		stage.centerOnScreen();
+		stage.setTitle("Please Close This Window");
+		MessageBox.showExceptionDialog("Unable to connect.", e);
 	}
 	
 	public static void main(String[] args)
