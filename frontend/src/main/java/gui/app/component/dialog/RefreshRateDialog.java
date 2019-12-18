@@ -8,6 +8,7 @@ import gui.app.component.WindowsBar;
 import gui.app.theme.GuiStyler;
 import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
+import common.exception.Errors;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
@@ -44,7 +45,16 @@ public class RefreshRateDialog
 		Button applyButton = new Button("Apply");
 		applyButton.setOnAction(e ->
 		{			
-			String response = ApiRequestor.request(Endpoints.CONFIG_SAVE("refreshRate", combo.getSelectionModel().getSelectedItem()));
+			String response;
+			try
+			{
+				response = ApiRequestor.request(Endpoints.CONFIG_SAVE("refreshRate", combo.getSelectionModel().getSelectedItem()));
+			} 
+			catch (Exception ex)
+			{
+				MessageBox.showExceptionDialog(Errors.REQUEST, ex);
+				return;
+			}
 			
 			if (MessageBox.showErrorIfResponseNot200(response))
 			{

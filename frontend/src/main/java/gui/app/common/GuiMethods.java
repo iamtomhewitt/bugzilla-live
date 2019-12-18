@@ -55,7 +55,7 @@ public class GuiMethods
 	/**
 	 * Determines which type of refresh request is needed, and then makes the request.
 	 */
-	public static void requestBugRefresh()
+	public static void requestBugRefresh() throws Exception
 	{						
 		switch(GuiConstants.REQUEST_TYPE)
 		{
@@ -80,7 +80,7 @@ public class GuiMethods
 	/**
 	 * Requests bugs for the user currently logged in.
 	 */
-	public static void requestRefreshOfCurrentUserBugs()
+	public static void requestRefreshOfCurrentUserBugs() throws Exception
 	{
 		GuiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
 		GuiConstants.CURRENT_LIST_FILE = null;
@@ -101,7 +101,7 @@ public class GuiMethods
 	/**
 	 * Sends a request to the backend to refresh the bugs contained in the active list. Call this method when adding or removing a bug from a list, or when switching lists.
 	 */
-	public static void requestRefreshOfBugsInList()
+	public static void requestRefreshOfBugsInList() throws Exception
 	{
 		try
 		{
@@ -133,7 +133,7 @@ public class GuiMethods
 	 * NB: Since filtering introduced, now we must use the prefiltered Bugs, otherwise the refresh request will just send a list of the Bugs
 	 * that have been filtered. 
 	 */
-	public static void requestRefreshOfBugsInTable()
+	public static void requestRefreshOfBugsInTable() throws Exception
 	{	
 		try
 		{
