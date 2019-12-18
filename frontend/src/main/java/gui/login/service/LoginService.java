@@ -185,7 +185,18 @@ public class LoginService extends Application
 
 			for (Map.Entry<String, String> entry : properties.entrySet())
 			{
-				String response = ApiRequestor.request(Endpoints.CONFIG_SAVE(entry.getKey(), entry.getValue()));					
+				String response;
+				
+				try
+				{
+					response = ApiRequestor.request(Endpoints.CONFIG_SAVE(entry.getKey(), entry.getValue()));
+				} 
+				catch (Exception e)
+				{
+					MessageBox.showExceptionDialog(Errors.REQUEST, e);
+					return;
+				}					
+				
 				MessageBox.showErrorIfResponseNot200(response);
 			}
 

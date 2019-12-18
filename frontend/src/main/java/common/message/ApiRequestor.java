@@ -1,40 +1,28 @@
 package common.message;
 
-import java.io.IOException;
-
 import org.apache.http.HttpResponse;
-import org.apache.http.ParseException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-
-import common.exception.Errors;
 
 /**
  * An abstract class making requests to the Node Express backend.
  *
  * @author Tom Hewitt
  */
-public class ApiRequestor 
-{	
-	public static String request(String url) 
+public class ApiRequestor
+{
+	public static String request(String url) throws Exception
 	{
-		try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) 
-		{			
-			HttpGet request = new HttpGet(url);
+		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+		
+		HttpGet request = new HttpGet(url);
 
-			HttpResponse result = httpClient.execute(request);
+		HttpResponse result = httpClient.execute(request);
 
-			String json = EntityUtils.toString(result.getEntity(), "UTF-8");
+		String json = EntityUtils.toString(result.getEntity(), "UTF-8");
 
-			return json;
-
-		} 
-		catch (IOException | ParseException e) 
-		{
-			MessageBox.showExceptionDialog(Errors.REQUEST, e);
-		}
-		return null;
+		return json;
 	}
 }

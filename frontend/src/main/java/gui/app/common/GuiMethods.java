@@ -55,7 +55,7 @@ public class GuiMethods
 	/**
 	 * Determines which type of refresh request is needed, and then makes the request.
 	 */
-	public static void requestBugRefresh()
+	public static void requestBugRefresh() throws Exception
 	{						
 		switch(GuiConstants.REQUEST_TYPE)
 		{
@@ -80,7 +80,7 @@ public class GuiMethods
 	/**
 	 * Requests bugs for the user currently logged in.
 	 */
-	public static void requestRefreshOfCurrentUserBugs()
+	public static void requestRefreshOfCurrentUserBugs() throws Exception
 	{
 		GuiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
 		GuiConstants.CURRENT_LIST_FILE = null;
@@ -101,7 +101,7 @@ public class GuiMethods
 	/**
 	 * Sends a request to the backend to refresh the bugs contained in the active list. Call this method when adding or removing a bug from a list, or when switching lists.
 	 */
-	public static void requestRefreshOfBugsInList()
+	public static void requestRefreshOfBugsInList() throws Exception
 	{
 		try
 		{
@@ -133,7 +133,7 @@ public class GuiMethods
 	 * NB: Since filtering introduced, now we must use the prefiltered Bugs, otherwise the refresh request will just send a list of the Bugs
 	 * that have been filtered. 
 	 */
-	public static void requestRefreshOfBugsInTable()
+	public static void requestRefreshOfBugsInTable() throws Exception
 	{	
 		try
 		{
@@ -189,14 +189,17 @@ public class GuiMethods
 	/**
 	 * Sorts the bug table based on up to two parameters.
 	 */
-	public static void sortBugs(boolean descending, String... sort)
+	public static List<Bug> sortBugs(List<Bug> bugs, boolean descending, String... sort)
 	{
 		BugComparator comparator = new BugComparator(sort);
-		ObservableList<Bug> listOfBugs = BugTable.getInstance().getTableView().getItems();
-		listOfBugs.sort(comparator);
+		bugs.sort(comparator);
 
 		if (descending)
-			Collections.reverse(listOfBugs);
+		{
+			Collections.reverse(bugs);
+		}
+		
+		return bugs;
 	}
 	
 	/**
@@ -214,17 +217,9 @@ public class GuiMethods
 	 * Creates a display name from the current username. <p>
 	 * E.g. 'thomas.hewitt' would return 'Thomas Hewitt'
 	 */
-	public static String createDisplayName(String username)
+	public static String createDisplayName(String email)
 	{
-		char firstNameFirstLetter = Character.toUpperCase(username.charAt(0));
-		char lastNameFirstLetter  = Character.toUpperCase(username.split("\\.")[1].charAt(0));
-		
-		String firstName = firstNameFirstLetter + username.split("\\.")[0].substring(1);
-		String lastName = lastNameFirstLetter + username.split("\\.")[1].substring(1);
-		
-		String name = firstName + " " + lastName;
-		
-		return name; 
+		return email.split("@")[0]; 
 	}
 	
 	/**
