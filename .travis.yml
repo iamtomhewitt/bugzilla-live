@@ -11,5 +11,5 @@ matrix:
 
     - language: java
       jdk:
-        - openjdk8
-      script: cd frontend && mvn clean install test
+        - oraclejdk8
+      script: cd frontend && mvn test
