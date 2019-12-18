@@ -70,12 +70,12 @@
 		  <systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx</artifactId>
-			<version>11</version>
+			<version>8</version>
 			<type>pom</type>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
