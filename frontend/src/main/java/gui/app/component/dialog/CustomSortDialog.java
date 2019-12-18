@@ -1,7 +1,6 @@
 package gui.app.component.dialog;
 
 import java.util.Collections;
-import java.util.List;
 
 import gui.app.common.GuiMethods;
 import gui.app.component.BugTable;
