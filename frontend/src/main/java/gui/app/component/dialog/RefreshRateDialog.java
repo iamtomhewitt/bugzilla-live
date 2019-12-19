@@ -5,7 +5,7 @@ import java.util.List;
 import gui.app.common.GuiConstants;
 import gui.app.component.WindowsBar;
 
-import gui.app.theme.Styler;
+import gui.app.theme.GuiBuilder;
 import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 import common.exception.Errors;
@@ -78,8 +78,8 @@ public class RefreshRateDialog
 		vbox.setSpacing(10);
 		vbox.setStyle("-fx-background-color: white");
 		
-		Styler.styleComboBox(combo);
-		Styler.stylePrimaryButton(applyButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
+		GuiBuilder.styleComboBox(combo);
+		GuiBuilder.stylePrimaryButton(applyButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
 
 		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, vbox, "Change Refresh Rate"), 225, 125);
 		stage.setScene(scene);

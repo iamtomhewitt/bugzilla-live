@@ -18,7 +18,7 @@ import gui.app.common.GuiConstants;
 import gui.app.main.BugzillaLive;
 import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
-import gui.app.theme.Styler;
+import gui.app.theme.GuiBuilder;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -37,7 +37,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
- * The main entry point for the login service.
+ * The main entry point for the application.
  * 
  * @author Tom Hewitt
  * @since 2.0.0
@@ -136,13 +136,13 @@ public class LoginService extends Application
 		apiKeyTooltip.setText("Click the blue button if you do not have an API key");
 		apiKeyInput.setTooltip(apiKeyTooltip);
 		
-		Styler.styleTextField(emailInput, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
-		Styler.styleTextField(passwordInput, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
-		Styler.styleTextField(apiKeyInput, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
-		Styler.stylePrimaryButton(loginButton, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
-		Styler.styleSecondaryButton(apiKeyButton, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL, FontWeight.NORMAL);
-		Styler.styleTitle(title);
-		Styler.styleLogo(logo);		
+		GuiBuilder.styleTextField(emailInput, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
+		GuiBuilder.styleTextField(passwordInput, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
+		GuiBuilder.styleTextField(apiKeyInput, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
+		GuiBuilder.stylePrimaryButton(loginButton, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
+		GuiBuilder.styleSecondaryButton(apiKeyButton, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL, FontWeight.NORMAL);
+		GuiBuilder.styleTitle(title);
+		GuiBuilder.styleLogo(logo);		
 		
 		titleVbox.getChildren().addAll(logo, title);
 		titleVbox.setAlignment(Pos.CENTER);

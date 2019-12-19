@@ -4,7 +4,7 @@ import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.common.RequestType;
 import gui.app.component.WindowsBar;
-import gui.app.theme.Styler;
+import gui.app.theme.GuiBuilder;
 import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 import javafx.application.Platform;
@@ -50,8 +50,8 @@ public class AddBugDialog
 		Button addButton = new Button("Add");
 		addButton.setOnAction(e -> add(input));
 		
-		Styler.styleTextField(input, Sizes.INPUT_WIDTH_LARGE, 30);
-		Styler.stylePrimaryButton(addButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
+		GuiBuilder.styleTextField(input, Sizes.INPUT_WIDTH_LARGE, 30);
+		GuiBuilder.stylePrimaryButton(addButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
 		
 		buttons.getChildren().addAll(addButton);
 		buttons.setSpacing(10);
