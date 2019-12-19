@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
 
@@ -101,11 +102,16 @@ public abstract class UiBuilder
 		textField.setAlignment(Pos.CENTER);
 		textField.setMaxWidth(width);
 		textField.setMinHeight(height);
-		textField.setPromptText("filter");
+		textField.setPromptText(prompt);
 		return textField;
 	}
 	
-	
+	public Label createTitle(String name)
+	{
+		Label label = new Label(name);
+		label.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, FontPosture.REGULAR, 30));
+		return label;
+	}
 	
 	
 	
