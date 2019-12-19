@@ -31,7 +31,7 @@ import gui.app.common.GuiMethods;
 import gui.app.component.dialog.bug.AddBugDialog;
 import gui.app.component.dialog.bug.GetBugsDialog;
 import gui.app.theme.Fonts;
-import gui.app.theme.GuiBuilder;
+import gui.app.theme.UiBuilder;
 import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 
@@ -177,12 +177,12 @@ public class NavBar
 		Button bugsButton = new Button("Get bugs", new Icons().createListIcon());
 		bugsButton.setOnAction(e -> new GetBugsDialog());		
 		
-		GuiBuilder.styleGraphicButton(addButton, Sizes.BUTTON_WIDTH_SMALL);
-		GuiBuilder.styleGraphicButton(firefoxButton, Sizes.BUTTON_WIDTH_SMALL);
-		GuiBuilder.styleGraphicButton(refreshButton, Sizes.BUTTON_WIDTH_SMALL);
-		GuiBuilder.styleGraphicButton(bugsButton, Sizes.BUTTON_WIDTH_MEDIUM);
-		GuiBuilder.styleTextField(filterField, Sizes.INPUT_WIDTH_X_LARGE, fieldHeight);
-		GuiBuilder.styleTextField(browserField, Sizes.INPUT_WIDTH_LARGE, fieldHeight);
+		UiBuilder.styleGraphicButton(addButton, Sizes.BUTTON_WIDTH_SMALL);
+		UiBuilder.styleGraphicButton(firefoxButton, Sizes.BUTTON_WIDTH_SMALL);
+		UiBuilder.styleGraphicButton(refreshButton, Sizes.BUTTON_WIDTH_SMALL);
+		UiBuilder.styleGraphicButton(bugsButton, Sizes.BUTTON_WIDTH_MEDIUM);
+		UiBuilder.styleTextField(filterField, Sizes.INPUT_WIDTH_X_LARGE, fieldHeight);
+		UiBuilder.styleTextField(browserField, Sizes.INPUT_WIDTH_LARGE, fieldHeight);
 		
 		browserField.setOnKeyPressed(e ->
 		{

@@ -2,7 +2,7 @@ package gui.app.component.dialog;
 
 import gui.app.component.WindowsBar;
 import gui.app.theme.Fonts;
-import gui.app.theme.GuiBuilder;
+import gui.app.theme.UiBuilder;
 import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 import javafx.geometry.Insets;
@@ -48,7 +48,7 @@ public class AddCommentDialog extends VBox
 		this.setSpacing(15);
 		this.setAlignment(Pos.CENTER);
 
-		GuiBuilder.stylePrimaryButton(submitButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
+		UiBuilder.stylePrimaryButton(submitButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
 
 		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, this, "Bug" + number + " Add Comment"), 375, 475);
 		stage.setTitle("Add New Comment");
