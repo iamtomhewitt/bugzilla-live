@@ -18,7 +18,7 @@ import gui.app.common.GuiConstants;
 import gui.app.main.BugzillaLive;
 import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
-import gui.app.theme.GuiBuilder;
+import gui.app.theme.UiBuilder;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -59,7 +59,7 @@ public class LoginService extends Application
 	private VBox buttonsVbox 	= new VBox();
 	
 	private Label title = new Label("Bugzilla LIVE");
-			
+				
 	@Override
 	public void start(Stage primaryStage)
 	{	
@@ -136,13 +136,13 @@ public class LoginService extends Application
 		apiKeyTooltip.setText("Click the blue button if you do not have an API key");
 		apiKeyInput.setTooltip(apiKeyTooltip);
 		
-		GuiBuilder.styleTextField(emailInput, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
-		GuiBuilder.styleTextField(passwordInput, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
-		GuiBuilder.styleTextField(apiKeyInput, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
-		GuiBuilder.stylePrimaryButton(loginButton, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
-		GuiBuilder.styleSecondaryButton(apiKeyButton, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL, FontWeight.NORMAL);
-		GuiBuilder.styleTitle(title);
-		GuiBuilder.styleLogo(logo);		
+		UiBuilder.styleTextField(emailInput, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
+		UiBuilder.styleTextField(passwordInput, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
+		UiBuilder.styleTextField(apiKeyInput, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
+		UiBuilder.stylePrimaryButton(loginButton, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL);
+		UiBuilder.styleSecondaryButton(apiKeyButton, Sizes.INPUT_WIDTH_MEDIUM, Sizes.INPUT_HEIGHT_SMALL, FontWeight.NORMAL);
+		UiBuilder.styleTitle(title);
+		UiBuilder.styleLogo(logo);		
 		
 		titleVbox.getChildren().addAll(logo, title);
 		titleVbox.setAlignment(Pos.CENTER);

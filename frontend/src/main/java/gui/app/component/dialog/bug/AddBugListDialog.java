@@ -4,7 +4,7 @@ import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.component.WindowsBar;
 
-import gui.app.theme.GuiBuilder;
+import gui.app.theme.UiBuilder;
 import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 import javafx.application.Platform;
@@ -67,9 +67,9 @@ public class AddBugListDialog
 		vbox.setAlignment(Pos.CENTER);
 		vbox.setStyle("-fx-background-color: white");
 		
-		GuiBuilder.stylePrimaryButton(createButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
-		GuiBuilder.styleTextField(bugField, Sizes.INPUT_WIDTH_LARGE, Sizes.INPUT_HEIGHT_SMALL);
-		GuiBuilder.styleTextField(fileNameField, Sizes.INPUT_WIDTH_LARGE, Sizes.INPUT_HEIGHT_SMALL);
+		UiBuilder.stylePrimaryButton(createButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
+		UiBuilder.styleTextField(bugField, Sizes.INPUT_WIDTH_LARGE, Sizes.INPUT_HEIGHT_SMALL);
+		UiBuilder.styleTextField(fileNameField, Sizes.INPUT_WIDTH_LARGE, Sizes.INPUT_HEIGHT_SMALL);
 		
 		Platform.runLater(() -> createButton.requestFocus());
 		

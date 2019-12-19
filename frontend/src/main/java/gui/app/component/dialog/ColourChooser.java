@@ -11,7 +11,7 @@ import gui.app.component.WindowsBar;
 
 import gui.app.theme.Colours;
 import gui.app.theme.Fonts;
-import gui.app.theme.GuiBuilder;
+import gui.app.theme.UiBuilder;
 import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 import javafx.geometry.Pos;
@@ -114,8 +114,8 @@ public class ColourChooser extends VBox
 		this.setSpacing(15);
 		this.setStyle("-fx-background-color: white");
 		
-		GuiBuilder.stylePrimaryButton(applyButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
-		GuiBuilder.styleSecondaryButton(cancelButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL, FontWeight.BOLD);
+		UiBuilder.stylePrimaryButton(applyButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
+		UiBuilder.styleSecondaryButton(cancelButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL, FontWeight.BOLD);
 
 		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, this, "Change Colours"), 300, 600);
 		stage.setScene(scene);
