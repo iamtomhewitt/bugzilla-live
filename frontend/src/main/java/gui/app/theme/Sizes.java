@@ -22,4 +22,9 @@ public class Sizes
 	public final static int FONT_SIZE_SMALL			= 12;
 	public final static int FONT_SIZE_MEDIUM		= 20;
 	public final static int FONT_SIZE_LARGE			= 30;
+	
+	public enum Size
+	{
+		SMALL, MEDIUM, LARGE, X_LARGE
+	}
 }
