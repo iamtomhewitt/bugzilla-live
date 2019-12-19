@@ -16,6 +16,7 @@ import common.message.MessageBox;
 import common.utilities.Encryptor;
 import gui.app.common.GuiConstants;
 import gui.app.main.BugzillaLive;
+import gui.app.theme.Fonts;
 import gui.app.theme.Sizes.Size;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -69,13 +70,9 @@ public class LoginService extends Application
 		
 		GuiConstants.BUGZILLA_URL = config.getString("bugzillaUrl");
 				
-		Label title = uiBuilder.createTitle("Bugzilla LIVE");
+		Label title = uiBuilder.createTitle("Bugzilla LIVE", Fonts.FONT_SIZE_X_SUPER);
 		ImageView logo = uiBuilder.createLogo();
-		
-		TextField emailInput = uiBuilder.createTextField("email address", Size.LARGE);
-		TextField apiKeyInput = uiBuilder.createTextField("api key", Size.LARGE);
-		PasswordField passwordInput = uiBuilder.createPasswordField("password", Size.LARGE);
-		
+				
 		Button loginButton = uiBuilder.createLoginButton();
 		loginButton.setOnAction(e -> execute());
 			
@@ -91,6 +88,10 @@ public class LoginService extends Application
 				MessageBox.showExceptionDialog(Errors.BROWSER, ex);
 			}
 		});
+		
+		emailInput = uiBuilder.createTextField("email address", Size.LARGE);
+		apiKeyInput = uiBuilder.createTextField("api key", Size.LARGE);
+		passwordInput = uiBuilder.createPasswordField("password", Size.LARGE);
 
 		emailInput.setOnKeyPressed(e -> 
 		{
