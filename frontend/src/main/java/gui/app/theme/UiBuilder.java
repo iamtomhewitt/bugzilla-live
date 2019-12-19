@@ -150,15 +150,6 @@ public abstract class UiBuilder
 		button.setPrefWidth(width);
 	}
 	
-	public static void styleTextField(TextField textField, int width, int height)
-	{
-		textField.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, Fonts.FONT_SIZE_NORMAL));
-		textField.setStyle("-fx-text-fill: black");
-		textField.setAlignment(Pos.CENTER);
-		textField.setMaxWidth(width);
-		textField.setMinHeight(height);
-	}
-	
 	public static void styleComboBox(ComboBox<String> combo)
 	{
 		String normalStyle = "-fx-background-color: #e5e5e5; -fx-text-fill: #848383; -fx-background-radius: 0;";
