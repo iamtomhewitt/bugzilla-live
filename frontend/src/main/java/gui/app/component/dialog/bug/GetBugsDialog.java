@@ -36,7 +36,7 @@ public class GetBugsDialog extends UiBuilder
 		
 		Label title = createTitle("User Bugs", Fonts.FONT_SIZE_LARGE);
 
-		emailField = createTextField("username", Size.LARGE);
+		emailField = createTextField("email address", Size.LARGE);
 		emailField.setOnKeyPressed(e->
 		{
 			if (e.getCode() == KeyCode.ENTER)
