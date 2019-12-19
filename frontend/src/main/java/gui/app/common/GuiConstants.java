@@ -7,12 +7,13 @@ package gui.app.common;
  */
 public class GuiConstants
 {
-	public static String USERNAME;
+	public static String USER_EMAIL;
 	public static String PASSWORD;
 	public static String APIKEY;
 	public static String BUGZILLA_URL;
 	public static String PREFILTERED_BUG_DATA;
 	public static String BUG_REGEX				= "[0-9]+(,[0-9]+)*";
+	public static String EMAIL_REGEX			= "^(.+)@(.+)$";
 	public static String CURRENT_LIST_FILE;
 		
 	public static int REFRESH_TIME;

@@ -85,9 +85,7 @@ public class GuiMethods
 		GuiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
 		GuiConstants.CURRENT_LIST_FILE = null;
 		
-		// TODO get users email
-		String email = "leif@ogre.com";
-		String response = ApiRequestor.request(Endpoints.BUGS_EMAIL(email));
+		String response = ApiRequestor.request(Endpoints.BUGS_EMAIL(GuiConstants.USER_EMAIL));
 		
 		if(MessageBox.showErrorIfResponseNot200(response))
 		{
