@@ -91,4 +91,10 @@ public class ErrorTests
 	{
 		assertEquals("Cannot connect to the backend service. Please check it is running, and restart Bugzilla Live.", Errors.CANNOT_CONNECT);
 	}
+	
+	@Test
+	public void correctInvalidEmailErrorMessage()
+	{
+		assertEquals("Email is invalid.", Errors.INVALID_EMAIL);
+	}
 }
