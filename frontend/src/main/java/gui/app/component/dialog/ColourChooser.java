@@ -11,7 +11,8 @@ import gui.app.component.WindowsBar;
 
 import gui.app.theme.Colours;
 import gui.app.theme.Fonts;
-import gui.app.theme.GuiStyler;
+import gui.app.theme.UiBuilder;
+import gui.app.theme.Sizes.Size;
 import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 import javafx.geometry.Pos;
@@ -27,7 +28,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-public class ColourChooser extends VBox
+public class ColourChooser extends UiBuilder
 {		
 	private List<ColourEntry> colourEntries = new ArrayList<ColourEntry>();
 
@@ -48,10 +49,10 @@ public class ColourChooser extends VBox
 		ColourEntry infoPaneHeading		= createColourEntry("Information Pane Heading", Colours.INFO_PANE_HEADING);
 		ColourEntry infoPaneSubheading	= createColourEntry("Information Pane Subheading", Colours.INFO_PANE_SUBHEADING);
 		
-		Button cancelButton = new Button("Cancel");
+		Button cancelButton = createButton("Cancel", Size.SMALL, ButtonType.SECONDARY);
 		cancelButton.setOnAction(e -> stage.close());
 		
-		Button applyButton = new Button("Apply");
+		Button applyButton = createButton("Apply", Size.SMALL, ButtonType.PRIMARY);
 		applyButton.setOnAction(e -> 
 		{
 			Colours.WINDOW 					= Colours.toHex(windowBar.getColourPicker().getValue());
@@ -109,15 +110,12 @@ public class ColourChooser extends VBox
 		g.setVgap(5);
 		g.setAlignment(Pos.CENTER);
 		
-		this.getChildren().addAll(g, buttons);
-		this.setAlignment(Pos.CENTER);
-		this.setSpacing(15);
-		this.setStyle("-fx-background-color: white");
-		
-		GuiStyler.stylePrimaryButton(applyButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
-		GuiStyler.styleSecondaryButton(cancelButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL, FontWeight.BOLD);
+		VBox vbox = new VBox(g, buttons);
+		vbox.setAlignment(Pos.CENTER);
+		vbox.setSpacing(15);
+		vbox.setStyle("-fx-background-color: white");
 
-		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, this, "Change Colours"), 300, 600);
+		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, vbox, "Change Colours"), 300, 600);
 		stage.setScene(scene);
 		stage.setTitle("Change Colours");
 		stage.getIcons().add(new Icons().createThemeIcon().getImage());

@@ -4,9 +4,9 @@ import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.component.WindowsBar;
 
-import gui.app.theme.GuiStyler;
+import gui.app.theme.UiBuilder;
 import gui.app.theme.Icons;
-import gui.app.theme.Sizes;
+import gui.app.theme.Sizes.Size;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -26,20 +26,16 @@ import common.message.MessageBox;
  * 
  * @author Tom Hewitt
  */
-public class AddBugListDialog 
+public class AddBugListDialog extends UiBuilder
 {
 	private Stage stage = new Stage();	
-	private VBox vbox = new VBox();
 
 	public AddBugListDialog()
 	{		
-		TextField fileNameField = new TextField();
-		TextField bugField = new TextField();
-		
-		fileNameField.setPromptText("filename");
-		bugField.setPromptText("Bug number");
-		
-		Button createButton = new Button("Create");
+		TextField fileNameField = createTextField("filename", Size.LARGE);
+		TextField bugField = createTextField("number(s)", Size.LARGE);
+				
+		Button createButton = createButton("Create", Size.SMALL, ButtonType.PRIMARY);
 		createButton.setOnAction(e -> add(bugField, fileNameField));
 		
 		HBox buttons = new HBox(createButton);
@@ -62,14 +58,11 @@ public class AddBugListDialog
 			}
 		});
 		
+		VBox vbox = new VBox();
 		vbox.getChildren().addAll(fileNameField, bugField, buttons);
 		vbox.setSpacing(10);
 		vbox.setAlignment(Pos.CENTER);
 		vbox.setStyle("-fx-background-color: white");
-		
-		GuiStyler.stylePrimaryButton(createButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
-		GuiStyler.styleTextField(bugField, Sizes.INPUT_WIDTH_LARGE, Sizes.INPUT_HEIGHT_SMALL);
-		GuiStyler.styleTextField(fileNameField, Sizes.INPUT_WIDTH_LARGE, Sizes.INPUT_HEIGHT_SMALL);
 		
 		Platform.runLater(() -> createButton.requestFocus());
 		

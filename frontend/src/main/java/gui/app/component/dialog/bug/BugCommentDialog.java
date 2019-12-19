@@ -25,9 +25,9 @@ import gui.app.component.WindowsBar;
 import gui.app.component.dialog.AddCommentDialog;
 import gui.app.log.GuiLogger;
 import gui.app.theme.Fonts;
-import gui.app.theme.GuiStyler;
+import gui.app.theme.UiBuilder;
 import gui.app.theme.Icons;
-import gui.app.theme.Sizes;
+import gui.app.theme.Sizes.Size;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
@@ -55,7 +55,7 @@ import javafx.stage.Stage;
  * @author Tom Hewitt
  */
 @SuppressWarnings("unchecked")
-public class BugCommentDialog extends GridPane
+public class BugCommentDialog extends UiBuilder
 {
 	private Stage stage = new Stage();
 	private VBox vbox = new VBox();
@@ -81,9 +81,8 @@ public class BugCommentDialog extends GridPane
 		stage.centerOnScreen();
 		stage.getIcons().add(new Icons().createCommentIcon().getImage());
 
-		Button addCommentButton = new Button("Add Comment");
+		Button addCommentButton = createButton("Add Comment", Size.MEDIUM, ButtonType.PRIMARY);
 		addCommentButton.setOnAction(e -> new AddCommentDialog(number, stage.getX() + WINDOW_WIDTH, stage));
-		GuiStyler.stylePrimaryButton(addCommentButton, Sizes.BUTTON_WIDTH_MEDIUM, Sizes.BUTTON_HEIGHT_SMALL);
 
 		populateAttachments(number);
 		populateComments(number);
