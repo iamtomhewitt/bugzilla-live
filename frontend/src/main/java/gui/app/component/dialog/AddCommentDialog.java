@@ -3,8 +3,8 @@ package gui.app.component.dialog;
 import gui.app.component.WindowsBar;
 import gui.app.theme.Fonts;
 import gui.app.theme.UiBuilder;
+import gui.app.theme.Sizes.Size;
 import gui.app.theme.Icons;
-import gui.app.theme.Sizes;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,7 +16,7 @@ import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
 import common.message.MessageBox;
 
-public class AddCommentDialog extends VBox 
+public class AddCommentDialog extends UiBuilder
 {
 	private Stage stage = new Stage();
 
@@ -27,7 +27,7 @@ public class AddCommentDialog extends VBox
 		comment.setFont(Font.font(Fonts.FONT, FontPosture.REGULAR, Fonts.FONT_SIZE_NORMAL));
 		comment.setWrapText(true);
 
-		Button submitButton = new Button("Submit");
+		Button submitButton = createButton("Submit", Size.SMALL, ButtonType.PRIMARY);
 		submitButton.setOnAction(e ->
 		{
 			if (comment.getText().isEmpty())
@@ -43,14 +43,12 @@ public class AddCommentDialog extends VBox
 			}
 		});
 
-		this.getChildren().addAll(comment, submitButton);
-		this.setPadding(new Insets(10));
-		this.setSpacing(15);
-		this.setAlignment(Pos.CENTER);
+		VBox vbox = new VBox(comment, submitButton);
+		vbox.setPadding(new Insets(10));
+		vbox.setSpacing(15);
+		vbox.setAlignment(Pos.CENTER);
 
-		UiBuilder.stylePrimaryButton(submitButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
-
-		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, this, "Bug" + number + " Add Comment"), 375, 475);
+		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, vbox, "Bug" + number + " Add Comment"), 375, 475);
 		stage.setTitle("Add New Comment");
 		stage.getIcons().add(new Icons().createAddIcon().getImage());
 		stage.setX(xPosition);
