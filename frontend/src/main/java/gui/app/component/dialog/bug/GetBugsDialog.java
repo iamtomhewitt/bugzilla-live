@@ -25,12 +25,12 @@ import gui.app.theme.Fonts;
 import gui.app.theme.Icons;
 import gui.app.theme.Sizes.Size;
 
-public class GetUserBugsDialog extends UiBuilder
+public class GetBugsDialog extends UiBuilder
 {
 	private TextField emailField = new TextField();
 	private VBox vbox = new VBox();	
 
-	public GetUserBugsDialog()
+	public GetBugsDialog()
 	{
 		Stage stage = new Stage();
 		
