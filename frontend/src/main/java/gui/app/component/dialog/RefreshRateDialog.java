@@ -6,8 +6,8 @@ import gui.app.common.GuiConstants;
 import gui.app.component.WindowsBar;
 
 import gui.app.theme.UiBuilder;
+import gui.app.theme.Sizes.Size;
 import gui.app.theme.Icons;
-import gui.app.theme.Sizes;
 import common.exception.Errors;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
@@ -21,16 +21,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class RefreshRateDialog
-{
-	private Stage stage = new Stage();
-	private VBox vbox = new VBox();
-	
+public class RefreshRateDialog extends UiBuilder
+{	
 	public RefreshRateDialog()
 	{		
+		Stage stage = new Stage();
+
 		List<String> values = Arrays.asList("30", "60", "90", "120", "150", "180", "210", "240", "270", "300");
 		
-		ComboBox<String> combo = new ComboBox<String>();
+		ComboBox<String> combo = createComboBox(values.stream().toArray(String[]::new));
 		combo.getItems().addAll(values);
 		
 		// Show the currently selected rate first
@@ -42,7 +41,7 @@ public class RefreshRateDialog
 			}
 		}
 		
-		Button applyButton = new Button("Apply");
+		Button applyButton = createButton("Apply", Size.SMALL, ButtonType.PRIMARY);
 		applyButton.setOnAction(e ->
 		{			
 			String response;
@@ -65,7 +64,7 @@ public class RefreshRateDialog
 			stage.close();
 		});
 		
-		HBox times = new HBox(combo,new Label("seconds"));
+		HBox times = new HBox(combo, new Label("seconds"));
 		times.setAlignment(Pos.CENTER);
 		times.setSpacing(10);
 		
@@ -73,14 +72,11 @@ public class RefreshRateDialog
 		buttons.setAlignment(Pos.CENTER);
 		buttons.setSpacing(10);
 
-		vbox.getChildren().addAll(times, buttons);
+		VBox vbox = new VBox(times, buttons);
 		vbox.setAlignment(Pos.CENTER);
 		vbox.setSpacing(10);
 		vbox.setStyle("-fx-background-color: white");
 		
-		UiBuilder.styleComboBox(combo);
-		UiBuilder.stylePrimaryButton(applyButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
-
 		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, vbox, "Change Refresh Rate"), 225, 125);
 		stage.setScene(scene);
 		stage.getIcons().add(new Icons().createRefreshIcon().getImage());

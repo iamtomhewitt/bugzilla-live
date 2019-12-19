@@ -49,10 +49,10 @@ public class ColourChooser extends UiBuilder
 		ColourEntry infoPaneHeading		= createColourEntry("Information Pane Heading", Colours.INFO_PANE_HEADING);
 		ColourEntry infoPaneSubheading	= createColourEntry("Information Pane Subheading", Colours.INFO_PANE_SUBHEADING);
 		
-		Button cancelButton = createButton("Cancel", Size.SMALL, ButtonType.PRIMARY);
+		Button cancelButton = createButton("Cancel", Size.SMALL, ButtonType.SECONDARY);
 		cancelButton.setOnAction(e -> stage.close());
 		
-		Button applyButton = createButton("Apply", Size.SMALL, ButtonType.SECONDARY);
+		Button applyButton = createButton("Apply", Size.SMALL, ButtonType.PRIMARY);
 		applyButton.setOnAction(e -> 
 		{
 			Colours.WINDOW 					= Colours.toHex(windowBar.getColourPicker().getValue());
