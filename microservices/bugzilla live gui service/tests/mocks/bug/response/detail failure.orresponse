@@ -1,9 +1,0 @@
-{
-    "attachments": [], 
-    "comments": [], 
-	"failurereason": "An example failure reason - something went wrong.",
-    "message": "orresponse", 
-    "number": "12345", 
-    "operation": "notification", 
-    "successful": "no"
-}

@@ -1,6 +1,0 @@
-{
-	"message": "listresponse",
-	"operation": "notification",
-	"failurereason": "An example failure",
-	"successful": "no"
-}

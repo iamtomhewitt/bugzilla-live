@@ -1,7 +1,0 @@
-{
-	"message": "documentRequest",
-    "operation": "releaseNote",
-    "successful": "yes",
-    "failurereason": "",
-    "filename": "generatedreleasenote.docx"
-}

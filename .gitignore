@@ -1,11 +1,2 @@
-/bin/.gitignore
-/bin/bugzilla/
-/bin/.gitignore
-/build
-/install/*
-/bin/
-/microservices/bugzilla live config service/modules/*.pyc
-/microservices/bugzilla live list manager service/python/modules/*.pyc
-/microservices/bugzilla live list manager service/modules/*.pyc
-/microservices/bugzilla live list manager service/bin
-/microservices/bugzilla live OR service/modules/*.pyc
+/backend/node_modules/
+/target/
