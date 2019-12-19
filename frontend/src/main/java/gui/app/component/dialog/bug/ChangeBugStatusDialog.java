@@ -9,7 +9,7 @@ import gui.app.component.WindowsBar;
 import gui.app.theme.Fonts;
 import gui.app.theme.UiBuilder;
 import gui.app.theme.Icons;
-import gui.app.theme.Sizes;
+import gui.app.theme.Sizes.Size;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 import common.exception.Errors;
 import common.message.MessageBox;
 
-public class ChangeBugStatusDialog extends VBox 
+public class ChangeBugStatusDialog extends UiBuilder
 {
 	private Stage stage = new Stage();
 	
@@ -35,24 +35,21 @@ public class ChangeBugStatusDialog extends VBox
 	{
 		Map<String, List<String>> statusMap = this.generateStatusMap();
 		
-		Label statusLabel = new Label("Status");
+		Label statusLabel = createTitle("Status", Fonts.FONT_SIZE_LARGE);
 
 		TextArea comment = new TextArea();
 		comment.setMinHeight(250);
 		comment.setFont(Font.font(Fonts.FONT, FontPosture.REGULAR, Fonts.FONT_SIZE_NORMAL));
 		comment.setWrapText(true);
 
-		//selectedStatus = statusMap.get(status).get(0);
-
-		ComboBox<String> statusComboBox = new ComboBox<String>();
-		statusComboBox.getItems().addAll(statusMap.get(status));
+		ComboBox<String> statusComboBox = createComboBox("TEST");
 		statusComboBox.setOnAction(e ->
 		{
 			selectedStatus = statusComboBox.getSelectionModel().getSelectedItem();
 			comment.setText("Updated to " + selectedStatus + ".");
 		});
 
-		Button submitButton = new Button("Submit");
+		Button submitButton = createButton("Submit", Size.SMALL, ButtonType.PRIMARY);
 		submitButton.setOnAction(e ->
 		{
 			if (comment.getText().isEmpty() || selectedStatus.isEmpty())
@@ -72,16 +69,13 @@ public class ChangeBugStatusDialog extends VBox
 		statusHBox.setSpacing(10);
 		statusHBox.setAlignment(Pos.CENTER);
 
-		this.getChildren().addAll(statusHBox, comment, submitButton);
-		this.setPadding(new Insets(5));
-		this.setSpacing(10);
-		this.setAlignment(Pos.CENTER);
+		VBox vbox = new VBox();
+		vbox.getChildren().addAll(statusHBox, comment, submitButton);
+		vbox.setPadding(new Insets(5));
+		vbox.setSpacing(10);
+		vbox.setAlignment(Pos.CENTER);	
 
-		UiBuilder.stylePrimaryButton(submitButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
-		UiBuilder.styleTitle(statusLabel);
-		UiBuilder.styleComboBox(statusComboBox);
-
-		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, this, "Bug" + number + " Change Status"), 375, 400);
+		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, vbox, "Bug" + number + " Change Status"), 375, 400);
 		stage.setTitle("Bug" + number + " Change Status");
 		stage.getIcons().add(new Icons().createChangeStatusIcon().getImage());
 		stage.setScene(scene);
