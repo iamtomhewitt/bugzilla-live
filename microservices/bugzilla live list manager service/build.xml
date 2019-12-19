@@ -1,0 +1,20 @@
+<project name="Build List Manager Service" default="build_list_manager_service_non-development">
+	<description>
+        Copies the Python scripts to the install folder, so that they are inclued when the main application is installed.
+    </description>
+
+	<target name="build_list_manager_service_non-development">
+		<property name="dir.project" value="C:\Git\bugzilla-live" />
+		<property name="build.dir" value="${dir.project}/install/services/list manager service/" />
+		<property name="source.directory" value="${dir.project}/microservices/bugzilla live list manager service/" />
+
+		<echo message="Compiling list manager service" />
+		<copy todir="${build.dir}">
+			<fileset dir="${source.directory}/install" includes="**" />
+			<fileset dir="${source.directory}/modules" includes="**" />
+		</copy>
+		<echo message="List manager service compiled successfully" />
+
+	</target>
+
+</project>

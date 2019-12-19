@@ -1,0 +1,7 @@
+{
+	"message": "configresponse",
+	"operation": "getconfiguser",
+	"failurereason": "An example failure",	
+	"successful": "no",
+	"properties": []
+}

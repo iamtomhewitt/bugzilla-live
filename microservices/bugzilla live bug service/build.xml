@@ -1,0 +1,20 @@
+<project name="Build Bug Service" default="build_bug_service_non-development">
+	<description>
+        Copies the Python scripts to the install folder, so that they are inclued when the main applicaiton is installed.
+	</description>
+
+	<target name="build_bug_service_non-development">
+		<property name="dir.project" value="C:\Git\bugzilla-live" />
+		<property name="build.dir" value="${dir.project}/install/services/bug service/" />
+		<property name="source.directory" value="${dir.project}/microservices/bugzilla live bug service/" />
+
+		<echo message="Compiling Bug service" />
+		<copy todir="${build.dir}">
+			<fileset dir="${source.directory}/install" includes="**" />
+			<fileset dir="${source.directory}/modules" includes="**" />
+		</copy>
+		<echo message="Bug service compiled successfully" />
+
+	</target>
+
+</project>

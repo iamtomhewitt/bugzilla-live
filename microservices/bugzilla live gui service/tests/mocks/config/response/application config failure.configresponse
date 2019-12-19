@@ -1,0 +1,7 @@
+{
+	"message": "configresponse",
+	"operation": "getconfigapplication",
+	"failurereason": "An example failure",	
+	"successful": "no",
+	"properties": []
+}

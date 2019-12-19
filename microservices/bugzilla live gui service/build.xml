@@ -1,0 +1,25 @@
+<project default="create_jar_development" name="Create Runnable Jar for Project gui service">
+
+	<target name="create_jar_non-development">
+		<property name="dir.buildfile" value="." />
+		<property name="dir.project" value="C:\Git\bugzilla-live" />
+		<property name="dir.jarfile" value="${dir.project}/install/services/gui service" />
+
+		<echo message="Compiling GUI service" />
+		<delete file="${dir.jarfile}/guiservice.jar" />
+		<jar destfile="${dir.jarfile}/guiservice.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Main-Class" value="main.BugzillaLive" />
+				<attribute name="Class-Path" value="." />
+			</manifest>
+			<fileset dir="${dir.project}/microservices/bugzilla live gui service/bin" />
+			<fileset dir="${dir.project}/bin" />
+			<zipfileset excludes="META-INF/*.SF" src="C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext/jfxrt.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="${dir.project}/lib/jackson-annotations-2.9.7.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="${dir.project}/lib/jackson-core-2.9.7.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="${dir.project}/lib/jackson-databind-2.9.7.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="${dir.project}/lib/json-simple-1.1.1.jar" />
+		</jar>
+		<echo message="GUI service compiled successfully" />
+	</target>
+</project>

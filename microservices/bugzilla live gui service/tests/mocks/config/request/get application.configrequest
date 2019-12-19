@@ -1,0 +1,10 @@
+{
+	"message": "configRequest",
+	"operation": "get",
+	"propertyType": "application",
+	"properties": [
+		{
+			"refreshrate": ""
+		}
+	]
+}

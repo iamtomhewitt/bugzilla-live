@@ -1,0 +1,32 @@
+{
+	"bugs": [
+		{
+			"summary": "Summary",
+			"severity": "Low",
+			"number": "12345",
+			"lastUpdated": "04/01/2019 21:38",
+			"product": "A Product",
+			"component": "A Component",
+			"system": "A System",
+			"segmentRelease": "1.0",
+			"internalExternal": "Internal",
+			"assignedTo": "Tom Hewitt",
+			"status": "Investigation",
+			"generatedFrom": "Testing"
+		},
+		{
+			"summary": "Summary 2",
+			"severity": "High",
+			"number": "12346",
+			"lastUpdated": "04/01/2019 01:59",
+			"product": "A Product",
+			"component": "A Component",
+			"system": "A System",
+			"segmentRelease": "1.0",
+			"internalExternal": "External",
+			"assignedTo": "Tom Hewitt",
+			"status": "Diagnosed",
+			"generatedFrom": "Testing"
+		}
+	]
+}

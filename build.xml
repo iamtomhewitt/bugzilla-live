@@ -1,0 +1,110 @@
+<project name="Bugzilla Live Install Package" default="run">
+	<description>
+		Creates the installation folders and files for installing Bugzilla Live onto a machine.
+		
+		Versioning works as follows, e.g. 2.3.1
+		2 -> New feature
+		3 -> Visual change
+		1 -> Code change
+		
+		However, a code change would not be increased if a visual change had been applied since last release.
+		For example, 2.3.1 would not go to 2.4.2 if there was a code change then a visual change. It would go to 2.4.0
+	</description>
+
+	<property name="version" value="5.0.2" />
+	<property name="build.directory" value="build" />
+	<property name="install.directory" value="install" />
+
+	<target name="create_directories">
+		<echo message="Creating install directories" />
+		<delete dir="${build.directory}" />
+		<mkdir dir="${build.directory}/software" />
+		<mkdir dir="${build.directory}/config" />
+		<mkdir dir="${build.directory}/config/properties" />
+		<mkdir dir="${build.directory}/config/lists" />
+		<mkdir dir="${build.directory}/services" />
+	</target>
+
+
+	<target name="copy_software">
+		<echo message="Copying software" />
+		<copy todir="${build.directory}/software">
+			<fileset dir="${install.directory}/software" includes="**" />
+		</copy>
+	</target>
+
+
+	<target name="copy_config">
+		<echo message="Copying config" />
+		<copy todir="${build.directory}/config">
+			<fileset dir="${install.directory}/config" includes="**" />
+		</copy>
+		<copy todir="${build.directory}/shortcut">
+			<fileset dir="${install.directory}/shortcut" includes="**" />
+		</copy>
+
+		<echo message="Writing application properties" />
+		<propertyfile file="${build.directory}/config/properties/application.properties">
+			<entry key="version" value="${version}" />
+			<entry key="refreshrate" value="60" />
+			<entry key="bugzillaurl" value="https://bugzilla.mozilla.org/" />
+		</propertyfile>
+		<propertyfile file="${build.directory}/config/properties/user.properties">
+			<entry key="username" value="username" />
+			<entry key="password" value="12345" />
+			<entry key="api_key" value="api_key" />
+		</propertyfile>
+		<replace file="${build.directory}/config/properties/application.properties">
+			<replacefilter token="https\:" value="https:" />
+		</replace>
+	</target>
+
+
+	<target name="compile_services">
+		<input message="Build type:" validargs="development,non-development" defaultvalue="development" addProperty="build.type" />
+		<echo message="Build type is: ${build.type}" />
+		<echo message="Compiling microservices" />
+		<parallel>
+			<ant antfile="microservices\bugzilla live config service\build.xml" target="build_config_service_${build.type}" />
+			<ant antfile="microservices\bugzilla live list manager service\build.xml" target="build_list_manager_service_${build.type}" />
+			<ant antfile="microservices\bugzilla live bug service\build.xml" target="build_bug_service_${build.type}" />
+			<ant antfile="microservices\bugzilla live gui service\build.xml" target="create_jar_${build.type}" />
+			<ant antfile="microservices\bugzilla live login service\build.xml" target="create_jar_${build.type}" />
+			<ant antfile="microservices\bugzilla live document service\build.xml" target="create_jar_${build.type}" />
+		</parallel>
+	</target>
+
+
+	<target name="copy_services">
+		<echo message="Copying microservices" />
+		<copy todir="${build.directory}/services">
+			<fileset dir="${install.directory}/services" includes="**" />
+		</copy>
+	</target>
+
+
+	<target name="copy_install">
+		<echo message="Copying install file" />
+		<copy file="${install.directory}/Install BugzillaLIVE.bat" tofile="${build.directory}/Install BugzillaLIVE.bat" />
+	</target>
+
+
+	<target name="zip">
+		<echo message="Creating .zip " />
+		<zip destfile="${build.directory}/zip/BugzillaLive-${version}.zip" basedir="${build.directory}" />
+	</target>
+
+
+	<target name="run">
+		<antcall target="create_directories" />
+		<parallel>
+			<antcall target="copy_software" />
+			<antcall target="copy_config" />
+			<antcall target="compile_services" />
+		</parallel>
+		<antcall target="copy_services" />
+		<antcall target="copy_install" />
+		<!-- <antcall target="zip" /> -->
+	</target>
+
+</project>
