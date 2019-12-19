@@ -32,6 +32,7 @@ import gui.app.component.dialog.bug.AddBugDialog;
 import gui.app.component.dialog.bug.GetBugsDialog;
 import gui.app.theme.Fonts;
 import gui.app.theme.UiBuilder;
+import gui.app.theme.Sizes.Size;
 import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 
@@ -41,7 +42,7 @@ import gui.app.theme.Sizes;
  * @author Tom Hewitt
  * @since 1.0.0
  */	
-public class NavBar
+public class NavBar extends UiBuilder
 {
 	private HBox navBar = new HBox();
 	private FilteredList<Bug> filteredData = null;
@@ -54,7 +55,7 @@ public class NavBar
 		pause.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, Fonts.FONT_SIZE_LARGE));
 		pause.setOnAction(e ->  GuiConstants.PAUSED = pause.isSelected());
 		
-		TextField filterField = new TextField();
+		TextField filterField = createTextField("filter", Size.X_LARGE);
 		filterField.setMinHeight(fieldHeight);
 		filterField.setMinWidth(Sizes.INPUT_WIDTH_LARGE + 100);
 		filterField.setAlignment(Pos.CENTER);
@@ -134,56 +135,10 @@ public class NavBar
 			}
 		});
 
-		TextField browserField = new TextField();
+		TextField browserField = createTextField("bugzilla", Size.LARGE);
 		browserField.setMinHeight(fieldHeight);
 		browserField.setAlignment(Pos.CENTER);
-		browserField.setPromptText("bugzilla");
 		browserField.setTooltip(new Tooltip("Enter a bug to open in Bugzilla"));		
-
-		Button firefoxButton = new Button("", new Icons().createBrowserIcon());
-		firefoxButton.setTooltip(new Tooltip("Open the bug in Bugzilla"));
-		firefoxButton.setOnAction(e ->
-		{
-			try 
-			{
-				Utilities.openBugInBrowser(browserField.getText());
-			} 
-			catch (IOException | URISyntaxException e1) 
-			{
-				MessageBox.showExceptionDialog(Errors.BROWSER, e1);
-			}
-			browserField.setText("");
-		});
-
-		Button addButton = new Button("", new Icons().createAddIcon());
-		addButton.setTooltip(new Tooltip("Add a new bug to this list"));
-		addButton.setOnAction(e -> new AddBugDialog());
-
-		Button refreshButton = new Button("", new Icons().createRefreshIcon());
-		refreshButton.setTooltip(new Tooltip("Refresh the table"));
-		refreshButton.setOnAction(e -> 
-		{
-			try
-			{
-				GuiMethods.requestRefreshOfBugsInTable();
-			} 
-			catch (Exception ex)
-			{
-				MessageBox.showExceptionDialog(Errors.REQUEST, ex);
-				return;
-			}
-		});
-
-		Button bugsButton = new Button("Get bugs", new Icons().createListIcon());
-		bugsButton.setOnAction(e -> new GetBugsDialog());		
-		
-		UiBuilder.styleGraphicButton(addButton, Sizes.BUTTON_WIDTH_SMALL);
-		UiBuilder.styleGraphicButton(firefoxButton, Sizes.BUTTON_WIDTH_SMALL);
-		UiBuilder.styleGraphicButton(refreshButton, Sizes.BUTTON_WIDTH_SMALL);
-		UiBuilder.styleGraphicButton(bugsButton, Sizes.BUTTON_WIDTH_MEDIUM);
-		UiBuilder.styleTextField(filterField, Sizes.INPUT_WIDTH_X_LARGE, fieldHeight);
-		UiBuilder.styleTextField(browserField, Sizes.INPUT_WIDTH_LARGE, fieldHeight);
-		
 		browserField.setOnKeyPressed(e ->
 		{
 			if (e.getCode() == KeyCode.ENTER)
@@ -200,7 +155,44 @@ public class NavBar
 			}
 		});
 		
-		navBar.getChildren().addAll(filterField, createRegion(50), browserField, firefoxButton, addButton, refreshButton, bugsButton, createRegion(50), pause);
+		Button browserButton = createButtonWithGraphic("", Size.SMALL, new Icons().createBrowserIcon());
+		browserButton.setTooltip(new Tooltip("Open the bug in Bugzilla"));
+		browserButton.setOnAction(e ->
+		{
+			try 
+			{
+				Utilities.openBugInBrowser(browserField.getText());
+			} 
+			catch (IOException | URISyntaxException e1) 
+			{
+				MessageBox.showExceptionDialog(Errors.BROWSER, e1);
+			}
+			browserField.setText("");
+		});
+
+		Button addButton = createButtonWithGraphic("", Size.SMALL, new Icons().createAddIcon());
+		addButton.setTooltip(new Tooltip("Add a new bug to this list"));
+		addButton.setOnAction(e -> new AddBugDialog());
+
+		Button refreshButton = createButtonWithGraphic("", Size.SMALL, new Icons().createRefreshIcon());
+		refreshButton.setTooltip(new Tooltip("Refresh the table"));
+		refreshButton.setOnAction(e -> 
+		{
+			try
+			{
+				GuiMethods.requestRefreshOfBugsInTable();
+			} 
+			catch (Exception ex)
+			{
+				MessageBox.showExceptionDialog(Errors.REQUEST, ex);
+				return;
+			}
+		});
+
+		Button bugsButton = createButtonWithGraphic("Get Bugs", Size.MEDIUM, new Icons().createListIcon());
+		bugsButton.setOnAction(e -> new GetBugsDialog());		
+		
+		navBar.getChildren().addAll(filterField, createRegion(50), browserField, browserButton, addButton, refreshButton, bugsButton, createRegion(50), pause);
 		navBar.setAlignment(Pos.CENTER);
 		navBar.setSpacing(10);
 		navBar.setPadding(new Insets(10, 5, 5, 5));

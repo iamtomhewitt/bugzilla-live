@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -21,7 +22,7 @@ import javafx.util.Callback;
  */
 public abstract class UiBuilder
 {	
-	public enum ButtonType { PRIMARY, SECONDARY }
+	public enum ButtonType { PRIMARY, SECONDARY, NONE }
 	
 	public Button createButton(String name, Size size, ButtonType type)
 	{		
@@ -124,16 +125,10 @@ public abstract class UiBuilder
 		return combo;
 	}
 
-	public static void styleGraphicButton(Button button, int width)
+	public Button createButtonWithGraphic(String name, Size size, ImageView icon)
 	{
-		String normalStyle = "-fx-background-color: #e5e5e5;";
-		String hoverStyle = "-fx-background-color: #d1d1d1;";
-		
-		button.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, Fonts.FONT_SIZE_NORMAL));
-		button.setStyle(normalStyle);
-		button.setOnMouseEntered(e -> button.setStyle(hoverStyle));
-		button.setOnMouseExited(e -> button.setStyle(normalStyle));
-		button.setMinHeight(35);
-		button.setPrefWidth(width);
+		Button button = createButton(name, size, ButtonType.NONE);
+		button.setGraphic(icon);
+		return button;
 	}
 }
