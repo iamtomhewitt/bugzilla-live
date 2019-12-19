@@ -29,7 +29,7 @@ import common.utilities.Utilities;
 import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.component.dialog.bug.AddBugDialog;
-import gui.app.component.dialog.bug.GetBugsDialog;
+import gui.app.component.dialog.bug.GetUserBugsDialog;
 import gui.app.theme.Fonts;
 import gui.app.theme.UiBuilder;
 import gui.app.theme.Sizes.Size;
@@ -190,7 +190,7 @@ public class NavBar extends UiBuilder
 		});
 
 		Button bugsButton = createButtonWithGraphic("Get Bugs", Size.MEDIUM, new Icons().createListIcon());
-		bugsButton.setOnAction(e -> new GetBugsDialog());		
+		bugsButton.setOnAction(e -> new GetUserBugsDialog());		
 		
 		navBar.getChildren().addAll(filterField, createRegion(50), browserField, browserButton, addButton, refreshButton, bugsButton, createRegion(50), pause);
 		navBar.setAlignment(Pos.CENTER);
