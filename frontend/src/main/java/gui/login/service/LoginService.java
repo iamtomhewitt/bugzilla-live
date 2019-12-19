@@ -193,6 +193,8 @@ public class LoginService extends Application
 				MessageBox.showErrorIfResponseNot200(response);
 			}
 
+			GuiConstants.USER_EMAIL = emailInput.getText();
+			
 			new BugzillaLive();
 			stage.close();
 		}
