@@ -163,6 +163,12 @@ public class LoginService extends Application
 	 */
 	private void execute()
 	{
+		if (!emailInput.getText().matches(GuiConstants.EMAIL_REGEX))
+		{
+			MessageBox.showDialog(Errors.INVALID_EMAIL);
+			return;
+		}
+		
 		if (canLogin())
 		{
 			Map<String, String> properties = new HashMap<String, String>();

@@ -108,6 +108,13 @@ public class GetBugsDialog extends UiBuilder
 				
 		String email = emailField.getText();
 		String response;
+		
+		if (!email.matches(GuiConstants.EMAIL_REGEX))
+		{
+			MessageBox.showDialog(Errors.INVALID_EMAIL);
+			return;
+		}
+		
 		try
 		{
 			GuiMethods.clearTable();
