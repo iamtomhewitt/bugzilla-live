@@ -5,7 +5,7 @@ import java.util.Collections;
 import gui.app.common.GuiMethods;
 import gui.app.component.BugTable;
 import gui.app.component.WindowsBar;
-import gui.app.theme.Styler;
+import gui.app.theme.GuiBuilder;
 import gui.app.theme.Icons;
 import gui.app.theme.Sizes;
 import javafx.collections.ObservableList;
@@ -54,11 +54,11 @@ public class CustomSortDialog extends VBox
 			stage.close();
 		});
 		
-		Styler.stylePrimaryButton(applyButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
-		Styler.styleComboBox(primaryComboBox);
-		Styler.styleComboBox(secondaryComboBox);
-		Styler.styleTitle(primaryLabel);
-		Styler.styleTitle(secondaryLabel);
+		GuiBuilder.stylePrimaryButton(applyButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
+		GuiBuilder.styleComboBox(primaryComboBox);
+		GuiBuilder.styleComboBox(secondaryComboBox);
+		GuiBuilder.styleTitle(primaryLabel);
+		GuiBuilder.styleTitle(secondaryLabel);
 		
 		VBox primary = new VBox(primaryLabel, primaryComboBox);
 		VBox secondary = new VBox(secondaryLabel, secondaryComboBox);

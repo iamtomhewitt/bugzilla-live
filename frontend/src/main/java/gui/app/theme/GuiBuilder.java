@@ -14,7 +14,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Callback;
 
-public class Styler
+public class GuiBuilder
 {	
 	public static void stylePrimaryButton(Button button, int width, int height)
 	{
