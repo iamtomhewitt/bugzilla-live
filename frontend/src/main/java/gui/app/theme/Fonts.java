@@ -17,4 +17,5 @@ public class Fonts
 	public static final int FONT_SIZE_LARGE		= 14;
 	public static final int FONT_SIZE_X_LARGE	= 16;
 	public static final int FONT_SIZE_SUPER		= 20;
+	public static final int FONT_SIZE_X_SUPER	= 30;
 }

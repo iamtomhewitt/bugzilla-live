@@ -18,35 +18,35 @@ import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.common.RequestType;
 
-import gui.app.theme.GuiStyler;
-import gui.app.theme.Sizes;
+import gui.app.theme.UiBuilder;
+import gui.app.theme.Fonts;
+import gui.app.theme.Sizes.Size;
 
-public class GetUserBugsDialog
+public class GetUserBugsDialog extends UiBuilder
 {
-	private Stage stage 				= new Stage();	
-	private TextField usernameField 	= new TextField();
-	private VBox vbox 					= new VBox();	
-	private VBox fields 				= new VBox();
-	private HBox buttons 				= new HBox();
-	private Button getBugsButton		= new Button();
+	private TextField usernameField = new TextField();
+	private VBox vbox = new VBox();	
 
-	public GetUserBugsDialog(Stage s)
+	public GetUserBugsDialog(Stage parentStage)
 	{
-		this.stage = s;
+		Stage stage = parentStage;
 		
-		Label title = new Label("User Bugs");
+		Label title = createTitle("User Bugs", Fonts.FONT_SIZE_LARGE);
 
-		usernameField.setPromptText("username");
+		usernameField = createTextField("username", Size.LARGE);
 		usernameField.setOnKeyPressed(e->
 		{
 			if (e.getCode() == KeyCode.ENTER)
+			{
 				execute();
+				stage.close();
+			}
 		});
 
-		getBugsButton = new Button("Get Bugs");
+		Button getBugsButton = createButton("Get Bugs", Size.SMALL, ButtonType.PRIMARY);
+		Button myBugsButton = createButton("Get My Bugs", Size.SMALL, ButtonType.PRIMARY);
+
 		getBugsButton.setOnAction(e -> execute());
-		
-		Button myBugsButton = new Button("Get My Bugs");
 		myBugsButton.setOnAction(e ->
 		{
 			GuiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
@@ -64,18 +64,13 @@ public class GetUserBugsDialog
 			
 			stage.close();
 		});
-		
-		GuiStyler.stylePrimaryButton(getBugsButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
-		GuiStyler.stylePrimaryButton(myBugsButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
-		GuiStyler.styleTextField(usernameField, Sizes.INPUT_WIDTH_LARGE, 30);
-		GuiStyler.styleTitle(title);
-		
-		fields.getChildren().addAll(usernameField);
+				
+		VBox fields = new VBox(usernameField);
 		fields.setAlignment(Pos.CENTER);
 		fields.setSpacing(10);
 		fields.setPadding(new Insets(10));
 		
-		buttons.getChildren().addAll(getBugsButton, myBugsButton);
+		HBox buttons = new HBox(getBugsButton, myBugsButton);
 		buttons.setAlignment(Pos.CENTER);
 		buttons.setSpacing(10);
 
@@ -113,8 +108,6 @@ public class GetUserBugsDialog
 		MessageBox.showErrorIfResponseNot200(response);
 		
 		GuiMethods.clearTable();
-		
-		stage.close();
 	}
 
 	public VBox getVbox()

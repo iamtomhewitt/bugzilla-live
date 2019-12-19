@@ -16,11 +16,13 @@ import common.message.MessageBox;
 import common.utilities.Encryptor;
 import gui.app.common.GuiConstants;
 import gui.app.main.BugzillaLive;
-import gui.app.theme.Icons;
+import gui.app.theme.Fonts;
+import gui.app.theme.Sizes.Size;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,31 +36,21 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
- * The main entry point for the login service.
+ * The main entry point for the application.
  * 
  * @author Tom Hewitt
  * @since 2.0.0
  */
 public class LoginService extends Application
 {
-	private Button loginButton 	= new Button("LOGIN");
-	private Button apiKeyButton	= new Button("CREATE API KEY");
-
 	private Stage stage;
 
 	private TextField emailInput;
 	private TextField apiKeyInput;
 	private PasswordField passwordInput;
 	
-	private VBox vbox 			= new VBox();
-	private VBox fieldsVbox		= new VBox();
-	private VBox titleVbox		= new VBox();
-	private VBox buttonsVbox 	= new VBox();
-	
-	private Label title = new Label("Bugzilla LIVE");
-			
-	private LoginStyler styler 	= new LoginStyler();
-
+	private LoginUiBuilder uiBuilder = new LoginUiBuilder();
+				
 	@Override
 	public void start(Stage primaryStage)
 	{	
@@ -77,9 +69,14 @@ public class LoginService extends Application
 		JSONObject config = new JSONObject(json.getString("config"));
 		
 		GuiConstants.BUGZILLA_URL = config.getString("bugzillaUrl");
-		
+				
+		Label title = uiBuilder.createTitle("Bugzilla LIVE", Fonts.FONT_SIZE_X_SUPER);
+		ImageView logo = uiBuilder.createLogo();
+				
+		Button loginButton = uiBuilder.createLoginButton();
 		loginButton.setOnAction(e -> execute());
-		
+			
+		Button apiKeyButton = uiBuilder.createApiKeyButton();
 		apiKeyButton.setOnAction(e ->
 		{
 			try
@@ -92,11 +89,10 @@ public class LoginService extends Application
 			}
 		});
 		
-		ImageView logo = new Icons().createBugzillaIcon();
-		
-		emailInput = new TextField();
-		emailInput.setPromptText("email address");
-		emailInput.setAlignment(Pos.CENTER);
+		emailInput = uiBuilder.createTextField("email address", Size.LARGE);
+		apiKeyInput = uiBuilder.createTextField("api key", Size.LARGE);
+		passwordInput = uiBuilder.createPasswordField("password", Size.LARGE);
+
 		emailInput.setOnKeyPressed(e -> 
 		{
 			if (e.getCode() == KeyCode.ENTER)
@@ -104,10 +100,7 @@ public class LoginService extends Application
 				execute();
 			}
 		});
-
-		passwordInput = new PasswordField();
-		passwordInput.setPromptText("password");
-		passwordInput.setAlignment(Pos.CENTER);
+		
 		passwordInput.setOnKeyPressed(e -> 
 		{
 			if (e.getCode() == KeyCode.ENTER)
@@ -115,10 +108,7 @@ public class LoginService extends Application
 				execute();
 			}
 		});
-
-		apiKeyInput = new TextField();
-		apiKeyInput.setPromptText("api key");		
-		apiKeyInput.setAlignment(Pos.CENTER);	
+	
 		apiKeyInput.setOnKeyPressed(e -> 
 		{
 			if (e.getCode() == KeyCode.ENTER)
@@ -127,37 +117,14 @@ public class LoginService extends Application
 			}
 		});
 		
-		Tooltip usernameTooltip = new Tooltip();
-		usernameTooltip.setText("(e.g. thomas.hewitt)");
-		emailInput.setTooltip(usernameTooltip);
+		emailInput.setTooltip(new Tooltip("Your email address for Bugzilla"));
+		apiKeyInput.setTooltip(new Tooltip("Click the blue button if you do not have an API key"));	
 		
-		Tooltip apiKeyTooltip = new Tooltip();
-		apiKeyTooltip.setText("Click the blue button if you do not have an API key");
-		apiKeyInput.setTooltip(apiKeyTooltip);
+		VBox titleVbox = createVBox(logo, title);
+		VBox fieldsVbox = createVBox(emailInput, passwordInput, apiKeyInput);
+		VBox buttonsVbox = createVBox(loginButton, apiKeyButton);
 		
-		styler.styleInputField(emailInput);
-		styler.styleInputField(passwordInput);
-		styler.styleInputField(apiKeyInput);
-		styler.styleLoginButton(loginButton);
-		styler.styleAPIButton(apiKeyButton);
-		styler.styleTitle(title);
-		styler.styleLogo(logo);		
-		
-		titleVbox.getChildren().addAll(logo, title);
-		titleVbox.setAlignment(Pos.CENTER);
-		titleVbox.setSpacing(10);
-		titleVbox.setPadding(new Insets(15));
-		
-		fieldsVbox.getChildren().addAll(emailInput, passwordInput, apiKeyInput);
-		fieldsVbox.setAlignment(Pos.CENTER);
-		fieldsVbox.setSpacing(10);
-		fieldsVbox.setPadding(new Insets(15));
-		
-		buttonsVbox.getChildren().addAll(loginButton, apiKeyButton);
-		buttonsVbox.setAlignment(Pos.CENTER);
-		buttonsVbox.setSpacing(10);
-		buttonsVbox.setPadding(new Insets(15));
-		
+		VBox vbox = new VBox();		
 		vbox.getChildren().addAll(titleVbox, fieldsVbox, buttonsVbox);
 		vbox.setAlignment(Pos.CENTER);
 		
@@ -171,6 +138,16 @@ public class LoginService extends Application
 		stage.setScene(scene);
 		stage.show();
 		stage.centerOnScreen();
+	}
+	
+	private VBox createVBox(Node... children)
+	{
+		VBox vbox = new VBox();
+		vbox.getChildren().addAll(children);
+		vbox.setAlignment(Pos.CENTER);
+		vbox.setSpacing(10);
+		vbox.setPadding(new Insets(15));
+		return vbox;
 	}
 
 	/**

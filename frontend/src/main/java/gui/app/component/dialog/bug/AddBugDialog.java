@@ -4,9 +4,9 @@ import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.common.RequestType;
 import gui.app.component.WindowsBar;
-import gui.app.theme.GuiStyler;
+import gui.app.theme.UiBuilder;
+import gui.app.theme.Sizes.Size;
 import gui.app.theme.Icons;
-import gui.app.theme.Sizes;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -28,16 +28,14 @@ import common.message.MessageBox;
  * 
  * @author Tom Hewitt
  */
-public class AddBugDialog
+public class AddBugDialog extends UiBuilder
 {		
 	private Stage stage = new Stage();
-	private VBox hbox = new VBox();
 	private HBox buttons = new HBox();
 	
 	public AddBugDialog()
 	{
-		TextField input = new TextField();
-		input.setPromptText("number");
+		TextField input = createTextField("number", Size.LARGE);
 		input.setTooltip(new Tooltip("Enter more than 1 bug by separating with a comma, for example '23001,23002'"));
 		input.setOnKeyPressed(e->
 		{
@@ -47,25 +45,23 @@ public class AddBugDialog
 			}
 		});
 		
-		Button addButton = new Button("Add");
+		Button addButton = createButton("Add", Size.SMALL, ButtonType.PRIMARY);
 		addButton.setOnAction(e -> add(input));
-		
-		GuiStyler.styleTextField(input, Sizes.INPUT_WIDTH_LARGE, 30);
-		GuiStyler.stylePrimaryButton(addButton, Sizes.BUTTON_WIDTH_SMALL, Sizes.BUTTON_HEIGHT_SMALL);
-		
+				
 		buttons.getChildren().addAll(addButton);
 		buttons.setSpacing(10);
 		buttons.setAlignment(Pos.CENTER);
 		
-		hbox.getChildren().addAll(input, buttons);
-		hbox.setAlignment(Pos.CENTER);
-		hbox.setSpacing(10);
-		hbox.setPadding(new Insets(10));
-		hbox.setStyle("-fx-background-color: white");
+		VBox vbox = new VBox();
+		vbox.getChildren().addAll(input, buttons);
+		vbox.setAlignment(Pos.CENTER);
+		vbox.setSpacing(10);
+		vbox.setPadding(new Insets(10));
+		vbox.setStyle("-fx-background-color: white");
 
 		Platform.runLater(() -> addButton.requestFocus());
         
-		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, hbox, "Add Bug"), 275, 125);
+		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, vbox, "Add Bug"), 275, 125);
 		stage.getIcons().add(new Icons().createAddIcon().getImage());
 		stage.setScene(scene);
 		stage.show();
