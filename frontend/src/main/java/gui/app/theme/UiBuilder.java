@@ -24,29 +24,6 @@ public abstract class UiBuilder
 {	
 	public enum ButtonType { PRIMARY, SECONDARY }
 	
-	private int calculateButtonHeight(Size size)
-	{
-		return Sizes.BUTTON_HEIGHT_SMALL;
-	}
-
-	private int calculateButtonWidth(Size size)
-	{
-		switch (size)
-		{
-			case SMALL:
-					return Sizes.BUTTON_WIDTH_SMALL;
-
-			case MEDIUM:
-					return Sizes.BUTTON_WIDTH_MEDIUM;
-
-			case LARGE:
-					return Sizes.BUTTON_WIDTH_LARGE;
-
-			default:
-					return Sizes.BUTTON_WIDTH_MEDIUM;
-		}
-	}
-	
 	public Button createButton(String name, Size size, ButtonType type)
 	{		
 		String normalStyle 	= type == ButtonType.PRIMARY ? "-fx-background-color: " + Colours.toHex(Color.web(Colours.WINDOW)) 				+ "; -fx-background-radius: 0;" : "-fx-background-color: #e5e5e5; -fx-text-fill: #848383; -fx-background-radius: 0;";
@@ -55,8 +32,8 @@ public abstract class UiBuilder
 		
 		FontWeight weight = type == ButtonType.PRIMARY ? FontWeight.BOLD : FontWeight.NORMAL;
 		
-		int width = calculateButtonWidth(size);
-		int height = calculateButtonHeight(size);
+		int width = Sizes.calculateButtonWidth(size);
+		int height = Sizes.calculateButtonHeight(size);
 
 		Button button = new Button(name);
 		button.setMinWidth(width);
@@ -73,8 +50,8 @@ public abstract class UiBuilder
 	
 	public TextField createTextField(String prompt, Size size)
 	{
-		int width = calculateButtonWidth(size);
-		int height = calculateButtonHeight(size);
+		int width = Sizes.calculateTextFieldWidth(size);
+		int height = Sizes.calculateTextFieldHeight(size);
 		
 		TextField textField = new TextField();
 		textField.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, Fonts.FONT_SIZE_NORMAL));
