@@ -74,7 +74,7 @@ public class InformationPane
 			@Override
 			public void run()
 			{
-				String filename = UiConstants.CURRENT_LIST_FILE == null ? "" : UiConstants.CURRENT_LIST_FILE.split("\\.")[0] + " | ";
+				String filename = UiConstants.CURRENT_LIST == null ? "" : UiConstants.CURRENT_LIST.split("\\.")[0] + " | ";
 
 				title.setText(filename + BugTable.getInstance().getTableView().getItems().size() + " Bugs");
 

@@ -14,6 +14,7 @@ import ui.theme.Icons;
 import ui.theme.UiBuilder;
 import ui.theme.Sizes.Size;
 import common.error.Errors;
+import common.error.JsonTransformationException;
 import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
@@ -45,6 +46,10 @@ public class AddBugListDialog extends UiBuilder
 			catch (RequestException e1)
 			{
 				MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+			} 
+			catch (JsonTransformationException e1)
+			{
+				MessageBox.showExceptionDialog(Errors.JACKSON_FROM, e1);
 			}
 		});
 		
@@ -63,6 +68,10 @@ public class AddBugListDialog extends UiBuilder
 				catch (RequestException e1)
 				{
 					MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+				} 
+				catch (JsonTransformationException e1)
+				{
+					MessageBox.showExceptionDialog(Errors.JACKSON_FROM, e1);
 				}
 			}
 		});
@@ -78,6 +87,10 @@ public class AddBugListDialog extends UiBuilder
 				catch (RequestException e1)
 				{
 					MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+				} 
+				catch (JsonTransformationException e1)
+				{
+					MessageBox.showExceptionDialog(Errors.JACKSON_FROM, e1);
 				}
 			}
 		});
@@ -97,7 +110,7 @@ public class AddBugListDialog extends UiBuilder
 		stage.centerOnScreen();
 	}
 	
-	private void add(TextField bugField, TextField fileNameField) throws RequestException
+	private void add(TextField bugField, TextField fileNameField) throws RequestException, JsonTransformationException
 	{
 		if (!bugField.getText().matches(UiConstants.BUG_REGEX))
 		{
@@ -115,7 +128,7 @@ public class AddBugListDialog extends UiBuilder
 		MessageBox.showErrorIfResponseNot200(response);
 
 		UiMethods.clearTable();
-		UiConstants.CURRENT_LIST_FILE = fileNameField.getText();
+		UiConstants.CURRENT_LIST = fileNameField.getText();
 		UiMethods.requestRefreshOfBugsInList();
 
 		stage.close();

@@ -18,6 +18,7 @@ import ui.theme.UiBuilder;
 import ui.theme.Sizes.Size;
 import common.RequestType;
 import common.error.Errors;
+import common.error.JsonTransformationException;
 import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
@@ -49,6 +50,10 @@ public class GetBugsDialog extends UiBuilder
 				catch (RequestException e1)
 				{
 					MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+				} 
+				catch (JsonTransformationException e1)
+				{
+					MessageBox.showExceptionDialog(Errors.JACKSON_FROM, e1);
 				}
 			}
 		});
@@ -66,13 +71,17 @@ public class GetBugsDialog extends UiBuilder
 			catch (RequestException e1)
 			{
 				MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+			} 
+			catch (JsonTransformationException e1)
+			{
+				MessageBox.showExceptionDialog(Errors.JACKSON_FROM, e1);
 			}
 		});
 		
 		myBugsButton.setOnAction(e ->
 		{
 			UiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
-			UiConstants.CURRENT_LIST_FILE = null;
+			UiConstants.CURRENT_LIST = null;
 			
 			try
 			{
@@ -109,7 +118,7 @@ public class GetBugsDialog extends UiBuilder
 
 	}
 	
-	private void execute() throws RequestException
+	private void execute() throws RequestException, JsonTransformationException
 	{
 		if (emailField.getText().isEmpty())
 		{
@@ -117,7 +126,7 @@ public class GetBugsDialog extends UiBuilder
 			return;
 		}
 		
-		UiConstants.CURRENT_LIST_FILE = null;
+		UiConstants.CURRENT_LIST = null;
 		UiConstants.REQUEST_TYPE = RequestType.USER;
 				
 		String email = emailField.getText();

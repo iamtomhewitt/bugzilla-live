@@ -56,7 +56,7 @@ public class BugContextMenu
 			table.getSelectionModel().clearSelection();
 			
 			String numbers 	= String.join(",", bugNumbers);
-			String filename = UiConstants.CURRENT_LIST_FILE.split("\\.")[0];
+			String filename = UiConstants.CURRENT_LIST.split("\\.")[0];
 			String response;
 			
 			try

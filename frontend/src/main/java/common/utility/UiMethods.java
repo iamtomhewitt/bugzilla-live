@@ -2,7 +2,9 @@ package common.utility;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import common.RequestType;
@@ -13,7 +15,6 @@ import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
@@ -22,8 +23,6 @@ import javafx.scene.text.Font;
 import ui.component.BugComparator;
 import ui.component.BugTable;
 import ui.component.InformationPane;
-import ui.component.WindowsBar;
-import ui.main.BugzillaLive;
 import ui.theme.Colours;
 import ui.theme.Fonts;
 import ui.theme.RowColours;
@@ -37,18 +36,9 @@ import ui.theme.RowColours;
 @SuppressWarnings("unchecked")
 public class UiMethods
 {	
-	public static void updateApplicationTitle(String username)
+	public static String createApplicationTitle(String email)
 	{
-		Platform.runLater(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				String title = "Bugzilla LIVE | " + createDisplayName(username);
-				BugzillaLive.getMainStage().setTitle(title);
-				WindowsBar.updateMainToolBarLabel(title);
-			}
-		});
+		return "Bugzilla LIVE | " + createDisplayName(email);
 	}
 	
 	/**
@@ -78,11 +68,12 @@ public class UiMethods
 	
 	/**
 	 * Requests bugs for the user currently logged in.
+	 * @throws JsonTransformationException 
 	 */
-	public static void requestRefreshOfCurrentUserBugs() throws RequestException
+	public static void requestRefreshOfCurrentUserBugs() throws RequestException, JsonTransformationException
 	{
 		UiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
-		UiConstants.CURRENT_LIST_FILE = null;
+		UiConstants.CURRENT_LIST = null;
 		
 		String response = ApiRequestor.request(Endpoints.BUGS_EMAIL(UiConstants.USER_EMAIL));
 		
@@ -97,11 +88,12 @@ public class UiMethods
 	
 	/**
 	 * Sends a request to the backend to refresh the bugs contained in the active list. Call this method when adding or removing a bug from a list, or when switching lists.
+	 * @throws JsonTransformationException 
 	 */
-	public static void requestRefreshOfBugsInList() throws RequestException
+	public static void requestRefreshOfBugsInList() throws RequestException, JsonTransformationException
 	{
 		// Get the current bug numbers in the file
-		String response = ApiRequestor.request(Endpoints.LIST_CONTENTS(UiConstants.CURRENT_LIST_FILE.split("\\.")[0]));
+		String response = ApiRequestor.request(Endpoints.LIST_CONTENTS(UiConstants.CURRENT_LIST.split("\\.")[0]));
 		String content = new JSONObject(response).getString("contents");
 
 		UiConstants.REQUEST_TYPE = RequestType.LIST;
@@ -125,13 +117,8 @@ public class UiMethods
 	 */
 	public static void requestRefreshOfBugsInTable() throws RequestException, JsonTransformationException
 	{
-		String numbers = "";
 		List<Bug> bugs = JacksonAdapter.fromJson(UiConstants.PREFILTERED_BUG_DATA, Bug.class);
-
-		for (Bug bug : bugs)
-		{
-			numbers += bug.getId() + ",";
-		}
+		String numbers = bugs.stream().map(bug -> bug.getId()).collect(Collectors.joining(","));
 
 		if (!numbers.isEmpty())
 		{
@@ -148,27 +135,22 @@ public class UiMethods
 
 	/**
 	 * Called when an bug response message is received. Decodes the JSON returned, creates a list of bug objects and inserts it into the table.
+	 * @throws JsonTransformationException 
+	 * @throws JSONException 
 	 */
-	public static void updateBugsInTable(String response)
-	{		
-		try
-		{
-			JSONObject jsonObject = new JSONObject(response);
-			ObservableList<Bug> bugs = FXCollections.observableArrayList(JacksonAdapter.fromJson(jsonObject.get("bugs").toString(), Bug.class));
-			FXCollections.reverse(bugs);
-			
-			UiConstants.PREFILTERED_BUG_DATA = JacksonAdapter.toJson(bugs);
-			BugTable.getInstance().getTableView().getItems().clear();
-			BugTable.getInstance().getTableView().setItems(bugs);
-			BugTable.getInstance().getTableView().refresh();
-			InformationPane.getInstance().updateTexts();
-		}
-		catch (JsonTransformationException e1)
-		{
-			MessageBox.showExceptionDialog(Errors.GENERAL, e1);
-		}
+	public static void updateBugsInTable(String response) throws JsonTransformationException
+	{
+		JSONObject jsonObject = new JSONObject(response);
+		ObservableList<Bug> bugs = FXCollections.observableArrayList(JacksonAdapter.fromJson(jsonObject.get("bugs").toString(), Bug.class));
+		FXCollections.reverse(bugs);
+
+		UiConstants.PREFILTERED_BUG_DATA = JacksonAdapter.toJson(bugs);
+		BugTable.getInstance().getTableView().getItems().clear();
+		BugTable.getInstance().getTableView().setItems(bugs);
+		BugTable.getInstance().getTableView().refresh();
+		InformationPane.getInstance().updateTexts();
 	}
-	
+
 	/**
 	 * Sorts the bug table based on up to two parameters.
 	 */
@@ -197,8 +179,8 @@ public class UiMethods
 	}
 	
 	/**
-	 * Creates a display name from the current username. <p>
-	 * E.g. 'thomas.hewitt' would return 'Thomas Hewitt'
+	 * Creates a display name from the current email. <p>
+	 * E.g. 'Someone@example.com' would return 'Someone'
 	 */
 	public static String createDisplayName(String email)
 	{
@@ -215,9 +197,6 @@ public class UiMethods
 		InformationPane.getInstance().updateSubheadingColour();
 		InformationPane.getInstance().getTitle().setTextFill(Color.web(Colours.WINDOW_TEXT));
 
-		RowColours.updateColours();
-		
-		WindowsBar.updateMainToolBarColour();
-		WindowsBar.updateMainToolBarLabelColour();		
+		RowColours.updateColours();		
 	}
 }
