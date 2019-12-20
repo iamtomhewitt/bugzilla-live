@@ -17,7 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import ui.app.common.GuiMethods;
+import ui.app.common.UiMethods;
 import ui.app.component.BugTable;
 import ui.app.component.WindowsBar;
 import ui.app.theme.Colours;
@@ -69,7 +69,7 @@ public class ColourChooser extends UiBuilder
 
 			BugTable.getInstance().getTableView().refresh();
 			
-			GuiMethods.updateColours();
+			UiMethods.updateColours();
 			
 			// Now send a config request to save the colours
 			Map<String, String> properties = new HashMap<String, String>();

@@ -14,7 +14,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import ui.app.common.GuiConstants;
-import ui.app.common.GuiMethods;
+import ui.app.common.UiMethods;
 import ui.app.component.BugTable;
 import ui.app.component.InformationPane;
 import ui.app.component.NavBar;
@@ -93,7 +93,7 @@ public class BugzillaLive
 					
 					if (!GuiConstants.PAUSED) 
 					{
-						GuiMethods.requestBugRefresh();
+						UiMethods.requestBugRefresh();
 					}
 				}
 			}

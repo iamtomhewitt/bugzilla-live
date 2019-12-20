@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ui.app.common.GuiConstants;
-import ui.app.common.GuiMethods;
+import ui.app.common.UiMethods;
 import ui.app.component.WindowsBar;
 import ui.app.theme.Icons;
 import ui.app.theme.UiBuilder;
@@ -114,9 +114,9 @@ public class AddBugListDialog extends UiBuilder
 
 		MessageBox.showErrorIfResponseNot200(response);
 
-		GuiMethods.clearTable();
+		UiMethods.clearTable();
 		GuiConstants.CURRENT_LIST_FILE = fileNameField.getText();
-		GuiMethods.requestRefreshOfBugsInList();
+		UiMethods.requestRefreshOfBugsInList();
 
 		stage.close();
 	}

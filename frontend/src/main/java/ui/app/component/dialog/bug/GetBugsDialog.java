@@ -12,7 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ui.app.common.GuiConstants;
-import ui.app.common.GuiMethods;
+import ui.app.common.UiMethods;
 import ui.app.common.RequestType;
 import ui.app.component.WindowsBar;
 import ui.app.theme.Fonts;
@@ -76,7 +76,7 @@ public class GetBugsDialog extends UiBuilder
 			
 			try
 			{
-				GuiMethods.requestRefreshOfCurrentUserBugs();
+				UiMethods.requestRefreshOfCurrentUserBugs();
 			} 
 			catch (Exception e1)
 			{
@@ -128,7 +128,7 @@ public class GetBugsDialog extends UiBuilder
 			MessageBox.showDialog(Errors.INVALID_EMAIL);
 			return;
 		}
-		GuiMethods.clearTable();
+		UiMethods.clearTable();
 
 		response = ApiRequestor.request(Endpoints.BUGS_EMAIL(email));
 
@@ -137,6 +137,6 @@ public class GetBugsDialog extends UiBuilder
 			return;
 		}
 
-		GuiMethods.updateBugsInTable(response);
+		UiMethods.updateBugsInTable(response);
 	}
 }

@@ -2,7 +2,7 @@ package ui.app.component.menu;
 
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import ui.app.common.GuiMethods;
+import ui.app.common.UiMethods;
 import ui.app.component.BugTable;
 import ui.app.component.dialog.CustomSortDialog;
 
@@ -36,8 +36,8 @@ public class SortMenu
 		MenuItem ascending = new MenuItem("Ascending");
 		MenuItem descending = new MenuItem("Descending");
 
-		ascending .setOnAction(e -> GuiMethods.sortBugs(BugTable.getInstance().getTableView().getItems(), false, sortingProperty));		
-		descending.setOnAction(e -> GuiMethods.sortBugs(BugTable.getInstance().getTableView().getItems(), true, sortingProperty));
+		ascending .setOnAction(e -> UiMethods.sortBugs(BugTable.getInstance().getTableView().getItems(), false, sortingProperty));		
+		descending.setOnAction(e -> UiMethods.sortBugs(BugTable.getInstance().getTableView().getItems(), true, sortingProperty));
 
 		m.getItems().addAll(ascending, descending);
 		return m;
