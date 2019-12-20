@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import ui.app.common.GuiConstants;
+import ui.app.common.GuiMethods;
+
 public class CommonTests
 {
 	@Test

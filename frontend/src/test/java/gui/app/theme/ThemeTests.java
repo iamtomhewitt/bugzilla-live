@@ -4,8 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import gui.app.theme.Sizes.Size;
 import javafx.scene.paint.Color;
+import ui.app.theme.Colours;
+import ui.app.theme.Sizes;
+import ui.app.theme.Sizes.Size;
 
 public class ThemeTests
 {

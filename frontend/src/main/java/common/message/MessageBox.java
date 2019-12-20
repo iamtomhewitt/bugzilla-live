@@ -6,8 +6,6 @@ import java.io.StringWriter;
 import org.apache.http.HttpStatus;
 import org.json.JSONObject;
 
-import gui.app.log.GuiLogger;
-import gui.app.theme.Icons;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -17,6 +15,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
+import ui.app.log.GuiLogger;
+import ui.app.theme.Icons;
 
 /**
  * Shows a message dialog in the GUI. <p>

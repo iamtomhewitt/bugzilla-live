@@ -9,7 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import common.bug.Bug;
-import gui.app.common.GuiMethods;
+import ui.app.common.GuiMethods;
+import ui.app.component.BugCounter;
 
 public class ComponentTests
 {
