@@ -19,7 +19,7 @@ import ui.app.log.UiLogger;
 import ui.app.theme.Icons;
 
 /**
- * Shows a message dialog in the GUI. <p>
+ * Shows a message dialog in the UI. <p>
  * Useful for showing exception messages to the user, or other alerts.
  *
  * @author Tom Hewitt

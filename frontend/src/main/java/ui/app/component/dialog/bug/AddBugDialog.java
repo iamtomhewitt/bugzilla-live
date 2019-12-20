@@ -25,7 +25,7 @@ import common.message.Endpoints;
 import common.message.MessageBox;
 
 /**
- * A simple dialog box that takes in an bug number and adds it to the current list of bugs that the GUI is displaying.
+ * A simple dialog box that takes in an bug number and adds it to the current list of bugs that the UI is displaying.
  * 
  * @author Tom Hewitt
  */
