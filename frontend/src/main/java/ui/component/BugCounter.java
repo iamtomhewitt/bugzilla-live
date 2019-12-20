@@ -18,6 +18,6 @@ public class BugCounter
 
 	public static int countActiveSeverityBugs(List<Bug> bugs, String severity)
 	{
-		return (int) bugs.stream().filter(o -> o.getSeverity().equalsIgnoreCase(severity)).count();
+		return (int) bugs.stream().filter(o -> o.getSeverity().equalsIgnoreCase(severity) && !o.getStatus().equalsIgnoreCase("RESOLVED") && !o.getStatus().equalsIgnoreCase("VERIFIED")).count();
 	}
 }
