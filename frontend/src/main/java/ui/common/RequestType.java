@@ -1,0 +1,6 @@
+package ui.common;
+
+public enum RequestType
+{
+	USER, LIST, CURRENT_USER
+}

@@ -9,8 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import common.bug.Bug;
-import ui.app.common.UiMethods;
-import ui.app.component.BugCounter;
+import ui.common.UiMethods;
+import ui.component.BugCounter;
 
 public class ComponentTests
 {
