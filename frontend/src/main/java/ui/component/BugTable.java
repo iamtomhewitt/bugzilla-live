@@ -22,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
+import ui.component.dialog.bug.BugCommentDialog;
 import ui.component.menu.BugContextMenu;
 import ui.theme.Fonts;
 import ui.theme.RowColours;
@@ -70,7 +71,15 @@ public class BugTable
 				// Double Click
 				if (event.getClickCount() == 2 && (!row.isEmpty()))
 				{
-					// TODO use ApiRequestor
+					String number = row.getItem().getId();
+					try
+					{
+						new BugCommentDialog(number);
+					} 
+					catch (Exception e)
+					{
+						MessageBox.showExceptionDialog(Errors.COMMENTS, e);
+					}
 				}
 			});
 
