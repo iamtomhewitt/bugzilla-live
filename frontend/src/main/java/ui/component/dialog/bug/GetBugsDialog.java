@@ -29,12 +29,11 @@ import common.utility.UiMethods;
 public class GetBugsDialog extends UiBuilder
 {
 	private TextField emailField = new TextField();
-	private VBox vbox = new VBox();	
 
 	public GetBugsDialog()
 	{
 		Stage stage = new Stage();
-		
+		VBox vbox = new VBox();	
 		Label title = createTitle("User Bugs", Fonts.FONT_SIZE_LARGE);
 
 		emailField = createTextField("email address", Size.LARGE);
@@ -115,7 +114,6 @@ public class GetBugsDialog extends UiBuilder
         stage.show();
         stage.getIcons().add(new Icons().createBugzillaIcon().getImage());
         stage.centerOnScreen();
-
 	}
 	
 	private void execute() throws RequestException, JsonTransformationException

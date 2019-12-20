@@ -50,8 +50,7 @@ import ui.theme.UiBuilder;
 import ui.theme.Sizes.Size;
 
 /**
- * Shows the comments as well as attachments (which come through as comments as
- * well) for a given Bug number.
+ * Shows the comments as well as attachments (which come through as comments as well) for a given Bug number.
  * 
  * @author Tom Hewitt
  */
@@ -60,8 +59,6 @@ public class BugCommentDialog extends UiBuilder
 {
 	private Stage stage = new Stage();
 	private VBox vbox = new VBox();
-	private VBox attachmentsVbox = new VBox();
-	private VBox commentsVbox = new VBox();
 	private ScrollPane scrollPane = new ScrollPane();
 
 	private final int WINDOW_WIDTH = 475;
@@ -85,10 +82,10 @@ public class BugCommentDialog extends UiBuilder
 		Button addCommentButton = createButton("Add Comment", Size.MEDIUM, ButtonType.PRIMARY);
 		addCommentButton.setOnAction(e -> new AddCommentDialog(number, stage.getX() + WINDOW_WIDTH, stage));
 
-		populateAttachments(number);
-		populateComments(number);
+		VBox attachments = populateAttachments(number);
+		VBox comments = populateComments(number);
 		
-		vbox.getChildren().add(addCommentButton);
+		vbox.getChildren().addAll(attachments, comments, addCommentButton);
 		vbox.setStyle("-fx-background-color: white");
 		vbox.setAlignment(Pos.CENTER);
 		
@@ -98,13 +95,15 @@ public class BugCommentDialog extends UiBuilder
 		scrollPane.setContent(vbox);
 	}
 
-	private void populateAttachments(String number) throws JsonTransformationException, RequestException
+	private VBox populateAttachments(String number) throws JsonTransformationException, RequestException
 	{
+		VBox attachmentsVbox = new VBox();
+
 		String response = ApiRequestor.request(Endpoints.BUGS_ATTACHMENTS(number));
 		
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{
-			return;
+			return attachmentsVbox;
 		}
 
 		JSONObject json = new JSONObject(response);
@@ -138,20 +137,20 @@ public class BugCommentDialog extends UiBuilder
 			attachmentsVbox.setAlignment(Pos.CENTER);
 		}
 
-		vbox.getChildren().add(attachmentsVbox);
-
 		attachmentsVbox.setPadding(new Insets(10, 25, 10, 25));
 		attachmentsVbox.setSpacing(5);
 		attachmentsVbox.setStyle("-fx-background-color: white");
+		return attachmentsVbox;
 	}
 
-	private void populateComments(String number) throws JsonTransformationException, RequestException
+	private VBox populateComments(String number) throws JsonTransformationException, RequestException
 	{
+		VBox commentsVbox = new VBox();
 		String response = ApiRequestor.request(Endpoints.BUGS_COMMENTS(number));
 
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{
-			return;
+			return commentsVbox;
 		}
 
 		JSONObject json = new JSONObject(response);
@@ -217,8 +216,7 @@ public class BugCommentDialog extends UiBuilder
 		commentsVbox.setPadding(new Insets(10, 25, 10, 25));
 		commentsVbox.setSpacing(15);
 		commentsVbox.setStyle("-fx-background-color: white");
-
-		vbox.getChildren().add(commentsVbox);
+		return commentsVbox;
 	}
 
 	private Label createDateLabel(String time)
@@ -259,15 +257,7 @@ public class BugCommentDialog extends UiBuilder
 
 	private Label createNameLabel(String emailAddress)
 	{
-		String username = emailAddress.split("@")[0];
-		String[] names = username.split("\\.");
-
-		// A name might only have first name, for example "Git-SCM" so only format if the split has 2 parts
-		if (names.length > 1)
-		{
-			username = UiMethods.createDisplayName(username);
-		}
-
+		String username = UiMethods.createDisplayName(emailAddress);
 		return new Label(username);
 	}
 }
