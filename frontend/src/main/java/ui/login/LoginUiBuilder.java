@@ -23,11 +23,13 @@ public class LoginUiBuilder extends UiBuilder
 	{		
 		String normalStyle 	= "-fx-background-color: #f5683d; -fx-text-fill: white";
 		String hoverStyle 	= "-fx-background-color: #ed6338; -fx-text-fill: white";
-		
+		String clickedStyle	= "-fx-background-color: #b84825; -fx-text-fill: white";
+
 		Button button = this.createButton("LOGIN", Size.MEDIUM, ButtonType.PRIMARY);
 		button.setStyle(normalStyle);
 		button.setOnMouseEntered(e -> button.setStyle(hoverStyle));
 		button.setOnMouseExited(e -> button.setStyle(normalStyle));		
+		button.setOnMousePressed(e -> button.setStyle(clickedStyle));
 		return button;
 	}
 
@@ -35,11 +37,13 @@ public class LoginUiBuilder extends UiBuilder
 	{
 		String normalStyle 	= "-fx-background-color: #4690fb; -fx-text-fill: white";
 		String hoverStyle 	= "-fx-background-color: #3c82e8; -fx-text-fill: white";
+		String clickedStyle	= "-fx-background-color: #2262bf; -fx-text-fill: white";
 		
 		Button button = this.createButton("CREATE API KEY", Size.MEDIUM, ButtonType.PRIMARY);
 		button.setStyle(normalStyle);
 		button.setOnMouseEntered(e -> button.setStyle(hoverStyle));
-		button.setOnMouseExited(e -> button.setStyle(normalStyle));		
+		button.setOnMouseExited(e -> button.setStyle(normalStyle));	
+		button.setOnMousePressed(e -> button.setStyle(clickedStyle));
 		return button;
 	}
 
