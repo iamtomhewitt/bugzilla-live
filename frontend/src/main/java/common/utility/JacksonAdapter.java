@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import common.bug.Bug;
 import common.bug.BugAttachment;
 import common.bug.BugComment;
-import common.exception.JsonTransformationException;
+import common.error.JsonTransformationException;
 
 /**
  * Uses Jackson to convert a JSON string into object types.

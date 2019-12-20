@@ -22,7 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.stage.Stage;
-import common.exception.Errors;
+import common.error.Errors;
 import common.message.MessageBox;
 
 public class ChangeBugStatusDialog extends UiBuilder

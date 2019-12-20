@@ -1,4 +1,4 @@
-package common.exception;
+package common.error;
 
 /**
  * A custom exception to be used when trying to wrap or unwrap objects using the Jackson library.

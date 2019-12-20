@@ -3,7 +3,7 @@ package gui.app.component.menu;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import common.exception.Errors;
+import common.error.Errors;
 import common.message.MessageBox;
 import common.utility.Utilities;
 import gui.app.component.dialog.AboutDialog;

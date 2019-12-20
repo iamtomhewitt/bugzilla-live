@@ -7,8 +7,8 @@ import java.util.List;
 import org.json.JSONObject;
 
 import common.bug.Bug;
-import common.exception.Errors;
-import common.exception.JsonTransformationException;
+import common.error.Errors;
+import common.error.JsonTransformationException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;

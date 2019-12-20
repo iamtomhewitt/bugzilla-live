@@ -28,7 +28,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import common.exception.Errors;
+import common.error.Errors;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;

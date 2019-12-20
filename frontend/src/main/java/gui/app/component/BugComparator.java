@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import common.bug.Bug;
-import common.exception.Errors;
+import common.error.Errors;
 import common.message.MessageBox;
 
 public class BugComparator implements Comparator<Bug>
