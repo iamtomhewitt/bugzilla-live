@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.function.Predicate;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -192,11 +193,13 @@ public class NavBar extends UiBuilder
 		Button bugsButton = createButtonWithGraphic("Get Bugs", Size.MEDIUM, new Icons().createListIcon());
 		bugsButton.setOnAction(e -> new GetBugsDialog());		
 		
-		navBar.getChildren().addAll(filterField, createRegion(50), browserField, browserButton, addButton, refreshButton, bugsButton, createRegion(50), pause);
+		navBar.getChildren().addAll(filterField, createRegion(50), browserField, browserButton, createRegion(50), addButton, refreshButton, bugsButton, createRegion(50), pause);
 		navBar.setAlignment(Pos.CENTER);
 		navBar.setSpacing(10);
 		navBar.setPadding(new Insets(10, 5, 5, 5));
 		navBar.setStyle("-fx-background-color: white");
+		
+		Platform.runLater(() -> bugsButton.requestFocus());
 	}
 
 	public HBox getNavBar()

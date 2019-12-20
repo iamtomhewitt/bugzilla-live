@@ -99,10 +99,14 @@ public class BugTable
 					List<String> selectedBugNumbers = new ArrayList<String>();
 
 					for (Bug bug : selectedBugs)
+					{
 						selectedBugNumbers.add(bug.getId());
+					}
 
 					if (tableView.getItems().size() > 0)
+					{
 						new BugContextMenu(tableView, selectedBugNumbers);
+					}
 				}
 			}
 		});		
@@ -126,7 +130,8 @@ public class BugTable
 					@Override
 					protected void updateItem(String item, boolean empty)
 					{
-						if (item == null) {
+						if (item == null) 
+						{
 							return;
 						}
 						
