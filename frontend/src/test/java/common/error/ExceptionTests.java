@@ -9,8 +9,8 @@ import common.utility.JacksonAdapter;
 
 public class ExceptionTests
 {
-	@Test(expected = Exception.class)
-	public void requestIncorrectUrlThrowsError() throws Exception
+	@Test(expected = RequestException.class)
+	public void requestIncorrectUrlThrowsError() throws RequestException
 	{
 		String url = "some incorrect url";
 		ApiRequestor.request(url);

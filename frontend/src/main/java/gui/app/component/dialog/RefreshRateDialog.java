@@ -9,6 +9,7 @@ import gui.app.theme.UiBuilder;
 import gui.app.theme.Sizes.Size;
 import gui.app.theme.Icons;
 import common.error.Errors;
+import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
@@ -49,7 +50,7 @@ public class RefreshRateDialog extends UiBuilder
 			{
 				response = ApiRequestor.request(Endpoints.CONFIG_SAVE("refreshRate", combo.getSelectionModel().getSelectedItem()));
 			} 
-			catch (Exception ex)
+			catch (RequestException ex)
 			{
 				MessageBox.showExceptionDialog(Errors.REQUEST, ex);
 				return;
