@@ -1,4 +1,6 @@
-package ui.common;
+package common.utility;
+
+import common.RequestType;
 
 /**
  * Keeps track of specific information to be used when making requests.

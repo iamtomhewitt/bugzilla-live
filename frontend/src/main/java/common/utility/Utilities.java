@@ -10,7 +10,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import ui.common.UiConstants;
 
 /**
  * A class of useful methods.

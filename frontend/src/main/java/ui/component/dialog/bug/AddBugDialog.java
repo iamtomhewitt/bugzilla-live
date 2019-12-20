@@ -11,18 +11,18 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import ui.common.RequestType;
-import ui.common.UiConstants;
-import ui.common.UiMethods;
 import ui.component.WindowsBar;
 import ui.theme.Icons;
 import ui.theme.UiBuilder;
 import ui.theme.Sizes.Size;
+import common.RequestType;
 import common.error.Errors;
 import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
+import common.utility.UiConstants;
+import common.utility.UiMethods;
 
 /**
  * A simple dialog box that takes in an bug number and adds it to the current list of bugs that the UI is displaying.

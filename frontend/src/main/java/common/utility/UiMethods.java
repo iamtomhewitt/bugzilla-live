@@ -1,10 +1,11 @@
-package ui.common;
+package common.utility;
 
 import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONObject;
 
+import common.RequestType;
 import common.bug.Bug;
 import common.error.Errors;
 import common.error.JsonTransformationException;
@@ -12,7 +13,6 @@ import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
-import common.utility.JacksonAdapter;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -9,17 +9,17 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.FileChooser;
-import ui.common.RequestType;
-import ui.common.UiConstants;
-import ui.common.UiMethods;
 import ui.component.dialog.bug.AddBugListDialog;
 import ui.main.BugzillaLive;
 import ui.theme.Icons;
+import common.RequestType;
 import common.error.Errors;
 import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
+import common.utility.UiConstants;
+import common.utility.UiMethods;
 
 public class ListMenu
 {
