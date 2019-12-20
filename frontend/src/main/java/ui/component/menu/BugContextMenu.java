@@ -28,11 +28,11 @@ public class BugContextMenu
 		ContextMenu contextMenu = new ContextMenu();
 
 		String removeTitle 		= (bugNumbers.size() > 1) ? "Remove Bugs" : "Remove Bug" + bugNumbers.get(0);
-		String firefoxTitle 	= (bugNumbers.size() > 1) ? "Open Bugs in Bugzilla" : "Open Bug" + bugNumbers.get(0) + " in Bugzilla";
+		String browserTitle 	= (bugNumbers.size() > 1) ? "Open Bugs in Bugzilla" : "Open Bug" + bugNumbers.get(0) + " in Bugzilla";
 		String copyTitle 		= (bugNumbers.size() > 1) ? "Copy Bugs" : "Copy Bug" + bugNumbers.get(0);
 
 		MenuItem remove 		= new MenuItem(removeTitle);
-		MenuItem firefox 		= new MenuItem(firefoxTitle);
+		MenuItem browser 		= new MenuItem(browserTitle);
 		MenuItem copy 			= new MenuItem(copyTitle);
 		MenuItem comment 		= new MenuItem("Show Comments");
 		MenuItem changeStatus 	= new MenuItem("Change Bug Status");
@@ -72,8 +72,8 @@ public class BugContextMenu
 			MessageBox.showErrorIfResponseNot200(response);
 		});
 
-		firefox.setGraphic(new Icons().createBrowserIcon());
-		firefox.setOnAction(e ->
+		browser.setGraphic(new Icons().createBrowserIcon());
+		browser.setOnAction(e ->
 		{
 			for (String i : bugNumbers)
 			{
@@ -124,7 +124,7 @@ public class BugContextMenu
 			Utilities.copy(title);
 		});
 
-		contextMenu.getItems().addAll(remove, firefox, copy, comment, changeStatus);
+		contextMenu.getItems().addAll(remove, browser, copy, comment, changeStatus);
 
 		if (bugNumbers.size() == 1)
 		{

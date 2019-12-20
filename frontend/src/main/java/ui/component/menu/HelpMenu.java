@@ -22,6 +22,7 @@ public class HelpMenu
 		{
 			try 
 			{
+				// TODO open Github README
 				Utilities.openUrlInBrowser("");
 			} 
 			catch (IOException | URISyntaxException e1) 
