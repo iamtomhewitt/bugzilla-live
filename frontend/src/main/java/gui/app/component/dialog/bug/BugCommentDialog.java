@@ -19,7 +19,7 @@ import common.exception.JsonTransformationException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
-import common.utilities.JacksonAdapter;
+import common.utility.JacksonAdapter;
 import gui.app.common.GuiMethods;
 import gui.app.component.WindowsBar;
 import gui.app.component.dialog.AddCommentDialog;

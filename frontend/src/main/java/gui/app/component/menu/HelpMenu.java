@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 
 import common.exception.Errors;
 import common.message.MessageBox;
-import common.utilities.Utilities;
+import common.utility.Utilities;
 import gui.app.component.dialog.AboutDialog;
 import gui.app.theme.Icons;
 import javafx.scene.control.Menu;

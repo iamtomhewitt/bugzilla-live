@@ -19,7 +19,7 @@ import common.exception.Errors;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
-import common.utilities.Utilities;
+import common.utility.Utilities;
 
 public class BugContextMenu
 {

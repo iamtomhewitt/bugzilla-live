@@ -12,7 +12,7 @@ import common.exception.JsonTransformationException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
-import common.utilities.JacksonAdapter;
+import common.utility.JacksonAdapter;
 import gui.app.component.InformationPane;
 import gui.app.component.BugComparator;
 import gui.app.component.BugTable;
