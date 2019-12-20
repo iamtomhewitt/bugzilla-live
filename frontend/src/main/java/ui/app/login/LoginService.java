@@ -1,4 +1,4 @@
-package ui.login.service;
+package ui.app.login;
 
 import java.awt.Desktop;
 import java.io.IOException;

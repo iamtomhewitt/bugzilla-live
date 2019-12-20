@@ -1,4 +1,4 @@
-package ui.login.service;
+package ui.app.login;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
