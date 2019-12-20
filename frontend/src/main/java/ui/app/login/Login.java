@@ -41,7 +41,7 @@ import ui.app.theme.Sizes.Size;
  * @author Tom Hewitt
  * @since 2.0.0
  */
-public class LoginService extends Application
+public class Login extends Application
 {
 	private Stage stage;
 
