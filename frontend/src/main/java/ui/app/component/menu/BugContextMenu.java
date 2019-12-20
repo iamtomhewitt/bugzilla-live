@@ -41,7 +41,7 @@ public class BugContextMenu
 		remove.setGraphic(new Icons().createRemoveIcon());
 		remove.setOnAction(e ->
 		{
-			// Remove from the table view GUI
+			// Remove from the table view UI
 			List<Bug> bugsToRemove = new ArrayList<Bug>(table.getSelectionModel().getSelectedItems());
 
 			// Start at the end of the list and work backwards, otherwise the indexes of the

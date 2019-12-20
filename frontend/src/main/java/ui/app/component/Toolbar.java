@@ -6,7 +6,7 @@ import ui.app.component.menu.HelpMenu;
 import ui.app.component.menu.SortMenu;
 
 /** 
- * Custom menu bar at the top of the GUI such as File, Sort etc.
+ * Custom menu bar at the top of the UI such as File, Sort etc.
  * 
  * @author Tom Hewitt
 */

@@ -31,7 +31,7 @@ import common.message.MessageBox;
 import common.utility.Utilities;
 
 /**
- * The main table in the middle of the GUI that holds information about all the bugs.
+ * The main table in the middle of the UI that holds information about all the bugs.
  * 
  * @author Tom Hewitt
  */

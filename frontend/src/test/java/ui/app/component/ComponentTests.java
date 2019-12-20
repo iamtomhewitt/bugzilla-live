@@ -1,4 +1,4 @@
-package gui.app.component;
+package ui.app.component;
 
 import static org.junit.Assert.assertEquals;
 
