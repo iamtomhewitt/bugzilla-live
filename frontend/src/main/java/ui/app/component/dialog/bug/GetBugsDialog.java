@@ -11,7 +11,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import ui.app.common.GuiConstants;
+import ui.app.common.UiConstants;
 import ui.app.common.UiMethods;
 import ui.app.common.RequestType;
 import ui.app.component.WindowsBar;
@@ -71,8 +71,8 @@ public class GetBugsDialog extends UiBuilder
 		
 		myBugsButton.setOnAction(e ->
 		{
-			GuiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
-			GuiConstants.CURRENT_LIST_FILE = null;
+			UiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
+			UiConstants.CURRENT_LIST_FILE = null;
 			
 			try
 			{
@@ -117,13 +117,13 @@ public class GetBugsDialog extends UiBuilder
 			return;
 		}
 		
-		GuiConstants.CURRENT_LIST_FILE = null;
-		GuiConstants.REQUEST_TYPE = RequestType.USER;
+		UiConstants.CURRENT_LIST_FILE = null;
+		UiConstants.REQUEST_TYPE = RequestType.USER;
 				
 		String email = emailField.getText();
 		String response;
 		
-		if (!email.matches(GuiConstants.EMAIL_REGEX))
+		if (!email.matches(UiConstants.EMAIL_REGEX))
 		{
 			MessageBox.showDialog(Errors.INVALID_EMAIL);
 			return;

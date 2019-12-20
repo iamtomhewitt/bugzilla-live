@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import ui.app.common.GuiConstants;
+import ui.app.common.UiConstants;
 import ui.app.theme.Colours;
 import ui.app.theme.Fonts;
 
@@ -74,7 +74,7 @@ public class InformationPane
 			@Override
 			public void run()
 			{
-				String filename = GuiConstants.CURRENT_LIST_FILE == null ? "" : GuiConstants.CURRENT_LIST_FILE.split("\\.")[0] + " | ";
+				String filename = UiConstants.CURRENT_LIST_FILE == null ? "" : UiConstants.CURRENT_LIST_FILE.split("\\.")[0] + " | ";
 
 				title.setText(filename + BugTable.getInstance().getTableView().getItems().size() + " Bugs");
 

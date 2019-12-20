@@ -5,7 +5,7 @@ package ui.app.common;
  * 
  * @author Tom Hewitt
  */
-public class GuiConstants
+public class UiConstants
 {
 	public static String USER_EMAIL;
 	public static String PASSWORD;

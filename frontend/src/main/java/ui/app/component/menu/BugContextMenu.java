@@ -9,7 +9,7 @@ import java.util.List;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
-import ui.app.common.GuiConstants;
+import ui.app.common.UiConstants;
 import ui.app.component.InformationPane;
 import ui.app.component.dialog.bug.BugCommentDialog;
 import ui.app.component.dialog.bug.ChangeBugStatusDialog;
@@ -56,7 +56,7 @@ public class BugContextMenu
 			table.getSelectionModel().clearSelection();
 			
 			String numbers 	= String.join(",", bugNumbers);
-			String filename = GuiConstants.CURRENT_LIST_FILE.split("\\.")[0];
+			String filename = UiConstants.CURRENT_LIST_FILE.split("\\.")[0];
 			String response;
 			
 			try

@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import ui.app.common.GuiConstants;
+import ui.app.common.UiConstants;
 import ui.app.common.UiMethods;
 import ui.app.component.BugTable;
 import ui.app.component.InformationPane;
@@ -67,7 +67,7 @@ public class BugzillaLive
 
 		try
 		{
-			GuiConstants.PREFILTERED_BUG_DATA = JacksonAdapter.toJson(table.getTableView().getItems());
+			UiConstants.PREFILTERED_BUG_DATA = JacksonAdapter.toJson(table.getTableView().getItems());
 		}
 		catch (JsonTransformationException e1)
 		{
@@ -84,14 +84,14 @@ public class BugzillaLive
 				while (true)
 				{
 					// If for some reason the refresh time didn't get retrieved, just set to a normal value
-					if (GuiConstants.REFRESH_TIME == 0)
+					if (UiConstants.REFRESH_TIME == 0)
 					{
-						GuiConstants.REFRESH_TIME = 60;
+						UiConstants.REFRESH_TIME = 60;
 					}
 					
-					Thread.sleep(GuiConstants.REFRESH_TIME * 1000);
+					Thread.sleep(UiConstants.REFRESH_TIME * 1000);
 					
-					if (!GuiConstants.PAUSED) 
+					if (!UiConstants.PAUSED) 
 					{
 						UiMethods.requestBugRefresh();
 					}

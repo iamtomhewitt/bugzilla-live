@@ -9,7 +9,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.FileChooser;
-import ui.app.common.GuiConstants;
+import ui.app.common.UiConstants;
 import ui.app.common.UiMethods;
 import ui.app.common.RequestType;
 import ui.app.component.dialog.bug.AddBugListDialog;
@@ -103,7 +103,7 @@ public class ListMenu
 			
 			CheckMenuItem item = new CheckMenuItem(filename);
 
-			if (filename.equals(GuiConstants.CURRENT_LIST_FILE))
+			if (filename.equals(UiConstants.CURRENT_LIST_FILE))
 			{
 				item.setSelected(true);
 			}
@@ -159,8 +159,8 @@ public class ListMenu
 	
 	private void switchList(String filename) throws RequestException
 	{
-		GuiConstants.REQUEST_TYPE = RequestType.LIST;
-		GuiConstants.CURRENT_LIST_FILE = filename;
+		UiConstants.REQUEST_TYPE = RequestType.LIST;
+		UiConstants.CURRENT_LIST_FILE = filename;
 		UiMethods.clearTable();
 		UiMethods.requestRefreshOfBugsInList();
 	}

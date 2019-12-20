@@ -20,7 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import ui.app.common.GuiConstants;
+import ui.app.common.UiConstants;
 import ui.app.common.UiMethods;
 import ui.app.component.dialog.bug.AddBugDialog;
 import ui.app.component.dialog.bug.GetBugsDialog;
@@ -53,7 +53,7 @@ public class NavBar extends UiBuilder
 	{
 		CheckBox pause = new CheckBox("Pause Refresh");
 		pause.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, Fonts.FONT_SIZE_LARGE));
-		pause.setOnAction(e ->  GuiConstants.PAUSED = pause.isSelected());
+		pause.setOnAction(e ->  UiConstants.PAUSED = pause.isSelected());
 		
 		TextField filterField = createTextField("filter", Size.X_LARGE);
 		filterField.setMinHeight(fieldHeight);
@@ -68,7 +68,7 @@ public class NavBar extends UiBuilder
 				try
 				{
 					// Get the bugs from the prefiltered data, i.e the master set of bugs
-					ObservableList<Bug> data = FXCollections.observableArrayList(JacksonAdapter.fromJson(GuiConstants.PREFILTERED_BUG_DATA, Bug.class));
+					ObservableList<Bug> data = FXCollections.observableArrayList(JacksonAdapter.fromJson(UiConstants.PREFILTERED_BUG_DATA, Bug.class));
 
 					filteredData = new FilteredList<>(data, e -> true);
 					filteredData.setPredicate((Predicate<? super Bug>) bug ->
