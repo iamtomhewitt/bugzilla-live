@@ -36,13 +36,12 @@ import common.message.MessageBox;
 
 public class AboutDialog
 {
-	private Stage stage = new Stage();
-	private VBox vbox = new VBox();
-
 	public AboutDialog()
 	{
+		Stage stage = new Stage();
 		ScrollPane scroll = new ScrollPane();
-
+		VBox vbox = new VBox();
+		
 		String response;
 		try
 		{

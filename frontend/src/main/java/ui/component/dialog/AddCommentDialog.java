@@ -18,10 +18,10 @@ import common.message.MessageBox;
 
 public class AddCommentDialog extends UiBuilder
 {
-	private Stage stage = new Stage();
-
 	public AddCommentDialog(String number, double xPosition, Stage parentStage)
 	{		
+		Stage stage = new Stage();
+
 		TextArea comment = new TextArea("Enter your comment.");
 		comment.setMinHeight(300);
 		comment.setFont(Font.font(Fonts.FONT, FontPosture.REGULAR, Fonts.FONT_SIZE_NORMAL));
