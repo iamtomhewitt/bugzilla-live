@@ -1,6 +1,6 @@
 package common.utility;
 
-import common.RequestType;
+import common.message.RequestType;
 
 /**
  * Keeps track of specific information to be used when making requests.
