@@ -24,11 +24,6 @@ public class SortMenu
 
 		sortMenu.getItems().addAll(customSort, numberMenu, statusMenu, assignedMenu, severityMenu, summaryMenu, lastUpdatedMenu);
 	}
-	
-	public Menu getMenu()
-	{
-		return sortMenu;
-	}
 
 	private Menu createSortingSubMenu(String menuName, String sortingProperty)
 	{
@@ -41,5 +36,10 @@ public class SortMenu
 
 		m.getItems().addAll(ascending, descending);
 		return m;
+	}
+	
+	public Menu getMenu()
+	{
+		return sortMenu;
 	}
 }
