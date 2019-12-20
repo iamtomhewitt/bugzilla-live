@@ -3,6 +3,8 @@ package common.message;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import common.error.RequestException;
+
 public class Endpoints
 {
 	private static final String localhost = "http://localhost:";
@@ -10,24 +12,52 @@ public class Endpoints
 
 	public static final String GITHUB_RELEASES = "http://api.github.com/repos/iamtomhewitt/bugzilla-live/releases";
 
-	public static final String LIST_CONTENTS(String listName) throws UnsupportedEncodingException
+	public static final String LIST_CONTENTS(String listName) throws RequestException
 	{
-		return String.format(localhost + port + "/list/%s/contents", URLEncoder.encode(listName, "UTF-8"));
+		try
+		{
+			return String.format(localhost + port + "/list/%s/contents", URLEncoder.encode(listName, "UTF-8"));
+		} 
+		catch (UnsupportedEncodingException e)
+		{
+			throw new RequestException(e.getMessage());
+		}
 	}
 
-	public static final String LIST_MODIFY(String filename, String add, String remove) throws UnsupportedEncodingException
+	public static final String LIST_MODIFY(String filename, String add, String remove) throws RequestException
 	{
-		return String.format(localhost + port + "/list/modify?name=%s&add=%s&remove=%s", URLEncoder.encode(filename, "UTF-8"), add, remove);
+		try
+		{
+			return String.format(localhost + port + "/list/modify?name=%s&add=%s&remove=%s", URLEncoder.encode(filename, "UTF-8"), add, remove);
+		} 
+		catch (UnsupportedEncodingException e)
+		{
+			throw new RequestException(e.getMessage());
+		}
 	}
 
-	public static final String LIST_ADD(String filename, String contents) throws UnsupportedEncodingException
+	public static final String LIST_ADD(String filename, String contents) throws RequestException
 	{
-		return String.format(localhost + port + "/list/add?name=%s&contents=%s", URLEncoder.encode(filename, "UTF-8"), URLEncoder.encode(contents, "UTF-8"));
+		try
+		{
+			return String.format(localhost + port + "/list/add?name=%s&contents=%s", URLEncoder.encode(filename, "UTF-8"), URLEncoder.encode(contents, "UTF-8"));
+		} 
+		catch (UnsupportedEncodingException e)
+		{
+			throw new RequestException(e.getMessage());
+		}
 	}
 
-	public static final String LIST_DELETE(String filename) throws UnsupportedEncodingException
+	public static final String LIST_DELETE(String filename) throws RequestException
 	{
-		return String.format(localhost + port + "/list/delete?name=%s", URLEncoder.encode(filename, "UTF-8"));
+		try
+		{
+			return String.format(localhost + port + "/list/delete?name=%s", URLEncoder.encode(filename, "UTF-8"));
+		} 
+		catch (UnsupportedEncodingException e)
+		{
+			throw new RequestException(e.getMessage());
+		}
 	}
 
 	public static final String LISTS = localhost + port + "/list/lists";

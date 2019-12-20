@@ -6,8 +6,8 @@ import java.io.UnsupportedEncodingException;
 
 import org.junit.Test;
 
-public class MessageTests {
-	
+public class MessageTests 
+{	
 	@Test
 	public void correctGithubReleasesEndpoint()
 	{
@@ -15,25 +15,25 @@ public class MessageTests {
 	}
 	
 	@Test
-	public void correctListContentsEndpoint() throws UnsupportedEncodingException
+	public void correctListContentsEndpoint() throws Exception
 	{
 		assertEquals("http://localhost:3001/list/test/contents", Endpoints.LIST_CONTENTS("test"));
 	}
 	
 	@Test
-	public void correctListModifyEndpoint() throws UnsupportedEncodingException
+	public void correctListModifyEndpoint() throws Exception
 	{
 		assertEquals("http://localhost:3001/list/modify?name=test&add=1&remove=2", Endpoints.LIST_MODIFY("test", "1", "2"));
 	}
 
 	@Test
-	public void correctListAddEndpoint() throws UnsupportedEncodingException
+	public void correctListAddEndpoint() throws Exception
 	{
 		assertEquals("http://localhost:3001/list/add?name=test&contents=12345", Endpoints.LIST_ADD("test", "12345"));
 	}
 	
 	@Test
-	public void correctListDeleteEndpoint() throws UnsupportedEncodingException
+	public void correctListDeleteEndpoint() throws Exception
 	{
 		assertEquals("http://localhost:3001/list/delete?name=test", Endpoints.LIST_DELETE("test"));
 	}

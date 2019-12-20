@@ -10,6 +10,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.FileChooser;
 import common.error.Errors;
+import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
@@ -46,7 +47,7 @@ public class ListMenu
 			{
 				switchList(file.getName());
 			} 
-			catch (Exception ex)
+			catch (RequestException ex)
 			{
 				MessageBox.showExceptionDialog(Errors.REQUEST, ex);
 				return;
@@ -84,7 +85,7 @@ public class ListMenu
 		});
 	}
 	
-	private void populateMenuWithLists(Menu menu, boolean changeListMenu) throws Exception
+	private void populateMenuWithLists(Menu menu, boolean changeListMenu) throws RequestException
 	{
 		String response = ApiRequestor.request(Endpoints.LISTS);
 		
@@ -149,14 +150,14 @@ public class ListMenu
 		}
 	}
 			
-	private void deleteList(String filename) throws Exception
+	private void deleteList(String filename) throws RequestException
 	{
 		String name = filename.split("\\.")[0];
 		String response = ApiRequestor.request(Endpoints.LIST_DELETE(name));
 		MessageBox.showErrorIfResponseNot200(response);
 	}
 	
-	private void switchList(String filename) throws Exception
+	private void switchList(String filename) throws RequestException
 	{
 		GuiConstants.REQUEST_TYPE = RequestType.LIST;
 		GuiConstants.CURRENT_LIST_FILE = filename;

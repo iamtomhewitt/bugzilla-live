@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import common.bug.Bug;
 import common.error.Errors;
 import common.error.JsonTransformationException;
+import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
@@ -80,7 +81,7 @@ public class GuiMethods
 	/**
 	 * Requests bugs for the user currently logged in.
 	 */
-	public static void requestRefreshOfCurrentUserBugs() throws Exception
+	public static void requestRefreshOfCurrentUserBugs() throws RequestException
 	{
 		GuiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
 		GuiConstants.CURRENT_LIST_FILE = null;
@@ -99,30 +100,23 @@ public class GuiMethods
 	/**
 	 * Sends a request to the backend to refresh the bugs contained in the active list. Call this method when adding or removing a bug from a list, or when switching lists.
 	 */
-	public static void requestRefreshOfBugsInList() throws Exception
+	public static void requestRefreshOfBugsInList() throws RequestException
 	{
-		try
+		// Get the current bug numbers in the file
+		String response = ApiRequestor.request(Endpoints.LIST_CONTENTS(GuiConstants.CURRENT_LIST_FILE.split("\\.")[0]));
+		String content = new JSONObject(response).getString("contents");
+
+		GuiConstants.REQUEST_TYPE = RequestType.LIST;
+
+		if (MessageBox.showErrorIfResponseNot200(response))
 		{
-			// Get the current bug numbers in the file
-			String response = ApiRequestor.request(Endpoints.LIST_CONTENTS(GuiConstants.CURRENT_LIST_FILE.split("\\.")[0]));
-			String content = new JSONObject(response).getString("contents");
+			return;
+		}
 
-			GuiConstants.REQUEST_TYPE = RequestType.LIST;
-
-			if (MessageBox.showErrorIfResponseNot200(response))
-			{
-				return;
-			}
-
-			if (!content.isEmpty())
-			{
-				response = ApiRequestor.request(Endpoints.BUGS_NUMBERS(content));
-				updateBugsInTable(response);
-			}
-		} 
-		catch (UnsupportedEncodingException e)
+		if (!content.isEmpty())
 		{
-			MessageBox.showExceptionDialog(Errors.REQUEST, e);
+			response = ApiRequestor.request(Endpoints.BUGS_NUMBERS(content));
+			updateBugsInTable(response);
 		}
 	}
 
@@ -131,33 +125,26 @@ public class GuiMethods
 	 * NB: Since filtering introduced, now we must use the prefiltered Bugs, otherwise the refresh request will just send a list of the Bugs
 	 * that have been filtered. 
 	 */
-	public static void requestRefreshOfBugsInTable() throws Exception
-	{	
-		try
+	public static void requestRefreshOfBugsInTable() throws RequestException, JsonTransformationException
+	{
+		String numbers = "";
+		List<Bug> bugs = JacksonAdapter.fromJson(GuiConstants.PREFILTERED_BUG_DATA, Bug.class);
+
+		for (Bug bug : bugs)
 		{
-			String numbers = "";
-			List<Bug> bugs = JacksonAdapter.fromJson(GuiConstants.PREFILTERED_BUG_DATA, Bug.class);
-			
-			for (Bug bug : bugs)
+			numbers += bug.getId() + ",";
+		}
+
+		if (!numbers.isEmpty())
+		{
+			String response = ApiRequestor.request(Endpoints.BUGS_NUMBERS(numbers));
+
+			if (MessageBox.showErrorIfResponseNot200(response))
 			{
-				numbers += bug.getId() + ",";
+				return;
 			}
 
-			if (!numbers.isEmpty())
-			{
-				String response = ApiRequestor.request(Endpoints.BUGS_NUMBERS(numbers));
-				
-				if(MessageBox.showErrorIfResponseNot200(response))
-				{
-					return;
-				}
-				
-				updateBugsInTable(response);
-			}
-		}
-		catch (JsonTransformationException e)
-		{
-			MessageBox.showExceptionDialog(Errors.REFRESH, e);
+			updateBugsInTable(response);
 		}
 	}
 

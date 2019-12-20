@@ -29,6 +29,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import common.error.Errors;
+import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
@@ -47,7 +48,7 @@ public class AboutDialog
 		{
 			response = ApiRequestor.request(Endpoints.GITHUB_RELEASES);
 		} 
-		catch (Exception e)
+		catch (RequestException e)
 		{
 			MessageBox.showExceptionDialog(Errors.REQUEST, e);
 			return;

@@ -16,6 +16,7 @@ import common.bug.BugAttachment;
 import common.bug.BugComment;
 import common.error.Errors;
 import common.error.JsonTransformationException;
+import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
@@ -97,18 +98,9 @@ public class BugCommentDialog extends UiBuilder
 		scrollPane.setContent(vbox);
 	}
 
-	private void populateAttachments(String number) throws JsonTransformationException
+	private void populateAttachments(String number) throws JsonTransformationException, RequestException
 	{
-		String response;
-		try
-		{
-			response = ApiRequestor.request(Endpoints.BUGS_ATTACHMENTS(number));
-		} 
-		catch (Exception e)
-		{
-			MessageBox.showExceptionDialog(Errors.REQUEST, e);
-			return;
-		}
+		String response = ApiRequestor.request(Endpoints.BUGS_ATTACHMENTS(number));
 		
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{
@@ -153,18 +145,9 @@ public class BugCommentDialog extends UiBuilder
 		attachmentsVbox.setStyle("-fx-background-color: white");
 	}
 
-	private void populateComments(String number) throws JsonTransformationException
+	private void populateComments(String number) throws JsonTransformationException, RequestException
 	{
-		String response;
-		try
-		{
-			response = ApiRequestor.request(Endpoints.BUGS_COMMENTS(number));
-		} 
-		catch (Exception e)
-		{
-			MessageBox.showExceptionDialog(Errors.REQUEST, e);
-			return;
-		}
+		String response = ApiRequestor.request(Endpoints.BUGS_COMMENTS(number));
 
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{

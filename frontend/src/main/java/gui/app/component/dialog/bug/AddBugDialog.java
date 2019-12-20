@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import common.error.Errors;
+import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
@@ -41,12 +42,29 @@ public class AddBugDialog extends UiBuilder
 		{
 			if (e.getCode() == KeyCode.ENTER)
 			{
-				add(input);
+				try
+				{
+					add(input);
+				}
+				catch (RequestException e1)
+				{
+					MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+				}
 			}
 		});
 		
 		Button addButton = createButton("Add", Size.SMALL, ButtonType.PRIMARY);
-		addButton.setOnAction(e -> add(input));
+		addButton.setOnAction(e -> 
+		{
+			try
+			{
+				add(input);
+			}
+			catch (RequestException e1)
+			{
+				MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+			}
+		});
 				
 		buttons.getChildren().addAll(addButton);
 		buttons.setSpacing(10);
@@ -68,37 +86,32 @@ public class AddBugDialog extends UiBuilder
 		stage.centerOnScreen();
 	}
 	
-	private void add(TextField input)
+	private void add(TextField input) throws RequestException
 	{
-		try
+		String filename = GuiConstants.CURRENT_LIST_FILE.split("\\.")[0];
+		String number = input.getText();
+
+		if (!number.matches(GuiConstants.BUG_REGEX))
 		{
-			String filename = GuiConstants.CURRENT_LIST_FILE.split("\\.")[0];
-			String number = input.getText();
-			
-			if (!number.matches(GuiConstants.BUG_REGEX))
-			{
-				MessageBox.showDialog("Bug '" + number + "'" + Errors.INVALID_BUG);
-				return;
-			}
-			if (GuiConstants.REQUEST_TYPE.equals(RequestType.USER))
-			{
-				MessageBox.showDialog("Cannot add a bug as a list is not being used.");
-				return;
-			}
-			if (!number.isEmpty())
-			{
-				String response = ApiRequestor.request(Endpoints.LIST_MODIFY(filename, number, ""));
-				
-				MessageBox.showErrorIfResponseNot200(response);
-				
-				// Now refresh the list to pick up the new bug
-				GuiMethods.requestRefreshOfBugsInList();
-				stage.close();
-			}
+			MessageBox.showDialog("Bug '" + number + "'" + Errors.INVALID_BUG);
+			return;
 		}
-		catch (Exception ex)
+		
+		if (GuiConstants.REQUEST_TYPE.equals(RequestType.USER))
 		{
-			MessageBox.showExceptionDialog(Errors.GENERAL, ex);
+			MessageBox.showDialog("Cannot add a bug as a list is not being used.");
+			return;
+		}
+		
+		if (!number.isEmpty())
+		{
+			String response = ApiRequestor.request(Endpoints.LIST_MODIFY(filename, number, ""));
+
+			MessageBox.showErrorIfResponseNot200(response);
+
+			// Now refresh the list to pick up the new bug
+			GuiMethods.requestRefreshOfBugsInList();
+			stage.close();
 		}
 	}	
 }

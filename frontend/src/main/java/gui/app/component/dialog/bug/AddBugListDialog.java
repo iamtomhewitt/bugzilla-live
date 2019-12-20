@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import common.error.Errors;
+import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
@@ -36,7 +37,17 @@ public class AddBugListDialog extends UiBuilder
 		TextField bugField = createTextField("number(s)", Size.LARGE);
 				
 		Button createButton = createButton("Create", Size.SMALL, ButtonType.PRIMARY);
-		createButton.setOnAction(e -> add(bugField, fileNameField));
+		createButton.setOnAction(e -> 
+		{
+			try
+			{
+				add(bugField, fileNameField);
+			}
+			catch (RequestException e1)
+			{
+				MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+			}
+		});
 		
 		HBox buttons = new HBox(createButton);
 		buttons.setAlignment(Pos.CENTER);
@@ -46,7 +57,14 @@ public class AddBugListDialog extends UiBuilder
 		{
 			if (e.getCode() == KeyCode.ENTER)
 			{
-				add(bugField, fileNameField);
+				try
+				{
+					add(bugField, fileNameField);
+				}
+				catch (RequestException e1)
+				{
+					MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+				}
 			}
 		});
 		
@@ -54,7 +72,14 @@ public class AddBugListDialog extends UiBuilder
 		{
 			if (e.getCode() == KeyCode.ENTER)
 			{
-				add(bugField, fileNameField);
+				try
+				{
+					add(bugField, fileNameField);
+				}
+				catch (RequestException e1)
+				{
+					MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+				}
 			}
 		});
 		
@@ -73,34 +98,27 @@ public class AddBugListDialog extends UiBuilder
 		stage.centerOnScreen();
 	}
 	
-	private void add(TextField bugField, TextField fileNameField)
+	private void add(TextField bugField, TextField fileNameField) throws RequestException
 	{
-		try
+		if (!bugField.getText().matches(GuiConstants.BUG_REGEX))
 		{
-			if (!bugField.getText().matches(GuiConstants.BUG_REGEX))
-			{
-				MessageBox.showDialog("Bug '" + bugField.getText() + "'" + Errors.INVALID_BUG);
-				return;
-			}
-			if (bugField.getText().isEmpty() || fileNameField.getText().isEmpty())
-			{
-				MessageBox.showDialog(Errors.MISSING_FIELD);
-				return;
-			}
-			
-			String response = ApiRequestor.request(Endpoints.LIST_ADD(fileNameField.getText(), bugField.getText()));
-			
-			MessageBox.showErrorIfResponseNot200(response);
-			
-			GuiMethods.clearTable();
-			GuiConstants.CURRENT_LIST_FILE = fileNameField.getText();
-			GuiMethods.requestRefreshOfBugsInList();
+			MessageBox.showDialog("Bug '" + bugField.getText() + "'" + Errors.INVALID_BUG);
+			return;
+		}
+		if (bugField.getText().isEmpty() || fileNameField.getText().isEmpty())
+		{
+			MessageBox.showDialog(Errors.MISSING_FIELD);
+			return;
+		}
 
-			stage.close();
-		}
-		catch (Exception e)
-		{
-			MessageBox.showExceptionDialog(Errors.CREATE_LIST, e);
-		}
+		String response = ApiRequestor.request(Endpoints.LIST_ADD(fileNameField.getText(), bugField.getText()));
+
+		MessageBox.showErrorIfResponseNot200(response);
+
+		GuiMethods.clearTable();
+		GuiConstants.CURRENT_LIST_FILE = fileNameField.getText();
+		GuiMethods.requestRefreshOfBugsInList();
+
+		stage.close();
 	}
 }

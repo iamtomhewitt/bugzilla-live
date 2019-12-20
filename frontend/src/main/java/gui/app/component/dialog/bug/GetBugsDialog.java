@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import common.error.Errors;
+import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
@@ -41,7 +42,14 @@ public class GetBugsDialog extends UiBuilder
 			if (e.getCode() == KeyCode.ENTER)
 			{
 				stage.close();
-				execute();
+				try
+				{
+					execute();
+				}
+				catch (RequestException e1)
+				{
+					MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+				}
 			}
 		});
 
@@ -51,7 +59,14 @@ public class GetBugsDialog extends UiBuilder
 		getBugsButton.setOnAction(e -> 
 		{
 			stage.close();
-			execute();
+			try
+			{
+				execute();
+			}
+			catch (RequestException e1)
+			{
+				MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+			}
 		});
 		
 		myBugsButton.setOnAction(e ->
@@ -94,7 +109,7 @@ public class GetBugsDialog extends UiBuilder
 
 	}
 	
-	private void execute()
+	private void execute() throws RequestException
 	{
 		if (emailField.getText().isEmpty())
 		{
@@ -113,24 +128,15 @@ public class GetBugsDialog extends UiBuilder
 			MessageBox.showDialog(Errors.INVALID_EMAIL);
 			return;
 		}
-		
-		try
-		{
-			GuiMethods.clearTable();
+		GuiMethods.clearTable();
 
-			response = ApiRequestor.request(Endpoints.BUGS_EMAIL(email));
-			
-			if (MessageBox.showErrorIfResponseNot200(response))
-			{
-				return;
-			}
-			
-			GuiMethods.updateBugsInTable(response);
-		} 
-		catch (Exception e)
+		response = ApiRequestor.request(Endpoints.BUGS_EMAIL(email));
+
+		if (MessageBox.showErrorIfResponseNot200(response))
 		{
-			MessageBox.showExceptionDialog(Errors.REQUEST, e);
 			return;
 		}
+
+		GuiMethods.updateBugsInTable(response);
 	}
 }
