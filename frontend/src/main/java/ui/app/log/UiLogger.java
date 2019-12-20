@@ -6,26 +6,26 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
 
-import ui.app.log.GuiLogger;
+import ui.app.log.UiLogger;
 
 /**
  * A simple logger that writes to file.
  * @since 2.0.0
  */
-public class GuiLogger
+public class UiLogger
 {
 	private String directory = "logs/";
 	private String filename = "log.log";
 	private File logFile;
 	
-	private static GuiLogger instance = new GuiLogger();
+	private static UiLogger instance = new UiLogger();
 
-	public static GuiLogger getInstance()
+	public static UiLogger getInstance()
 	{
 		return instance;
 	}
 
-	public GuiLogger()
+	public UiLogger()
 	{
 		this.logFile = new File(directory + filename);
 	}

@@ -19,7 +19,7 @@ import ui.app.component.BugTable;
 import ui.app.component.InformationPane;
 import ui.app.component.NavBar;
 import ui.app.component.Toolbar;
-import ui.app.log.GuiLogger;
+import ui.app.log.UiLogger;
 import ui.app.theme.Fonts;
 import ui.app.theme.Icons;
 
@@ -37,7 +37,7 @@ public class BugzillaLive
 	
 	public BugzillaLive()
 	{
-		GuiLogger.getInstance().print("Starting Bugzilla Live...");
+		UiLogger.getInstance().print("Starting Bugzilla Live...");
 		
 		Stage primaryStage = new Stage();
 		BugzillaLive.mainStage = primaryStage;

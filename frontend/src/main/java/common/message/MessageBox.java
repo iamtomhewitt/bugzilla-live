@@ -15,7 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
-import ui.app.log.GuiLogger;
+import ui.app.log.UiLogger;
 import ui.app.theme.Icons;
 
 /**
@@ -29,7 +29,7 @@ public class MessageBox
 {
 	public static void showExceptionDialog(String message, Exception e)
 	{
-		GuiLogger.getInstance().printStackTrace(e);
+		UiLogger.getInstance().printStackTrace(e);
 		
 		Platform.runLater(new Runnable()
 		{

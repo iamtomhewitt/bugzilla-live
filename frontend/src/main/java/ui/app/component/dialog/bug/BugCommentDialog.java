@@ -43,7 +43,7 @@ import javafx.stage.Stage;
 import ui.app.common.UiMethods;
 import ui.app.component.WindowsBar;
 import ui.app.component.dialog.AddCommentDialog;
-import ui.app.log.GuiLogger;
+import ui.app.log.UiLogger;
 import ui.app.theme.Fonts;
 import ui.app.theme.Icons;
 import ui.app.theme.UiBuilder;
@@ -237,8 +237,8 @@ public class BugCommentDialog extends UiBuilder
 		catch (ParseException e)
 		{
 			date = null;
-			GuiLogger.getInstance().print("Couldn't parse date for string '" + time + "'");
-			GuiLogger.getInstance().printStackTrace(e);
+			UiLogger.getInstance().print("Couldn't parse date for string '" + time + "'");
+			UiLogger.getInstance().printStackTrace(e);
 		}
 
 		if (date != null)
