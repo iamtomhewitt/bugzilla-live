@@ -5,9 +5,9 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import javafx.scene.paint.Color;
-import ui.app.theme.Colours;
-import ui.app.theme.Sizes;
-import ui.app.theme.Sizes.Size;
+import ui.theme.Colours;
+import ui.theme.Sizes;
+import ui.theme.Sizes.Size;
 
 public class ThemeTests
 {
