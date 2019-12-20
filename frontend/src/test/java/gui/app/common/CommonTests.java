@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import ui.app.common.GuiConstants;
+import ui.app.common.UiConstants;
 import ui.app.common.UiMethods;
 
 public class CommonTests
@@ -15,8 +15,8 @@ public class CommonTests
 		String number = "12345";
 		String number2 = "12a34.5";
 
-		boolean match = number.matches(GuiConstants.BUG_REGEX);
-		boolean match2 = number2.matches(GuiConstants.BUG_REGEX);
+		boolean match = number.matches(UiConstants.BUG_REGEX);
+		boolean match2 = number2.matches(UiConstants.BUG_REGEX);
 		
 		assertEquals(true, match);
 		assertEquals(false, match2);

@@ -11,7 +11,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import ui.app.common.GuiConstants;
+import ui.app.common.UiConstants;
 import ui.app.common.UiMethods;
 import ui.app.common.RequestType;
 import ui.app.component.WindowsBar;
@@ -88,16 +88,16 @@ public class AddBugDialog extends UiBuilder
 	
 	private void add(TextField input) throws RequestException
 	{
-		String filename = GuiConstants.CURRENT_LIST_FILE.split("\\.")[0];
+		String filename = UiConstants.CURRENT_LIST_FILE.split("\\.")[0];
 		String number = input.getText();
 
-		if (!number.matches(GuiConstants.BUG_REGEX))
+		if (!number.matches(UiConstants.BUG_REGEX))
 		{
 			MessageBox.showDialog("Bug '" + number + "'" + Errors.INVALID_BUG);
 			return;
 		}
 		
-		if (GuiConstants.REQUEST_TYPE.equals(RequestType.USER))
+		if (UiConstants.REQUEST_TYPE.equals(RequestType.USER))
 		{
 			MessageBox.showDialog("Cannot add a bug as a list is not being used.");
 			return;

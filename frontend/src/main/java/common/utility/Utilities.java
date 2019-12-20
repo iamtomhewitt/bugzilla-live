@@ -10,7 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import ui.app.common.GuiConstants;
+import ui.app.common.UiConstants;
 
 /**
  * A class of useful methods.
@@ -27,7 +27,7 @@ public class Utilities
 
 	public static void openBugInBrowser(String number) throws IOException, URISyntaxException
 	{
-		Desktop.getDesktop().browse(new URI(GuiConstants.BUGZILLA_URL + "/show_bug.cgi?id=" + number));
+		Desktop.getDesktop().browse(new URI(UiConstants.BUGZILLA_URL + "/show_bug.cgi?id=" + number));
 	}
 
 	/**

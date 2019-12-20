@@ -16,7 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import ui.app.common.GuiConstants;
+import ui.app.common.UiConstants;
 import ui.app.component.WindowsBar;
 import ui.app.theme.Icons;
 import ui.app.theme.UiBuilder;
@@ -36,7 +36,7 @@ public class RefreshRateDialog extends UiBuilder
 		// Show the currently selected rate first
 		for (String s : values)
 		{
-			if (String.valueOf(GuiConstants.REFRESH_TIME).equals(s))
+			if (String.valueOf(UiConstants.REFRESH_TIME).equals(s))
 			{
 				combo.getSelectionModel().select(values.indexOf(s));
 			}
@@ -61,7 +61,7 @@ public class RefreshRateDialog extends UiBuilder
 				return;
 			}
 
-			GuiConstants.REFRESH_TIME = Integer.valueOf(combo.getSelectionModel().getSelectedItem());
+			UiConstants.REFRESH_TIME = Integer.valueOf(combo.getSelectionModel().getSelectedItem());
 			stage.close();
 		});
 		

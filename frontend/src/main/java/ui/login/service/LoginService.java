@@ -30,7 +30,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import ui.app.common.GuiConstants;
+import ui.app.common.UiConstants;
 import ui.app.main.BugzillaLive;
 import ui.app.theme.Fonts;
 import ui.app.theme.Sizes.Size;
@@ -68,7 +68,7 @@ public class LoginService extends Application
 		JSONObject json = new JSONObject(response);
 		JSONObject config = new JSONObject(json.getString("config"));
 		
-		GuiConstants.BUGZILLA_URL = config.getString("bugzillaUrl");
+		UiConstants.BUGZILLA_URL = config.getString("bugzillaUrl");
 				
 		Label title = uiBuilder.createTitle("Bugzilla LIVE", Fonts.FONT_SIZE_X_SUPER);
 		ImageView logo = uiBuilder.createLogo();
@@ -81,7 +81,7 @@ public class LoginService extends Application
 		{
 			try
 			{				
-				Desktop.getDesktop().browse(new URI(GuiConstants.BUGZILLA_URL+"/userprefs.cgi?tab=apikey"));
+				Desktop.getDesktop().browse(new URI(UiConstants.BUGZILLA_URL+"/userprefs.cgi?tab=apikey"));
 			} 
 			catch (IOException | URISyntaxException ex)
 			{
@@ -163,7 +163,7 @@ public class LoginService extends Application
 	 */
 	private void execute()
 	{
-		if (!emailInput.getText().matches(GuiConstants.EMAIL_REGEX))
+		if (!emailInput.getText().matches(UiConstants.EMAIL_REGEX))
 		{
 			MessageBox.showDialog(Errors.INVALID_EMAIL);
 			return;
@@ -193,7 +193,7 @@ public class LoginService extends Application
 				MessageBox.showErrorIfResponseNot200(response);
 			}
 
-			GuiConstants.USER_EMAIL = emailInput.getText();
+			UiConstants.USER_EMAIL = emailInput.getText();
 			
 			new BugzillaLive();
 			stage.close();

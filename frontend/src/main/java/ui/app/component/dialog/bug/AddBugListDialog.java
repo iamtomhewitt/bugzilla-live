@@ -9,7 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import ui.app.common.GuiConstants;
+import ui.app.common.UiConstants;
 import ui.app.common.UiMethods;
 import ui.app.component.WindowsBar;
 import ui.app.theme.Icons;
@@ -99,7 +99,7 @@ public class AddBugListDialog extends UiBuilder
 	
 	private void add(TextField bugField, TextField fileNameField) throws RequestException
 	{
-		if (!bugField.getText().matches(GuiConstants.BUG_REGEX))
+		if (!bugField.getText().matches(UiConstants.BUG_REGEX))
 		{
 			MessageBox.showDialog("Bug '" + bugField.getText() + "'" + Errors.INVALID_BUG);
 			return;
@@ -115,7 +115,7 @@ public class AddBugListDialog extends UiBuilder
 		MessageBox.showErrorIfResponseNot200(response);
 
 		UiMethods.clearTable();
-		GuiConstants.CURRENT_LIST_FILE = fileNameField.getText();
+		UiConstants.CURRENT_LIST_FILE = fileNameField.getText();
 		UiMethods.requestRefreshOfBugsInList();
 
 		stage.close();

@@ -56,7 +56,7 @@ public class UiMethods
 	 */
 	public static void requestBugRefresh() throws Exception
 	{						
-		switch(GuiConstants.REQUEST_TYPE)
+		switch(UiConstants.REQUEST_TYPE)
 		{
 			case CURRENT_USER:
 				requestRefreshOfCurrentUserBugs();
@@ -71,7 +71,7 @@ public class UiMethods
 				break;
 
 			default:
-				MessageBox.showDialog(Errors.GENERAL + "\nIncorrect REQUEST_TYPE: " + GuiConstants.REQUEST_TYPE);
+				MessageBox.showDialog(Errors.GENERAL + "\nIncorrect REQUEST_TYPE: " + UiConstants.REQUEST_TYPE);
 				break;
 		}
 	}
@@ -81,10 +81,10 @@ public class UiMethods
 	 */
 	public static void requestRefreshOfCurrentUserBugs() throws RequestException
 	{
-		GuiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
-		GuiConstants.CURRENT_LIST_FILE = null;
+		UiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
+		UiConstants.CURRENT_LIST_FILE = null;
 		
-		String response = ApiRequestor.request(Endpoints.BUGS_EMAIL(GuiConstants.USER_EMAIL));
+		String response = ApiRequestor.request(Endpoints.BUGS_EMAIL(UiConstants.USER_EMAIL));
 		
 		if(MessageBox.showErrorIfResponseNot200(response))
 		{
@@ -101,10 +101,10 @@ public class UiMethods
 	public static void requestRefreshOfBugsInList() throws RequestException
 	{
 		// Get the current bug numbers in the file
-		String response = ApiRequestor.request(Endpoints.LIST_CONTENTS(GuiConstants.CURRENT_LIST_FILE.split("\\.")[0]));
+		String response = ApiRequestor.request(Endpoints.LIST_CONTENTS(UiConstants.CURRENT_LIST_FILE.split("\\.")[0]));
 		String content = new JSONObject(response).getString("contents");
 
-		GuiConstants.REQUEST_TYPE = RequestType.LIST;
+		UiConstants.REQUEST_TYPE = RequestType.LIST;
 
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{
@@ -126,7 +126,7 @@ public class UiMethods
 	public static void requestRefreshOfBugsInTable() throws RequestException, JsonTransformationException
 	{
 		String numbers = "";
-		List<Bug> bugs = JacksonAdapter.fromJson(GuiConstants.PREFILTERED_BUG_DATA, Bug.class);
+		List<Bug> bugs = JacksonAdapter.fromJson(UiConstants.PREFILTERED_BUG_DATA, Bug.class);
 
 		for (Bug bug : bugs)
 		{
@@ -157,7 +157,7 @@ public class UiMethods
 			ObservableList<Bug> bugs = FXCollections.observableArrayList(JacksonAdapter.fromJson(jsonObject.get("bugs").toString(), Bug.class));
 			FXCollections.reverse(bugs);
 			
-			GuiConstants.PREFILTERED_BUG_DATA = JacksonAdapter.toJson(bugs);
+			UiConstants.PREFILTERED_BUG_DATA = JacksonAdapter.toJson(bugs);
 			BugTable.getInstance().getTableView().getItems().clear();
 			BugTable.getInstance().getTableView().setItems(bugs);
 			BugTable.getInstance().getTableView().refresh();
