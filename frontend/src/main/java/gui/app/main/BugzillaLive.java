@@ -6,6 +6,7 @@ import gui.app.common.GuiConstants;
 import gui.app.common.GuiMethods;
 import gui.app.component.BugTable;
 import gui.app.component.Toolbar;
+import gui.app.log.GuiLogger;
 import gui.app.theme.Fonts;
 import gui.app.theme.Icons;
 import common.exception.Errors;
@@ -36,6 +37,8 @@ public class BugzillaLive
 	
 	public BugzillaLive()
 	{
+		GuiLogger.getInstance().print("Starting Bugzilla Live...");
+		
 		Stage primaryStage = new Stage();
 		BugzillaLive.mainStage = primaryStage;
 		
