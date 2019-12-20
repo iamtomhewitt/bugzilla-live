@@ -16,7 +16,7 @@ public class UiConstants
 	public static String PREFILTERED_BUG_DATA;
 	public static String BUG_REGEX				= "[0-9]+(,[0-9]+)*";
 	public static String EMAIL_REGEX			= "^(.+)@(.+)$";
-	public static String CURRENT_LIST_FILE;
+	public static String CURRENT_LIST;
 		
 	public static int REFRESH_TIME;
 	

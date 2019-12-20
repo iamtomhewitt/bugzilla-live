@@ -14,6 +14,7 @@ import ui.main.BugzillaLive;
 import ui.theme.Icons;
 import common.RequestType;
 import common.error.Errors;
+import common.error.JsonTransformationException;
 import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
@@ -50,6 +51,11 @@ public class ListMenu
 			catch (RequestException ex)
 			{
 				MessageBox.showExceptionDialog(Errors.REQUEST, ex);
+				return;
+			} 
+			catch (JsonTransformationException e1)
+			{
+				MessageBox.showExceptionDialog(Errors.JACKSON_FROM, e1);
 				return;
 			}
 		});
@@ -103,7 +109,7 @@ public class ListMenu
 			
 			CheckMenuItem item = new CheckMenuItem(filename);
 
-			if (filename.equals(UiConstants.CURRENT_LIST_FILE))
+			if (filename.equals(UiConstants.CURRENT_LIST))
 			{
 				item.setSelected(true);
 			}
@@ -157,10 +163,10 @@ public class ListMenu
 		MessageBox.showErrorIfResponseNot200(response);
 	}
 	
-	private void switchList(String filename) throws RequestException
+	private void switchList(String filename) throws RequestException, JsonTransformationException
 	{
 		UiConstants.REQUEST_TYPE = RequestType.LIST;
-		UiConstants.CURRENT_LIST_FILE = filename;
+		UiConstants.CURRENT_LIST = filename;
 		UiMethods.clearTable();
 		UiMethods.requestRefreshOfBugsInList();
 	}
