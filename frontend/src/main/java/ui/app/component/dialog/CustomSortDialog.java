@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import ui.app.common.GuiMethods;
+import ui.app.common.UiMethods;
 import ui.app.component.BugTable;
 import ui.app.component.WindowsBar;
 import ui.app.theme.Fonts;
@@ -46,7 +46,7 @@ public class CustomSortDialog extends UiBuilder
 			primary 	= primaryComboBox.getSelectionModel().getSelectedItem();
 			secondary 	= secondaryComboBox.getSelectionModel().getSelectedItem();
 
-			GuiMethods.sortBugs(BugTable.getInstance().getTableView().getItems(), true, primary, secondary);
+			UiMethods.sortBugs(BugTable.getInstance().getTableView().getItems(), true, primary, secondary);
 			
 			stage.close();
 		});

@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import common.bug.Bug;
-import ui.app.common.GuiMethods;
+import ui.app.common.UiMethods;
 import ui.app.component.BugCounter;
 
 public class ComponentTests
@@ -40,7 +40,7 @@ public class ComponentTests
 	@Test
 	public void canSortBugsAscending()
 	{			
-		bugs = GuiMethods.sortBugs(bugs, false, "id");
+		bugs = UiMethods.sortBugs(bugs, false, "id");
 		
 		assertEquals("1", bugs.get(0).getId());
 		assertEquals("2", bugs.get(1).getId());
@@ -50,7 +50,7 @@ public class ComponentTests
 	@Test
 	public void canSortBugsDescending()
 	{
-		bugs = GuiMethods.sortBugs(bugs, true, "id");
+		bugs = UiMethods.sortBugs(bugs, true, "id");
 		
 		assertEquals("3", bugs.get(0).getId());
 		assertEquals("2", bugs.get(1).getId());

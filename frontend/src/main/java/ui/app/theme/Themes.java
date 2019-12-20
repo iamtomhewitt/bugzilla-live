@@ -3,7 +3,7 @@ package ui.app.theme;
 import java.util.HashMap;
 import java.util.Map;
 
-import ui.app.common.GuiMethods;
+import ui.app.common.UiMethods;
 
 
 public class Themes
@@ -66,7 +66,7 @@ public class Themes
 		Colours.WINDOW 					= background;
 		Colours.WINDOW_TEXT 			= text;
 		
-		GuiMethods.updateColours();
+		UiMethods.updateColours();
 		
 		// Now send a config request to save the colours
 		Map<String, String> properties = new HashMap<String, String>();

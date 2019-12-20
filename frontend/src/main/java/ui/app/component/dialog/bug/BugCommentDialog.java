@@ -40,7 +40,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import ui.app.common.GuiMethods;
+import ui.app.common.UiMethods;
 import ui.app.component.WindowsBar;
 import ui.app.component.dialog.AddCommentDialog;
 import ui.app.log.GuiLogger;
@@ -265,7 +265,7 @@ public class BugCommentDialog extends UiBuilder
 		// A name might only have first name, for example "Git-SCM" so only format if the split has 2 parts
 		if (names.length > 1)
 		{
-			username = GuiMethods.createDisplayName(username);
+			username = UiMethods.createDisplayName(username);
 		}
 
 		return new Label(username);

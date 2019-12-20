@@ -35,7 +35,7 @@ import ui.app.theme.RowColours;
  * @since 2.0.0
  */
 @SuppressWarnings("unchecked")
-public class GuiMethods
+public class UiMethods
 {	
 	public static void updateApplicationTitle(String username)
 	{

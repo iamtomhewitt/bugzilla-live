@@ -12,7 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ui.app.common.GuiConstants;
-import ui.app.common.GuiMethods;
+import ui.app.common.UiMethods;
 import ui.app.common.RequestType;
 import ui.app.component.WindowsBar;
 import ui.app.theme.Icons;
@@ -110,7 +110,7 @@ public class AddBugDialog extends UiBuilder
 			MessageBox.showErrorIfResponseNot200(response);
 
 			// Now refresh the list to pick up the new bug
-			GuiMethods.requestRefreshOfBugsInList();
+			UiMethods.requestRefreshOfBugsInList();
 			stage.close();
 		}
 	}	

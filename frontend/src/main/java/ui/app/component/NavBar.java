@@ -21,7 +21,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import ui.app.common.GuiConstants;
-import ui.app.common.GuiMethods;
+import ui.app.common.UiMethods;
 import ui.app.component.dialog.bug.AddBugDialog;
 import ui.app.component.dialog.bug.GetBugsDialog;
 import ui.app.theme.Fonts;
@@ -180,7 +180,7 @@ public class NavBar extends UiBuilder
 		{
 			try
 			{
-				GuiMethods.requestRefreshOfBugsInTable();
+				UiMethods.requestRefreshOfBugsInTable();
 			} 
 			catch (Exception ex)
 			{

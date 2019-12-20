@@ -10,7 +10,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.FileChooser;
 import ui.app.common.GuiConstants;
-import ui.app.common.GuiMethods;
+import ui.app.common.UiMethods;
 import ui.app.common.RequestType;
 import ui.app.component.dialog.bug.AddBugListDialog;
 import ui.app.main.BugzillaLive;
@@ -161,8 +161,8 @@ public class ListMenu
 	{
 		GuiConstants.REQUEST_TYPE = RequestType.LIST;
 		GuiConstants.CURRENT_LIST_FILE = filename;
-		GuiMethods.clearTable();
-		GuiMethods.requestRefreshOfBugsInList();
+		UiMethods.clearTable();
+		UiMethods.requestRefreshOfBugsInList();
 	}
 
 	public Menu getMenu()
