@@ -1,4 +1,4 @@
-package common.exception;
+package common.error;
 
 /**
  * A set of different error messages.

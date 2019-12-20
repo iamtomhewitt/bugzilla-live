@@ -3,7 +3,7 @@ package common.error;
 import org.junit.Test;
 
 import common.bug.Bug;
-import common.exception.JsonTransformationException;
+import common.error.JsonTransformationException;
 import common.message.ApiRequestor;
 import common.utility.JacksonAdapter;
 

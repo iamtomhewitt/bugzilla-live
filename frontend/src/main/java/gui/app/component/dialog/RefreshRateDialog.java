@@ -8,7 +8,7 @@ import gui.app.component.WindowsBar;
 import gui.app.theme.UiBuilder;
 import gui.app.theme.Sizes.Size;
 import gui.app.theme.Icons;
-import common.exception.Errors;
+import common.error.Errors;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;

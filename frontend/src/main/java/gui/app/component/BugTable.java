@@ -26,7 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 import common.bug.Bug;
-import common.exception.Errors;
+import common.error.Errors;
 import common.message.MessageBox;
 import common.utility.Utilities;
 

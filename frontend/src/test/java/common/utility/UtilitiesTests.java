@@ -12,7 +12,7 @@ import org.junit.Test;
 import common.bug.Bug;
 import common.bug.BugAttachment;
 import common.bug.BugComment;
-import common.exception.JsonTransformationException;
+import common.error.JsonTransformationException;
 import common.utility.Encryptor;
 import common.utility.JacksonAdapter;
 
