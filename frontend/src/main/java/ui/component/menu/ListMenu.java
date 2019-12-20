@@ -12,13 +12,13 @@ import javafx.stage.FileChooser;
 import ui.component.dialog.bug.AddBugListDialog;
 import ui.main.BugzillaLive;
 import ui.theme.Icons;
-import common.RequestType;
 import common.error.Errors;
 import common.error.JsonTransformationException;
 import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
+import common.message.RequestType;
 import common.utility.UiConstants;
 import common.utility.UiMethods;
 

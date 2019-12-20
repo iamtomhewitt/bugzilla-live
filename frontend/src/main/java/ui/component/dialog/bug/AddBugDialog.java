@@ -15,13 +15,13 @@ import ui.component.WindowsBar;
 import ui.theme.Icons;
 import ui.theme.UiBuilder;
 import ui.theme.Sizes.Size;
-import common.RequestType;
 import common.error.Errors;
 import common.error.JsonTransformationException;
 import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
+import common.message.RequestType;
 import common.utility.UiConstants;
 import common.utility.UiMethods;
 
@@ -33,7 +33,6 @@ import common.utility.UiMethods;
 public class AddBugDialog extends UiBuilder
 {		
 	private Stage stage = new Stage();
-	private HBox buttons = new HBox();
 	
 	public AddBugDialog()
 	{
@@ -75,7 +74,7 @@ public class AddBugDialog extends UiBuilder
 			}
 		});
 				
-		buttons.getChildren().addAll(addButton);
+		HBox buttons = new HBox(addButton);
 		buttons.setSpacing(10);
 		buttons.setAlignment(Pos.CENTER);
 		
@@ -106,7 +105,7 @@ public class AddBugDialog extends UiBuilder
 			return;
 		}
 		
-		if (UiConstants.REQUEST_TYPE.equals(RequestType.USER))
+		if (!UiConstants.REQUEST_TYPE.equals(RequestType.LIST))
 		{
 			MessageBox.showDialog("Cannot add a bug as a list is not being used.");
 			return;

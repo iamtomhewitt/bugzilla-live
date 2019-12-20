@@ -4,10 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import common.RequestType;
 import common.bug.Bug;
 import common.error.Errors;
 import common.error.JsonTransformationException;
@@ -15,6 +13,7 @@ import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
+import common.message.RequestType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
@@ -44,7 +43,7 @@ public class UiMethods
 	/**
 	 * Determines which type of refresh request is needed, and then makes the request.
 	 */
-	public static void requestBugRefresh() throws Exception
+	public static void requestBugRefresh() throws RequestException, JsonTransformationException
 	{						
 		switch(UiConstants.REQUEST_TYPE)
 		{
@@ -68,7 +67,6 @@ public class UiMethods
 	
 	/**
 	 * Requests bugs for the user currently logged in.
-	 * @throws JsonTransformationException 
 	 */
 	public static void requestRefreshOfCurrentUserBugs() throws RequestException, JsonTransformationException
 	{
@@ -88,7 +86,6 @@ public class UiMethods
 	
 	/**
 	 * Sends a request to the backend to refresh the bugs contained in the active list. Call this method when adding or removing a bug from a list, or when switching lists.
-	 * @throws JsonTransformationException 
 	 */
 	public static void requestRefreshOfBugsInList() throws RequestException, JsonTransformationException
 	{
@@ -135,8 +132,6 @@ public class UiMethods
 
 	/**
 	 * Called when an bug response message is received. Decodes the JSON returned, creates a list of bug objects and inserts it into the table.
-	 * @throws JsonTransformationException 
-	 * @throws JSONException 
 	 */
 	public static void updateBugsInTable(String response) throws JsonTransformationException
 	{
