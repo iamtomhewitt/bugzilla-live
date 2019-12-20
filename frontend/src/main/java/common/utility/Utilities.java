@@ -1,4 +1,4 @@
-package common.utilities;
+package common.utility;
 
 import java.awt.Desktop;
 import java.io.IOException;

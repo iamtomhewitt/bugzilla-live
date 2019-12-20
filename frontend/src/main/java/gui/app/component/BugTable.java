@@ -28,7 +28,7 @@ import javafx.util.Callback;
 import common.bug.Bug;
 import common.exception.Errors;
 import common.message.MessageBox;
-import common.utilities.Utilities;
+import common.utility.Utilities;
 
 /**
  * The main table in the middle of the GUI that holds information about all the bugs.

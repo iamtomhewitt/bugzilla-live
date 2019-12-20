@@ -5,7 +5,7 @@ import org.junit.Test;
 import common.bug.Bug;
 import common.exception.JsonTransformationException;
 import common.message.ApiRequestor;
-import common.utilities.JacksonAdapter;
+import common.utility.JacksonAdapter;
 
 public class ExceptionTests
 {

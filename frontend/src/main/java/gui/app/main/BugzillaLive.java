@@ -12,7 +12,7 @@ import gui.app.theme.Icons;
 import common.exception.Errors;
 import common.exception.JsonTransformationException;
 import common.message.MessageBox;
-import common.utilities.JacksonAdapter;
+import common.utility.JacksonAdapter;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;

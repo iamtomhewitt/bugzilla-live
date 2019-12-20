@@ -1,4 +1,4 @@
-package common.utilities;
+package common.utility;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

@@ -13,7 +13,7 @@ import common.exception.Errors;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
-import common.utilities.Encryptor;
+import common.utility.Encryptor;
 import gui.app.common.GuiConstants;
 import gui.app.main.BugzillaLive;
 import gui.app.theme.Fonts;

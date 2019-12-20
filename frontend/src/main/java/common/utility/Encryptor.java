@@ -1,4 +1,4 @@
-package common.utilities;
+package common.utility;
 
 /**
  * Simple encryptor just so that passwords are not viewable in the config file.
