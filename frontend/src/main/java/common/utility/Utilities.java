@@ -6,11 +6,11 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import common.bug.Bug;
-import gui.app.common.GuiConstants;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import ui.app.common.GuiConstants;
 
 /**
  * A class of useful methods.
