@@ -20,8 +20,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import ui.common.UiConstants;
-import ui.common.UiMethods;
 import ui.component.dialog.bug.AddBugDialog;
 import ui.component.dialog.bug.GetBugsDialog;
 import ui.theme.Fonts;
@@ -34,6 +32,8 @@ import common.error.Errors;
 import common.error.JsonTransformationException;
 import common.message.MessageBox;
 import common.utility.JacksonAdapter;
+import common.utility.UiConstants;
+import common.utility.UiMethods;
 import common.utility.Utilities;
 
 /**

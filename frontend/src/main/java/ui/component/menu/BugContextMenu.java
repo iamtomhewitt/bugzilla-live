@@ -9,7 +9,6 @@ import java.util.List;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
-import ui.common.UiConstants;
 import ui.component.InformationPane;
 import ui.component.dialog.bug.BugCommentDialog;
 import ui.component.dialog.bug.ChangeBugStatusDialog;
@@ -19,6 +18,7 @@ import common.error.Errors;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
+import common.utility.UiConstants;
 import common.utility.Utilities;
 
 public class BugContextMenu

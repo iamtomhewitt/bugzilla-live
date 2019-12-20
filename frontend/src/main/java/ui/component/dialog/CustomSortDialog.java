@@ -12,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import ui.common.UiMethods;
 import ui.component.BugTable;
 import ui.component.WindowsBar;
 import ui.theme.Fonts;
@@ -21,6 +20,7 @@ import ui.theme.Sizes;
 import ui.theme.UiBuilder;
 import ui.theme.Sizes.Size;
 import common.bug.Bug;
+import common.utility.UiMethods;
 
 public class CustomSortDialog extends UiBuilder
 {

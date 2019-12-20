@@ -9,8 +9,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import ui.common.UiConstants;
-import ui.common.UiMethods;
 import ui.component.WindowsBar;
 import ui.theme.Icons;
 import ui.theme.UiBuilder;
@@ -20,6 +18,8 @@ import common.error.RequestException;
 import common.message.ApiRequestor;
 import common.message.Endpoints;
 import common.message.MessageBox;
+import common.utility.UiConstants;
+import common.utility.UiMethods;
 
 /**
  * A dialog box used for creating a new list of bugs in the form of a .bugList file.

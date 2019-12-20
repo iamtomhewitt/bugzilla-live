@@ -3,7 +3,7 @@ package ui.theme;
 import java.util.HashMap;
 import java.util.Map;
 
-import ui.common.UiMethods;
+import common.utility.UiMethods;
 
 
 public class Themes

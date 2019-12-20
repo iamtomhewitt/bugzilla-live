@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import ui.common.UiConstants;
-import ui.common.UiMethods;
+import common.utility.UiConstants;
+import common.utility.UiMethods;
 
 public class CommonTests
 {

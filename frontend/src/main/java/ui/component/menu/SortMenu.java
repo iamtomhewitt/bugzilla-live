@@ -1,8 +1,8 @@
 package ui.component.menu;
 
+import common.utility.UiMethods;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import ui.common.UiMethods;
 import ui.component.BugTable;
 import ui.component.dialog.CustomSortDialog;
 
