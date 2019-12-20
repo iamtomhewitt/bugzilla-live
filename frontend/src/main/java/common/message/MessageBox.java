@@ -6,6 +6,7 @@ import java.io.StringWriter;
 import org.apache.http.HttpStatus;
 import org.json.JSONObject;
 
+import gui.app.log.GuiLogger;
 import gui.app.theme.Icons;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -28,6 +29,8 @@ public class MessageBox
 {
 	public static void showExceptionDialog(String message, Exception e)
 	{
+		GuiLogger.getInstance().printStackTrace(e);
+		
 		Platform.runLater(new Runnable()
 		{
 			@Override
