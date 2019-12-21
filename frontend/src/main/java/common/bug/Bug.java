@@ -8,7 +8,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * A data class representing the basic info of an Bug. Used to populate the main table in the GUI.
+ * A data class representing the basic info of an Bug. Used to populate the main table in the UI.
  * 
  * @see <code>BugDetail</code> for attachments and comments.
  * @author Tom Hewitt
