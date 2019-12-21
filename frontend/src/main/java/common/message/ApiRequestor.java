@@ -5,6 +5,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+
+import common.error.RequestException;
 
 /**
  * An abstract class making requests to the Node Express backend.
@@ -13,16 +16,29 @@ import org.apache.http.util.EntityUtils;
  */
 public class ApiRequestor
 {
-	public static String request(String url) throws Exception
+	public static JSONObject request(String url) throws RequestException
 	{
-		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-		
-		HttpGet request = new HttpGet(url);
-
-		HttpResponse result = httpClient.execute(request);
-
-		String json = EntityUtils.toString(result.getEntity(), "UTF-8");
-
-		return json;
+		try
+		{
+			CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+			
+			HttpGet request = new HttpGet(url);
+	
+			HttpResponse result = httpClient.execute(request);
+	
+			String json = EntityUtils.toString(result.getEntity(), "UTF-8");
+			
+			// The response was an array, surround it with a tag so that a JSONObject can be created from it
+			if (!json.startsWith("{"))
+			{
+				json = "{\"array\":" + json + "}";
+			}
+	
+			return new JSONObject(json);
+		}
+		catch (Exception e)
+		{
+			throw new RequestException(e.getMessage());
+		}
 	}
 }

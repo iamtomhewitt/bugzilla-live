@@ -12,9 +12,9 @@ import org.junit.Test;
 import common.bug.Bug;
 import common.bug.BugAttachment;
 import common.bug.BugComment;
-import common.exception.JsonTransformationException;
-import common.utilities.Encryptor;
-import common.utilities.JacksonAdapter;
+import common.error.JsonTransformationException;
+import common.utility.Encryptor;
+import common.utility.JacksonAdapter;
 
 public class UtilitiesTests
 {

@@ -6,8 +6,6 @@ import java.io.StringWriter;
 import org.apache.http.HttpStatus;
 import org.json.JSONObject;
 
-import gui.app.log.GuiLogger;
-import gui.app.theme.Icons;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -17,9 +15,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
+import ui.log.UiLogger;
+import ui.theme.Icons;
 
 /**
- * Shows a message dialog in the GUI. <p>
+ * Shows a message dialog in the UI. <p>
  * Useful for showing exception messages to the user, or other alerts.
  *
  * @author Tom Hewitt
@@ -29,7 +29,7 @@ public class MessageBox
 {
 	public static void showExceptionDialog(String message, Exception e)
 	{
-		GuiLogger.getInstance().printStackTrace(e);
+		UiLogger.getInstance().printStackTrace(e);
 		
 		Platform.runLater(new Runnable()
 		{
@@ -80,11 +80,12 @@ public class MessageBox
 		alert.showAndWait();
 	}
 	
-	public static boolean showErrorIfResponseNot200(String response)
+	public static boolean showErrorIfResponseNot200(JSONObject response)
 	{
-		int status = new JSONObject(response).getInt("status");
-		if (status != HttpStatus.SC_OK) {				
-			JSONObject error = new JSONObject(response).getJSONObject("error");
+		int status = response.getInt("status");
+		if (status != HttpStatus.SC_OK) 
+		{				
+			JSONObject error = response.getJSONObject("error");
 			String title 	= error.getString("title");
 			String message 	= error.getString("message");	
 			

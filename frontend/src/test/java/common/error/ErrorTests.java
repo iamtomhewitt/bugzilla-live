@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import common.exception.Errors;
+import common.error.Errors;
 
 public class ErrorTests
 {
