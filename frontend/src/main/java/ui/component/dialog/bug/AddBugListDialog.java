@@ -13,6 +13,9 @@ import ui.component.WindowsBar;
 import ui.theme.Icons;
 import ui.theme.UiBuilder;
 import ui.theme.Sizes.Size;
+
+import org.json.JSONObject;
+
 import common.error.Errors;
 import common.error.JsonTransformationException;
 import common.error.RequestException;
@@ -123,7 +126,7 @@ public class AddBugListDialog extends UiBuilder
 			return;
 		}
 
-		String response = ApiRequestor.request(Endpoints.LIST_ADD(fileNameField.getText(), bugField.getText()));
+		JSONObject response = ApiRequestor.request(Endpoints.LIST_ADD(fileNameField.getText(), bugField.getText()));
 
 		MessageBox.showErrorIfResponseNot200(response);
 

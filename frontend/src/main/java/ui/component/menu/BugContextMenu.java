@@ -6,6 +6,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
@@ -57,7 +59,7 @@ public class BugContextMenu
 			
 			String numbers 	= String.join(",", bugNumbers);
 			String filename = UiConstants.CURRENT_LIST.split("\\.")[0];
-			String response;
+			JSONObject response;
 			
 			try
 			{

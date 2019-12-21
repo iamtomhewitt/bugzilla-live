@@ -16,6 +16,9 @@ import ui.theme.Fonts;
 import ui.theme.Icons;
 import ui.theme.UiBuilder;
 import ui.theme.Sizes.Size;
+
+import org.json.JSONObject;
+
 import common.error.Errors;
 import common.error.JsonTransformationException;
 import common.error.RequestException;
@@ -128,13 +131,14 @@ public class GetBugsDialog extends UiBuilder
 		UiConstants.REQUEST_TYPE = RequestType.USER;
 				
 		String email = emailField.getText();
-		String response;
+		JSONObject response;
 		
 		if (!email.matches(UiConstants.EMAIL_REGEX))
 		{
 			MessageBox.showDialog(Errors.INVALID_EMAIL);
 			return;
 		}
+		
 		UiMethods.clearTable();
 
 		response = ApiRequestor.request(Endpoints.BUGS_EMAIL(email));

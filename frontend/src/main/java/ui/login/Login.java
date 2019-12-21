@@ -54,7 +54,7 @@ public class Login extends Application
 	@Override
 	public void start(Stage primaryStage)
 	{	
-		String response;
+		JSONObject response;
 		try 
 		{
 			response = ApiRequestor.request(Endpoints.CONFIG_GET);
@@ -65,8 +65,7 @@ public class Login extends Application
 			return;
 		}
 		
-		JSONObject json = new JSONObject(response);
-		JSONObject config = new JSONObject(json.getString("config"));
+		JSONObject config = new JSONObject(response.getString("config"));
 		
 		UiConstants.BUGZILLA_URL = config.getString("bugzillaUrl");
 				
@@ -178,7 +177,7 @@ public class Login extends Application
 
 			for (Map.Entry<String, String> entry : properties.entrySet())
 			{
-				String response;
+				JSONObject response;
 				
 				try
 				{

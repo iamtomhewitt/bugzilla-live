@@ -99,15 +99,14 @@ public class BugCommentDialog extends UiBuilder
 	{
 		VBox attachmentsVbox = new VBox();
 
-		String response = ApiRequestor.request(Endpoints.BUGS_ATTACHMENTS(number));
+		JSONObject response = ApiRequestor.request(Endpoints.BUGS_ATTACHMENTS(number));
 		
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{
 			return attachmentsVbox;
 		}
 
-		JSONObject json = new JSONObject(response);
-		String bug = json.getJSONObject("bugs").getJSONArray(number).toString();
+		String bug = response.getJSONObject("bugs").getJSONArray(number).toString();
 		List<BugAttachment> attachments = JacksonAdapter.fromJson(bug, BugAttachment.class);
 
 		for (BugAttachment attachment : attachments)
@@ -146,15 +145,14 @@ public class BugCommentDialog extends UiBuilder
 	private VBox populateComments(String number) throws JsonTransformationException, RequestException
 	{
 		VBox commentsVbox = new VBox();
-		String response = ApiRequestor.request(Endpoints.BUGS_COMMENTS(number));
+		JSONObject response = ApiRequestor.request(Endpoints.BUGS_COMMENTS(number));
 
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{
 			return commentsVbox;
 		}
 
-		JSONObject json = new JSONObject(response);
-		String bug = json.getJSONObject("bugs").getJSONObject(number).getJSONArray("comments").toString();
+		String bug = response.getJSONObject("bugs").getJSONObject(number).getJSONArray("comments").toString();
 		List<BugComment> comments = JacksonAdapter.fromJson(bug, BugComment.class);
 
 		for (BugComment comment : comments)

@@ -5,6 +5,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
 import common.error.RequestException;
 
@@ -15,7 +16,7 @@ import common.error.RequestException;
  */
 public class ApiRequestor
 {
-	public static String request(String url) throws RequestException
+	public static JSONObject request(String url) throws RequestException
 	{
 		try
 		{
@@ -27,7 +28,7 @@ public class ApiRequestor
 	
 			String json = EntityUtils.toString(result.getEntity(), "UTF-8");
 	
-			return json;
+			return new JSONObject(json);
 		}
 		catch (Exception e)
 		{
