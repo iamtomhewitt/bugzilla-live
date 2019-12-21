@@ -83,8 +83,9 @@ public class MessageBox
 	public static boolean showErrorIfResponseNot200(JSONObject response)
 	{
 		int status = response.getInt("status");
-		if (status != HttpStatus.SC_OK) {				
-			JSONObject error = new JSONObject(response).getJSONObject("error");
+		if (status != HttpStatus.SC_OK) 
+		{				
+			JSONObject error = response.getJSONObject("error");
 			String title 	= error.getString("title");
 			String message 	= error.getString("message");	
 			

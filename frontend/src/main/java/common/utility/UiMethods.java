@@ -91,7 +91,7 @@ public class UiMethods
 	{
 		// Get the current bug numbers in the file
 		JSONObject response = ApiRequestor.request(Endpoints.LIST_CONTENTS(UiConstants.CURRENT_LIST.split("\\.")[0]));
-		String content = new JSONObject(response).getString("contents");
+		String content = response.getString("contents");
 
 		UiConstants.REQUEST_TYPE = RequestType.LIST;
 
