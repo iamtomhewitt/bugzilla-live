@@ -27,6 +27,12 @@ public class ApiRequestor
 			HttpResponse result = httpClient.execute(request);
 	
 			String json = EntityUtils.toString(result.getEntity(), "UTF-8");
+			
+			// The response was an array, surround it with a tag so that a JSONObject can be created from it
+			if (!json.startsWith("{"))
+			{
+				json = "{\"array\":" + json + "}";
+			}
 	
 			return new JSONObject(json);
 		}

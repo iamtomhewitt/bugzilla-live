@@ -56,7 +56,7 @@ public class AboutDialog
 		SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 		SimpleDateFormat output = new SimpleDateFormat("dd/MM/yyyy");
 
-		JSONArray json = new JSONArray(response.toString());
+		JSONArray json = new JSONArray(response.get("array").toString());
 		for (int i = 0; i < json.length(); i++)
 		{
 			JSONObject release = json.getJSONObject(i);
