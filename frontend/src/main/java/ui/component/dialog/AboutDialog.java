@@ -42,7 +42,7 @@ public class AboutDialog
 		ScrollPane scroll = new ScrollPane();
 		VBox vbox = new VBox();
 		
-		String response;
+		JSONObject response;
 		try
 		{
 			response = ApiRequestor.request(Endpoints.GITHUB_RELEASES);
@@ -56,7 +56,7 @@ public class AboutDialog
 		SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 		SimpleDateFormat output = new SimpleDateFormat("dd/MM/yyyy");
 
-		JSONArray json = new JSONArray(response);
+		JSONArray json = new JSONArray(response.toString());
 		for (int i = 0; i < json.length(); i++)
 		{
 			JSONObject release = json.getJSONObject(i);

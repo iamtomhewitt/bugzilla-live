@@ -93,15 +93,14 @@ public class ListMenu
 	
 	private void populateMenuWithLists(Menu menu, boolean changeListMenu) throws RequestException
 	{
-		String response = ApiRequestor.request(Endpoints.LISTS);
+		JSONObject response = ApiRequestor.request(Endpoints.LISTS);
 		
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{
 			return;
 		}
 		
-		JSONObject json = new JSONObject(response);
-		JSONArray lists = json.getJSONArray("lists");
+		JSONArray lists = response.getJSONArray("lists");
 		
 		for (int i = 0; i < lists.length(); i++)
 		{
@@ -159,7 +158,7 @@ public class ListMenu
 	private void deleteList(String filename) throws RequestException
 	{
 		String name = filename.split("\\.")[0];
-		String response = ApiRequestor.request(Endpoints.LIST_DELETE(name));
+		JSONObject response = ApiRequestor.request(Endpoints.LIST_DELETE(name));
 		MessageBox.showErrorIfResponseNot200(response);
 	}
 	

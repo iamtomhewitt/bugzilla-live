@@ -3,6 +3,8 @@ package ui.component.dialog;
 import java.util.Arrays;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import common.error.Errors;
 import common.error.RequestException;
 import common.message.ApiRequestor;
@@ -45,7 +47,7 @@ public class RefreshRateDialog extends UiBuilder
 		Button applyButton = createButton("Apply", Size.SMALL, ButtonType.PRIMARY);
 		applyButton.setOnAction(e ->
 		{			
-			String response;
+			JSONObject response;
 			try
 			{
 				response = ApiRequestor.request(Endpoints.CONFIG_SAVE("refreshRate", combo.getSelectionModel().getSelectedItem()));

@@ -80,9 +80,9 @@ public class MessageBox
 		alert.showAndWait();
 	}
 	
-	public static boolean showErrorIfResponseNot200(String response)
+	public static boolean showErrorIfResponseNot200(JSONObject response)
 	{
-		int status = new JSONObject(response).getInt("status");
+		int status = response.getInt("status");
 		if (status != HttpStatus.SC_OK) {				
 			JSONObject error = new JSONObject(response).getJSONObject("error");
 			String title 	= error.getString("title");

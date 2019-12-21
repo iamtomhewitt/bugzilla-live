@@ -73,7 +73,7 @@ public class UiMethods
 		UiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
 		UiConstants.CURRENT_LIST = null;
 		
-		String response = ApiRequestor.request(Endpoints.BUGS_EMAIL(UiConstants.USER_EMAIL));
+		JSONObject response = ApiRequestor.request(Endpoints.BUGS_EMAIL(UiConstants.USER_EMAIL));
 		
 		if(MessageBox.showErrorIfResponseNot200(response))
 		{
@@ -90,7 +90,7 @@ public class UiMethods
 	public static void requestRefreshOfBugsInList() throws RequestException, JsonTransformationException
 	{
 		// Get the current bug numbers in the file
-		String response = ApiRequestor.request(Endpoints.LIST_CONTENTS(UiConstants.CURRENT_LIST.split("\\.")[0]));
+		JSONObject response = ApiRequestor.request(Endpoints.LIST_CONTENTS(UiConstants.CURRENT_LIST.split("\\.")[0]));
 		String content = new JSONObject(response).getString("contents");
 
 		UiConstants.REQUEST_TYPE = RequestType.LIST;
@@ -119,7 +119,7 @@ public class UiMethods
 
 		if (!numbers.isEmpty())
 		{
-			String response = ApiRequestor.request(Endpoints.BUGS_NUMBERS(numbers));
+			JSONObject response = ApiRequestor.request(Endpoints.BUGS_NUMBERS(numbers));
 
 			if (MessageBox.showErrorIfResponseNot200(response))
 			{
@@ -133,10 +133,9 @@ public class UiMethods
 	/**
 	 * Called when an bug response message is received. Decodes the JSON returned, creates a list of bug objects and inserts it into the table.
 	 */
-	public static void updateBugsInTable(String response) throws JsonTransformationException
+	public static void updateBugsInTable(JSONObject response) throws JsonTransformationException
 	{
-		JSONObject jsonObject = new JSONObject(response);
-		ObservableList<Bug> bugs = FXCollections.observableArrayList(JacksonAdapter.fromJson(jsonObject.get("bugs").toString(), Bug.class));
+		ObservableList<Bug> bugs = FXCollections.observableArrayList(JacksonAdapter.fromJson(response.get("bugs").toString(), Bug.class));
 		FXCollections.reverse(bugs);
 
 		UiConstants.PREFILTERED_BUG_DATA = JacksonAdapter.toJson(bugs);
