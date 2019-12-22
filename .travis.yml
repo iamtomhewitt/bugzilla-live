@@ -1,6 +1,5 @@
 before_deploy:
-    - npm install jshon
-    - export BODY=$(jshon -s "$(cat build/release-notes.md)"))
+    - export BODY=$(cat build/release-notes.md)
 matrix:
   include:
   - language: node_js
