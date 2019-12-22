@@ -1,4 +1,1 @@
-# Example Release Notes
-
-## Some Version
-* Some text
+Some notes
