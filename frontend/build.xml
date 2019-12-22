@@ -1,29 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="build">
-    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
-    <!--ANT 1.7 is required                                        -->
+<project default="run">
+	<!--this file was created by Eclipse Runnable JAR Export Wizard-->
+	<!--ANT 1.7 is required                                        -->
 
-    <property name="dir.buildfile" value="."/>
-    <property name="dir.dist" value="dist"/>
-    	
-    <target name="build">
-        <jar destfile="${dir.dist}/bugzilla-live.jar" filesetmanifest="mergewithoutmain">
-            <manifest>
-                <attribute name="Main-Class" value="ui.login.Login"/>
-                <attribute name="Class-Path" value="."/>
-            </manifest>
-            <fileset dir="${dir.buildfile}/target/classes"/>
-            <zipfileset excludes="META-INF/*.SF" src="/Applications/Eclipse.app/Contents/Eclipse/plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/Applications/Eclipse.app/Contents/Eclipse/plugins/org.hamcrest.core_1.3.0.v20180420-1519.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/jfxrt.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/Users/thewitt/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.10.1/jackson-databind-2.10.1.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/Users/thewitt/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.10.1/jackson-annotations-2.10.1.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/Users/thewitt/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.10.1/jackson-core-2.10.1.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/Users/thewitt/.m2/repository/org/apache/httpcomponents/httpclient/4.3.6/httpclient-4.3.6.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/Users/thewitt/.m2/repository/org/apache/httpcomponents/httpcore/4.3.3/httpcore-4.3.3.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/Users/thewitt/.m2/repository/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/Users/thewitt/.m2/repository/commons-codec/commons-codec/1.6/commons-codec-1.6.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/Users/thewitt/.m2/repository/org/json/json/20190722/json-20190722.jar"/>
-        </jar>
-    </target>
+	<property name="dir.buildfile" value="." />
+	<property name="dir.dist" value="dist" />
+
+	<condition property="isWindows" value="true">
+		<os family="windows" />
+	</condition>
+
+	<condition property="isWindows" value="false">
+		<os family="unix" />
+	</condition>
+
+	<target name="build">
+		<echo message="Running on Windows: ${isWindows}" />
+
+		<jar destfile="${dir.dist}/bugzilla-live.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Main-Class" value="ui.login.Login" />
+				<attribute name="Class-Path" value="." />
+			</manifest>
+			<fileset dir="${dir.buildfile}/target/classes" />
+			<zipfileset excludes="META-INF/*.SF" src="/Applications/Eclipse.app/Contents/Eclipse/plugins/org.junit_4.12.0.v201504281640/junit.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="/Applications/Eclipse.app/Contents/Eclipse/plugins/org.hamcrest.core_1.3.0.v20180420-1519.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/jfxrt.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="/Users/thewitt/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.10.1/jackson-databind-2.10.1.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="/Users/thewitt/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.10.1/jackson-annotations-2.10.1.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="/Users/thewitt/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.10.1/jackson-core-2.10.1.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="/Users/thewitt/.m2/repository/org/apache/httpcomponents/httpclient/4.3.6/httpclient-4.3.6.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="/Users/thewitt/.m2/repository/org/apache/httpcomponents/httpcore/4.3.3/httpcore-4.3.3.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="/Users/thewitt/.m2/repository/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="/Users/thewitt/.m2/repository/commons-codec/commons-codec/1.6/commons-codec-1.6.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="/Users/thewitt/.m2/repository/org/json/json/20190722/json-20190722.jar" />
+		</jar>
+	</target>
+
+	<target name="run" depends="build" />
 </project>
