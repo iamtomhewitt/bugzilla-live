@@ -27,7 +27,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>gui.login.service.LoginService</mainClass>
+							<mainClass>ui.login.Login</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
