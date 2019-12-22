@@ -14,8 +14,9 @@ matrix:
     script: cd frontend && mvn test
 deploy:
   provider: releases
+  release_notes_file: "build/release-notes.md"
   api_key:
-    secure: nXV+tKXXCDEo4zZ/eOdIHzR0ElOa9RLYiLRINiVL/AEp4Dd4ymhKHfCkLFVK/k1t6BiAunshEjr6DHZ1Ij5dJcPHWkxZIi3JVueL331tq6JwMoOsgMv/VPVos/I/6TQGugUTd99Ffiitj4VM/K7FAbf6o7CbpxerkscUSHedS1ljfUN9Yx/CmpZXqFXmX6Jz3JpKK0zE9TPxjV0tOmHnLAsUswZPzg5Kz8nvcZ9F0hhqtL64nYyrJULEH97G+u3NKa4ZD9HqlublaW/QMW2kObpFxTYbrO1BjckekdLlKIKAb8ZlyHoxB0V80RRhG1P4ZhHWOmdjjlPZwqX0RLL0M2kQBbHji+vc9LRqonK1zVIJg3RbzghBE88HBWT6lSkQRxX9/W4sXdPYYCqfPmKv3IqN8FNEYrKFuurStHv7J/OFcix9C+QIgP/fa5GKGDHuWYWXf+Rj8wEzJ7shSBwTVB7s8wbtgs67E+oE5wtrfQdSxWsOPCFzkauEpHWbtQ8/p6MB3aCO9fgxXcFDcP1sRUjA4YZLhIjpG3xeoJs1KSYJm6lMLtkOyGmKIpgCSO5eVhAV3VVrSGajKlPB/XwRUAUOCQrVcUw2lrn6GeziUbGDUW/K4Zb0yZl6guMWnyj9uBd3n/wLXbI+yUIKJLT/gwjK31ZQ53PfX2zITNGkhyo=
+    secure: $GITHUB_TOKEN
   file: "dist/bugzilla-live.zip"
   skip_cleanup: true
   on:
