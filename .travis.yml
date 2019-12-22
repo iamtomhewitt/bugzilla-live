@@ -1,5 +1,5 @@
 before_deploy:
-    - brew install jshon
+    - npm install jshon
     - export BODY=$(jshon -s "$(cat build/release-notes.md)"))
 matrix:
   include:
