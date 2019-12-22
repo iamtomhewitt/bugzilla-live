@@ -1,6 +1,6 @@
 /backend/node_modules/
 /target/
 /frontend/logs/*
-dist/
-!/dist/bugzilla-live.zip
 
+dist/bugzilla-live-backend
+dist/bugzilla-live.jar
