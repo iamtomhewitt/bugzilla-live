@@ -19,5 +19,5 @@ deploy:
   file: "/dist/bugzilla-live.zip"
   skip_cleanup: true
   on:
-	tags: true
+    tags: true
     repo: iamtomhewitt/bugzilla-live
