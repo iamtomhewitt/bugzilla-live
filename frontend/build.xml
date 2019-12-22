@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="run">
+<project default="build_frontend">
 	<!--this file was created by Eclipse Runnable JAR Export Wizard-->
 	<!--ANT 1.7 is required                                        -->
 
 	<property name="dir.buildfile" value="." />
-	<property name="dir.dist" value="dist" />
+	<property name="dir.dist" value="../dist" />
 
 	<condition property="isWindows" value="true">
 		<os family="windows" />
@@ -14,7 +14,7 @@
 		<os family="unix" />
 	</condition>
 
-	<target name="build">
+	<target name="build_jar">
 		<echo message="Running on Windows: ${isWindows}" />
 
 		<jar destfile="${dir.dist}/bugzilla-live.jar" filesetmanifest="mergewithoutmain">
@@ -37,5 +37,5 @@
 		</jar>
 	</target>
 
-	<target name="run" depends="build" />
+	<target name="build_frontend" depends="build_jar" />
 </project>
