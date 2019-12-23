@@ -79,4 +79,10 @@ public class MessageTests
 	{
 		assertEquals("http://localhost:3001/config/get", Endpoints.CONFIG_GET);
 	}
+
+	@Test
+	public void correctWikiEndpoint() throws UnsupportedEncodingException
+	{
+		assertEquals("https://github.com/iamtomhewitt/bugzilla-live/wiki", Endpoints.GITHUB_WIKI);
+	}
 }

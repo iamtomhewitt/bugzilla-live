@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import common.error.Errors;
+import common.message.Endpoints;
 import common.message.MessageBox;
 import common.utility.Utilities;
 import javafx.scene.control.Menu;
@@ -22,7 +23,7 @@ public class HelpMenu
 		{
 			try 
 			{
-				Utilities.openUrlInBrowser("https://github.com/iamtomhewitt/bugzilla-live/wiki");
+				Utilities.openUrlInBrowser(Endpoints.GITHUB_WIKI);
 			} 
 			catch (IOException | URISyntaxException e1) 
 			{
