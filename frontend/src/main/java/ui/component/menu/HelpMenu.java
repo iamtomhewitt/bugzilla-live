@@ -22,8 +22,7 @@ public class HelpMenu
 		{
 			try 
 			{
-				// TODO open Github README
-				Utilities.openUrlInBrowser("");
+				Utilities.openUrlInBrowser("https://github.com/iamtomhewitt/bugzilla-live/wiki");
 			} 
 			catch (IOException | URISyntaxException e1) 
 			{
