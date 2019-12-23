@@ -1,29 +1,26 @@
-[![Build Status](https://travis-ci.org/iamtomhewitt/bugzilla-live.svg?branch=Issue%2311)](https://travis-ci.org/iamtomhewitt/bugzilla-live)
+<p align="center">
+	<img src="https://travis-ci.org/iamtomhewitt/bugzilla-live.svg"/>
+	<img src="https://img.shields.io/github/v/tag/iamtomhewitt/bugzilla-live?color=success&style=flat-square&label=latest%20version">
+</p>
 
 # 🐛 Bugzilla Live
 
 An application to show bugs from Bugzilla using the provided API. Originally as a desktop tool to help avoid spreadsheets to manage bugs at work, it has now become a hobby project to try out new languages or programming techniques.
 
 ## 🔧 Getting Started
-The app is split into a JavaFX frontend, and a Node Express backend. The front end makes requests to the backend, which in turn makes requests to the Bugzilla API or makes config changes etc.
+The app is split into a JavaFX frontend, and a Node Express backend. The frontend makes requests to the backend, which in turn makes requests to the Bugzilla API or makes config changes etc.
 
 ## 🏃‍♂️ Run Locally
-
-### Frontend
-* Run `gui.login.service.LoginService` in your IDE.
-
-### Backend
-* `npm install`
-* `node app.js`
+* <b>Frontend</b>: Run `ui.login.Login.java` in your IDE.
+* <b>Backend</b>:
+	* `npm install`
+	* `node app.js`
 
 ## 👷🏻‍♂️ Build
-### Frontend
-* Use `mvn clean install package` to create the jar file.
-* Run `java -jar target/bugzilla-version.jar` to run the built jar.
+Run `build/build.sh` (or `.cmd` if on Windows) to build the frontend and the backend, and create a zip of both of them.
 
-### Backend
-* Use `nexe app.js -n "bugzilla-live-backend"` to create an executable of the backend.
-* Run the produced executable.
+## 🏷 Release
+Releases are handled by Travis. When a tag is pushed to the repo, Travis creates a release based on the `/dist` folder, and creates a release on Github.
 
 ## 🎉 Contributing
 Visit the issues tab or create a new one.
