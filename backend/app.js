@@ -20,4 +20,6 @@ app.use('/config', configRoutes);
 var port = 3001;
 app.listen(port, function () { });
 
+console.log("Listening on port: " + port);
+
 module.exports = app;
