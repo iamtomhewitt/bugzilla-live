@@ -11,7 +11,8 @@ public class Endpoints
 	private static final int port = 3001;
 
 	public static final String GITHUB_RELEASES = "http://api.github.com/repos/iamtomhewitt/bugzilla-live/releases";
-
+	public static final String GITHUB_WIKI = "https://github.com/iamtomhewitt/bugzilla-live/wiki";
+	
 	public static final String LIST_CONTENTS(String listName) throws RequestException
 	{
 		try
