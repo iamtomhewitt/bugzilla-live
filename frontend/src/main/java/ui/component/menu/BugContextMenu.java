@@ -99,9 +99,12 @@ public class BugContextMenu
 		comment.setOnAction(e ->
 		{
 			try
-			{
-				String number = table.getSelectionModel().getSelectedItem().getId();
-				new BugCommentDialog(number);
+			{				
+				List<Bug> bugs = table.getSelectionModel().getSelectedItems();
+				for (int i=0; i<bugs.size(); i++) 
+				{
+					new BugCommentDialog(bugs.get(i).getId());
+				}
 			}
 			catch (Exception ex)
 			{
