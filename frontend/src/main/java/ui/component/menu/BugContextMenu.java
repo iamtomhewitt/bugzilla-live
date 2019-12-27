@@ -38,7 +38,6 @@ public class BugContextMenu
 		MenuItem copy 			= new MenuItem(copyTitle);
 		MenuItem comment 		= new MenuItem("Show Comments");
 		MenuItem changeStatus 	= new MenuItem("Change Bug Status");
-		MenuItem copyBugTitle 	= new MenuItem("Copy Bug Title");
 
 		remove.setGraphic(new Icons().createRemoveIcon());
 		remove.setOnAction(e ->
@@ -117,21 +116,8 @@ public class BugContextMenu
 			String status = table.getSelectionModel().getSelectedItem().getStatus();
 			new ChangeBugStatusDialog(number, status);
 		});
-		
-		copyBugTitle.setGraphic(new Icons().createListIcon());
-		copyBugTitle.setOnAction(e -> 
-		{
-			Bug bug = table.getSelectionModel().getSelectedItem();
-			String title = "Bug" + bug.getId() + " - " + bug.getSummary();
-			Utilities.copy(title);
-		});
 
 		contextMenu.getItems().addAll(remove, browser, copy, comment, changeStatus);
-
-		if (bugNumbers.size() == 1)
-		{
-			contextMenu.getItems().add(copyBugTitle);
-		}
 
 		int x = MouseInfo.getPointerInfo().getLocation().x;
 		int y = MouseInfo.getPointerInfo().getLocation().y;
