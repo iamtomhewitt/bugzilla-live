@@ -1,1 +1,2 @@
-./bugzilla-live-backend & java -jar bugzilla-live.jar
+start "" bugzilla-live-backend.exe
+start "" java -jar bugzilla-live.jar
