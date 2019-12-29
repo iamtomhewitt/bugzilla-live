@@ -31,6 +31,7 @@ import ui.theme.Icons;
 import common.error.Errors;
 import common.error.RequestException;
 import common.message.ApiRequestor;
+import common.message.ApiRequestor.ApiRequestType;
 import common.message.Endpoints;
 import common.message.MessageBox;
 
@@ -45,7 +46,7 @@ public class AboutDialog
 		JSONObject response;
 		try
 		{
-			response = ApiRequestor.request(Endpoints.GITHUB_RELEASES);
+			response = ApiRequestor.request(ApiRequestType.GET, Endpoints.GITHUB_RELEASES);
 		} 
 		catch (RequestException e)
 		{
