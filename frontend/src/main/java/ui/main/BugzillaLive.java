@@ -1,7 +1,12 @@
 package ui.main;
 
+import org.json.JSONObject;
+
 import common.error.Errors;
 import common.error.JsonTransformationException;
+import common.error.RequestException;
+import common.message.ApiRequestor;
+import common.message.Endpoints;
 import common.message.MessageBox;
 import common.utility.JacksonAdapter;
 import common.utility.UiConstants;
@@ -20,8 +25,10 @@ import ui.component.InformationPane;
 import ui.component.NavBar;
 import ui.component.Toolbar;
 import ui.log.UiLogger;
+import ui.theme.Colours;
 import ui.theme.Fonts;
 import ui.theme.Icons;
+import ui.theme.Themes;
 
 public class BugzillaLive
 {
@@ -72,6 +79,17 @@ public class BugzillaLive
 		catch (JsonTransformationException e1)
 		{
 			MessageBox.showExceptionDialog(Errors.JACKSON_TO, e1);
+		}
+		
+		try 
+		{
+			JSONObject response = ApiRequestor.request(Endpoints.CONFIG_GET);
+			JSONObject colours = new JSONObject(response.getString("config")).getJSONObject("colours");
+			Themes.updateColours(colours);
+		} 
+		catch (RequestException e1) 
+		{
+			MessageBox.showExceptionDialog(Errors.REQUEST, e1);
 		}
 		
 		primaryStage.show();		
