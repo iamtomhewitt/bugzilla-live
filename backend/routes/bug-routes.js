@@ -100,6 +100,51 @@ router.get('/:number/comments', function (req, res) {
 	});
 });
 
+// Get comments for a bug
+router.post('/:number/comments/add', function (req, res) {
+	let bugNumber = req.params.number;
+	let comment = req.query.comment;
+	let apiKey = req.query.apiKey;
+	let error, response;
+
+	console.log(bugNumber);
+
+	if (!bugNumber) {
+		error = createError("Invalid bug number", 'No bug number specified.');
+		response = failure(error);
+		res.status(errorCode).send(response);
+		return ;
+	}
+
+	let url = getBugzillaUrl() + '/rest/bug/' + bugNumber + '/comment'
+	let commentData = {
+		"comment" : comment
+	}
+
+	request({
+			headers: {
+				"Content-Type": "application/json",
+				"X-BUGZILLA-API-KEY": apiKey
+			}, 
+			url, 
+			body: JSON.stringify(commentData),
+			method: 'POST'
+		}, 
+		function (err, response, body) {
+			if (err) {
+				error = createError("Could not add comment to Bugzilla", err.message);
+				response = failure(error)
+				res.status(errorCode).send(response);
+				console.log(response);
+				return;
+			}
+	
+		response = success();
+		console.log(response);
+		res.status(successCode).send(response);
+	});
+});
+
 // Get attachments for a bug
 router.get('/:number/attachments', function (req, res) {
 	let bugNumber = req.params.number;
