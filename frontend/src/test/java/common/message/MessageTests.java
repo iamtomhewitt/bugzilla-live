@@ -69,7 +69,7 @@ public class MessageTests
 	}
 
 	@Test
-	public void correctConfigSaveEndpoint() throws UnsupportedEncodingException
+	public void correctConfigSaveEndpoint() throws Exception
 	{
 		assertEquals("http://localhost:3001/config/save?key=someKey&value=someValue", Endpoints.CONFIG_SAVE("someKey", "someValue"));
 	}
