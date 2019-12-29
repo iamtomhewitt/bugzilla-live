@@ -68,6 +68,7 @@ public class Login extends Application
 		JSONObject config = new JSONObject(response.getString("config"));
 		
 		UiConstants.BUGZILLA_URL = config.getString("bugzillaUrl");
+		UiConstants.APIKEY = config.getString("apiKey");
 				
 		Label title = uiBuilder.createTitle("Bugzilla LIVE", Fonts.FONT_SIZE_X_SUPER);
 		ImageView logo = uiBuilder.createLogo();
@@ -173,7 +174,7 @@ public class Login extends Application
 			Map<String, String> properties = new HashMap<String, String>();
 			properties.put("username", emailInput.getText());
 			properties.put("password", Encryptor.encrypt(passwordInput.getText()));
-			properties.put("api_key", apiKeyInput.getText());
+			properties.put("apiKey", apiKeyInput.getText());
 
 			for (Map.Entry<String, String> entry : properties.entrySet())
 			{
