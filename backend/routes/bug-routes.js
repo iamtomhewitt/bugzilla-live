@@ -107,8 +107,6 @@ router.post('/:number/comments/add', function (req, res) {
 	let apiKey = req.query.apiKey;
 	let error, response;
 
-	console.log(bugNumber);
-
 	if (!bugNumber) {
 		error = createError("Invalid bug number", 'No bug number specified.');
 		response = failure(error);
@@ -135,12 +133,10 @@ router.post('/:number/comments/add', function (req, res) {
 				error = createError("Could not add comment to Bugzilla", err.message);
 				response = failure(error)
 				res.status(errorCode).send(response);
-				console.log(response);
 				return;
 			}
 	
 		response = success();
-		console.log(response);
 		res.status(successCode).send(response);
 	});
 });
