@@ -26,9 +26,9 @@ public abstract class UiBuilder
 	
 	public Button createButton(String name, Size size, ButtonType type)
 	{		
-		String normalStyle 	= type == ButtonType.PRIMARY ? "-fx-background-color: " + Colours.toHex(Color.web(Colours.WINDOW)) 				+ "; -fx-background-radius: 0;" : "-fx-background-color: #e5e5e5; -fx-text-fill: #848383; -fx-background-radius: 0;";
-		String hoverStyle 	= type == ButtonType.PRIMARY ? "-fx-background-color: " + Colours.toHex(Color.web(Colours.WINDOW).brighter()) 	+ "; -fx-background-radius: 0;" : "-fx-background-color: #adabab; -fx-text-fill: white; -fx-background-radius: 0;";
-		String clickedStyle = type == ButtonType.PRIMARY ? "-fx-background-color: " + Colours.toHex(Color.web(Colours.WINDOW).darker()) 	+ "; -fx-background-radius: 0;" : "";
+		String normalStyle 	= type == ButtonType.PRIMARY ? "-fx-background-color: " + Colours.toHex(Color.web(Colours.getWindow())) 				+ "; -fx-background-radius: 0;" : "-fx-background-color: #e5e5e5; -fx-text-fill: #848383; -fx-background-radius: 0;";
+		String hoverStyle 	= type == ButtonType.PRIMARY ? "-fx-background-color: " + Colours.toHex(Color.web(Colours.getWindow()).brighter()) 	+ "; -fx-background-radius: 0;" : "-fx-background-color: #adabab; -fx-text-fill: white; -fx-background-radius: 0;";
+		String clickedStyle = type == ButtonType.PRIMARY ? "-fx-background-color: " + Colours.toHex(Color.web(Colours.getWindow()).darker()) 	+ "; -fx-background-radius: 0;" : "";
 		
 		FontWeight weight = type == ButtonType.PRIMARY ? FontWeight.BOLD : FontWeight.NORMAL;
 		
@@ -43,7 +43,7 @@ public abstract class UiBuilder
 		button.setOnMouseEntered(e -> button.setStyle(hoverStyle));
 		button.setOnMouseExited(e -> button.setStyle(normalStyle));
 		button.setOnMousePressed(e -> button.setStyle(clickedStyle));
-		button.setTextFill(Color.web(Colours.WINDOW_TEXT));
+		button.setTextFill(Color.web(Colours.getWindowText()));
 		
 		return button;
 	}

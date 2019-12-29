@@ -26,7 +26,7 @@ public class WindowsBar
 			
 	public static BorderPane createWindowsBar(Stage stage, Node center, String title)
 	{
-		Color currentColour = Color.web(Colours.WINDOW);
+		Color currentColour = Color.web(Colours.getWindow());
 		
 		String NORMAL = "-fx-background-color: " + Colours.toHex(currentColour);
 		String HIGHLIGHT = "-fx-background-color: " + Colours.toHex(currentColour.brighter());
@@ -40,7 +40,7 @@ public class WindowsBar
 		stage.initStyle(StageStyle.UNDECORATED);
 
 		Label label = new Label(title);
-		label.setTextFill(Color.web(Colours.WINDOW_TEXT));
+		label.setTextFill(Color.web(Colours.getWindowText()));
 		label.setFont(font);
 		
 		Button close = createButton("X", font, 30);

@@ -36,18 +36,18 @@ public class ColourChooser extends UiBuilder
 	{
 		Stage stage = new Stage();		
 		
-		ColourEntry windowBar 			= createColourEntry("Window", Colours.WINDOW);
-		ColourEntry critical 			= createColourEntry("Critical", Colours.CRITICAL);
-		ColourEntry high 				= createColourEntry("Major", Colours.MAJOR);
-		ColourEntry medium 				= createColourEntry("Medium", Colours.MINOR);
-		ColourEntry low 				= createColourEntry("Normal", Colours.NORMAL);
-		ColourEntry addressed 			= createColourEntry("Works For Me", Colours.WORKS_FOR_ME);
-		ColourEntry fixed 				= createColourEntry("Fixed", Colours.FIXED);
-		ColourEntry closed 				= createColourEntry("Resolved", Colours.RESOLVED);
-		ColourEntry noFault 			= createColourEntry("WONTFIX / DUPLICATE", Colours.NOFAULT);
-		ColourEntry infoPaneBackground 	= createColourEntry("Information Pane Background", Colours.INFO_PANE_BACKGROUND);
-		ColourEntry infoPaneHeading		= createColourEntry("Information Pane Heading", Colours.INFO_PANE_HEADING);
-		ColourEntry infoPaneSubheading	= createColourEntry("Information Pane Subheading", Colours.INFO_PANE_SUBHEADING);
+		ColourEntry windowBar 			= createColourEntry("Window", Colours.getWindow());
+		ColourEntry critical 			= createColourEntry("Critical", Colours.getCritical());
+		ColourEntry high 				= createColourEntry("Major", Colours.getMajor());
+		ColourEntry medium 				= createColourEntry("Medium", Colours.getMinor());
+		ColourEntry low 				= createColourEntry("Normal", Colours.getNormal());
+		ColourEntry addressed 			= createColourEntry("Works For Me", Colours.getWorksForMe());
+		ColourEntry fixed 				= createColourEntry("Fixed", Colours.getFixed());
+		ColourEntry closed 				= createColourEntry("Resolved", Colours.getResolved());
+		ColourEntry noFault 			= createColourEntry("WONTFIX / DUPLICATE", Colours.getNoFault());
+		ColourEntry infoPaneBackground 	= createColourEntry("Information Pane Background", Colours.getInfoPaneBackground());
+		ColourEntry infoPaneHeading		= createColourEntry("Information Pane Heading", Colours.getInfoPaneHeading());
+		ColourEntry infoPaneSubheading	= createColourEntry("Information Pane Subheading", Colours.getInfoPaneSubheading());
 		
 		Button cancelButton = createButton("Cancel", Size.SMALL, ButtonType.SECONDARY);
 		cancelButton.setOnAction(e -> stage.close());
@@ -55,18 +55,18 @@ public class ColourChooser extends UiBuilder
 		Button applyButton = createButton("Apply", Size.SMALL, ButtonType.PRIMARY);
 		applyButton.setOnAction(e -> 
 		{
-			Colours.WINDOW 					= Colours.toHex(windowBar.getColourPicker().getValue());
-			Colours.CRITICAL 				= Colours.toHex(critical.getColourPicker().getValue());
-			Colours.MAJOR 					= Colours.toHex(high.getColourPicker().getValue());
-			Colours.MINOR 					= Colours.toHex(medium.getColourPicker().getValue());
-			Colours.NORMAL 					= Colours.toHex(low.getColourPicker().getValue());
-			Colours.WORKS_FOR_ME 			= Colours.toHex(addressed.getColourPicker().getValue());
-			Colours.FIXED 					= Colours.toHex(fixed.getColourPicker().getValue());
-			Colours.RESOLVED 				= Colours.toHex(closed.getColourPicker().getValue());
-			Colours.NOFAULT 				= Colours.toHex(noFault.getColourPicker().getValue());
-			Colours.INFO_PANE_BACKGROUND	= Colours.toHex(infoPaneBackground.getColourPicker().getValue());
-			Colours.INFO_PANE_HEADING 		= Colours.toHex(infoPaneHeading.getColourPicker().getValue());
-			Colours.INFO_PANE_SUBHEADING	= Colours.toHex(infoPaneSubheading.getColourPicker().getValue());
+			Colours.setWindow(Colours.toHex(windowBar.getColourPicker().getValue()));
+			Colours.setCritical(Colours.toHex(critical.getColourPicker().getValue()));
+			Colours.setMajor(Colours.toHex(high.getColourPicker().getValue()));
+			Colours.setMinor(Colours.toHex(medium.getColourPicker().getValue()));
+			Colours.setNormal(Colours.toHex(low.getColourPicker().getValue()));
+			Colours.setWorksForMe(Colours.toHex(addressed.getColourPicker().getValue()));
+			Colours.setFixed(Colours.toHex(fixed.getColourPicker().getValue()));
+			Colours.setResolved(Colours.toHex(closed.getColourPicker().getValue()));
+			Colours.setNoFault(Colours.toHex(noFault.getColourPicker().getValue()));
+			Colours.setInfoPaneBackground(Colours.toHex(infoPaneBackground.getColourPicker().getValue()));
+			Colours.setInfoPaneHeading(Colours.toHex(infoPaneHeading.getColourPicker().getValue()));
+			Colours.setInfoPaneSubheading(Colours.toHex(infoPaneSubheading.getColourPicker().getValue()));
 
 			BugTable.getInstance().getTableView().refresh();
 			
