@@ -24,7 +24,7 @@ describe('Config route tests', function () {
 			.expect(601, done);
 	});
 
-	it('Should give 200 when saving config', function test(done) {
+	it('Should give 200 when saving string config', function test(done) {
 		request(server)
 			.get('/config/save?key=test&value=myvalue')
 			.expect(200, done);
@@ -42,6 +42,12 @@ describe('Config route tests', function () {
 				assert.equal(config.test, 'myvalue');
 				done();
 			});
+	});
+
+	it('Should give 200 when saving JSON config', function test(done) {
+		request(server)
+			.get('/config/save?key=json&value={"mykey": "myvalue"}')
+			.expect(200, done);
 	});
 
 	it('Should have correct title and message when sending an error', function test(done) {
