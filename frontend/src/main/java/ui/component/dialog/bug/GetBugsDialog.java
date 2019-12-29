@@ -23,6 +23,7 @@ import common.error.Errors;
 import common.error.JsonTransformationException;
 import common.error.RequestException;
 import common.message.ApiRequestor;
+import common.message.ApiRequestor.ApiRequestType;
 import common.message.Endpoints;
 import common.message.MessageBox;
 import common.message.RequestType;
@@ -141,7 +142,7 @@ public class GetBugsDialog extends UiBuilder
 		
 		UiMethods.clearTable();
 
-		response = ApiRequestor.request(Endpoints.BUGS_EMAIL(email));
+		response = ApiRequestor.request(ApiRequestType.GET, Endpoints.BUGS_EMAIL(email));
 
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{

@@ -100,7 +100,7 @@ router.get('/:number/comments', function (req, res) {
 	});
 });
 
-// Get comments for a bug
+// Add comments for a bug
 router.post('/:number/comments/add', function (req, res) {
 	let bugNumber = req.params.number;
 	let comment = req.query.comment;

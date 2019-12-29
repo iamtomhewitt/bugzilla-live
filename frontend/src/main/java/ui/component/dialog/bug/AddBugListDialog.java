@@ -20,6 +20,7 @@ import common.error.Errors;
 import common.error.JsonTransformationException;
 import common.error.RequestException;
 import common.message.ApiRequestor;
+import common.message.ApiRequestor.ApiRequestType;
 import common.message.Endpoints;
 import common.message.MessageBox;
 import common.utility.UiConstants;
@@ -126,7 +127,7 @@ public class AddBugListDialog extends UiBuilder
 			return;
 		}
 
-		JSONObject response = ApiRequestor.request(Endpoints.LIST_ADD(fileNameField.getText(), bugField.getText()));
+		JSONObject response = ApiRequestor.request(ApiRequestType.GET, Endpoints.LIST_ADD(fileNameField.getText(), bugField.getText()));
 
 		MessageBox.showErrorIfResponseNot200(response);
 

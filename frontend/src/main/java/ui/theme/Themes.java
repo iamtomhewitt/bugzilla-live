@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import common.error.Errors;
 import common.error.RequestException;
 import common.message.ApiRequestor;
+import common.message.ApiRequestor.ApiRequestType;
 import common.message.Endpoints;
 import common.message.MessageBox;
 import common.utility.UiMethods;
@@ -102,7 +103,7 @@ public class Themes
 		json.put("infoPaneHeading", Colours.getInfoPaneHeading());
 		json.put("infoPaneSubheading", Colours.getInfoPaneSubheading());
 
-		ApiRequestor.request(Endpoints.CONFIG_SAVE("colours", json.toString()));
+		ApiRequestor.request(ApiRequestType.GET, Endpoints.CONFIG_SAVE("colours", json.toString()));
 	}
 	
 	public static void updateColours(JSONObject colours)

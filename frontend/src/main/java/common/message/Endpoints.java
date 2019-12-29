@@ -84,9 +84,14 @@ public class Endpoints
 		return String.format(localhost + port + "/bugs/%s/comments", number);
 	}
 
-	public static final String BUGS_ADD_COMMENTS(String number, String comment, String apiKey)
+	public static final String BUGS_ADD_COMMENTS(String number, String comment, String apiKey) throws RequestException
 	{
-		return String.format(localhost + port + "/bugs/%s/comments/add?apiKey=%s&comment=%s", number, apiKey, comment);
+		try {
+			return String.format(localhost + port + "/bugs/%s/comments/add?apiKey=%s&comment=%s", number, apiKey, URLEncoder.encode(comment, "UTF-8"));
+		} 
+		catch (UnsupportedEncodingException e) {
+			throw new RequestException(e.getMessage());
+		}
 	}
 
 	public static final String CONFIG_SAVE(String key, String value) throws RequestException

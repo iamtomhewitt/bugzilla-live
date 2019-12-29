@@ -22,6 +22,7 @@ import common.error.Errors;
 import common.error.JsonTransformationException;
 import common.error.RequestException;
 import common.message.ApiRequestor;
+import common.message.ApiRequestor.ApiRequestType;
 import common.message.Endpoints;
 import common.message.MessageBox;
 import common.message.RequestType;
@@ -116,7 +117,7 @@ public class AddBugDialog extends UiBuilder
 		
 		if (!number.isEmpty())
 		{
-			JSONObject response = ApiRequestor.request(Endpoints.LIST_MODIFY(filename, number, ""));
+			JSONObject response = ApiRequestor.request(ApiRequestType.GET, Endpoints.LIST_MODIFY(filename, number, ""));
 
 			MessageBox.showErrorIfResponseNot200(response);
 
