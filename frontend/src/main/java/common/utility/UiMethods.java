@@ -189,7 +189,7 @@ public class UiMethods
 		InformationPane.getInstance().updateBackgroundColour();
 		InformationPane.getInstance().updateHeadingColour();
 		InformationPane.getInstance().updateSubheadingColour();
-		InformationPane.getInstance().getTitle().setTextFill(Color.web(Colours.WINDOW_TEXT));
+		InformationPane.getInstance().getTitle().setTextFill(Color.web(Colours.getWindowText()));
 
 		RowColours.updateColours();		
 	}
