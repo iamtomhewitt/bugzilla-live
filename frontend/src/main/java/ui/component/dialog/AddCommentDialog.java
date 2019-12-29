@@ -14,7 +14,16 @@ import ui.theme.Fonts;
 import ui.theme.Icons;
 import ui.theme.UiBuilder;
 import ui.theme.Sizes.Size;
+
+import org.json.JSONObject;
+
+import common.error.Errors;
+import common.error.RequestException;
+import common.message.ApiRequestor;
+import common.message.ApiRequestor.ApiRequestType;
+import common.message.Endpoints;
 import common.message.MessageBox;
+import common.utility.UiConstants;
 
 public class AddCommentDialog extends UiBuilder
 {
@@ -37,7 +46,17 @@ public class AddCommentDialog extends UiBuilder
 			}
 			if (MessageBox.showConfirmDialog("Add comment? This cannot be undone."))
 			{
-				// TODO use ApiRequestor
+				try 
+				{
+					String url = Endpoints.BUGS_ADD_COMMENTS(number, comment.getText(), UiConstants.APIKEY);
+					System.out.println(url);
+					JSONObject response = ApiRequestor.request(ApiRequestType.POST, url);
+					MessageBox.showErrorIfResponseNot200(response);
+				} 
+				catch (RequestException e1) 
+				{
+					MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+				}
 				stage.close();
 				parentStage.close();
 			}
