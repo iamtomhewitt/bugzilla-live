@@ -1,8 +1,12 @@
 package ui.theme;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.json.JSONObject;
 
+import common.error.Errors;
+import common.error.RequestException;
+import common.message.ApiRequestor;
+import common.message.Endpoints;
+import common.message.MessageBox;
 import common.utility.UiMethods;
 
 
@@ -68,22 +72,33 @@ public class Themes
 		
 		UiMethods.updateColours();
 		
-		// Now send a config request to save the colours
-		Map<String, String> properties = new HashMap<String, String>();
-		properties.put("windowcolour", Colours.WINDOW);
-		properties.put("windowtextcolour", Colours.WINDOW_TEXT);
-		properties.put("criticalcolour", Colours.CRITICAL);
-		properties.put("highcolour", Colours.MAJOR);
-		properties.put("mediumcolour", Colours.MINOR);
-		properties.put("lowcolour", Colours.NORMAL);
-		properties.put("addressedcolour", Colours.WORKS_FOR_ME);
-		properties.put("fixedcolour", Colours.FIXED);
-		properties.put("closedcolour", Colours.RESOLVED);
-		properties.put("nofaultcolour", Colours.NOFAULT);
-		properties.put("infopanebackgroundcolour", Colours.INFO_PANE_BACKGROUND);
-		properties.put("infopaneheadingcolour", Colours.INFO_PANE_HEADING);
-		properties.put("infopanesubheadingcolour", Colours.INFO_PANE_SUBHEADING);
-
-		// TODO use ApiRequestor
+		try 
+		{
+			saveColoursToConfig();
+		} 
+		catch (RequestException e) 
+		{
+			MessageBox.showExceptionDialog(Errors.REQUEST, e);
+		}
+	}
+	
+	public static void saveColoursToConfig() throws RequestException
+	{
+		JSONObject json = new JSONObject();
+		json.put("windowColour", Colours.WINDOW);		
+		json.put("windowTextColour", Colours.WINDOW_TEXT);	
+		json.put("criticalColour", Colours.CRITICAL);
+		json.put("highColour", Colours.MAJOR);
+		json.put("mediumColour", Colours.MINOR);
+		json.put("lowColour", Colours.NORMAL);
+		json.put("addressedColour", Colours.WORKS_FOR_ME);
+		json.put("fixedColour", Colours.FIXED);
+		json.put("closedColour", Colours.RESOLVED);
+		json.put("noFaultColour", Colours.NOFAULT);			
+		json.put("infopaneBackgroundColour", Colours.INFO_PANE_BACKGROUND);
+		json.put("infopaneHeadingColour", Colours.INFO_PANE_HEADING);
+		json.put("infopaneSubheadingColour", Colours.INFO_PANE_SUBHEADING);
+								
+		ApiRequestor.request(Endpoints.CONFIG_SAVE("colours", json.toString()));
 	}
 }
