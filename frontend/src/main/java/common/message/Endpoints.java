@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import common.error.RequestException;
+import common.utility.UiConstants;
 
 public class Endpoints
 {
@@ -83,6 +84,11 @@ public class Endpoints
 		return String.format(localhost + port + "/bugs/%s/comments", number);
 	}
 
+	public static final String BUGS_ADD_COMMENTS(String number, String comment, String apiKey)
+	{
+		return String.format(localhost + port + "/bugs/%s/comments/add?apiKey=%s&comment=%s", number, apiKey, comment);
+	}
+
 	public static final String CONFIG_SAVE(String key, String value) throws RequestException
 	{
 		try 
@@ -96,4 +102,5 @@ public class Endpoints
 	}
 
 	public static final String CONFIG_GET = localhost + port + "/config/get";
+
 }
