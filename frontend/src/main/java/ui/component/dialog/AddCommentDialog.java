@@ -49,7 +49,6 @@ public class AddCommentDialog extends UiBuilder
 				try 
 				{
 					String url = Endpoints.BUGS_ADD_COMMENTS(number, comment.getText(), UiConstants.APIKEY);
-					System.out.println(url);
 					JSONObject response = ApiRequestor.request(ApiRequestType.POST, url);
 					MessageBox.showErrorIfResponseNot200(response);
 				} 

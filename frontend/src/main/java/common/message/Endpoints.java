@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import common.error.RequestException;
-import common.utility.UiConstants;
 
 public class Endpoints
 {
