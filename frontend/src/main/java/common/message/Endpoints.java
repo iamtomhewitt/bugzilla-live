@@ -83,9 +83,16 @@ public class Endpoints
 		return String.format(localhost + port + "/bugs/%s/comments", number);
 	}
 
-	public static final String CONFIG_SAVE(String key, String value)
+	public static final String CONFIG_SAVE(String key, String value) throws RequestException
 	{
-		return String.format(localhost + port + "/config/save?key=%s&value=%s", key, value);
+		try 
+		{
+			return String.format(localhost + port + "/config/save?key=%s&value=%s", key, URLEncoder.encode(value, "UTF-8"));
+		} 
+		catch (UnsupportedEncodingException e)
+		{
+			throw new RequestException(e.getMessage());
+		}
 	}
 
 	public static final String CONFIG_GET = localhost + port + "/config/get";

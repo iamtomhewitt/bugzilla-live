@@ -40,17 +40,17 @@ public class InformationPane
 		title.setWrapText(true);
 
 		Label severity 		= createHeadingLabel("\nSeverity");
-		Label blocker 		= createSubHeadingLabel("Blocker", Colours.CRITICAL, severityLabels);
-		Label critical 		= createSubHeadingLabel("Critical", Colours.CRITICAL, severityLabels);
-		Label major 		= createSubHeadingLabel("Major", Colours.MAJOR, severityLabels);
-		Label minor 		= createSubHeadingLabel("Minor", Colours.MINOR, severityLabels);
-		Label normal		= createSubHeadingLabel("Normal", Colours.NORMAL, severityLabels);
+		Label blocker 		= createSubHeadingLabel("Blocker", Colours.getCritical(), severityLabels);
+		Label critical 		= createSubHeadingLabel("Critical", Colours.getCritical(), severityLabels);
+		Label major 		= createSubHeadingLabel("Major", Colours.getMajor(), severityLabels);
+		Label minor 		= createSubHeadingLabel("Minor", Colours.getMinor(), severityLabels);
+		Label normal		= createSubHeadingLabel("Normal", Colours.getNormal(), severityLabels);
 
 		Label status 		= createHeadingLabel("\nStatus");
-		Label worksForMe	= createSubHeadingLabel("Works For Me", Colours.WORKS_FOR_ME, statusLabels);
-		Label fixed			= createSubHeadingLabel("Fixed", Colours.FIXED, statusLabels);
-		Label wontFix		= createSubHeadingLabel("Won't Fix", Colours.NOFAULT, statusLabels);
-		Label closed 		= createSubHeadingLabel("Closed", Colours.RESOLVED, statusLabels);
+		Label worksForMe	= createSubHeadingLabel("Works For Me", Colours.getWorksForMe(), statusLabels);
+		Label fixed			= createSubHeadingLabel("Fixed", Colours.getFixed(), statusLabels);
+		Label wontFix		= createSubHeadingLabel("Won't Fix", Colours.getNoFault(), statusLabels);
+		Label closed 		= createSubHeadingLabel("Closed", Colours.getResolved(), statusLabels);
 
 		refreshed = createLabel("Never", Fonts.FONT, FontWeight.BOLD, Fonts.FONT_SIZE_LARGE, Color.WHITE);
 		refreshedTitle = createHeadingLabel("Last Updated");
@@ -63,7 +63,7 @@ public class InformationPane
 		pane.setPadding(new Insets(20, 15, 15, 15));
 		pane.setMinWidth(250);
 		pane.setMaxWidth(250);
-		pane.setStyle("-fx-background-color: " + Colours.INFO_PANE_BACKGROUND);
+		pane.setStyle("-fx-background-color: " + Colours.getInfoPaneBackground());
 	}
 
 	public void updateTexts()
@@ -97,7 +97,7 @@ public class InformationPane
 
 	private Label createSubHeadingLabel(String name, String iconColour, List<Label> list)
 	{
-		Label l = createLabel(name, Fonts.FONT, FontWeight.BOLD, Fonts.FONT_SIZE_LARGE, Color.web(Colours.INFO_PANE_SUBHEADING));
+		Label l = createLabel(name, Fonts.FONT, FontWeight.BOLD, Fonts.FONT_SIZE_LARGE, Color.web(Colours.getInfoPaneSubheading()));
 		list.add(l);
 		subheadingLabels.add(l);
 
@@ -113,7 +113,7 @@ public class InformationPane
 
 	private Label createHeadingLabel(String name)
 	{
-		Label l = createLabel(name, Fonts.FONT, FontWeight.BOLD, Fonts.FONT_SIZE_SUPER, Color.web(Colours.INFO_PANE_HEADING));
+		Label l = createLabel(name, Fonts.FONT, FontWeight.BOLD, Fonts.FONT_SIZE_SUPER, Color.web(Colours.getInfoPaneHeading()));
 		headingLabels.add(l);
 		return l;
 	}
@@ -133,12 +133,12 @@ public class InformationPane
 
 	public void updateBackgroundColour()
 	{
-		pane.setStyle("-fx-background-color: " + Colours.INFO_PANE_BACKGROUND);
+		pane.setStyle("-fx-background-color: " + Colours.getInfoPaneBackground());
 	}
 
 	public void updateHeadingColour()
 	{
-		Color colour = Color.web(Colours.INFO_PANE_HEADING);
+		Color colour = Color.web(Colours.getInfoPaneHeading());
 
 		for (Label l : headingLabels)
 		{
@@ -148,7 +148,7 @@ public class InformationPane
 
 	public void updateSubheadingColour()
 	{
-		Color colour = Color.web(Colours.INFO_PANE_SUBHEADING);
+		Color colour = Color.web(Colours.getInfoPaneSubheading());
 
 		for (Label l : subheadingLabels)
 		{

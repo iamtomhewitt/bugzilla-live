@@ -1,10 +1,14 @@
 package ui.theme;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.json.JSONObject;
 
+import common.error.Errors;
+import common.error.RequestException;
+import common.message.ApiRequestor;
+import common.message.Endpoints;
+import common.message.MessageBox;
 import common.utility.UiMethods;
-
+import ui.component.InformationPane;
 
 public class Themes
 {
@@ -60,30 +64,67 @@ public class Themes
 	
 	private static void applyTheme(String background, String heading, String text)
 	{
-		Colours.INFO_PANE_BACKGROUND 	= background;
-		Colours.INFO_PANE_HEADING 		= heading;
-		Colours.INFO_PANE_SUBHEADING 	= text;
-		Colours.WINDOW 					= background;
-		Colours.WINDOW_TEXT 			= text;
+		Colours.setInfoPaneBackground(background);
+		Colours.setInfoPaneHeading(heading);
+		Colours.setInfoPaneSubheading(text);
+		Colours.setWindow(background);
+		Colours.setWindowText(text);
 		
 		UiMethods.updateColours();
 		
-		// Now send a config request to save the colours
-		Map<String, String> properties = new HashMap<String, String>();
-		properties.put("windowcolour", Colours.WINDOW);
-		properties.put("windowtextcolour", Colours.WINDOW_TEXT);
-		properties.put("criticalcolour", Colours.CRITICAL);
-		properties.put("highcolour", Colours.MAJOR);
-		properties.put("mediumcolour", Colours.MINOR);
-		properties.put("lowcolour", Colours.NORMAL);
-		properties.put("addressedcolour", Colours.WORKS_FOR_ME);
-		properties.put("fixedcolour", Colours.FIXED);
-		properties.put("closedcolour", Colours.RESOLVED);
-		properties.put("nofaultcolour", Colours.NOFAULT);
-		properties.put("infopanebackgroundcolour", Colours.INFO_PANE_BACKGROUND);
-		properties.put("infopaneheadingcolour", Colours.INFO_PANE_HEADING);
-		properties.put("infopanesubheadingcolour", Colours.INFO_PANE_SUBHEADING);
+		try 
+		{
+			saveColoursToConfig();
+		} 
+		catch (RequestException e) 
+		{
+			MessageBox.showExceptionDialog(Errors.REQUEST, e);
+		}
+	}
+	
+	public static void saveColoursToConfig() throws RequestException
+	{
+		JSONObject json = new JSONObject();
+		json.put("critical", Colours.getCritical());		
+		json.put("major", Colours.getMajor());	
+		json.put("minor", Colours.getMinor());
+		json.put("normal", Colours.getNormal());
+		json.put("trivial", Colours.getTrivial());
+		json.put("fixed", Colours.getFixed());
+		json.put("resolved", Colours.getResolved());
+		json.put("worksForMe", Colours.getWorksForMe());
+		json.put("noFault", Colours.getNoFault());
+		json.put("selected", Colours.getSelected());			
+		json.put("blank", Colours.getBlank());
+		json.put("window", Colours.getWindow());
+		json.put("windowText", Colours.getWindowText());
+		json.put("infoPaneBackground", Colours.getInfoPaneBackground());
+		json.put("infoPaneHeading", Colours.getInfoPaneHeading());
+		json.put("infoPaneSubheading", Colours.getInfoPaneSubheading());
 
-		// TODO use ApiRequestor
+		ApiRequestor.request(Endpoints.CONFIG_SAVE("colours", json.toString()));
+	}
+	
+	public static void updateColours(JSONObject colours)
+	{
+		Colours.setWindow(colours.getString("window"));
+		Colours.setWindowText(colours.getString("windowText"));
+		Colours.setCritical(colours.getString("critical"));
+		Colours.setMajor(colours.getString("major"));
+		Colours.setMinor(colours.getString("minor"));
+		Colours.setNormal(colours.getString("normal"));
+		Colours.setWorksForMe(colours.getString("worksForMe"));
+		Colours.setFixed(colours.getString("fixed"));
+		Colours.setResolved(colours.getString("resolved"));
+		Colours.setNoFault(colours.getString("noFault"));
+		Colours.setInfoPaneBackground(colours.getString("infoPaneBackground"));
+		Colours.setInfoPaneHeading(colours.getString("infoPaneHeading"));
+		Colours.setInfoPaneSubheading(colours.getString("infoPaneSubheading"));
+		
+		UiMethods.updateColours();
+		RowColours.updateColours();
+		InformationPane.getInstance().updateBackgroundColour();
+		InformationPane.getInstance().updateHeadingColour();
+		InformationPane.getInstance().updateSubheadingColour();
 	}
 }
