@@ -33,6 +33,7 @@ router.get('/save', function (req, res) {
 		return;
 	}
 
+	value = IsJsonString(value) ? JSON.parse(value) : value;
 	configFile[key] = value;
 
 	fs.writeFile(configFilename, JSON.stringify(configFile, null, 4), function(err){
@@ -80,6 +81,15 @@ function createError(title, message) {
 		"title": title,
 		"message": message
 	}
+}
+
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
 }
 
 module.exports = router;
