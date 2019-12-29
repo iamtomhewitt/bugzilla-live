@@ -25,7 +25,6 @@ import ui.component.InformationPane;
 import ui.component.NavBar;
 import ui.component.Toolbar;
 import ui.log.UiLogger;
-import ui.theme.Colours;
 import ui.theme.Fonts;
 import ui.theme.Icons;
 import ui.theme.Themes;
