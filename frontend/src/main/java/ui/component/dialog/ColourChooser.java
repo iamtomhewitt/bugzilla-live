@@ -1,10 +1,14 @@
 package ui.component.dialog;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import org.json.JSONObject;
 
+import common.error.Errors;
+import common.error.RequestException;
+import common.message.ApiRequestor;
+import common.message.Endpoints;
+import common.message.MessageBox;
 import common.utility.UiMethods;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -72,22 +76,31 @@ public class ColourChooser extends UiBuilder
 			UiMethods.updateColours();
 			
 			// Now send a config request to save the colours
-			Map<String, String> properties = new HashMap<String, String>();
-			properties.put("windowcolour", Colours.WINDOW);		
-			properties.put("windowtextcolour", Colours.WINDOW_TEXT);	
-			properties.put("criticalcolour", Colours.CRITICAL);
-			properties.put("highcolour", Colours.MAJOR);
-			properties.put("mediumcolour", Colours.MINOR);
-			properties.put("lowcolour", Colours.NORMAL);
-			properties.put("addressedcolour", Colours.WORKS_FOR_ME);
-			properties.put("fixedcolour", Colours.FIXED);
-			properties.put("closedcolour", Colours.RESOLVED);
-			properties.put("nofaultcolour", Colours.NOFAULT);			
-			properties.put("infopanebackgroundcolour", Colours.INFO_PANE_BACKGROUND);
-			properties.put("infopaneheadingcolour", Colours.INFO_PANE_HEADING);
-			properties.put("infopanesubheadingcolour", Colours.INFO_PANE_SUBHEADING);
+			JSONObject json = new JSONObject();
+			json.put("windowColour", Colours.WINDOW);		
+			json.put("windowTextColour", Colours.WINDOW_TEXT);	
+			json.put("criticalColour", Colours.CRITICAL);
+			json.put("highColour", Colours.MAJOR);
+			json.put("mediumColour", Colours.MINOR);
+			json.put("lowColour", Colours.NORMAL);
+			json.put("addressedColour", Colours.WORKS_FOR_ME);
+			json.put("fixedColour", Colours.FIXED);
+			json.put("closedColour", Colours.RESOLVED);
+			json.put("noFaultColour", Colours.NOFAULT);			
+			json.put("infopaneBackgroundColour", Colours.INFO_PANE_BACKGROUND);
+			json.put("infopaneHeadingColour", Colours.INFO_PANE_HEADING);
+			json.put("infopaneSubheadingColour", Colours.INFO_PANE_SUBHEADING);
+									
+			try 
+			{
+				JSONObject response = ApiRequestor.request(Endpoints.CONFIG_SAVE("colours", json.toString()));
+				MessageBox.showErrorIfResponseNot200(response);
+			} 
+			catch (RequestException e1) 
+			{
+				MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+			}
 
-			// TODO use ApiRequestor
 			stage.close();
 		});
 		
