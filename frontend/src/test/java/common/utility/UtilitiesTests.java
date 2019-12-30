@@ -13,32 +13,10 @@ import common.bug.Bug;
 import common.bug.BugAttachment;
 import common.bug.BugComment;
 import common.error.JsonTransformationException;
-import common.utility.Encryptor;
 import common.utility.JacksonAdapter;
 
 public class UtilitiesTests
 {
-	@Test
-	public void canEncryptPassword()
-	{
-		String password = "Pa55word!";
-		
-		String encrypted = Encryptor.encrypt(password);
-		
-		assertEquals("-12.5.-39.-39.27.19.22.8.-59.", encrypted);
-	}
-	
-	@Test
-	public void canDecryptPassword()
-	{
-		String password = "Pa55word!";
-		
-		String encrypted = Encryptor.encrypt(password);
-		String descrypted = Encryptor.decrypt(encrypted);
-		
-		assertEquals("Pa55word!", descrypted);
-	}
-
 	@SuppressWarnings("unchecked")
 	@Test
 	public void jacksonCanTurnBugsJsonIntoListOfBugType() throws JSONException, JsonTransformationException
