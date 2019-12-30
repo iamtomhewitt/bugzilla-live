@@ -3,6 +3,7 @@ package common.message;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -18,7 +19,7 @@ import common.error.RequestException;
  */
 public class ApiRequestor
 {
-	public enum ApiRequestType { GET, POST };
+	public enum ApiRequestType { GET, POST, PUT };
 	
 	public static JSONObject request(ApiRequestType type, String url) throws RequestException
 	{
@@ -26,7 +27,26 @@ public class ApiRequestor
 		{
 			CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 			
-			HttpUriRequest request = type == ApiRequestType.GET ? new HttpGet(url) : new HttpPost(url);
+			HttpUriRequest request;
+			
+			switch (type)
+			{
+				case GET:
+					request = new HttpGet(url);
+					break;
+					
+				case POST:
+					request = new HttpPost(url);
+					break;
+					
+				case PUT:
+					request = new HttpPut(url);
+					break;
+				
+				default:
+					request = new HttpGet(url);
+					break;
+			}
 
 			HttpResponse result = httpClient.execute(request);
 	
