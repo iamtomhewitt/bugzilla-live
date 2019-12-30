@@ -41,21 +41,21 @@ describe('Bug route tests', function () {
 			});
 	});
 
-	it('Should give 200 when getting bugs by email', function test(done) {
+	it('Should give 200 when getting bugs by username', function test(done) {
 		request(server)
-			.get('/bugs/email?email=test@gmail.com')
+			.get('/bugs/username?username=test')
 			.expect(200, done);
 	}).timeout(timeout);
 
-	it('Should give 601 when no parameters are passed for bugs with email', function test(done) {
+	it('Should give 601 when no parameters are passed for bugs with username', function test(done) {
 		request(server)
-			.get('/bugs/email')
+			.get('/bugs/username')
 			.expect(601, done);
 	});
 
-	it('Should have correct error title and message when no parameters are passed for email', function test(done) {
+	it('Should have correct error title and message when no parameters are passed for username', function test(done) {
 		request(server)
-			.get('/bugs/email')
+			.get('/bugs/username')
 			.expect(601)
 			.end(function(err, response) {
 				if (err) {
@@ -63,8 +63,8 @@ describe('Bug route tests', function () {
 				}
 
 				let error = response.body["error"];
-				assert.equal(error.title, 'Invalid email');
-				assert.equal(error.message, 'No email specified in query.');
+				assert.equal(error.title, 'Invalid username');
+				assert.equal(error.message, 'No username specified in query.');
 				done();
 			});
 	});
