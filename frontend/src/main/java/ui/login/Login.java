@@ -4,9 +4,6 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.json.JSONObject;
 
 import common.error.Errors;
@@ -78,7 +75,7 @@ public class Login extends Application
 		{
 			try
 			{				
-				Desktop.getDesktop().browse(new URI(UiConstants.BUGZILLA_URL+"/userprefs.cgi?tab=apikey"));
+				Desktop.getDesktop().browse(new URI(UiConstants.BUGZILLA_URL + "/userprefs.cgi?tab=apikey"));
 			} 
 			catch (IOException | URISyntaxException ex)
 			{
@@ -87,6 +84,8 @@ public class Login extends Application
 		});
 		
 		apiKeyInput = uiBuilder.createTextField("api key", Size.LARGE);
+		apiKeyInput.setText(UiConstants.APIKEY);
+		apiKeyInput.setTooltip(new Tooltip("Click the blue button if you do not have an API key"));	
 		apiKeyInput.setOnKeyPressed(e -> 
 		{
 			if (e.getCode() == KeyCode.ENTER)
@@ -94,8 +93,6 @@ public class Login extends Application
 				execute();
 			}
 		});
-		
-		apiKeyInput.setTooltip(new Tooltip("Click the blue button if you do not have an API key"));	
 		
 		VBox titleVbox = createVBox(logo, title);
 		VBox fieldsVbox = createVBox(apiKeyInput);
@@ -107,7 +104,7 @@ public class Login extends Application
 		
 		Platform.runLater(() -> loginButton.requestFocus());
 		
-		Scene scene = new Scene(vbox, 325, 550);
+		Scene scene = new Scene(vbox, 275, 425);
 		stage = new Stage();
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setTitle("Login");
@@ -126,10 +123,7 @@ public class Login extends Application
 		vbox.setPadding(new Insets(15));
 		return vbox;
 	}
-
-	/**
-	 * @return <code>true</code> if all the login fields are filled in.
-	 */
+	
 	private boolean canLogin()
 	{
 		return !apiKeyInput.getText().contentEquals("");
@@ -142,26 +136,17 @@ public class Login extends Application
 	{
 		if (canLogin())
 		{
-			Map<String, String> properties = new HashMap<String, String>();
-			properties.put("apiKey", apiKeyInput.getText());
-
-			for (Map.Entry<String, String> entry : properties.entrySet())
+			try
 			{
-				JSONObject response;
-				
-				try
-				{
-					response = ApiRequestor.request(ApiRequestType.GET, Endpoints.CONFIG_SAVE(entry.getKey(), entry.getValue()));
-				} 
-				catch (Exception e)
-				{
-					MessageBox.showExceptionDialog(Errors.REQUEST, e);
-					return;
-				}					
-				
+				JSONObject response = ApiRequestor.request(ApiRequestType.GET, Endpoints.CONFIG_SAVE("apiKey", apiKeyInput.getText()));
 				MessageBox.showErrorIfResponseNot200(response);
+			} 
+			catch (Exception e)
+			{
+				MessageBox.showExceptionDialog(Errors.REQUEST, e);
+				return;
 			}
-			
+
 			new BugzillaLive();
 			stage.close();
 		}
