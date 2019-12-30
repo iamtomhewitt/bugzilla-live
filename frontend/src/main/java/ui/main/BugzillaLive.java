@@ -64,7 +64,7 @@ public class BugzillaLive
 		Scene scene = new Scene(border);
 		primaryStage.getIcons().add(new Icons().createBugzillaIcon().getImage());
 		primaryStage.setScene(scene);
-		primaryStage.setTitle(UiMethods.createApplicationTitle(UiConstants.USER_EMAIL));
+		primaryStage.setTitle("Bugzilla LIVE");
 		primaryStage.setMaximized(true);
 
 		Label welcomeLabel = new Label("Welcome to Bugzilla LIVE.\nTo get started, select or create a list using the File, Lists menu.\nUse the Help menu if you get stuck.");

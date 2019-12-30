@@ -68,9 +68,9 @@ public class Endpoints
 		return String.format(localhost + port + "/bugs/numbers?numbers=%s", numbers);
 	}
 
-	public static final String BUGS_EMAIL(String email)
+	public static final String BUGS_USERNAME(String username)
 	{
-		return String.format(localhost + port + "/bugs/email?email=%s", email);
+		return String.format(localhost + port + "/bugs/username?username=%s", username);
 	}
 
 	public static final String BUGS_ATTACHMENTS(String number)
