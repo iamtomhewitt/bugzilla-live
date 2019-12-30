@@ -18,6 +18,7 @@ import common.error.Errors;
 import common.error.JsonTransformationException;
 import common.error.RequestException;
 import common.message.ApiRequestor;
+import common.message.ApiRequestor.ApiRequestType;
 import common.message.Endpoints;
 import common.message.MessageBox;
 import common.utility.JacksonAdapter;
@@ -99,7 +100,7 @@ public class BugCommentDialog extends UiBuilder
 	{
 		VBox attachmentsVbox = new VBox();
 
-		JSONObject response = ApiRequestor.request(Endpoints.BUGS_ATTACHMENTS(number));
+		JSONObject response = ApiRequestor.request(ApiRequestType.GET, Endpoints.BUGS_ATTACHMENTS(number));
 		
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{
@@ -145,7 +146,7 @@ public class BugCommentDialog extends UiBuilder
 	private VBox populateComments(String number) throws JsonTransformationException, RequestException
 	{
 		VBox commentsVbox = new VBox();
-		JSONObject response = ApiRequestor.request(Endpoints.BUGS_COMMENTS(number));
+		JSONObject response = ApiRequestor.request(ApiRequestType.GET, Endpoints.BUGS_COMMENTS(number));
 
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{

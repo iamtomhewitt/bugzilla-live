@@ -11,6 +11,7 @@ import common.error.Errors;
 import common.error.JsonTransformationException;
 import common.error.RequestException;
 import common.message.ApiRequestor;
+import common.message.ApiRequestor.ApiRequestType;
 import common.message.Endpoints;
 import common.message.MessageBox;
 import common.message.RequestType;
@@ -73,7 +74,7 @@ public class UiMethods
 		UiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
 		UiConstants.CURRENT_LIST = null;
 		
-		JSONObject response = ApiRequestor.request(Endpoints.BUGS_EMAIL(UiConstants.USER_EMAIL));
+		JSONObject response = ApiRequestor.request(ApiRequestType.GET, Endpoints.BUGS_EMAIL(UiConstants.USER_EMAIL));
 		
 		if(MessageBox.showErrorIfResponseNot200(response))
 		{
@@ -90,7 +91,7 @@ public class UiMethods
 	public static void requestRefreshOfBugsInList() throws RequestException, JsonTransformationException
 	{
 		// Get the current bug numbers in the file
-		JSONObject response = ApiRequestor.request(Endpoints.LIST_CONTENTS(UiConstants.CURRENT_LIST.split("\\.")[0]));
+		JSONObject response = ApiRequestor.request(ApiRequestType.GET, Endpoints.LIST_CONTENTS(UiConstants.CURRENT_LIST.split("\\.")[0]));
 		String content = response.getString("contents");
 
 		UiConstants.REQUEST_TYPE = RequestType.LIST;
@@ -102,7 +103,7 @@ public class UiMethods
 
 		if (!content.isEmpty())
 		{
-			response = ApiRequestor.request(Endpoints.BUGS_NUMBERS(content));
+			response = ApiRequestor.request(ApiRequestType.GET, Endpoints.BUGS_NUMBERS(content));
 			updateBugsInTable(response);
 		}
 	}
@@ -119,7 +120,7 @@ public class UiMethods
 
 		if (!numbers.isEmpty())
 		{
-			JSONObject response = ApiRequestor.request(Endpoints.BUGS_NUMBERS(numbers));
+			JSONObject response = ApiRequestor.request(ApiRequestType.GET, Endpoints.BUGS_NUMBERS(numbers));
 
 			if (MessageBox.showErrorIfResponseNot200(response))
 			{

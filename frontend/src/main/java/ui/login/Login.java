@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import common.error.Errors;
 import common.message.ApiRequestor;
+import common.message.ApiRequestor.ApiRequestType;
 import common.message.Endpoints;
 import common.message.MessageBox;
 import common.utility.Encryptor;
@@ -57,7 +58,7 @@ public class Login extends Application
 		JSONObject response;
 		try 
 		{
-			response = ApiRequestor.request(Endpoints.CONFIG_GET);
+			response = ApiRequestor.request(ApiRequestType.GET, Endpoints.CONFIG_GET);
 		} 
 		catch (Exception e) 
 		{
@@ -68,6 +69,7 @@ public class Login extends Application
 		JSONObject config = new JSONObject(response.getString("config"));
 		
 		UiConstants.BUGZILLA_URL = config.getString("bugzillaUrl");
+		UiConstants.APIKEY = config.getString("apiKey");
 				
 		Label title = uiBuilder.createTitle("Bugzilla LIVE", Fonts.FONT_SIZE_X_SUPER);
 		ImageView logo = uiBuilder.createLogo();
@@ -173,7 +175,7 @@ public class Login extends Application
 			Map<String, String> properties = new HashMap<String, String>();
 			properties.put("username", emailInput.getText());
 			properties.put("password", Encryptor.encrypt(passwordInput.getText()));
-			properties.put("api_key", apiKeyInput.getText());
+			properties.put("apiKey", apiKeyInput.getText());
 
 			for (Map.Entry<String, String> entry : properties.entrySet())
 			{
@@ -181,7 +183,7 @@ public class Login extends Application
 				
 				try
 				{
-					response = ApiRequestor.request(Endpoints.CONFIG_SAVE(entry.getKey(), entry.getValue()));
+					response = ApiRequestor.request(ApiRequestType.GET, Endpoints.CONFIG_SAVE(entry.getKey(), entry.getValue()));
 				} 
 				catch (Exception e)
 				{

@@ -18,6 +18,7 @@ import ui.theme.Icons;
 import common.bug.Bug;
 import common.error.Errors;
 import common.message.ApiRequestor;
+import common.message.ApiRequestor.ApiRequestType;
 import common.message.Endpoints;
 import common.message.MessageBox;
 import common.utility.UiConstants;
@@ -62,7 +63,7 @@ public class BugContextMenu
 			
 			try
 			{
-				response = ApiRequestor.request(Endpoints.LIST_MODIFY(filename, "", numbers));
+				response = ApiRequestor.request(ApiRequestType.GET, Endpoints.LIST_MODIFY(filename, "", numbers));
 			} 
 			catch (Exception e1)
 			{
