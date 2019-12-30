@@ -161,7 +161,7 @@ public class BugCommentDialog extends UiBuilder
 
 			GridPane commentSection = new GridPane();
 
-			Label name = createNameLabel(comment.getCreator());
+			Label name = createNameLabel(comment.getCreator().split("@")[0]);
 			name.setFont(Font.font("System", FontWeight.BOLD, Fonts.FONT_SIZE_LARGE));
 			name.setAlignment(Pos.CENTER_LEFT);
 

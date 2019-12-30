@@ -5,14 +5,11 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ui.component.WindowsBar;
-import ui.theme.Fonts;
 import ui.theme.Icons;
 import ui.theme.UiBuilder;
 import ui.theme.Sizes.Size;
@@ -37,10 +34,7 @@ public class GetBugsDialog extends UiBuilder
 	public GetBugsDialog()
 	{
 		Stage stage = new Stage();
-		VBox vbox = new VBox();	
-		Label title = createTitle("User Bugs", Fonts.FONT_SIZE_LARGE);
-
-		usernameField = createTextField("email address", Size.LARGE);
+		usernameField = createTextField("username", Size.MEDIUM);
 		usernameField.setOnKeyPressed(e->
 		{
 			if (e.getCode() == KeyCode.ENTER)
@@ -79,22 +73,14 @@ public class GetBugsDialog extends UiBuilder
 			}
 		});
 				
-		VBox fields = new VBox(usernameField);
+		VBox fields = new VBox(usernameField, getBugsButton);
 		fields.setAlignment(Pos.CENTER);
 		fields.setSpacing(10);
 		fields.setPadding(new Insets(10));
 		
-		HBox buttons = new HBox(getBugsButton);
-		buttons.setAlignment(Pos.CENTER);
-		buttons.setSpacing(10);
-
-		vbox = new VBox(title, fields, buttons);
-		vbox.setAlignment(Pos.CENTER);
-		vbox.setSpacing(10);
-		
 		Platform.runLater(() -> getBugsButton.requestFocus());
 		
-        stage.setScene(new Scene(WindowsBar.createWindowsBar(stage, vbox, "Get Bugs"), 300, 325));
+        stage.setScene(new Scene(WindowsBar.createWindowsBar(stage, fields, "Get Bugs"), 225, 125));
         stage.show();
         stage.getIcons().add(new Icons().createBugzillaIcon().getImage());
         stage.centerOnScreen();
