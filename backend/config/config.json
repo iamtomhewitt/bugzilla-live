@@ -2,7 +2,6 @@
     "refreshRate": "30",
     "bugzillaUrl": "https://bugzilla.mozilla.org",
     "apiKey": "",
-    "username": "",
     "colours": {
         "normal": "#6680E6",
         "worksForMe": "#CCFFCC",
@@ -20,5 +19,5 @@
         "noFault": "#80B380",
         "selected": "#000000",
         "resolved": "#99CC99"
-	}
+    }
 }
