@@ -14,7 +14,6 @@ import common.message.ApiRequestor;
 import common.message.ApiRequestor.ApiRequestType;
 import common.message.Endpoints;
 import common.message.MessageBox;
-import common.utility.Encryptor;
 import common.utility.UiConstants;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -46,7 +45,7 @@ public class Login extends Application
 {
 	private Stage stage;
 
-	private TextField emailInput;
+	private TextField usernameInput;
 	private TextField apiKeyInput;
 	private PasswordField passwordInput;
 	
@@ -90,11 +89,11 @@ public class Login extends Application
 			}
 		});
 		
-		emailInput = uiBuilder.createTextField("email address", Size.LARGE);
+		usernameInput = uiBuilder.createTextField("email address", Size.LARGE);
 		apiKeyInput = uiBuilder.createTextField("api key", Size.LARGE);
 		passwordInput = uiBuilder.createPasswordField("password", Size.LARGE);
 
-		emailInput.setOnKeyPressed(e -> 
+		usernameInput.setOnKeyPressed(e -> 
 		{
 			if (e.getCode() == KeyCode.ENTER)
 			{
@@ -118,11 +117,11 @@ public class Login extends Application
 			}
 		});
 		
-		emailInput.setTooltip(new Tooltip("Your email address for Bugzilla"));
+		usernameInput.setTooltip(new Tooltip("Your email address for Bugzilla"));
 		apiKeyInput.setTooltip(new Tooltip("Click the blue button if you do not have an API key"));	
 		
 		VBox titleVbox = createVBox(logo, title);
-		VBox fieldsVbox = createVBox(emailInput, passwordInput, apiKeyInput);
+		VBox fieldsVbox = createVBox(usernameInput, passwordInput, apiKeyInput);
 		VBox buttonsVbox = createVBox(loginButton, apiKeyButton);
 		
 		VBox vbox = new VBox();		
@@ -156,7 +155,7 @@ public class Login extends Application
 	 */
 	private boolean canLogin()
 	{
-		return !(emailInput.getText().equals("") || passwordInput.getText().equals("") || apiKeyInput.getText().contentEquals(""));
+		return !(usernameInput.getText().equals("") || passwordInput.getText().equals("") || apiKeyInput.getText().contentEquals(""));
 	}
 	
 	/*
@@ -164,7 +163,7 @@ public class Login extends Application
 	 */
 	private void execute()
 	{
-		if (!emailInput.getText().matches(UiConstants.EMAIL_REGEX))
+		if (!usernameInput.getText().matches(UiConstants.EMAIL_REGEX))
 		{
 			MessageBox.showDialog(Errors.INVALID_EMAIL);
 			return;
@@ -173,8 +172,7 @@ public class Login extends Application
 		if (canLogin())
 		{
 			Map<String, String> properties = new HashMap<String, String>();
-			properties.put("username", emailInput.getText());
-			properties.put("password", Encryptor.encrypt(passwordInput.getText()));
+			properties.put("username", usernameInput.getText());
 			properties.put("apiKey", apiKeyInput.getText());
 
 			for (Map.Entry<String, String> entry : properties.entrySet())
@@ -194,7 +192,7 @@ public class Login extends Application
 				MessageBox.showErrorIfResponseNot200(response);
 			}
 
-			UiConstants.USER_EMAIL = emailInput.getText();
+			UiConstants.USER_EMAIL = usernameInput.getText();
 			
 			new BugzillaLive();
 			stage.close();
