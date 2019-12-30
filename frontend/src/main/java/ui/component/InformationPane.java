@@ -50,6 +50,8 @@ public class InformationPane
 		Label worksForMe	= createSubHeadingLabel("Works For Me", Colours.getWorksForMe(), statusLabels);
 		Label fixed			= createSubHeadingLabel("Fixed", Colours.getFixed(), statusLabels);
 		Label wontFix		= createSubHeadingLabel("Won't Fix", Colours.getNoFault(), statusLabels);
+		Label resolved		= createSubHeadingLabel("Resolved", Colours.getNoFault(), statusLabels);
+		Label verified		= createSubHeadingLabel("Verified", Colours.getNoFault(), statusLabels);
 		Label closed 		= createSubHeadingLabel("Closed", Colours.getResolved(), statusLabels);
 
 		refreshed = createLabel("Never", Fonts.FONT, FontWeight.BOLD, Fonts.FONT_SIZE_LARGE, Color.WHITE);
@@ -58,7 +60,7 @@ public class InformationPane
 
 		subheadingLabels.add(refreshed);
 
-		pane.getChildren().addAll(title, refreshedVbox, severity, blocker, critical, major, minor, normal, status, worksForMe, fixed, wontFix, closed);
+		pane.getChildren().addAll(title, refreshedVbox, severity, blocker, critical, major, minor, normal, status, worksForMe, fixed, wontFix, resolved, verified, closed);
 		pane.setSpacing(12);
 		pane.setPadding(new Insets(20, 15, 15, 15));
 		pane.setMinWidth(250);
