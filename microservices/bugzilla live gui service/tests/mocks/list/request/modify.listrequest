@@ -1,7 +1,0 @@
-{
-	"message": "listrequest",
-	"operation": "modify",
-	"filename": "test list.txt",
-	"append": "12346",
-	"remove": "12345"
-}

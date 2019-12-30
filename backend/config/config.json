@@ -1,0 +1,23 @@
+{
+    "refreshRate": "30",
+    "bugzillaUrl": "https://bugzilla.mozilla.org",
+    "apiKey": "",
+    "colours": {
+        "normal": "#6680E6",
+        "worksForMe": "#CCFFCC",
+        "blank": "#ffffff",
+        "critical": "#373D48",
+        "minor": "#FFFF4D",
+        "infoPaneBackground": "#373D48",
+        "infoPaneSubheading": "#FFFFFF",
+        "trivial": "#d0d0d0",
+        "major": "#FFB366",
+        "windowText": "#FFFFFF",
+        "fixed": "#B3E6B3",
+        "window": "#373D48",
+        "infoPaneHeading": "#5294E2",
+        "noFault": "#80B380",
+        "selected": "#000000",
+        "resolved": "#99CC99"
+    }
+}
