@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONObject;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -23,30 +25,50 @@ import ui.theme.Icons;
 import ui.theme.UiBuilder;
 import ui.theme.Sizes.Size;
 import common.error.Errors;
+import common.error.RequestException;
+import common.message.ApiRequestor;
+import common.message.ApiRequestor.ApiRequestType;
+import common.message.Endpoints;
 import common.message.MessageBox;
+import common.utility.UiConstants;
 
 public class ChangeBugStatusDialog extends UiBuilder
 {
 	private Stage stage = new Stage();
 	
 	private String selectedStatus = "";
+	private String selectedResolution = "";
 
 	public ChangeBugStatusDialog(String number, String status)
 	{
-		Map<String, List<String>> statusMap = this.generateStatusMap();
+		Map<String, String> statusMap = this.generateStatusMap();
+		List<String> resolutionList = this.generateResolutionList();
 		
-		Label statusLabel = createTitle("Status", Fonts.FONT_SIZE_LARGE);
+		selectedStatus = statusMap.get(status);
+		selectedResolution = resolutionList.get(0);
+		
+		Label statusLabel 		= createTitle("Status\t\t", Fonts.FONT_SIZE_LARGE);
+		Label resolutionLabel 	= createTitle("Resolution\t", Fonts.FONT_SIZE_LARGE);
 
 		TextArea comment = new TextArea();
-		comment.setMinHeight(250);
+		comment.setMinHeight(150);
 		comment.setFont(Font.font(Fonts.FONT, FontPosture.REGULAR, Fonts.FONT_SIZE_NORMAL));
 		comment.setWrapText(true);
+		
+		ComboBox<String> resolutionComboBox = createComboBox();
+		resolutionComboBox.getItems().addAll(resolutionList);
+		resolutionComboBox.setOnAction(e ->
+		{
+			selectedResolution = resolutionComboBox.getSelectionModel().getSelectedItem();
+			comment.setText("Updated to " + selectedStatus + " (" + selectedResolution + ").");
+		});
 
-		ComboBox<String> statusComboBox = createComboBox("TEST");
+		ComboBox<String> statusComboBox = createComboBox();
+		statusComboBox.getItems().addAll(statusMap.get(status));
 		statusComboBox.setOnAction(e ->
 		{
 			selectedStatus = statusComboBox.getSelectionModel().getSelectedItem();
-			comment.setText("Updated to " + selectedStatus + ".");
+			comment.setText("Updated to " + selectedStatus + " (" + selectedResolution + ").");
 		});
 
 		Button submitButton = createButton("Submit", Size.SMALL, ButtonType.PRIMARY);
@@ -57,25 +79,38 @@ public class ChangeBugStatusDialog extends UiBuilder
 				MessageBox.showDialog(Errors.MISSING_FIELD);
 				return;
 			}
-			if (MessageBox.showConfirmDialog("Are you sure you want to update this bug to " + selectedStatus + "?"))
+			if (MessageBox.showConfirmDialog("Are you sure you want to update this bug to " + selectedStatus + "("+selectedResolution+") ?"))
 			{				
-				// TODO use ApiRequestor
+				try 
+				{
+					JSONObject response = ApiRequestor.request(ApiRequestType.PUT, Endpoints.BUGS_CHANGE_STATUS(number, selectedStatus, selectedResolution, comment.getText(), UiConstants.APIKEY));
+					MessageBox.showErrorIfResponseNot200(response);
+				} 
+				catch (RequestException e1) 
+				{
+					MessageBox.showExceptionDialog(Errors.REQUEST, e1);
+				}
+				
 				stage.close();
 			}
 		});
+		
+		HBox statusHbox = new HBox(statusLabel, statusComboBox);
+		statusHbox.setPadding(new Insets(10));
+		statusHbox.setSpacing(10);
+		statusHbox.setAlignment(Pos.CENTER);
+		
+		HBox resolutionHbox = new HBox(resolutionLabel, resolutionComboBox);
+		resolutionHbox.setPadding(new Insets(10));
+		resolutionHbox.setSpacing(10);
+		resolutionHbox.setAlignment(Pos.CENTER);
 
-		HBox statusHBox = new HBox(statusLabel, statusComboBox);
-		statusHBox.setPadding(new Insets(10));
-		statusHBox.setSpacing(10);
-		statusHBox.setAlignment(Pos.CENTER);
-
-		VBox vbox = new VBox();
-		vbox.getChildren().addAll(statusHBox, comment, submitButton);
+		VBox vbox = new VBox(statusHbox, resolutionHbox, comment, submitButton);
 		vbox.setPadding(new Insets(5));
 		vbox.setSpacing(10);
 		vbox.setAlignment(Pos.CENTER);	
 
-		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, vbox, "Bug" + number + " Change Status"), 375, 400);
+		Scene scene = new Scene(WindowsBar.createWindowsBar(stage, vbox, "Bug " + number + " Change Status"), 375, 400);
 		stage.setTitle("Bug" + number + " Change Status");
 		stage.getIcons().add(new Icons().createChangeStatusIcon().getImage());
 		stage.setScene(scene);
@@ -83,14 +118,16 @@ public class ChangeBugStatusDialog extends UiBuilder
 		stage.show();
 	}
 	
-	private Map<String, List<String>> generateStatusMap()
+	private Map<String, String> generateStatusMap()
 	{
-		Map<String, List<String>> statusMap = new HashMap<String, List<String>>();
-		statusMap.put("Investigation", 	Arrays.asList("Diagnosed"));
-		statusMap.put("Diagnosed", 		Arrays.asList("Investigation", "Coded", "Addressed", "No Fault"));
-		statusMap.put("Coded", 			Arrays.asList("Investigaton", "Built"));
-		statusMap.put("Built", 			Arrays.asList("Investigation", "Released"));
-		statusMap.put("Released", 		Arrays.asList("Fixed"));
+		Map<String, String> statusMap = new HashMap<String, String>();
+		statusMap.put("UNCONFIRMED", "RESOLVED");
+		statusMap.put("RESOLVED", "UNCONFIRMED");
 		return statusMap;
+	}
+	
+	private List<String> generateResolutionList()
+	{
+		return Arrays.asList("", "INVALID", "WONTFIX", "INACTIVE", "DUPLICATE", "WORKSFORME", "MOVED");
 	}
 }
