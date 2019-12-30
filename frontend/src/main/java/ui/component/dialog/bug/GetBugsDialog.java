@@ -32,7 +32,7 @@ import common.utility.UiMethods;
 
 public class GetBugsDialog extends UiBuilder
 {
-	private TextField emailField = new TextField();
+	private TextField usernameField = new TextField();
 
 	public GetBugsDialog()
 	{
@@ -40,8 +40,8 @@ public class GetBugsDialog extends UiBuilder
 		VBox vbox = new VBox();	
 		Label title = createTitle("User Bugs", Fonts.FONT_SIZE_LARGE);
 
-		emailField = createTextField("email address", Size.LARGE);
-		emailField.setOnKeyPressed(e->
+		usernameField = createTextField("email address", Size.LARGE);
+		usernameField.setOnKeyPressed(e->
 		{
 			if (e.getCode() == KeyCode.ENTER)
 			{
@@ -62,8 +62,6 @@ public class GetBugsDialog extends UiBuilder
 		});
 
 		Button getBugsButton = createButton("Get Bugs", Size.SMALL, ButtonType.PRIMARY);
-		Button myBugsButton = createButton("Get My Bugs", Size.SMALL, ButtonType.PRIMARY);
-
 		getBugsButton.setOnAction(e -> 
 		{
 			stage.close();
@@ -80,31 +78,13 @@ public class GetBugsDialog extends UiBuilder
 				MessageBox.showExceptionDialog(Errors.JACKSON_FROM, e1);
 			}
 		});
-		
-		myBugsButton.setOnAction(e ->
-		{
-			UiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
-			UiConstants.CURRENT_LIST = null;
-			
-			try
-			{
-				UiMethods.requestRefreshOfCurrentUserBugs();
-			} 
-			catch (Exception e1)
-			{
-				MessageBox.showExceptionDialog(Errors.REQUEST, e1);
-				return;
-			}
-			
-			stage.close();
-		});
 				
-		VBox fields = new VBox(emailField);
+		VBox fields = new VBox(usernameField);
 		fields.setAlignment(Pos.CENTER);
 		fields.setSpacing(10);
 		fields.setPadding(new Insets(10));
 		
-		HBox buttons = new HBox(getBugsButton, myBugsButton);
+		HBox buttons = new HBox(getBugsButton);
 		buttons.setAlignment(Pos.CENTER);
 		buttons.setSpacing(10);
 
@@ -122,7 +102,7 @@ public class GetBugsDialog extends UiBuilder
 	
 	private void execute() throws RequestException, JsonTransformationException
 	{
-		if (emailField.getText().isEmpty())
+		if (usernameField.getText().isEmpty())
 		{
 			MessageBox.showDialog(Errors.MISSING_FIELD);
 			return;
@@ -130,19 +110,11 @@ public class GetBugsDialog extends UiBuilder
 		
 		UiConstants.CURRENT_LIST = null;
 		UiConstants.REQUEST_TYPE = RequestType.USER;
-				
-		String email = emailField.getText();
-		JSONObject response;
-		
-		if (!email.matches(UiConstants.EMAIL_REGEX))
-		{
-			MessageBox.showDialog(Errors.INVALID_EMAIL);
-			return;
-		}
-		
+						
 		UiMethods.clearTable();
 
-		response = ApiRequestor.request(ApiRequestType.GET, Endpoints.BUGS_EMAIL(email));
+		String url = Endpoints.BUGS_USERNAME(usernameField.getText());
+		JSONObject response = ApiRequestor.request(ApiRequestType.GET, url);
 
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{

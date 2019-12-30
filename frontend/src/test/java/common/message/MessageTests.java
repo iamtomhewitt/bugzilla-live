@@ -55,7 +55,7 @@ public class MessageTests
 	@Test
 	public void correctBugEmailEndpoint() throws UnsupportedEncodingException
 	{
-		assertEquals("http://localhost:3001/bugs/email?email=someone@example.com", Endpoints.BUGS_EMAIL("someone@example.com"));
+		assertEquals("http://localhost:3001/bugs/email?email=someone@example.com", Endpoints.BUGS_USERNAME("someone@example.com"));
 	}
 
 	@Test

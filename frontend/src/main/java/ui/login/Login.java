@@ -44,7 +44,6 @@ public class Login extends Application
 {
 	private Stage stage;
 
-	private TextField usernameInput;
 	private TextField apiKeyInput;
 	
 	private LoginUiBuilder uiBuilder = new LoginUiBuilder();
@@ -87,17 +86,7 @@ public class Login extends Application
 			}
 		});
 		
-		usernameInput = uiBuilder.createTextField("email address", Size.LARGE);
 		apiKeyInput = uiBuilder.createTextField("api key", Size.LARGE);
-
-		usernameInput.setOnKeyPressed(e -> 
-		{
-			if (e.getCode() == KeyCode.ENTER)
-			{
-				execute();
-			}
-		});
-	
 		apiKeyInput.setOnKeyPressed(e -> 
 		{
 			if (e.getCode() == KeyCode.ENTER)
@@ -106,11 +95,10 @@ public class Login extends Application
 			}
 		});
 		
-		usernameInput.setTooltip(new Tooltip("Your email address for Bugzilla"));
 		apiKeyInput.setTooltip(new Tooltip("Click the blue button if you do not have an API key"));	
 		
 		VBox titleVbox = createVBox(logo, title);
-		VBox fieldsVbox = createVBox(usernameInput, apiKeyInput);
+		VBox fieldsVbox = createVBox(apiKeyInput);
 		VBox buttonsVbox = createVBox(loginButton, apiKeyButton);
 		
 		VBox vbox = new VBox();		
@@ -144,7 +132,7 @@ public class Login extends Application
 	 */
 	private boolean canLogin()
 	{
-		return !(usernameInput.getText().equals("") || apiKeyInput.getText().contentEquals(""));
+		return !apiKeyInput.getText().contentEquals("");
 	}
 	
 	/*
@@ -152,16 +140,9 @@ public class Login extends Application
 	 */
 	private void execute()
 	{
-		if (!usernameInput.getText().matches(UiConstants.EMAIL_REGEX))
-		{
-			MessageBox.showDialog(Errors.INVALID_EMAIL);
-			return;
-		}
-		
 		if (canLogin())
 		{
 			Map<String, String> properties = new HashMap<String, String>();
-			properties.put("username", usernameInput.getText());
 			properties.put("apiKey", apiKeyInput.getText());
 
 			for (Map.Entry<String, String> entry : properties.entrySet())
@@ -180,8 +161,6 @@ public class Login extends Application
 				
 				MessageBox.showErrorIfResponseNot200(response);
 			}
-
-			UiConstants.USER_EMAIL = usernameInput.getText();
 			
 			new BugzillaLive();
 			stage.close();
