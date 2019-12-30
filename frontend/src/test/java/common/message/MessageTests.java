@@ -6,6 +6,8 @@ import java.io.UnsupportedEncodingException;
 
 import org.junit.Test;
 
+import common.error.RequestException;
+
 public class MessageTests 
 {	
 	@Test
@@ -84,5 +86,17 @@ public class MessageTests
 	public void correctWikiEndpoint() throws UnsupportedEncodingException
 	{
 		assertEquals("https://github.com/iamtomhewitt/bugzilla-live/wiki", Endpoints.GITHUB_WIKI);
+	}
+
+	@Test
+	public void correctAddCommentEndpoint() throws RequestException
+	{
+		assertEquals("http://localhost:3001/bugs/12345/comments/add?apiKey=key&comment=Comment", Endpoints.BUGS_ADD_COMMENTS("12345", "Comment", "key"));
+	}
+	
+	@Test
+	public void correctChangeStatusEndpoint() throws RequestException
+	{
+		assertEquals("http://localhost:3001/bugs/12345/status/change?status=RESOLVED&resolution=INVALID&comment=Some+comment&apiKey=key", Endpoints.BUGS_CHANGE_STATUS("12345", "RESOLVED", "INVALID", "Some comment", "key"));
 	}
 }

@@ -100,6 +100,47 @@ router.get('/:number/comments', function (req, res) {
 	});
 });
 
+// Add comments for a bug
+router.post('/:number/comments/add', function (req, res) {
+	let bugNumber = req.params.number;
+	let comment = req.query.comment;
+	let apiKey = req.query.apiKey;
+	let error, response;
+
+	if (!bugNumber || !comment || !apiKey) {
+		error = createError("Could not add comment", 'There is a missing parameter.');
+		response = failure(error);
+		res.status(errorCode).send(response);
+		return;
+	}
+
+	let url = getBugzillaUrl() + '/rest/bug/' + bugNumber + '/comment'
+	let commentData = {
+		"comment" : comment
+	}
+
+	request({
+			headers: {
+				"Content-Type": "application/json",
+				"X-BUGZILLA-API-KEY": apiKey
+			}, 
+			url, 
+			body: JSON.stringify(commentData),
+			method: 'POST'
+		}, 
+		function (err, response, body) {
+			if (err) {
+				error = createError("Could not add comment to Bugzilla", err.message);
+				response = failure(error)
+				res.status(errorCode).send(response);
+				return;
+			}
+	
+		response = success();
+		res.status(successCode).send(response);
+	});
+});
+
 // Get attachments for a bug
 router.get('/:number/attachments', function (req, res) {
 	let bugNumber = req.params.number;
@@ -124,6 +165,53 @@ router.get('/:number/attachments', function (req, res) {
 		
 		let attachments = JSON.parse(body, null, 4)['bugs'];	
 		response = success(attachments);
+		res.status(successCode).send(response);
+	});
+});
+
+// Change bug status
+router.put('/:number/status/change', function (req, res) {
+	let bugNumber = req.params.number;
+	let status = req.query.status;
+	let resolution = req.query.resolution;
+	let apiKey = req.query.apiKey;
+	let comment = req.query.comment;
+	let error, response;
+
+	if (!bugNumber || !status || !apiKey) {
+		error = createError("Could not change bug status", 'There is a missing parameter.');
+		response = failure(error);
+		res.status(errorCode).send(response);
+		return ;
+	}
+
+	let url = getBugzillaUrl() + '/rest/bug/' + bugNumber
+	let data = {
+		"status": status,
+		"resolution": resolution,
+		"comment": {
+			"body": comment
+		}
+	}
+
+	request({
+			headers: {
+				"Content-Type": "application/json",
+				"X-BUGZILLA-API-KEY": apiKey
+			}, 
+			url, 
+			body: JSON.stringify(data),
+			method: 'PUT'
+		}, 
+		function (err, response, body) {
+			if (err) {
+				error = createError("Could not add comment to Bugzilla", err.message);
+				response = failure(error)
+				res.status(errorCode).send(response);
+				return;
+			}
+	
+		response = success();
 		res.status(successCode).send(response);
 	});
 });

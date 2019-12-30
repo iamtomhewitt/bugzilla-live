@@ -16,6 +16,7 @@ import common.error.Errors;
 import common.error.JsonTransformationException;
 import common.error.RequestException;
 import common.message.ApiRequestor;
+import common.message.ApiRequestor.ApiRequestType;
 import common.message.Endpoints;
 import common.message.MessageBox;
 import common.message.RequestType;
@@ -93,7 +94,7 @@ public class ListMenu
 	
 	private void populateMenuWithLists(Menu menu, boolean changeListMenu) throws RequestException
 	{
-		JSONObject response = ApiRequestor.request(Endpoints.LISTS);
+		JSONObject response = ApiRequestor.request(ApiRequestType.GET, Endpoints.LISTS);
 		
 		if (MessageBox.showErrorIfResponseNot200(response))
 		{
@@ -158,7 +159,7 @@ public class ListMenu
 	private void deleteList(String filename) throws RequestException
 	{
 		String name = filename.split("\\.")[0];
-		JSONObject response = ApiRequestor.request(Endpoints.LIST_DELETE(name));
+		JSONObject response = ApiRequestor.request(ApiRequestType.GET, Endpoints.LIST_DELETE(name));
 		MessageBox.showErrorIfResponseNot200(response);
 	}
 	

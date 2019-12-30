@@ -2,6 +2,9 @@ package common.message;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
@@ -16,14 +19,35 @@ import common.error.RequestException;
  */
 public class ApiRequestor
 {
-	public static JSONObject request(String url) throws RequestException
+	public enum ApiRequestType { GET, POST, PUT };
+	
+	public static JSONObject request(ApiRequestType type, String url) throws RequestException
 	{
 		try
 		{
 			CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 			
-			HttpGet request = new HttpGet(url);
-	
+			HttpUriRequest request;
+			
+			switch (type)
+			{
+				case GET:
+					request = new HttpGet(url);
+					break;
+					
+				case POST:
+					request = new HttpPost(url);
+					break;
+					
+				case PUT:
+					request = new HttpPut(url);
+					break;
+				
+				default:
+					request = new HttpGet(url);
+					break;
+			}
+
 			HttpResponse result = httpClient.execute(request);
 	
 			String json = EntityUtils.toString(result.getEntity(), "UTF-8");

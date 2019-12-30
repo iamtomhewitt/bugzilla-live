@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import common.error.Errors;
 import common.error.RequestException;
 import common.message.ApiRequestor;
+import common.message.ApiRequestor.ApiRequestType;
 import common.message.Endpoints;
 import common.message.MessageBox;
 import common.utility.UiConstants;
@@ -50,7 +51,7 @@ public class RefreshRateDialog extends UiBuilder
 			JSONObject response;
 			try
 			{
-				response = ApiRequestor.request(Endpoints.CONFIG_SAVE("refreshRate", combo.getSelectionModel().getSelectedItem()));
+				response = ApiRequestor.request(ApiRequestType.GET, Endpoints.CONFIG_SAVE("refreshRate", combo.getSelectionModel().getSelectedItem()));
 			} 
 			catch (RequestException ex)
 			{
