@@ -13,13 +13,6 @@ echo Building frontend
 echo =================
 ant build_frontend
 
-REM Copy the changelog for the release package
-cd ..
-echo. 
-echo Copying CHANGELOG
-echo =================
-copy "CHANGELOG.md" "dist/CHANGELOG.md"
-
 REM Now zip everything up for the release
 echo. 
 echo Building zip
