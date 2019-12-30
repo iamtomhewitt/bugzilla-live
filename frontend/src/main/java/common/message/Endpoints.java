@@ -85,10 +85,24 @@ public class Endpoints
 
 	public static final String BUGS_ADD_COMMENTS(String number, String comment, String apiKey) throws RequestException
 	{
-		try {
+		try 
+		{
 			return String.format(localhost + port + "/bugs/%s/comments/add?apiKey=%s&comment=%s", number, apiKey, URLEncoder.encode(comment, "UTF-8"));
 		} 
-		catch (UnsupportedEncodingException e) {
+		catch (UnsupportedEncodingException e) 
+		{
+			throw new RequestException(e.getMessage());
+		}
+	}
+	
+	public static String BUGS_CHANGE_STATUS(String number, String status, String resolution, String comment, String apiKey) throws RequestException 
+	{
+		try 
+		{
+			return String.format(localhost + port + "/bugs/%s/status/change?status=%s&resolution=%s&comment=%s&apiKey=%s", number, status, resolution, URLEncoder.encode(comment, "UTF-8"), apiKey);
+		} 
+		catch (UnsupportedEncodingException e) 
+		{
 			throw new RequestException(e.getMessage());
 		}
 	}
@@ -106,5 +120,7 @@ public class Endpoints
 	}
 
 	public static final String CONFIG_GET = localhost + port + "/config/get";
+
+	
 
 }
