@@ -44,19 +44,19 @@ router.get('/numbers', function (req, res) {
 	});
 });
 
-// Get bugs by email
-router.get('/email', function (req, res) {
-	let email = req.query.email;
+// Get bugs by username
+router.get('/username', function (req, res) {
+	let username = req.query.username;
 	let error, response, bugs;
 
-	if (!email) {
-		error = createError('Invalid email', 'No email specified in query.');
+	if (!username) {
+		error = createError('Invalid username', 'No username specified in query.');
 		response = failure(error);
 		res.status(errorCode).send(response);
 		return;
 	}
 
-	let url = getBugzillaUrl() + '/rest/bug?assigned_to=' + email;
+	let url = getBugzillaUrl() + '/rest/bug?assigned_to=' + username;
 	
 	request(url, function (err, response, body) {
 		if (err) {
