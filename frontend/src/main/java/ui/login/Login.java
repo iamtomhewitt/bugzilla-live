@@ -23,7 +23,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -47,7 +46,6 @@ public class Login extends Application
 
 	private TextField usernameInput;
 	private TextField apiKeyInput;
-	private PasswordField passwordInput;
 	
 	private LoginUiBuilder uiBuilder = new LoginUiBuilder();
 				
@@ -91,17 +89,8 @@ public class Login extends Application
 		
 		usernameInput = uiBuilder.createTextField("email address", Size.LARGE);
 		apiKeyInput = uiBuilder.createTextField("api key", Size.LARGE);
-		passwordInput = uiBuilder.createPasswordField("password", Size.LARGE);
 
 		usernameInput.setOnKeyPressed(e -> 
-		{
-			if (e.getCode() == KeyCode.ENTER)
-			{
-				execute();
-			}
-		});
-		
-		passwordInput.setOnKeyPressed(e -> 
 		{
 			if (e.getCode() == KeyCode.ENTER)
 			{
@@ -121,7 +110,7 @@ public class Login extends Application
 		apiKeyInput.setTooltip(new Tooltip("Click the blue button if you do not have an API key"));	
 		
 		VBox titleVbox = createVBox(logo, title);
-		VBox fieldsVbox = createVBox(usernameInput, passwordInput, apiKeyInput);
+		VBox fieldsVbox = createVBox(usernameInput, apiKeyInput);
 		VBox buttonsVbox = createVBox(loginButton, apiKeyButton);
 		
 		VBox vbox = new VBox();		
@@ -155,7 +144,7 @@ public class Login extends Application
 	 */
 	private boolean canLogin()
 	{
-		return !(usernameInput.getText().equals("") || passwordInput.getText().equals("") || apiKeyInput.getText().contentEquals(""));
+		return !(usernameInput.getText().equals("") || apiKeyInput.getText().contentEquals(""));
 	}
 	
 	/*
