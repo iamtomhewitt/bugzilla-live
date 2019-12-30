@@ -93,4 +93,10 @@ public class MessageTests
 	{
 		assertEquals("http://localhost:3001/bugs/12345/comments/add?apiKey=key&comment=Comment", Endpoints.BUGS_ADD_COMMENTS("12345", "Comment", "key"));
 	}
+	
+	@Test
+	public void correctChangeStatusEndpoint() throws RequestException
+	{
+		assertEquals("http://localhost:3001/bugs/12345/status/change?status=RESOLVED&resolution=INVALID&comment=Some+comment&apiKey=key", Endpoints.BUGS_CHANGE_STATUS("12345", "RESOLVED", "INVALID", "Some comment", "key"));
+	}
 }
