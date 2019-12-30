@@ -22,7 +22,6 @@ import common.message.ApiRequestor.ApiRequestType;
 import common.message.Endpoints;
 import common.message.MessageBox;
 import common.utility.JacksonAdapter;
-import common.utility.UiMethods;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
@@ -254,9 +253,8 @@ public class BugCommentDialog extends UiBuilder
 		return new Label(dateString);
 	}
 
-	private Label createNameLabel(String emailAddress)
+	private Label createNameLabel(String username)
 	{
-		String username = UiMethods.createDisplayName(emailAddress);
 		return new Label(username);
 	}
 }

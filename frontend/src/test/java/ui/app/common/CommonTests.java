@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import common.utility.UiConstants;
-import common.utility.UiMethods;
 
 public class CommonTests
 {
@@ -20,14 +19,5 @@ public class CommonTests
 		
 		assertEquals(true, match);
 		assertEquals(false, match2);
-	}
-	
-	@Test
-	public void canCreateDisplayNameFromEmail()
-	{
-		String email = "Tom@example.com";
-		String name = UiMethods.createDisplayName(email);
-		
-		assertEquals("Tom", name);
 	}
 }
