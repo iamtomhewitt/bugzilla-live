@@ -111,7 +111,7 @@ router.post('/:number/comments/add', function (req, res) {
 		error = createError("Could not add comment", 'There is a missing parameter.');
 		response = failure(error);
 		res.status(errorCode).send(response);
-		return ;
+		return;
 	}
 
 	let url = getBugzillaUrl() + '/rest/bug/' + bugNumber + '/comment'
