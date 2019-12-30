@@ -35,23 +35,14 @@ import ui.theme.RowColours;
  */
 @SuppressWarnings("unchecked")
 public class UiMethods
-{	
-	public static String createApplicationTitle(String email)
-	{
-		return "Bugzilla LIVE | " + createDisplayName(email);
-	}
-	
+{		
 	/**
 	 * Determines which type of refresh request is needed, and then makes the request.
 	 */
 	public static void requestBugRefresh() throws RequestException, JsonTransformationException
 	{						
 		switch(UiConstants.REQUEST_TYPE)
-		{
-			case CURRENT_USER:
-				requestRefreshOfCurrentUserBugs();
-				break;
-				
+		{				
 			case LIST:
 				requestRefreshOfBugsInList();
 				break;
@@ -64,25 +55,6 @@ public class UiMethods
 				MessageBox.showDialog(Errors.GENERAL + "\nIncorrect REQUEST_TYPE: " + UiConstants.REQUEST_TYPE);
 				break;
 		}
-	}
-	
-	/**
-	 * Requests bugs for the user currently logged in.
-	 */
-	public static void requestRefreshOfCurrentUserBugs() throws RequestException, JsonTransformationException
-	{
-		UiConstants.REQUEST_TYPE = RequestType.CURRENT_USER;
-		UiConstants.CURRENT_LIST = null;
-		
-		JSONObject response = ApiRequestor.request(ApiRequestType.GET, Endpoints.BUGS_EMAIL(UiConstants.USER_EMAIL));
-		
-		if(MessageBox.showErrorIfResponseNot200(response))
-		{
-			return;
-		}
-		
-		clearTable();
-		updateBugsInTable(response);
 	}	
 	
 	/**
@@ -171,15 +143,6 @@ public class UiMethods
 		l.setFont(Font.font(Fonts.FONT_SIZE_SUPER));
 		BugTable.getInstance().getTableView().getItems().clear();
 		BugTable.getInstance().getTableView().setPlaceholder(l);
-	}
-	
-	/**
-	 * Creates a display name from the current email. <p>
-	 * E.g. 'Someone@example.com' would return 'Someone'
-	 */
-	public static String createDisplayName(String email)
-	{
-		return email.split("@")[0]; 
 	}
 	
 	/**

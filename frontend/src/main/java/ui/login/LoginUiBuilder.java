@@ -1,16 +1,10 @@
 package ui.login;
 
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import ui.theme.Fonts;
 import ui.theme.Icons;
-import ui.theme.Sizes;
 import ui.theme.UiBuilder;
 import ui.theme.Sizes.Size;
 
@@ -59,43 +53,5 @@ public class LoginUiBuilder extends UiBuilder
 		logo.setFitWidth(125);		
 		logo.setEffect(shadow);
 		return logo;
-	}
-	
-	public PasswordField createPasswordField(String prompt, Size size)
-	{
-		int width;
-		int height = Sizes.INPUT_HEIGHT_SMALL;
-		
-		switch (size)
-		{
-			case SMALL:
-					width = Sizes.INPUT_WIDTH_SMALL;
-				break;
-
-			case MEDIUM:
-					width = Sizes.INPUT_WIDTH_MEDIUM;
-				break;
-
-			case LARGE:
-					width = Sizes.INPUT_WIDTH_LARGE;
-				break;
-
-			case X_LARGE:
-					width = Sizes.INPUT_WIDTH_X_LARGE;
-				break;
-
-			default:
-					width = Sizes.INPUT_WIDTH_MEDIUM;
-				break;
-		}
-		
-		PasswordField passwordField = new PasswordField();
-		passwordField.setFont(Font.font(Fonts.FONT, FontWeight.NORMAL, Fonts.FONT_SIZE_NORMAL));
-		passwordField.setStyle("-fx-text-fill: black");
-		passwordField.setAlignment(Pos.CENTER);
-		passwordField.setMaxWidth(width);
-		passwordField.setMinHeight(height);
-		passwordField.setPromptText(prompt);
-		return passwordField;
 	}
 }

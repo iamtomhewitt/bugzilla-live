@@ -4,9 +4,6 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.json.JSONObject;
 
 import common.error.Errors;
@@ -14,7 +11,6 @@ import common.message.ApiRequestor;
 import common.message.ApiRequestor.ApiRequestType;
 import common.message.Endpoints;
 import common.message.MessageBox;
-import common.utility.Encryptor;
 import common.utility.UiConstants;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -24,7 +20,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -46,9 +41,7 @@ public class Login extends Application
 {
 	private Stage stage;
 
-	private TextField emailInput;
 	private TextField apiKeyInput;
-	private PasswordField passwordInput;
 	
 	private LoginUiBuilder uiBuilder = new LoginUiBuilder();
 				
@@ -82,7 +75,7 @@ public class Login extends Application
 		{
 			try
 			{				
-				Desktop.getDesktop().browse(new URI(UiConstants.BUGZILLA_URL+"/userprefs.cgi?tab=apikey"));
+				Desktop.getDesktop().browse(new URI(UiConstants.BUGZILLA_URL + "/userprefs.cgi?tab=apikey"));
 			} 
 			catch (IOException | URISyntaxException ex)
 			{
@@ -90,26 +83,9 @@ public class Login extends Application
 			}
 		});
 		
-		emailInput = uiBuilder.createTextField("email address", Size.LARGE);
 		apiKeyInput = uiBuilder.createTextField("api key", Size.LARGE);
-		passwordInput = uiBuilder.createPasswordField("password", Size.LARGE);
-
-		emailInput.setOnKeyPressed(e -> 
-		{
-			if (e.getCode() == KeyCode.ENTER)
-			{
-				execute();
-			}
-		});
-		
-		passwordInput.setOnKeyPressed(e -> 
-		{
-			if (e.getCode() == KeyCode.ENTER)
-			{
-				execute();
-			}
-		});
-	
+		apiKeyInput.setText(UiConstants.APIKEY);
+		apiKeyInput.setTooltip(new Tooltip("Click the blue button if you do not have an API key"));	
 		apiKeyInput.setOnKeyPressed(e -> 
 		{
 			if (e.getCode() == KeyCode.ENTER)
@@ -118,11 +94,8 @@ public class Login extends Application
 			}
 		});
 		
-		emailInput.setTooltip(new Tooltip("Your email address for Bugzilla"));
-		apiKeyInput.setTooltip(new Tooltip("Click the blue button if you do not have an API key"));	
-		
 		VBox titleVbox = createVBox(logo, title);
-		VBox fieldsVbox = createVBox(emailInput, passwordInput, apiKeyInput);
+		VBox fieldsVbox = createVBox(apiKeyInput);
 		VBox buttonsVbox = createVBox(loginButton, apiKeyButton);
 		
 		VBox vbox = new VBox();		
@@ -131,7 +104,7 @@ public class Login extends Application
 		
 		Platform.runLater(() -> loginButton.requestFocus());
 		
-		Scene scene = new Scene(vbox, 325, 550);
+		Scene scene = new Scene(vbox, 275, 425);
 		stage = new Stage();
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setTitle("Login");
@@ -150,13 +123,10 @@ public class Login extends Application
 		vbox.setPadding(new Insets(15));
 		return vbox;
 	}
-
-	/**
-	 * @return <code>true</code> if all the login fields are filled in.
-	 */
+	
 	private boolean canLogin()
 	{
-		return !(emailInput.getText().equals("") || passwordInput.getText().equals("") || apiKeyInput.getText().contentEquals(""));
+		return !apiKeyInput.getText().contentEquals("");
 	}
 	
 	/*
@@ -164,38 +134,19 @@ public class Login extends Application
 	 */
 	private void execute()
 	{
-		if (!emailInput.getText().matches(UiConstants.EMAIL_REGEX))
-		{
-			MessageBox.showDialog(Errors.INVALID_EMAIL);
-			return;
-		}
-		
 		if (canLogin())
 		{
-			Map<String, String> properties = new HashMap<String, String>();
-			properties.put("username", emailInput.getText());
-			properties.put("password", Encryptor.encrypt(passwordInput.getText()));
-			properties.put("apiKey", apiKeyInput.getText());
-
-			for (Map.Entry<String, String> entry : properties.entrySet())
+			try
 			{
-				JSONObject response;
-				
-				try
-				{
-					response = ApiRequestor.request(ApiRequestType.GET, Endpoints.CONFIG_SAVE(entry.getKey(), entry.getValue()));
-				} 
-				catch (Exception e)
-				{
-					MessageBox.showExceptionDialog(Errors.REQUEST, e);
-					return;
-				}					
-				
+				JSONObject response = ApiRequestor.request(ApiRequestType.GET, Endpoints.CONFIG_SAVE("apiKey", apiKeyInput.getText()));
 				MessageBox.showErrorIfResponseNot200(response);
+			} 
+			catch (Exception e)
+			{
+				MessageBox.showExceptionDialog(Errors.REQUEST, e);
+				return;
 			}
 
-			UiConstants.USER_EMAIL = emailInput.getText();
-			
 			new BugzillaLive();
 			stage.close();
 		}
