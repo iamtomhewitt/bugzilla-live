@@ -1,177 +1,175 @@
-var express = require('express')
-var fs = require('fs');
-var path = require('path')
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
 
-var router = express.Router();
-var listFolder = path.join(__dirname, '..', 'config', 'bug-lists', '/');
-var errorCode = 601;
-var successCode = 200;
+const router = express.Router();
+const listFolder = path.join(__dirname, '..', 'config', 'bug-lists', '/');
+const errorCode = 601;
+const successCode = 200;
 
-router.get('/', function (req, res) {
+function success(message) {
+    return {
+        type: 'listResponse',
+        message,
+        status: successCode,
+    };
+}
+
+function failure(error) {
+    return {
+        type: 'listResponse',
+        operation: 'notification',
+        status: errorCode,
+        error,
+    };
+}
+
+function createError(title, message) {
+    return {
+        title,
+        message,
+    };
+}
+
+router.get('/', (req, res) => {
     res.status(successCode).send('OK');
 });
 
 // Add a new list
-router.get('/add', function (req, res) {
-    var name 	 = req.query.name.replace("+", " ");
-	var contents = req.query.contents;
-	
-	let error, response;
+router.get('/add', (req, res) => {
+    const name = req.query.name.replace('+', ' ');
+    const { contents } = req.query;
 
-	if (!name || !contents) {
-		error = createError("Missing parameters", "File name or file contents are missing.");
-		response = failure(error)
-		res.status(errorCode).send(response).json();
-		return;
-	}
+    let error; let
+        response;
 
-	let filename = listFolder + name + '.bugList';
+    if (!name || !contents) {
+        error = createError('Missing parameters', 'File name or file contents are missing.');
+        response = failure(error);
+        res.status(errorCode).send(response).json();
+        return;
+    }
 
-	fs.writeFile(filename, contents, function (err) {
+    const filename = `${listFolder + name}.bugList`;
+
+    fs.writeFile(filename, contents, (err) => {
         if (err) {
-			error = createError("Error creating file", err.message);
-			response = failure(error)
+            error = createError('Error creating file', err.message);
+            response = failure(error);
+            res.status(successCode).send(response).json();
+        } else {
+            response = success('List created.');
             res.status(successCode).send(response).json();
         }
-        else {
-			response = success("List created.")
-            res.status(successCode).send(response).json();
-        }
-    })
+    });
 });
 
 // Modify an existing list
-router.get('/modify', function (req, res) {
-    var name 	= req.query.name;
-    var remove 	= req.query.remove;
-	var add 	= req.query.add;
+router.get('/modify', (req, res) => {
+    const { name } = req.query;
+    const { remove } = req.query;
+    const { add } = req.query;
 
-	let error, response;
-	
-	if (!name || (!remove && !add)) {
-		error = createError("Missing parameters", "File name, contents to remove or contents to add are missing.");
-		response = failure(error);
-		res.status(errorCode).send(response).json();
-		return;
-	}
+    let error; let
+        response;
 
-	let filename = listFolder + name + '.bugList';
+    if (!name || (!remove && !add)) {
+        error = createError('Missing parameters', 'File name, contents to remove or contents to add are missing.');
+        response = failure(error);
+        res.status(errorCode).send(response).json();
+        return;
+    }
 
-	if (!fs.existsSync(filename)) {
-		error = createError("Error modifying file", `File ${filename} does not exist.`);
-		response = failure(error);
-		res.status(errorCode).send(response).json();
-		return;
-	}
+    const filename = `${listFolder + name}.bugList`;
 
-	let contents = fs.readFileSync(filename, 'utf-8');
-	let newContents = contents;
-	
-	if (remove) {
-		let array = remove.split(",");
-		array.forEach(function(number, index){
-			console.log(number);
-			newContents = newContents.replace(new RegExp(number), '');
-		});
-	}
+    if (!fs.existsSync(filename)) {
+        error = createError('Error modifying file', `File ${filename} does not exist.`);
+        response = failure(error);
+        res.status(errorCode).send(response).json();
+        return;
+    }
 
-	if (add) {
-		newContents += ',' + add + ',';
-	}
+    const contents = fs.readFileSync(filename, 'utf-8');
+    let newContents = contents;
 
-	newContents = newContents.replace(new RegExp(',,'), ',');
-	fs.writeFileSync(filename, newContents, 'utf-8');
+    if (remove) {
+        const array = remove.split(',');
+        array.forEach((number, index) => {
+            console.log(number);
+            newContents = newContents.replace(new RegExp(number), '');
+        });
+    }
 
-	response = success("List modified");
+    if (add) {
+        newContents += `,${add},`;
+    }
+
+    newContents = newContents.replace(new RegExp(',,'), ',');
+    fs.writeFileSync(filename, newContents, 'utf-8');
+
+    response = success('List modified');
     res.status(successCode).send(response).json();
 });
 
 // Delete a list
-router.get('/delete', function (req, res) {
-	var name = req.query.name;
-	
-	let error, response;
+router.get('/delete', (req, res) => {
+    const { name } = req.query;
 
-	if (!name) {
-		error = createError("Missing parameters", "File name is missing.");
-		response = failure(error)
-		res.status(errorCode).send(response).json();
-		return;
-	}
+    let error; let
+        response;
 
-	let filename = listFolder + name + '.bugList';
+    if (!name) {
+        error = createError('Missing parameters', 'File name is missing.');
+        response = failure(error);
+        res.status(errorCode).send(response).json();
+        return;
+    }
 
-	fs.unlink(filename, function (err) {
+    const filename = `${listFolder + name}.bugList`;
+
+    fs.unlink(filename, (err) => {
         if (err) {
-			error = createError("Error deleting file", err.message);
-			response = failure(error)
-			res.status(errorCode).send(response).json();
-		}
-		else {
-			response = success("File deleted");
-    		res.status(successCode).send(response);
-		}
-	});
+            error = createError('Error deleting file', err.message);
+            response = failure(error);
+            res.status(errorCode).send(response).json();
+        } else {
+            response = success('File deleted');
+            res.status(successCode).send(response);
+        }
+    });
 });
 
 // Get existing lists
-router.get('/lists', function (req, res) {
-	let error, response
-	let lists = [];
-	
-	fs.readdir(listFolder, (err, files) => {
-		if (err) {
-			error = createError('Could not get lists', err.message);
-			response = failure(error);
-			res.status(errorCode).send(response);
-		}
+router.get('/lists', (req, res) => {
+    let error; let
+        response;
+    const lists = [];
 
-		files.forEach(file => {
-			lists.push(file)
-		});
+    fs.readdir(listFolder, (err, files) => {
+        if (err) {
+            error = createError('Could not get lists', err.message);
+            response = failure(error);
+            res.status(errorCode).send(response);
+        }
 
-		response = success('Lists retrieved');
-		response['lists'] = lists;
-		res.status(successCode).send(response);
-	});
+        files.forEach((file) => {
+            lists.push(file);
+        });
+
+        response = success('Lists retrieved');
+        response.lists = lists;
+        res.status(successCode).send(response);
+    });
 });
 
 // Get existing lists
-router.get('/:listName/contents', function (req, res) {
-	let error, response
-	
-	let filename = listFolder + req.params.listName.replace("+", " ") + ".bugList";
+router.get('/:listName/contents', (req, res) => {
+    const filename = `${listFolder + req.params.listName.replace('+', ' ')}.bugList`;
+    const contents = fs.readFileSync(filename, 'utf-8');
+    const response = success('Retrieved contents');
 
-	let contents = fs.readFileSync(filename, 'utf-8');
-
-	response = success('Retrieved contents');
-	response['contents'] = contents;
-
-	res.status(successCode).send(response);
+    response.contents = contents;
+    res.status(successCode).send(response);
 });
-
-function success(message) {
-	return response = {
-		"type": "listResponse",
-		"message": message,
-		"status": successCode
-	}
-}
-
-function failure(error) {
-	return response = {
-		"type": "listResponse",
-		"operation": "notification",
-		"status": errorCode,
-		"error": error
-	}
-}
-
-function createError(title, message) {
-	return error = {
-		"title": title,
-		"message": message
-	}
-}
 
 module.exports = router;

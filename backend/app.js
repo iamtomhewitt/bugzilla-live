@@ -1,15 +1,16 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser')
+const express = require('express');
 
-var bugRoutes = require('./routes/bug-routes')
-var listRoutes = require('./routes/list-routes')
-var configRoutes = require('./routes/config-routes')
+const app = express();
+const bodyParser = require('body-parser');
+
+const bugRoutes = require('./routes/bug-routes');
+const listRoutes = require('./routes/list-routes');
+const configRoutes = require('./routes/config-routes');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     res.status(200).send('SERVER OK');
 });
 
@@ -17,9 +18,9 @@ app.use('/bugs', bugRoutes);
 app.use('/list', listRoutes);
 app.use('/config', configRoutes);
 
-var port = 3001;
-app.listen(port, function () { });
+const port = 3001;
+app.listen(port, () => { });
 
-console.log("Listening on port: " + port);
+console.log(`Listening on port: ${port}`);
 
 module.exports = app;
