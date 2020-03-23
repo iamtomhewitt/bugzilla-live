@@ -1,6 +1,11 @@
-/backend/node_modules/
+/backend-old/node_modules/
 /target/
 /frontend/logs/*
 
 dist/bugzilla-live-backend
 dist/bugzilla-live.jar
+.idea/.gitignore
+.idea/bugzilla-live.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
