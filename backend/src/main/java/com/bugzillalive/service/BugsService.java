@@ -22,4 +22,9 @@ public class BugsService {
 		ResponseEntity<BugResponse> response = restTemplate.getForEntity(bugzillaUrl, BugResponse.class);
 		return response.getBody().getBugs();
 	}
+
+	public List<Bug> getBugsByUsername(String url, String username) {
+		ResponseEntity<BugResponse> response = restTemplate.getForEntity(url + username, BugResponse.class);
+		return response.getBody().getBugs();
+	}
 }

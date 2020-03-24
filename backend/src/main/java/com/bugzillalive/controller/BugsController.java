@@ -34,9 +34,10 @@ public class BugsController {
 
 	@GetMapping("/username")
 	@ResponseBody
-	public ResponseEntity<String> getBugsByUsername(@RequestParam String username) {
-		return new ResponseEntity<>("/username", HttpStatus.OK);
-	}
+	public ResponseEntity<List<Bug>> getBugsByUsername(@RequestParam String username) {
+		String url = BASE_URL + "/rest/bug?assigned_to="; // TODO make the config service return this by querying mongo for it
+		List<Bug> bugs = service.getBugsByUsername(url, username);
+		return new ResponseEntity<>(bugs, HttpStatus.OK);	}
 
 	@GetMapping("/{number}/comments")
 	@ResponseBody

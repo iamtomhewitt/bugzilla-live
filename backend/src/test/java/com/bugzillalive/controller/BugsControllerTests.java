@@ -51,4 +51,28 @@ public class BugsControllerTests {
 		Assertions.assertThat(response).isNotNull();
 		Assertions.assertThat(response.getBody().size()).isEqualTo(1);
 	}
+
+	@Test
+	public void bugsByUsername() {
+		BugResponse mockBugResponse = BugResponse.builder()
+			.bugs(Arrays.asList(
+				Bug.builder()
+					.assignedTo("Someone")
+					.component("Component")
+					.id("12345")
+					.lastUpdated("2020-02-27T19:49:08Z")
+					.product("product")
+					.severity("severity")
+					.status("status")
+					.summary("summary")
+					.build())).build();
+
+		Mockito.when(bugsController.getBugsByUsername("Someone")).thenReturn(new ResponseEntity<>(mockBugResponse.getBugs(), HttpStatus.OK));
+
+		ResponseEntity<List<Bug>> response = bugsController.getBugsByUsername("Someone");
+
+		Mockito.verify(bugsController).getBugsByUsername("Someone");
+		Assertions.assertThat(response).isNotNull();
+		Assertions.assertThat(response.getBody().size()).isEqualTo(1);
+	}
 }
