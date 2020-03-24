@@ -1,12 +1,22 @@
 package com.bugzillalive.controller;
 
+import com.bugzillalive.model.Bug;
+import com.bugzillalive.service.BugsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("bugs")
 public class BugsController {
+
+	@Autowired
+	private BugsService service;
+
+	private String BASE_URL = "https://bugzilla.mozilla.org";
 
 	@GetMapping("/health")
 	@ResponseBody
@@ -16,8 +26,10 @@ public class BugsController {
 
 	@GetMapping("/numbers")
 	@ResponseBody
-	public ResponseEntity<String> getBugsByNumbers(@RequestParam String bugNumbers) {
-		return new ResponseEntity<>("/numbers", HttpStatus.OK);
+	public ResponseEntity<List<Bug>> getBugsByNumbers(@RequestParam String bugNumbers) {
+		String url = BASE_URL + "/rest/bug?id="; // TODO make the config service return this by querying mongo for it
+		List<Bug> bugs = service.getBugsByNumbers(url, bugNumbers);
+		return new ResponseEntity<>(bugs, HttpStatus.OK);
 	}
 
 	@GetMapping("/username")
