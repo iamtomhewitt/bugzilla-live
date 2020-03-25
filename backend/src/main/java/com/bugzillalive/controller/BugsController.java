@@ -1,6 +1,7 @@
 package com.bugzillalive.controller;
 
 import com.bugzillalive.model.Bug;
+import com.bugzillalive.model.Comment;
 import com.bugzillalive.service.BugsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,12 +38,15 @@ public class BugsController {
 	public ResponseEntity<List<Bug>> getBugsByUsername(@RequestParam String username) {
 		String url = BASE_URL + "/rest/bug?assigned_to="; // TODO make the config service return this by querying mongo for it
 		List<Bug> bugs = service.getBugsByUsername(url, username);
-		return new ResponseEntity<>(bugs, HttpStatus.OK);	}
+		return new ResponseEntity<>(bugs, HttpStatus.OK);
+	}
 
 	@GetMapping("/{number}/comments")
 	@ResponseBody
-	public ResponseEntity<String> getCommentsForBug(@PathVariable String number) {
-		return new ResponseEntity<>("/{number}/comments", HttpStatus.OK);
+	public ResponseEntity<List<Comment>> getCommentsForBug(@PathVariable String number) {
+		String url = BASE_URL + "/rest/bug/" + number + "/comment"; // TODO make the config service return this by querying mongo for it
+		List<Comment> comments = service.getCommentsForBug(url, number);
+		return new ResponseEntity<>(comments, HttpStatus.OK);
 	}
 
 	@GetMapping("/{number}/attachments")
