@@ -1,11 +1,9 @@
 package com.bugzillalive.service;
 
 import com.bugzillalive.model.Bug;
-import com.bugzillalive.model.BugResponse;
 import com.bugzillalive.model.Comment;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,13 +20,29 @@ public class BugsService {
 			bugzillaUrl += number + ",";
 		}
 
-		ResponseEntity<BugResponse> response = restTemplate.getForEntity(bugzillaUrl, BugResponse.class);
-		return response.getBody().getBugs();
+		JSONObject response = new JSONObject(restTemplate.getForObject(bugzillaUrl, String.class));
+		List<Bug> bugs = new ArrayList<>();
+		JSONArray array = response.getJSONArray("bugs");
+
+		for (int i = 0; i < array.length(); i++) {
+			JSONObject b = array.getJSONObject(i);
+			bugs.add(Bug.toBug(b));
+		}
+
+		return bugs;
 	}
 
 	public List<Bug> getBugsByUsername(String url, String username) {
-		ResponseEntity<BugResponse> response = restTemplate.getForEntity(url + username, BugResponse.class);
-		return response.getBody().getBugs();
+		JSONObject response = new JSONObject(restTemplate.getForObject(url + username, String.class));
+		List<Bug> bugs = new ArrayList<>();
+		JSONArray array = response.getJSONArray("bugs");
+
+		for (int i = 0; i < array.length(); i++) {
+			JSONObject b = array.getJSONObject(i);
+			bugs.add(Bug.toBug(b));
+		}
+
+		return bugs;
 	}
 
 	public List<Comment> getCommentsForBug(String url, String number) {
@@ -42,11 +56,7 @@ public class BugsService {
 
 		for (int i = 0; i < array.length(); i++) {
 			JSONObject c = array.getJSONObject(i);
-			comments.add(Comment.builder()
-				.time(c.getString("time"))
-				.creator(c.getString("creator"))
-				.text(c.getString("text"))
-				.build());
+			comments.add(Comment.toComment(c));
 		}
 
 		return comments;
