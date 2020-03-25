@@ -2,6 +2,7 @@ package com.bugzillalive.controller;
 
 import com.bugzillalive.model.Bug;
 import com.bugzillalive.model.BugResponse;
+import com.bugzillalive.model.Comment;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -72,6 +73,23 @@ public class BugsControllerTests {
 		ResponseEntity<List<Bug>> response = bugsController.getBugsByUsername("Someone");
 
 		Mockito.verify(bugsController).getBugsByUsername("Someone");
+		Assertions.assertThat(response).isNotNull();
+		Assertions.assertThat(response.getBody().size()).isEqualTo(1);
+	}
+
+	@Test
+	public void bugComments() {
+		List<Comment> mockComments = Arrays.asList(Comment.builder()
+			.creator("Person")
+			.text("A comment")
+			.time("2020-06-06T09:19:37Z")
+			.build());
+
+		Mockito.when(bugsController.getCommentsForBug("12345")).thenReturn(new ResponseEntity<>(mockComments, HttpStatus.OK));
+
+		ResponseEntity<List<Comment>> response = bugsController.getCommentsForBug("12345");
+
+		Mockito.verify(bugsController).getCommentsForBug("12345");
 		Assertions.assertThat(response).isNotNull();
 		Assertions.assertThat(response.getBody().size()).isEqualTo(1);
 	}

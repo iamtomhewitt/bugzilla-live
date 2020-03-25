@@ -3,7 +3,6 @@ package com.bugzillalive.service;
 import com.bugzillalive.model.Bug;
 import com.bugzillalive.model.BugResponse;
 import com.bugzillalive.model.Comment;
-import com.bugzillalive.model.CommentResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
