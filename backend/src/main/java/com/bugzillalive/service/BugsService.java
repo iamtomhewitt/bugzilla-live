@@ -4,6 +4,7 @@ import com.bugzillalive.model.Bug;
 import com.bugzillalive.model.Comment;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,7 +14,8 @@ import java.util.List;
 @Service
 public class BugsService {
 
-	private RestTemplate restTemplate = new RestTemplate();
+	@Autowired
+	private RestTemplate restTemplate;
 
 	public List<Bug> getBugsByNumbers(String bugzillaUrl, String numbers) {
 		for (String number : numbers.split(",")) {

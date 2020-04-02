@@ -4,16 +4,17 @@ import com.bugzillalive.model.Bug;
 import com.bugzillalive.model.Comment;
 import com.bugzillalive.service.BugsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("bugs")
 public class BugsController {
-
 	@Autowired
 	private BugsService service;
 
@@ -27,9 +28,9 @@ public class BugsController {
 
 	@GetMapping("/numbers")
 	@ResponseBody
-	public ResponseEntity<List<Bug>> getBugsByNumbers(@RequestParam String bugNumbers) {
+	public ResponseEntity<List<Bug>> getBugsByNumbers(@RequestParam String numbers) {
 		String url = BASE_URL + "/rest/bug?id="; // TODO make the config service return this by querying mongo for it
-		List<Bug> bugs = service.getBugsByNumbers(url, bugNumbers);
+		List<Bug> bugs = service.getBugsByNumbers(url, numbers);
 		return new ResponseEntity<>(bugs, HttpStatus.OK);
 	}
 
