@@ -81,27 +81,41 @@ public class BugsControllerTests {
 	}
 
 	@Test
-	public void bugsByUsername() {
-//		BugResponse mockBugResponse = BugResponse.builder()
-//			.bugs(Arrays.asList(
-//				Bug.builder()
-//					.assignedTo("Someone")
-//					.component("Component")
-//					.id("12345")
-//					.lastUpdated("2020-02-27T19:49:08Z")
-//					.product("product")
-//					.severity("severity")
-//					.status("status")
-//					.summary("summary")
-//					.build())).build();
-//
-//		Mockito.when(bugsController.getBugsByUsername("Someone")).thenReturn(new ResponseEntity<>(mockBugResponse.getBugs(), HttpStatus.OK));
-//
-//		ResponseEntity<List<Bug>> response = bugsController.getBugsByUsername("Someone");
-//
-//		Mockito.verify(bugsController).getBugsByUsername("Someone");
-//		Assertions.assertThat(response).isNotNull();
-//		Assertions.assertThat(response.getBody().size()).isEqualTo(1);
+	public void bugsByUsername() throws Exception {
+		String mockExternalResponse = "{\n" +
+			"\t\"bugs\": [\n" +
+			"\t\t{\n" +
+			"\t\t\t\"id\": 12345,\n" +
+			"\t\t\t\"priority\": \"P1\",\n" +
+			"\t\t\t\"last_change_time\": \"2020-02-27T19:49:08Z\",\n" +
+			"\t\t\t\"status\": \"Done\",\n" +
+			"\t\t\t\"assigned_to\": \"someone@s.com\",\n" +
+			"\t\t\t\"severity\": \"normal\",\n" +
+			"\t\t\t\"summary\": \"Test bug\",\n" +
+			"\t\t\t\"component\": \"Backend\",\n" +
+			"\t\t\t\"product\": \"Core\"\n" +
+			"\t\t}\n" +
+			"\t]\n" +
+			"}";
+
+		String expectedResponse = "[\n" +
+			"    {\n" +
+			"        \"id\": \"12345\",\n" +
+			"        \"summary\": \"Test bug\",\n" +
+			"        \"status\": \"Done\",\n" +
+			"        \"product\": \"Core\",\n" +
+			"        \"component\": \"Backend\",\n" +
+			"        \"severity\": \"normal\",\n" +
+			"        \"assignedTo\": \"someone@s.com\",\n" +
+			"        \"lastUpdated\": \"2020-02-27T19:49:08Z\"\n" +
+			"    }\n" +
+			"]";
+
+		Mockito.when(restTemplate.getForObject(anyString(), eq(String.class)))
+			.thenReturn(mockExternalResponse);
+
+		mvc.perform(get("/bugs/username?username=someone@s.com"))
+			.andExpect(content().json(expectedResponse));
 	}
 
 	@Test
