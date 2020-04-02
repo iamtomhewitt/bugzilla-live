@@ -1,5 +1,6 @@
 package com.bugzillalive.service;
 
+import com.bugzillalive.model.Attachment;
 import com.bugzillalive.model.Bug;
 import com.bugzillalive.model.Comment;
 import org.json.JSONArray;
@@ -62,5 +63,20 @@ public class BugsService {
 		}
 
 		return comments;
+	}
+	public List<Attachment> getAttachmentsForBug(String url, String number) {
+		List<Attachment> attachments = new ArrayList<>();
+		JSONObject response = new JSONObject(restTemplate.getForObject(url, String.class));
+
+		JSONArray array = response
+			.getJSONObject("bugs")
+			.getJSONArray(number);
+
+		for (int i = 0; i < array.length(); i++) {
+			JSONObject a = array.getJSONObject(i);
+			attachments.add(Attachment.toAttachment(a));
+		}
+
+		return attachments;
 	}
 }

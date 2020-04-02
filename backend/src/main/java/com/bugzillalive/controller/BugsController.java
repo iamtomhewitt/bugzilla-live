@@ -1,5 +1,6 @@
 package com.bugzillalive.controller;
 
+import com.bugzillalive.model.Attachment;
 import com.bugzillalive.model.Bug;
 import com.bugzillalive.model.Comment;
 import com.bugzillalive.service.BugsService;
@@ -50,8 +51,10 @@ public class BugsController {
 
 	@GetMapping("/{number}/attachments")
 	@ResponseBody
-	public ResponseEntity<String> getAttachmentsForBug(@PathVariable String number) {
-		return new ResponseEntity<>("/{number}/attachments", HttpStatus.OK);
+	public ResponseEntity<List<Attachment>> getAttachmentsForBug(@PathVariable String number) {
+		String url = BASE_URL + "/rest/bug/" + number + "/attachment"; // TODO make the config service return this by querying mongo for it
+		List<Attachment> attachments = service.getAttachmentsForBug(url, number);
+		return new ResponseEntity<>(attachments, HttpStatus.OK);
 	}
 
 	@PostMapping("/{number}/comments/add")
