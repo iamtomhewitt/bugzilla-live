@@ -150,4 +150,53 @@ public class BugsControllerTests {
 		mvc.perform(get("/bugs/12345/comments"))
 			.andExpect(content().json(expectedResponse));
 	}
+	@Test
+	public void bugAttachments() throws Exception {
+		String mockExternalResponse = "{\n" +
+			"    \"bugs\": {\n" +
+			"        \"12345\": [\n" +
+			"            {\n" +
+			"                \"last_change_time\": \"2015-09-23T18:36:19Z\",\n" +
+			"                \"is_obsolete\": 1,\n" +
+			"                \"description\": \"Some patch\",\n" +
+			"                \"file_name\": \"Some filename\",\n" +
+			"                \"flags\": [],\n" +
+			"                \"bug_id\": 12345,\n" +
+			"                \"data\": \"test\",\n" +
+			"                \"summary\": \"Some patch.\",\n" +
+			"                \"creation_time\": \"2015-09-23T18:35:48Z\",\n" +
+			"                \"creator_detail\": {\n" +
+			"                    \"id\": 406194,\n" +
+			"                    \"nick\": \"nick\",\n" +
+			"                    \"real_name\": \"nick\",\n" +
+			"                    \"email\": \"someone@c.com\",\n" +
+			"                    \"name\": \"someone@c.com\"\n" +
+			"                },\n" +
+			"                \"id\": 1,\n" +
+			"                \"size\": 1,\n" +
+			"                \"attacher\": \"someone@c.com\",\n" +
+			"                \"is_patch\": 1,\n" +
+			"                \"is_private\": 0,\n" +
+			"                \"content_type\": \"text/plain\",\n" +
+			"                \"creator\": \"someone@c.com\"\n" +
+			"            }\n" +
+			"        ]\n" +
+			"    },\n" +
+			"    \"attachments\": {}\n" +
+			"}";
+
+		String expectedResponse = "[\n" +
+			"\t{\n" +
+			"\t\t\"data\": \"test\",\n" +
+			"\t\t\"filename\": \"Some filename\",\n" +
+			"\t\t\"contentType\": \"text/plain\"\n" +
+			"\t}\n" +
+			"]";
+
+		Mockito.when(restTemplate.getForObject(anyString(), eq(String.class)))
+			.thenReturn(mockExternalResponse);
+
+		mvc.perform(get("/bugs/12345/attachments"))
+			.andExpect(content().json(expectedResponse));
+	}
 }
