@@ -9,13 +9,19 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.*;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.client.RestTemplate;
 
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @RunWith(SpringRunner.class)
@@ -150,6 +156,7 @@ public class BugsControllerTests {
 		mvc.perform(get("/bugs/12345/comments"))
 			.andExpect(content().json(expectedResponse));
 	}
+
 	@Test
 	public void bugAttachments() throws Exception {
 		String mockExternalResponse = "{\n" +
@@ -198,5 +205,27 @@ public class BugsControllerTests {
 
 		mvc.perform(get("/bugs/12345/attachments"))
 			.andExpect(content().json(expectedResponse));
+	}
+
+	@Test
+	public void addCommentToBug() throws Exception {
+		ResponseEntity<String> mockResponse = new ResponseEntity<String>("{\"id\":999}", HttpStatus.CREATED);
+
+		Mockito.when(restTemplate.postForEntity(anyString(), any(), eq(String.class)))
+			.thenReturn(mockResponse);
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+			.post("/bugs/12345/comments/add")
+			.accept(MediaType.APPLICATION_JSON)
+			.content("{\n" +
+				"\t\"comment\": \"A test\",\n" +
+				"\t\"apiKey\": \"key\"\n" +
+				"}")
+			.contentType(MediaType.APPLICATION_JSON);
+
+		MockHttpServletResponse response = mvc.perform(requestBuilder).andReturn().getResponse();
+
+		assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+		assertEquals("{\"id\":999}", response.getContentAsString());
 	}
 }
