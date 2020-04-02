@@ -119,19 +119,42 @@ public class BugsControllerTests {
 	}
 
 	@Test
-	public void bugComments() {
-		List<Comment> mockComments = Arrays.asList(Comment.builder()
-			.creator("Person")
-			.text("A comment")
-			.time("2020-06-06T09:19:37Z")
-			.build());
+	public void bugComments() throws Exception {
+		String mockExternalResponse = "{\n" +
+			"\t\"bugs\": {\n" +
+			"\t\t\"12345\": {\n" +
+			"\t\t\t\"comments\": [\n" +
+			"\t\t\t\t{\n" +
+			"\t\t\t\t\t\"text\": \"A comment\",\n" +
+			"\t\t\t\t\t\"bug_id\": 12345,\n" +
+			"\t\t\t\t\t\"author\": \"someone@c.com\",\n" +
+			"\t\t\t\t\t\"creator\": \"someone@c.com\",\n" +
+			"\t\t\t\t\t\"tags\": [],\n" +
+			"\t\t\t\t\t\"count\": 0,\n" +
+			"\t\t\t\t\t\"raw_text\": \"This is raw text\",\n" +
+			"\t\t\t\t\t\"is_private\": false,\n" +
+			"\t\t\t\t\t\"attachment_id\": null,\n" +
+			"\t\t\t\t\t\"time\": \"2019-12-19T21:33:56Z\",\n" +
+			"\t\t\t\t\t\"creation_time\": \"2019-12-19T21:33:56Z\",\n" +
+			"\t\t\t\t\t\"id\": 14557377\n" +
+			"\t\t\t\t}\n" +
+			"\t\t\t]\n" +
+			"\t\t}\n" +
+			"\t}\n" +
+			"}";
 
-		Mockito.when(bugsController.getCommentsForBug("12345")).thenReturn(new ResponseEntity<>(mockComments, HttpStatus.OK));
+		String expectedResponse = "[\n" +
+			"\t{\n" +
+			"\t\t\"text\": \"A comment\",\n" +
+			"\t\t\"time\": \"2019-12-19T21:33:56Z\",\n" +
+			"\t\t\"creator\": \"someone@c.com\"\n" +
+			"\t}\n" +
+			"]";
 
-		ResponseEntity<List<Comment>> response = bugsController.getCommentsForBug("12345");
+		Mockito.when(restTemplate.getForObject(anyString(), eq(String.class)))
+			.thenReturn(mockExternalResponse);
 
-		Mockito.verify(bugsController).getCommentsForBug("12345");
-		Assertions.assertThat(response).isNotNull();
-		Assertions.assertThat(response.getBody().size()).isEqualTo(1);
+		mvc.perform(get("/bugs/12345/comments"))
+			.andExpect(content().json(expectedResponse));
 	}
 }
