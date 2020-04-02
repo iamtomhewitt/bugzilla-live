@@ -209,7 +209,7 @@ public class BugsControllerTests {
 
 	@Test
 	public void addCommentToBug() throws Exception {
-		ResponseEntity<String> mockResponse = new ResponseEntity<String>("{\"id\":999}", HttpStatus.CREATED);
+		ResponseEntity<String> mockResponse = new ResponseEntity<>("{\"id\":999}", HttpStatus.CREATED);
 
 		Mockito.when(restTemplate.postForEntity(anyString(), any(), eq(String.class)))
 			.thenReturn(mockResponse);
@@ -227,5 +227,88 @@ public class BugsControllerTests {
 
 		assertEquals(HttpStatus.CREATED.value(), response.getStatus());
 		assertEquals("{\"id\":999}", response.getContentAsString());
+	}
+
+	@Test
+	public void changeBugStatusNoResolution() throws Exception {
+		String mockResponseBody = "{\n" +
+			"    \"bugs\": [\n" +
+			"        {\n" +
+			"            \"changes\": {\n" +
+			"                \"resolution\": {\n" +
+			"                    \"added\": \"\",\n" +
+			"                    \"removed\": \"INVALID\"\n" +
+			"                },\n" +
+			"                \"status\": {\n" +
+			"                    \"added\": \"UNCONFIRMED\",\n" +
+			"                    \"removed\": \"RESOLVED\"\n" +
+			"                }\n" +
+			"            },\n" +
+			"            \"id\": 1605238,\n" +
+			"            \"last_change_time\": \"2020-04-02T13:32:17Z\",\n" +
+			"            \"alias\": null\n" +
+			"        }\n" +
+			"    ]\n" +
+			"}";
+		ResponseEntity<String> mockResponse = new ResponseEntity<>(mockResponseBody, HttpStatus.OK);
+
+		Mockito.when(restTemplate.exchange(anyString(), any(), any(), eq(String.class)))
+			.thenReturn(mockResponse);
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+			.put("/bugs/12345/status/change")
+			.accept(MediaType.APPLICATION_JSON)
+			.content("{\n" +
+				"\t\"status\" : \"UNCONFIRMED\",\n" +
+				"\t\"apiKey\": \"key\"\n" +
+				"}")
+			.contentType(MediaType.APPLICATION_JSON);
+
+		MockHttpServletResponse response = mvc.perform(requestBuilder).andReturn().getResponse();
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertEquals(mockResponseBody, response.getContentAsString());
+	}
+
+	@Test
+	public void changeBugStatusWithResolution() throws Exception {
+		String mockResponseBody = "{\n" +
+			"    \"bugs\": [\n" +
+			"        {\n" +
+			"            \"changes\": {\n" +
+			"                \"resolution\": {\n" +
+			"                    \"added\": \"INVALID\",\n" +
+			"                    \"removed\": \"\"\n" +
+			"                },\n" +
+			"                \"status\": {\n" +
+			"                    \"removed\": \"UNCONFIRMED\",\n" +
+			"                    \"added\": \"RESOLVED\"\n" +
+			"                }\n" +
+			"            },\n" +
+			"            \"alias\": null,\n" +
+			"            \"last_change_time\": \"2020-04-02T13:35:00Z\",\n" +
+			"            \"id\": 1605238\n" +
+			"        }\n" +
+			"    ]\n" +
+			"}";
+		ResponseEntity<String> mockResponse = new ResponseEntity<>(mockResponseBody, HttpStatus.OK);
+
+		Mockito.when(restTemplate.exchange(anyString(), any(), any(), eq(String.class)))
+			.thenReturn(mockResponse);
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+			.put("/bugs/12345/status/change")
+			.accept(MediaType.APPLICATION_JSON)
+			.content("{\n" +
+				"\t\"status\" : \"RESOLVED\",\n" +
+				"\t\"resolution\": \"INVALID\",\n" +
+				"\t\"apiKey\": \"key\"\n" +
+				"}")
+			.contentType(MediaType.APPLICATION_JSON);
+
+		MockHttpServletResponse response = mvc.perform(requestBuilder).andReturn().getResponse();
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertEquals(mockResponseBody, response.getContentAsString());
 	}
 }
