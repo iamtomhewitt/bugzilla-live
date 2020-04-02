@@ -1,9 +1,6 @@
 package com.bugzillalive.controller;
 
-import com.bugzillalive.model.AddCommentRequestBody;
-import com.bugzillalive.model.Attachment;
-import com.bugzillalive.model.Bug;
-import com.bugzillalive.model.Comment;
+import com.bugzillalive.model.*;
 import com.bugzillalive.service.BugsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -64,9 +61,9 @@ public class BugsController {
 		return service.addCommentToBug(BASE_URL + "/rest/bug/" + number + "/comment", body);
 	}
 
-	@PostMapping("/{number}/status/change")
+	@PutMapping("/{number}/status/change")
 	@ResponseBody
-	public ResponseEntity<String> changeBugStatus(@PathVariable String number, @RequestBody String status) { // TODO create status object
-		return new ResponseEntity<>("/{number}/status/change", HttpStatus.OK);
+	public ResponseEntity<String> changeBugStatus(@PathVariable String number, @RequestBody ChangeStatusRequestBody body) {
+		return service.changeBugStatus(BASE_URL + "/rest/bug/" + number, body);
 	}
 }

@@ -1,9 +1,6 @@
 package com.bugzillalive.service;
 
-import com.bugzillalive.model.AddCommentRequestBody;
-import com.bugzillalive.model.Attachment;
-import com.bugzillalive.model.Bug;
-import com.bugzillalive.model.Comment;
+import com.bugzillalive.model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,5 +91,24 @@ public class BugsService {
 
 		HttpEntity<String> entity = new HttpEntity<>(jsonBody, headers);
 		return restTemplate.postForEntity(url, entity, String.class);
+	}
+
+	public ResponseEntity<String> changeBugStatus(String url, ChangeStatusRequestBody body) {
+		String jsonBody = body.getStatus().equals("RESOLVED") ?
+			"{\n" +
+				"\t\"status\" : \"" + body.getStatus() + "\",\n" +
+				"\t\"resolution\": \"" + body.getResolution() + "\"\n" +
+				"}"
+			:
+			"{\n" +
+				"\t\"status\" : \"" + body.getStatus() + "\"\n" +
+				"}";
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.add("X-BUGZILLA-API-KEY", body.getApiKey());
+
+		HttpEntity<String> entity = new HttpEntity<>(jsonBody, headers);
+		return restTemplate.exchange(url, HttpMethod.PUT, entity, String.class);
 	}
 }
