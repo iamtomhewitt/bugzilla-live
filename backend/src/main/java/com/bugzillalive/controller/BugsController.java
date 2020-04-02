@@ -1,5 +1,6 @@
 package com.bugzillalive.controller;
 
+import com.bugzillalive.model.AddCommentRequestBody;
 import com.bugzillalive.model.Attachment;
 import com.bugzillalive.model.Bug;
 import com.bugzillalive.model.Comment;
@@ -59,8 +60,8 @@ public class BugsController {
 
 	@PostMapping("/{number}/comments/add")
 	@ResponseBody
-	public ResponseEntity<String> addCommentToBug(@PathVariable String number, @RequestBody String comment) { // TODO create comment object
-		return new ResponseEntity<>("/{number}/comments/add", HttpStatus.OK);
+	public ResponseEntity<String> addCommentToBug(@PathVariable String number, @RequestBody AddCommentRequestBody body) {
+		return service.addCommentToBug(BASE_URL + "/rest/bug/" + number + "/comment", body);
 	}
 
 	@PostMapping("/{number}/status/change")

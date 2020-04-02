@@ -1,12 +1,16 @@
 package com.bugzillalive.service;
 
+import com.bugzillalive.model.AddCommentRequestBody;
 import com.bugzillalive.model.Attachment;
 import com.bugzillalive.model.Bug;
 import com.bugzillalive.model.Comment;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -64,6 +68,7 @@ public class BugsService {
 
 		return comments;
 	}
+
 	public List<Attachment> getAttachmentsForBug(String url, String number) {
 		List<Attachment> attachments = new ArrayList<>();
 		JSONObject response = new JSONObject(restTemplate.getForObject(url, String.class));
@@ -78,5 +83,16 @@ public class BugsService {
 		}
 
 		return attachments;
+	}
+
+	public ResponseEntity<String> addCommentToBug(String url, AddCommentRequestBody body) {
+		String jsonBody = "{\"comment\": \"" + body.getComment() + "\"}";
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.add("X-BUGZILLA-API-KEY", body.getApiKey());
+
+		HttpEntity<String> entity = new HttpEntity<>(jsonBody, headers);
+		return restTemplate.postForEntity(url, entity, String.class);
 	}
 }
