@@ -19,6 +19,15 @@ public class UserConfig {
 		this.lists = lists;
 	}
 
+	/**
+	 * Only use for testing.
+	 */
+	public UserConfig(String bugzillaUrl, List<String> lists, String id) {
+		this.bugzillaUrl = bugzillaUrl;
+		this.lists = lists;
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("id=%s, bugzillaUrl=%s, lists=%s", id, bugzillaUrl, lists);

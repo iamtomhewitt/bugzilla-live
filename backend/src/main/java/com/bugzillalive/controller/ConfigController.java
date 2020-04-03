@@ -25,7 +25,7 @@ public class ConfigController {
 	@ResponseBody
 	public ResponseEntity<UserConfig> getUserConfig() throws ConfigNotFoundException {
 		UserConfig config = service.getConfig();
-		return new ResponseEntity<>(config, config == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
+		return new ResponseEntity<>(config, HttpStatus.OK);
 	}
 
 	@PutMapping("/save")
