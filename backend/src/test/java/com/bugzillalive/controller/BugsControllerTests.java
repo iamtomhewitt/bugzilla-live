@@ -1,5 +1,6 @@
 package com.bugzillalive.controller;
 
+import com.bugzillalive.repository.ConfigRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -34,6 +35,9 @@ public class BugsControllerTests {
 
 	@MockBean
 	private RestTemplate restTemplate;
+
+	@MockBean
+	private ConfigRepository repository;
 
 	@Mock
 	private BugsController bugsController;
