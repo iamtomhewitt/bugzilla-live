@@ -1,4 +1,4 @@
-package com.bugzillalive.config.mongo;
+package com.bugzillalive.model;
 
 public class BugList {
 	public String name;
