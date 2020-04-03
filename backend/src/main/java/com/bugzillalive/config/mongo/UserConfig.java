@@ -1,5 +1,6 @@
 package com.bugzillalive.config.mongo;
 
+import com.bugzillalive.model.BugList;
 import org.springframework.data.annotation.Id;
 
 import java.util.List;
