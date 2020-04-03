@@ -1,6 +1,7 @@
 package com.bugzillalive.controller;
 
-import com.bugzillalive.config.UserConfig;
+import com.bugzillalive.config.mongo.BugList;
+import com.bugzillalive.config.mongo.UserConfig;
 import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.repository.ConfigRepository;
 import org.junit.Before;
@@ -55,7 +56,7 @@ public class ConfigControllerTests {
 	@Before
 	public void eachTest() {
 		mockEmptyDbConfig = new ArrayList<>();
-		mockPopulatedDbConfig = Collections.singletonList(new UserConfig("someUrl", Arrays.asList("1,2,3", "4,5,6"), "123"));
+		mockPopulatedDbConfig = Collections.singletonList(new UserConfig("someUrl", Arrays.asList(new BugList("List Name", "123,456")), "123"));
 	}
 
 	@Test
@@ -64,8 +65,10 @@ public class ConfigControllerTests {
 			"    \"id\": \"123\",\n" +
 			"    \"bugzillaUrl\": \"someUrl\",\n" +
 			"    \"lists\": [\n" +
-			"        \"1,2,3\",\n" +
-			"        \"4,5,6\"\n" +
+			"        {\n" +
+			"            \"name\": \"List Name\",\n" +
+			"            \"content\": \"123,456\"\n" +
+			"        }\n" +
 			"    ]\n" +
 			"}";
 
@@ -77,7 +80,7 @@ public class ConfigControllerTests {
 	}
 
 	@Test
-	public void whenNoConfigAvailableHandlesErrorCorrectly() throws Exception {
+	public void whenNoConfigAvailableHandlesErrorCorrectly() {
 		when(repository.findAll()).thenReturn(mockEmptyDbConfig);
 
 		try {
@@ -87,7 +90,7 @@ public class ConfigControllerTests {
 			assertEquals(true, e.getMessage().contains("No config recorded in the database. Perhaps you need to save some config first?"));
 		}
 	}
-	
+
 	@Test
 	public void saveConfigIsSuccessful() throws Exception {
 		String expectedJson = "{\n" +
@@ -99,8 +102,13 @@ public class ConfigControllerTests {
 		mvc.perform(put("/config/save")
 			.accept(MediaType.APPLICATION_JSON)
 			.content("{\n" +
-				"\t\"bugzillaUrl\" : \"someUrl\",\n" +
-				"\t\"lists\": [\"1,2,3\", \"4,5,6\"]\n" +
+				"    \"bugzillaUrl\": \"URL\",\n" +
+				"    \"lists\": [\n" +
+				"        {\n" +
+				"            \"name\": \"My List\",\n" +
+				"            \"content\": \"My content\"\n" +
+				"        }\n" +
+				"    ]\n" +
 				"}")
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().is(HttpStatus.OK.value()))

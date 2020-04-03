@@ -1,4 +1,4 @@
-package com.bugzillalive.config;
+package com.bugzillalive.config.mongo;
 
 import org.springframework.data.annotation.Id;
 
@@ -9,12 +9,12 @@ public class UserConfig {
 	@Id
 	public String id;
 	public String bugzillaUrl;
-	public List<String> lists;
+	public List<BugList> lists;
 
 	public UserConfig() {
 	}
 
-	public UserConfig(String bugzillaUrl, List<String> lists) {
+	public UserConfig(String bugzillaUrl, List<BugList> lists) {
 		this.bugzillaUrl = bugzillaUrl;
 		this.lists = lists;
 	}
@@ -22,7 +22,7 @@ public class UserConfig {
 	/**
 	 * Only use for testing.
 	 */
-	public UserConfig(String bugzillaUrl, List<String> lists, String id) {
+	public UserConfig(String bugzillaUrl, List<BugList> lists, String id) {
 		this.bugzillaUrl = bugzillaUrl;
 		this.lists = lists;
 		this.id = id;

@@ -1,6 +1,6 @@
 package com.bugzillalive.service;
 
-import com.bugzillalive.config.UserConfig;
+import com.bugzillalive.config.mongo.UserConfig;
 import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.repository.ConfigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
