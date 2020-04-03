@@ -1,13 +1,12 @@
 package com.bugzillalive.controller;
 
+import com.bugzillalive.config.UserConfig;
+import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.service.ConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("config")
@@ -19,9 +18,20 @@ public class ConfigController {
 	@GetMapping("/health")
 	@ResponseBody
 	public ResponseEntity<String> health() {
-
-		service.test();
-
 		return new ResponseEntity<>("UP", HttpStatus.OK);
+	}
+
+	@GetMapping("/get")
+	@ResponseBody
+	public ResponseEntity<UserConfig> getUserConfig() throws ConfigNotFoundException {
+		UserConfig config = service.getConfig();
+		return new ResponseEntity<>(config, config == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
+	}
+
+	@PutMapping("/save")
+	@ResponseBody
+	public ResponseEntity<String> saveUserConfig(@RequestBody UserConfig config) {
+		service.saveConfig(config);
+		return new ResponseEntity<>("{\n\t\"status\": \"OK\"\n}", HttpStatus.OK);
 	}
 }

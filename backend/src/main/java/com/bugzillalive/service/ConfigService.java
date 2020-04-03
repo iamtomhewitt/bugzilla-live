@@ -1,11 +1,12 @@
 package com.bugzillalive.service;
 
 import com.bugzillalive.config.UserConfig;
+import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.repository.ConfigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class ConfigService {
@@ -13,15 +14,18 @@ public class ConfigService {
 	@Autowired
 	private ConfigRepository repository;
 
-	public void test() {
-		repository.save(new UserConfig("url", Arrays.asList("1", "2")));
-		for (UserConfig u : repository.findAll()) {
-			System.out.println(u.bugzillaUrl);
-			System.out.println(u.id);
-			for (String s : u.lists) {
-				System.out.println(s);
-			}
+	public UserConfig getConfig() throws ConfigNotFoundException {
+		List<UserConfig> allConfig = repository.findAll();
+
+		if (allConfig.size() == 0) {
+			throw new ConfigNotFoundException("No config recorded in the database. Perhaps you need to save some config first?");
 		}
+
+		return allConfig.get(0);
 	}
 
+	public void saveConfig(UserConfig config) {
+		repository.deleteAll();
+		repository.save(config);
+	}
 }
