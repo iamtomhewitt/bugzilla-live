@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("bugs")
+@RequestMapping("config")
 public class ConfigController {
 
 	@Autowired
@@ -19,6 +19,9 @@ public class ConfigController {
 	@GetMapping("/health")
 	@ResponseBody
 	public ResponseEntity<String> health() {
+
+		service.test();
+
 		return new ResponseEntity<>("UP", HttpStatus.OK);
 	}
 }

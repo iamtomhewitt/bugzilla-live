@@ -1,0 +1,26 @@
+package com.bugzillalive.config;
+
+import org.springframework.data.annotation.Id;
+
+import java.util.List;
+
+public class UserConfig {
+
+	@Id
+	public String id;
+	public String bugzillaUrl;
+	public List<String> lists;
+
+	public UserConfig() {
+	}
+
+	public UserConfig(String bugzillaUrl, List<String> lists) {
+		this.bugzillaUrl = bugzillaUrl;
+		this.lists = lists;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("id=%s, bugzillaUrl=%s, lists=%s", id, bugzillaUrl, lists);
+	}
+}
