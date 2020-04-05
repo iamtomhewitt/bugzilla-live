@@ -34,10 +34,18 @@ public class DatabaseRepository {
 		return mongoOps.findAll(UserConfig.class).get(0).getLists();
 	}
 
-	public void updateList(String listName, String contents) {
-		Query query = new Query(new Criteria("lists.name").is(listName));
-		Update update = new Update().set("content", contents);
-		mongoOps.updateFirst(query, update, "userConfig");
+	public UserConfig updateList(String listName, String contents) {
+		UserConfig currentConfig = getConfig();
+
+		for (BugList list : currentConfig.getLists()) {
+			if (listName.equals(list.getName())) {
+				list.setContent(contents);
+			}
+		}
+
+		mongoOps.save(currentConfig);
+
+		return currentConfig;
 	}
 
 	public void saveList(String listName, String contents) {
@@ -54,5 +62,17 @@ public class DatabaseRepository {
 
 	public void setBugzillaUrl() {
 		// TODO
+	}
+
+	public UserConfig getConfig() {
+		return mongoOps.findAll(UserConfig.class).get(0);
+	}
+
+	public void saveConfig(UserConfig config) {
+		mongoOps.save(config);
+	}
+
+	public void deleteAll() {
+		mongoOps.dropCollection("userConfig");
 	}
 }

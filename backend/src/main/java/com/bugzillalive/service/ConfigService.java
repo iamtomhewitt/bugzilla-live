@@ -1,31 +1,21 @@
 package com.bugzillalive.service;
 
 import com.bugzillalive.config.mongo.UserConfig;
-import com.bugzillalive.exception.ConfigNotFoundException;
-import com.bugzillalive.repository.ConfigRepository;
+import com.bugzillalive.repository.DatabaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class ConfigService {
-
 	@Autowired
-	private ConfigRepository repository;
+	private DatabaseRepository repository;
 
-	public UserConfig getConfig() throws ConfigNotFoundException {
-		List<UserConfig> allConfig = repository.findAll();
-
-		if (allConfig.size() == 0) {
-			throw new ConfigNotFoundException("No config recorded in the database. Perhaps you need to save some config first?");
-		}
-
-		return allConfig.get(0);
+	public UserConfig getConfig() {
+		return repository.getConfig();
 	}
 
 	public void saveConfig(UserConfig config) {
 		repository.deleteAll();
-		repository.save(config);
+		repository.saveConfig(config);
 	}
 }
