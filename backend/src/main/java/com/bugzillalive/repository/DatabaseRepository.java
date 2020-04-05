@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public class DatabaseRepository {
 	// https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#reference
 	private MongoOperations mongoOps = new MongoTemplate(MongoClients.create(), "bugzilla_live");

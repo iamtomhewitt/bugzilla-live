@@ -1,9 +1,9 @@
 package com.bugzillalive.controller;
 
-import com.bugzillalive.model.BugList;
 import com.bugzillalive.config.mongo.UserConfig;
 import com.bugzillalive.exception.ConfigNotFoundException;
-import com.bugzillalive.repository.ConfigRepository;
+import com.bugzillalive.model.BugList;
+import com.bugzillalive.repository.DatabaseRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,16 +13,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -42,7 +40,10 @@ public class ConfigControllerTests {
 	private ConfigController configController;
 
 	@MockBean
-	private ConfigRepository repository;
+	private DatabaseRepository repository;
+
+	@MockBean
+	private MongoOperations mongoOperations;
 
 	@Autowired
 	private MockMvc mvc;
@@ -50,13 +51,13 @@ public class ConfigControllerTests {
 	@MockBean
 	private RestTemplate restTemplate;
 
-	private List<UserConfig> mockEmptyDbConfig;
-	private List<UserConfig> mockPopulatedDbConfig;
+	private UserConfig mockEmptyDbConfig;
+	private UserConfig mockPopulatedDbConfig;
 
 	@Before
 	public void eachTest() {
-		mockEmptyDbConfig = new ArrayList<>();
-		mockPopulatedDbConfig = Collections.singletonList(new UserConfig("someUrl", Arrays.asList(new BugList("List Name", "123,456")), "123"));
+		mockEmptyDbConfig = new UserConfig();
+		mockPopulatedDbConfig = new UserConfig("someUrl", Arrays.asList(new BugList("List Name", "123,456")), "123");
 	}
 
 	@Test
@@ -72,7 +73,7 @@ public class ConfigControllerTests {
 			"    ]\n" +
 			"}";
 
-		when(repository.findAll()).thenReturn(mockPopulatedDbConfig);
+		when(repository.getConfig()).thenReturn(mockPopulatedDbConfig);
 
 		mvc.perform(get("/config/get"))
 			.andExpect(status().is(HttpStatus.OK.value()))
@@ -81,7 +82,7 @@ public class ConfigControllerTests {
 
 	@Test
 	public void whenNoConfigAvailableHandlesErrorCorrectly() {
-		when(repository.findAll()).thenReturn(mockEmptyDbConfig);
+		when(repository.getConfig()).thenReturn(mockEmptyDbConfig);
 
 		try {
 			mvc.perform(get("/config/get")).andReturn();
@@ -97,7 +98,7 @@ public class ConfigControllerTests {
 			"    \"status\": \"OK\"" +
 			"}";
 
-		when(repository.findAll()).thenReturn(mockPopulatedDbConfig);
+		when(repository.getConfig()).thenReturn(mockPopulatedDbConfig);
 
 		mvc.perform(put("/config/save")
 			.accept(MediaType.APPLICATION_JSON)

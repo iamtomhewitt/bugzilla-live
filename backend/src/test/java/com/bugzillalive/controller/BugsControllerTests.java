@@ -1,6 +1,6 @@
 package com.bugzillalive.controller;
 
-import com.bugzillalive.repository.ConfigRepository;
+import com.bugzillalive.repository.DatabaseRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,10 @@ public class BugsControllerTests {
 	private RestTemplate restTemplate;
 
 	@MockBean
-	private ConfigRepository repository;
+	private DatabaseRepository repository;
+
+	@MockBean
+	private MongoOperations mongoOperations;
 
 	@Mock
 	private BugsController bugsController;
