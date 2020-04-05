@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("config")
 public class ConfigController {
@@ -30,8 +32,7 @@ public class ConfigController {
 
 	@PutMapping("/save")
 	@ResponseBody
-	public ResponseEntity<String> saveUserConfig(@RequestBody UserConfig config) {
-		service.saveConfig(config);
-		return new ResponseEntity<>("{\n\t\"status\": \"OK\"\n}", HttpStatus.OK);
+	public ResponseEntity<Map<String, String>> saveUserConfig(@RequestBody UserConfig config) {
+		return service.saveConfig(config);
 	}
 }
