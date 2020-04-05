@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBeans;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.http.HttpStatus;
@@ -29,19 +30,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @WebMvcTest(BugsController.class)
 @AutoConfigureMockMvc
-@ComponentScan({
-	"com.bugzillalive"
-})
+@ComponentScan({"com.bugzillalive"})
+@MockBeans({@MockBean(MongoOperations.class), @MockBean(DatabaseRepository.class)})
 public class BugsControllerTests {
 
 	@MockBean
 	private RestTemplate restTemplate;
-
-	@MockBean
-	private DatabaseRepository repository;
-
-	@MockBean
-	private MongoOperations mongoOperations;
 
 	@Mock
 	private BugsController bugsController;
