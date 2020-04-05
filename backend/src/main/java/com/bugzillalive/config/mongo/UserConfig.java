@@ -1,16 +1,20 @@
 package com.bugzillalive.config.mongo;
 
 import com.bugzillalive.model.BugList;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+@Data
+@Document(collection = "userConfig")
 public class UserConfig {
 
 	@Id
-	public String id;
-	public String bugzillaUrl;
-	public List<BugList> lists;
+	private String id;
+	private String bugzillaUrl;
+	private List<BugList> lists;
 
 	public UserConfig() {
 	}
