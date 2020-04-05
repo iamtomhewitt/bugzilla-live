@@ -1,6 +1,7 @@
 package com.bugzillalive.controller;
 
 import com.bugzillalive.config.mongo.UserConfig;
+import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.exception.ListNotFoundException;
 import com.bugzillalive.model.BugList;
 import com.bugzillalive.service.ListService;
@@ -40,7 +41,7 @@ public class ListController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<UserConfig> updateList(@RequestBody BugList list) {
+	public ResponseEntity<UserConfig> updateList(@RequestBody BugList list) throws ConfigNotFoundException {
 		return new ResponseEntity<>(service.updateList(list), HttpStatus.OK);
 	}
 }

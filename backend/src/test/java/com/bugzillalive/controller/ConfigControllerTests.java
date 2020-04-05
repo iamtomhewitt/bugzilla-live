@@ -78,7 +78,7 @@ public class ConfigControllerTests {
 	}
 
 	@Test
-	public void whenNoConfigAvailableHandlesErrorCorrectly() {
+	public void whenNoConfigAvailableHandlesErrorCorrectly() throws ConfigNotFoundException {
 		when(repository.getConfig()).thenReturn(mockEmptyDbConfig);
 
 		try {

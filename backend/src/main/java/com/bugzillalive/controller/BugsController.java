@@ -1,6 +1,8 @@
 package com.bugzillalive.controller;
 
 import com.bugzillalive.model.*;
+import com.bugzillalive.model.request.AddCommentRequestBody;
+import com.bugzillalive.model.request.ChangeStatusRequestBody;
 import com.bugzillalive.service.BugsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

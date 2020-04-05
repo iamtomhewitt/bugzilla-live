@@ -1,4 +1,4 @@
-package com.bugzillalive.model;
+package com.bugzillalive.model.request;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,6 +1,7 @@
 package com.bugzillalive.repository;
 
 import com.bugzillalive.config.mongo.UserConfig;
+import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.exception.ListNotFoundException;
 import com.bugzillalive.model.BugList;
 import com.mongodb.client.MongoClients;
@@ -33,7 +34,7 @@ public class DatabaseRepository {
 		return mongoOps.findAll(UserConfig.class).get(0).getLists();
 	}
 
-	public UserConfig updateList(String listName, String contents) {
+	public UserConfig updateList(String listName, String contents) throws ConfigNotFoundException {
 		UserConfig currentConfig = getConfig();
 
 		for (BugList list : currentConfig.getLists()) {
@@ -63,8 +64,14 @@ public class DatabaseRepository {
 		// TODO
 	}
 
-	public UserConfig getConfig() {
-		return mongoOps.findAll(UserConfig.class).get(0);
+	public UserConfig getConfig() throws ConfigNotFoundException {
+		List<UserConfig> config = mongoOps.findAll(UserConfig.class);
+
+		if (config.size() == 0){
+			throw new ConfigNotFoundException();
+		}
+
+		return config.get(0);
 	}
 
 	public void saveConfig(UserConfig config) {

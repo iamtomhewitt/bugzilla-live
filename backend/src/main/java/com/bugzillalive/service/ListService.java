@@ -1,6 +1,7 @@
 package com.bugzillalive.service;
 
 import com.bugzillalive.config.mongo.UserConfig;
+import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.exception.ListNotFoundException;
 import com.bugzillalive.model.BugList;
 import com.bugzillalive.repository.DatabaseRepository;
@@ -23,7 +24,7 @@ public class ListService {
 		return repository.getAllBugLists();
 	}
 
-	public UserConfig updateList(BugList list) {
+	public UserConfig updateList(BugList list) throws ConfigNotFoundException {
 		return repository.updateList(list.getName(), list.getContent());
 	}
 }
