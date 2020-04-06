@@ -6,12 +6,10 @@ import com.bugzillalive.exception.ListNotFoundException;
 import com.bugzillalive.model.BugList;
 import com.bugzillalive.service.ListService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -21,12 +19,8 @@ public class ListController {
 	@Autowired
 	private ListService service;
 
-	@Autowired
-	private MongoOperations myMongoService;
-
 	@GetMapping("/health")
 	public ResponseEntity<String> health() {
-		myMongoService.insert(new UserConfig("url", Arrays.asList(new BugList("name", "content"))));
 		return new ResponseEntity<>("UP", HttpStatus.OK);
 	}
 
@@ -38,6 +32,11 @@ public class ListController {
 	@GetMapping("/all")
 	public ResponseEntity<List<BugList>> getAllList() {
 		return new ResponseEntity<>(service.getBugLists(), HttpStatus.OK);
+	}
+
+	@PostMapping("/save")
+	public ResponseEntity<UserConfig> saveList(@RequestBody BugList list) throws ConfigNotFoundException {
+		return new ResponseEntity<>(service.saveList(list), HttpStatus.OK);
 	}
 
 	@PutMapping("/update")

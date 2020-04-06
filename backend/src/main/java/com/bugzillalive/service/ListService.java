@@ -27,4 +27,8 @@ public class ListService {
 	public UserConfig updateList(BugList list) throws ConfigNotFoundException {
 		return repository.updateList(list.getName(), list.getContent());
 	}
+
+	public UserConfig saveList(BugList list) throws ConfigNotFoundException {
+		return repository.saveList(list);
+	}
 }

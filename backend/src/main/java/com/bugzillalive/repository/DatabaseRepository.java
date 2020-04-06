@@ -7,10 +7,6 @@ import com.bugzillalive.model.BugList;
 import com.mongodb.client.MongoClients;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -48,8 +44,11 @@ public class DatabaseRepository {
 		return currentConfig;
 	}
 
-	public void saveList(String listName, String contents) {
-		// TODO
+	public UserConfig saveList(BugList list) throws ConfigNotFoundException {
+		UserConfig currentConfig = getConfig();
+		currentConfig.getLists().add(list);
+		mongoOps.save(currentConfig);
+		return currentConfig;
 	}
 
 	public void deleteList(String listName) {
