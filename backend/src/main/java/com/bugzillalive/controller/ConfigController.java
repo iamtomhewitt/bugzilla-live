@@ -2,13 +2,12 @@ package com.bugzillalive.controller;
 
 import com.bugzillalive.config.mongo.UserConfig;
 import com.bugzillalive.exception.ConfigNotFoundException;
+import com.bugzillalive.exception.ConfigSaveException;
 import com.bugzillalive.service.ConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("config")
@@ -32,7 +31,7 @@ public class ConfigController {
 
 	@PutMapping("/save")
 	@ResponseBody
-	public ResponseEntity<Map<String, String>> saveUserConfig(@RequestBody UserConfig config) {
-		return service.saveConfig(config);
+	public ResponseEntity<UserConfig> saveUserConfig(@RequestBody UserConfig config) throws ConfigSaveException {
+		return new ResponseEntity<>(service.saveConfig(config), HttpStatus.OK);
 	}
 }
