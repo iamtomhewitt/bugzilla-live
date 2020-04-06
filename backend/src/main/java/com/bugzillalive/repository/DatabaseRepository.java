@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import java.util.List;
 
 public class DatabaseRepository {
-	// https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#reference
 	private MongoOperations mongoOps = new MongoTemplate(MongoClients.create(), "bugzilla_live");
 
 	public BugList getBugList(String listName) throws ListNotFoundException {
