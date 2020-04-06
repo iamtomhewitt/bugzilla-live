@@ -33,6 +33,7 @@ public class ConfigController {
 	@PutMapping("/save")
 	@ResponseBody
 	public ResponseEntity<UserConfig> saveUserConfig(@RequestBody UserConfig config) throws ConfigSaveException {
-		return new ResponseEntity<>(service.saveConfig(config), HttpStatus.OK);
+		UserConfig updatedConfig = service.saveConfig(config);
+		return new ResponseEntity<>(updatedConfig, HttpStatus.OK);
 	}
 }

@@ -25,4 +25,8 @@ public class ConfigService {
 			throw new ConfigSaveException(e.getMessage());
 		}
 	}
+
+	public String getBugzillaUrl() throws ConfigNotFoundException {
+		return getConfig().getBugzillaUrl();
+	}
 }

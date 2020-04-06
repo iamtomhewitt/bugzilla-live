@@ -11,7 +11,10 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import java.util.List;
 
 public class DatabaseRepository {
-	private MongoOperations mongoOps = new MongoTemplate(MongoClients.create(), "bugzilla_live");
+	private final String DATABASE = "bugzilla_live";
+	private final String COLLECTION = "userConfig";
+
+	private MongoOperations mongoOps = new MongoTemplate(MongoClients.create(), DATABASE);
 
 	public BugList getBugList(String listName) throws ListNotFoundException {
 		List<BugList> lists = getAllBugLists();
@@ -57,14 +60,6 @@ public class DatabaseRepository {
 		return currentConfig;
 	}
 
-	public String getBugzillaUrl() {
-		return "TODO";
-	}
-
-	public void setBugzillaUrl() {
-		// TODO
-	}
-
 	public UserConfig getConfig() throws ConfigNotFoundException {
 		List<UserConfig> config = mongoOps.findAll(UserConfig.class);
 
@@ -80,6 +75,6 @@ public class DatabaseRepository {
 	}
 
 	public void deleteAll() {
-		mongoOps.dropCollection("userConfig");
+		mongoOps.dropCollection(COLLECTION);
 	}
 }
