@@ -1,6 +1,7 @@
 package com.bugzillalive.controller;
 
 import com.bugzillalive.repository.DatabaseRepository;
+import com.bugzillalive.service.ConfigService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -31,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(BugsController.class)
 @AutoConfigureMockMvc
 @ComponentScan({"com.bugzillalive"})
-@MockBeans({@MockBean(MongoOperations.class), @MockBean(DatabaseRepository.class)})
+@MockBeans({@MockBean(MongoOperations.class), @MockBean(DatabaseRepository.class), @MockBean(ConfigService.class)})
 public class BugsControllerTests {
 
 	@MockBean
