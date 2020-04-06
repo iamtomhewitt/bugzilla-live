@@ -2,6 +2,7 @@ package com.bugzillalive.controller;
 
 import com.bugzillalive.config.mongo.UserConfig;
 import com.bugzillalive.exception.ConfigNotFoundException;
+import com.bugzillalive.exception.ConfigSaveException;
 import com.bugzillalive.model.BugList;
 import com.bugzillalive.repository.DatabaseRepository;
 import org.junit.Before;
@@ -24,6 +25,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -85,7 +89,7 @@ public class ConfigControllerTests {
 			mvc.perform(get("/config/get")).andReturn();
 		} catch (Exception e) {
 			assertEquals(e.getCause().getClass(), ConfigNotFoundException.class);
-			assertEquals(true, e.getMessage().contains("No config recorded in the database. Perhaps you need to save some config first?"));
+			assertTrue(e.getMessage().contains("No config recorded in the database. Perhaps you need to save some config first?"));
 		}
 	}
 
@@ -109,5 +113,18 @@ public class ConfigControllerTests {
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().is(HttpStatus.OK.value()))
 			.andExpect(content().json(expectedJson));
+	}
+
+
+	@Test
+	public void saveConfigErrorIsHandled() throws ConfigSaveException {
+		doThrow(new ConfigSaveException("Testing exception")).when(configController).saveUserConfig(any());
+
+		try {
+			mvc.perform(put("/config/save")).andReturn();
+		} catch (Exception e) {
+			assertEquals(e.getCause().getClass(), ConfigSaveException.class);
+			assertTrue(e.getMessage().contains("Testing exception"));
+		}
 	}
 }
