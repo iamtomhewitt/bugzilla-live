@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("bugs")
+@CrossOrigin(origins="*")
 public class BugsController {
 	@Autowired
 	private BugsService service;

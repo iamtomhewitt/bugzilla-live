@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("lists")
+@CrossOrigin(origins="*")
 public class ListController {
 
 	@Autowired

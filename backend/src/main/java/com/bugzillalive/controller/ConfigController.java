@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("config")
+@CrossOrigin(origins="*")
 public class ConfigController {
 
 	@Autowired
