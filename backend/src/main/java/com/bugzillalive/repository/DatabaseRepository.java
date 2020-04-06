@@ -51,8 +51,11 @@ public class DatabaseRepository {
 		return currentConfig;
 	}
 
-	public void deleteList(String listName) {
-		// TODO
+	public UserConfig deleteList(String listName) throws ConfigNotFoundException {
+		UserConfig currentConfig = getConfig();
+		currentConfig.getLists().removeIf(l -> l.getName().equals(listName));
+		mongoOps.save(currentConfig);
+		return currentConfig;
 	}
 
 	public String getBugzillaUrl() {

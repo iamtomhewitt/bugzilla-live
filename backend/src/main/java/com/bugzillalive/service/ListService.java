@@ -31,4 +31,8 @@ public class ListService {
 	public UserConfig saveList(BugList list) throws ConfigNotFoundException {
 		return repository.saveList(list);
 	}
+
+	public UserConfig deleteList(String listName) throws ConfigNotFoundException {
+		return repository.deleteList(listName);
+	}
 }

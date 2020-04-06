@@ -43,4 +43,9 @@ public class ListController {
 	public ResponseEntity<UserConfig> updateList(@RequestBody BugList list) throws ConfigNotFoundException {
 		return new ResponseEntity<>(service.updateList(list), HttpStatus.OK);
 	}
+
+	@DeleteMapping("/delete")
+	public ResponseEntity<UserConfig> deleteList(@RequestParam String listName) throws ConfigNotFoundException {
+		return new ResponseEntity<>(service.deleteList(listName), HttpStatus.OK);
+	}
 }
