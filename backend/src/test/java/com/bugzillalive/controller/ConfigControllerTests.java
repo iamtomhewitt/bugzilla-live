@@ -91,9 +91,7 @@ public class ConfigControllerTests {
 
 	@Test
 	public void saveConfigIsSuccessful() throws Exception {
-		String expectedJson = "{\n" +
-			"    \"status\": \"OK\"" +
-			"}";
+		String expectedJson = "{\"id\":\"123\",\"bugzillaUrl\":\"someUrl\",\"lists\":[{\"name\":\"List Name\",\"content\":\"123,456\"}]}";
 
 		when(repository.getConfig()).thenReturn(mockPopulatedDbConfig);
 
