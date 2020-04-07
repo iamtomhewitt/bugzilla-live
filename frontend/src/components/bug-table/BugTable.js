@@ -1,0 +1,89 @@
+import React, { Component } from 'react';
+import * as api from '../../api/api';
+import './BugTable.css';
+
+export default class BugTable extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			bugNumbers: props.bugNumbers,
+			bugs: null,
+			bugzillaUrl: ''
+		};
+		this.createRow = this.createRow.bind(this)
+	}
+
+	async componentDidMount() {
+		this.refreshBugs()
+		this.getBugzillaUrl()
+		this.interval = setInterval(() => this.refreshBugs(), 60000);
+	}
+
+	async componentWillReceiveProps() {
+		this.refreshBugs()
+		this.getBugzillaUrl()
+	}
+
+	async refreshBugs() {
+		const bugs = await api.getBugs(this.state.bugNumbers);
+		this.setState({
+			bugs: bugs
+		})
+	}
+
+	async getBugzillaUrl() {
+		const config = await api.getConfig();
+		this.setState({
+			bugzillaUrl: config.bugzillaUrl
+		})
+	}
+
+	createRow(bug) {
+		return (
+			<tr key={bug['id']} id={bug['priority']}>
+				<td><a href={this.state.bugzillaUrl + "/show_bug.cgi?id=" + bug['id']}>{bug['id']}</a></td>
+				<td>{bug['summary'].substring(0, 40) + '...'}</td>
+				<td>{bug['status']}</td>
+				<td>{bug['severity']}</td>
+				<td>{bug['product']}</td>
+				<td>{bug['component']}</td>
+				<td>{bug['assignedTo']}</td>
+				<td>{new Date(bug['lastUpdated']).toLocaleDateString()}</td>
+			</tr>
+		)
+	}
+
+	render() {
+		return (
+			<div>
+				<table cellSpacing="0" cellPadding="0">
+					{this.state.bugs != null &&
+						<tbody>
+							<tr>
+								<th>Number</th>
+								<th>Summary</th>
+								<th>Status</th>
+								<th>Severity</th>
+								<th>Product</th>
+								<th>Component</th>
+								<th>Assignee</th>
+								<th>Last Updated</th>
+							</tr>
+							{this.state.bugs.map((bug) => {
+								return this.createRow(bug)
+							})}
+						</tbody>
+					}
+					{this.state.bugs == null &&
+						<tbody>
+							<tr>
+								<td>No bugs! :-D</td>
+							</tr>
+						</tbody>
+					}
+				</table>
+			</div>
+		);
+	}
+}

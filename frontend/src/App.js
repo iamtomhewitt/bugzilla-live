@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
+import BugTable from './components/bug-table/BugTable';
+import AddBugInput from './components/add-bug-input/AddBugInput';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export default class App extends React.Component {
 
-export default App;
+	constructor() {
+		super();
+		this.state = { bugNumbers: [1605238,12345,23456] }
+		this.updateBugNumbers = this.updateBugNumbers.bind(this)
+	}
+
+	updateBugNumbers(numbers) {
+		let currentNumbers = this.state.bugNumbers
+		currentNumbers.push(numbers)
+
+		this.setState({
+			bugNumbers: currentNumbers
+		})
+	}
+
+	render() {
+		return (
+			<div className='App'>
+				<h1 className='app-title'>Bugzilla Live</h1>
+
+				<AddBugInput bugNumbers={this.state.bugNumbers} updateBugNumbers={this.updateBugNumbers} />
+				<BugTable bugNumbers={this.state.bugNumbers} />
+			</div>
+		);
+	}
+}
