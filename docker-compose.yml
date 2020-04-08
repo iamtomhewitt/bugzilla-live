@@ -1,0 +1,17 @@
+version: '3'
+services:
+    backend-db:
+        container_name: bugzilla-live-backend-db
+        image: mongo
+        ports:
+          - "27017:27017"
+    backend:
+        container_name: bugzilla-live-backend
+        build:
+            context: .
+            dockerfile: backend/src/docker/Dockerfile
+        image: bugzilla-live-backend:latest
+        ports:
+            - "8080:8080"
+        links:
+            - backend-db
