@@ -15,8 +15,8 @@ export default class BugTable extends Component {
 	}
 
 	async componentDidMount() {
-		this.refreshBugs()
 		this.getBugzillaUrl()
+		this.refreshBugs()
 		this.interval = setInterval(() => this.refreshBugs(), 60000);
 	}
 

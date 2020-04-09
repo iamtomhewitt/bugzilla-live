@@ -8,7 +8,9 @@ export default class App extends React.Component {
 
 	constructor() {
 		super();
-		this.state = { bugNumbers: [1605238,12345,23456] }
+		this.state = { 
+			bugNumbers: [1605238,12345,23456] 
+		}
 		this.updateBugNumbers = this.updateBugNumbers.bind(this)
 	}
 
