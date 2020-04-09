@@ -4,6 +4,7 @@ import com.bugzillalive.config.mongo.UserConfig;
 import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.exception.ListNotFoundException;
 import com.bugzillalive.model.BugList;
+import com.mongodb.MongoClient;
 import com.mongodb.client.MongoClients;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -14,7 +15,7 @@ public class DatabaseRepository {
 	private final String DATABASE = "bugzilla_live";
 	private final String COLLECTION = "userConfig";
 
-	private MongoOperations mongoOps = new MongoTemplate(MongoClients.create(), DATABASE);
+	private MongoOperations mongoOps = new MongoTemplate(new MongoClient("db", 27017), DATABASE);
 
 	public BugList getBugList(String listName) throws ListNotFoundException {
 		List<BugList> lists = getAllBugLists();

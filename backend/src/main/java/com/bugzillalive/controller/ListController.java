@@ -18,7 +18,7 @@ import java.util.List;
 public class ListController {
 
 	@Autowired
-	private ListService service;
+	private ListService listService;
 
 	@GetMapping("/health")
 	public ResponseEntity<String> health() {
@@ -27,26 +27,26 @@ public class ListController {
 
 	@GetMapping("/{listName}")
 	public ResponseEntity<BugList> getList(@PathVariable String listName) throws ListNotFoundException {
-		return new ResponseEntity<>(service.getList(listName), HttpStatus.OK);
+		return new ResponseEntity<>(listService.getList(listName), HttpStatus.OK);
 	}
 
 	@GetMapping("/all")
 	public ResponseEntity<List<BugList>> getAllList() {
-		return new ResponseEntity<>(service.getBugLists(), HttpStatus.OK);
+		return new ResponseEntity<>(listService.getBugLists(), HttpStatus.OK);
 	}
 
 	@PostMapping("/save")
 	public ResponseEntity<UserConfig> saveList(@RequestBody BugList list) throws ConfigNotFoundException {
-		return new ResponseEntity<>(service.saveList(list), HttpStatus.OK);
+		return new ResponseEntity<>(listService.saveList(list), HttpStatus.OK);
 	}
 
 	@PutMapping("/update")
 	public ResponseEntity<UserConfig> updateList(@RequestBody BugList list) throws ConfigNotFoundException {
-		return new ResponseEntity<>(service.updateList(list), HttpStatus.OK);
+		return new ResponseEntity<>(listService.updateList(list), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/delete")
 	public ResponseEntity<UserConfig> deleteList(@RequestParam String listName) throws ConfigNotFoundException {
-		return new ResponseEntity<>(service.deleteList(listName), HttpStatus.OK);
+		return new ResponseEntity<>(listService.deleteList(listName), HttpStatus.OK);
 	}
 }

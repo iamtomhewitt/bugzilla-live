@@ -46,7 +46,7 @@ public class ListControllerTests {
 	private ListController listController;
 
 	@MockBean
-	private DatabaseRepository repository;
+	private DatabaseRepository mockRepository;
 
 	@MockBean
 	private MongoOperations mongoOperations;
@@ -69,7 +69,7 @@ public class ListControllerTests {
 			"    \"name\": \"List Name\",\n" +
 			"    \"content\": \"123,456\"\n" +
 			"}";
-		when(repository.getBugList(anyString())).thenReturn(mockPopulatedDbConfig.getLists().get(0));
+		when(mockRepository.getBugList(anyString())).thenReturn(mockPopulatedDbConfig.getLists().get(0));
 
 		mvc.perform(get("/lists/List Name"))
 			.andExpect(status().isOk())
@@ -89,7 +89,7 @@ public class ListControllerTests {
 			"    }\n" +
 			"]";
 
-		when(repository.getAllBugLists()).thenReturn(mockPopulatedDbConfig.getLists());
+		when(mockRepository.getAllBugLists()).thenReturn(mockPopulatedDbConfig.getLists());
 
 		mvc.perform(get("/lists/all"))
 			.andExpect(status().isOk())
@@ -100,7 +100,7 @@ public class ListControllerTests {
 	public void testSaveList() throws Exception {
 		String expectedJson = "{\"id\":\"123\",\"bugzillaUrl\":\"someUrl\",\"lists\":[{\"name\":\"List Name\",\"content\":\"123,456\"},{\"name\":\"List Name 2\",\"content\":\"789,10\"}]}";
 
-		when(repository.saveList(any())).thenReturn(mockPopulatedDbConfig);
+		when(mockRepository.saveList(any())).thenReturn(mockPopulatedDbConfig);
 
 		mvc.perform(post("/lists/save")
 			.content("{\n" +
@@ -116,7 +116,7 @@ public class ListControllerTests {
 	public void testUpdateList() throws Exception {
 		String expectedJson = "{\"id\":\"123\",\"bugzillaUrl\":\"someUrl\",\"lists\":[{\"name\":\"List Name\",\"content\":\"123,456\"},{\"name\":\"List Name 2\",\"content\":\"789,10\"}]}";
 
-		when(repository.updateList(anyString(), anyString())).thenReturn(mockPopulatedDbConfig);
+		when(mockRepository.updateList(anyString(), anyString())).thenReturn(mockPopulatedDbConfig);
 
 		mvc.perform(put("/lists/update")
 			.content("{\n" +
@@ -132,7 +132,7 @@ public class ListControllerTests {
 	public void testDeleteList() throws Exception {
 		String expectedJson = "{\"id\":\"123\",\"bugzillaUrl\":\"someUrl\",\"lists\":[{\"name\":\"List Name\",\"content\":\"123,456\"},{\"name\":\"List Name 2\",\"content\":\"789,10\"}]}";
 
-		when(repository.deleteList(anyString())).thenReturn(mockPopulatedDbConfig);
+		when(mockRepository.deleteList(anyString())).thenReturn(mockPopulatedDbConfig);
 
 		mvc.perform(delete("/lists/delete?listName=List Name"))
 			.andExpect(status().isOk())
