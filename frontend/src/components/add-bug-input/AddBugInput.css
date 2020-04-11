@@ -1,24 +1,21 @@
 .AddBugInput {
 	text-align: center;
+	align-items: center;
+	padding-bottom: 25px;
+	margin-top: 20px;
 }
 
-input {
+.AddBugInput input {
 	height: 25px;
 	width: 150px;
 	font-size: 15px;
 }
 
-button {
+.AddBugInput button {
 	height: 30px;
 	width: 100px;
 	background-color: #6D7AE0;
 	color: white;
-	font-weight: bold;
 	font-size: 16px;
 	border-color: #6D7AE0;
-}
-
-div {
-	align-items: center;
-	padding-bottom: 25px;
 }

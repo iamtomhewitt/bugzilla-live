@@ -1,6 +1,7 @@
 import React from 'react';
 import BugTable from './components/bug-table/BugTable';
 import AddBugInput from './components/add-bug-input/AddBugInput';
+import Navigation from './components/navbar/Navigation';
 
 import './App.css';
 
@@ -26,8 +27,7 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<div className='App'>
-				<h1 className='app-title'>Bugzilla Live</h1>
-
+				<Navigation/>
 				<AddBugInput bugNumbers={this.state.bugNumbers} updateBugNumbers={this.updateBugNumbers} />
 				<BugTable bugNumbers={this.state.bugNumbers} />
 			</div>
