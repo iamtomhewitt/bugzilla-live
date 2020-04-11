@@ -4,9 +4,12 @@ import com.bugzillalive.config.mongo.UserConfig;
 import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.model.BugList;
 import com.bugzillalive.repository.DatabaseRepository;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,8 +26,11 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.client.RestTemplate;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
@@ -65,90 +71,102 @@ public class ListControllerTests {
 
 	@Test
 	public void testGetList() throws Exception {
-		String expectedJson = "{\n" +
-			"    \"name\": \"List Name\",\n" +
-			"    \"content\": \"123,456\"\n" +
-			"}";
 		when(mockRepository.getBugList(anyString())).thenReturn(mockPopulatedDbConfig.getLists().get(0));
 
-		mvc.perform(get("/lists/List Name"))
+		MvcResult result = mvc.perform(get("/lists/List Name"))
 			.andExpect(status().isOk())
-			.andExpect(content().json(expectedJson));
+			.andReturn();
+
+		BugList listResult = new ObjectMapper().readValue(result.getResponse().getContentAsString(), BugList.class);
+		assertEquals("List Name", listResult.getName());
+		assertEquals("123,456", listResult.getContent());
+		assertFalse(listResult.isCurrent());
 	}
 
 	@Test
 	public void testGetCurrentList() throws Exception {
-		String expectedJson = "{\n" +
-			"    \"name\": \"List Name\",\n" +
-			"    \"content\": \"123,456\"\n" +
-			"}";
 		when(mockRepository.getCurrentBugList()).thenReturn(mockPopulatedDbConfig.getLists().get(0));
 
-		mvc.perform(get("/lists/current"))
+		MvcResult result = mvc.perform(get("/lists/current"))
 			.andExpect(status().isOk())
-			.andExpect(content().json(expectedJson));
+			.andReturn();
+
+		BugList listResult = new ObjectMapper().readValue(result.getResponse().getContentAsString(), BugList.class);
+		assertEquals("List Name", listResult.getName());
+		assertEquals("123,456", listResult.getContent());
+		assertTrue(listResult.isCurrent());
 	}
 
 	@Test
 	public void testGetAllLists() throws Exception {
-		String expectedJson = "[\n" +
-			"    {\n" +
-			"        \"name\": \"List Name\",\n" +
-			"        \"content\": \"123,456\"\n" +
-			"    },\n" +
-			"    {\n" +
-			"        \"name\": \"List Name 2\",\n" +
-			"        \"content\": \"789,10\"\n" +
-			"    }\n" +
-			"]";
-
 		when(mockRepository.getAllBugLists()).thenReturn(mockPopulatedDbConfig.getLists());
 
-		mvc.perform(get("/lists/all"))
+		MvcResult result = mvc.perform(get("/lists/all"))
 			.andExpect(status().isOk())
-			.andExpect(content().json(expectedJson));
+			.andReturn();
+
+		List<BugList> lists = new ObjectMapper().convertValue(
+			new ObjectMapper().readValue(result.getResponse().getContentAsString(), List.class),
+			new TypeReference<List<BugList>>() {
+			}
+		);
+		assertEquals("List Name", lists.get(0).getName());
+		assertEquals("123,456", lists.get(0).getContent());
+		assertEquals("List Name 2", lists.get(1).getName());
+		assertEquals("789,10", lists.get(1).getContent());
 	}
 
 	@Test
 	public void testSaveList() throws Exception {
-		String expectedJson = "{\"id\":\"123\",\"bugzillaUrl\":\"someUrl\",\"lists\":[{\"name\":\"List Name\",\"content\":\"123,456\"},{\"name\":\"List Name 2\",\"content\":\"789,10\"}]}";
+		UserConfig mockConfig = mockPopulatedDbConfig;
+		mockConfig.setLists(Arrays.asList(new BugList("My new list", "My new content")));
+		when(mockRepository.saveList(any())).thenReturn(mockConfig);
 
-		when(mockRepository.saveList(any())).thenReturn(mockPopulatedDbConfig);
-
-		mvc.perform(post("/lists/save")
+		MvcResult result = mvc.perform(post("/lists/save")
 			.content("{\n" +
-				"    \"name\": \"My new\",\n" +
+				"    \"name\": \"My new list\",\n" +
 				"    \"content\": \"My new content\"\n" +
 				"}")
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
-			.andExpect(content().json(expectedJson));
+			.andReturn();
+
+		UserConfig listResult = new ObjectMapper().readValue(result.getResponse().getContentAsString(), UserConfig.class);
+		assertEquals("someUrl", listResult.getBugzillaUrl());
+		assertEquals("My new content", listResult.getLists().get(0).getContent());
+		assertEquals("My new list", listResult.getLists().get(0).getName());
 	}
 
 	@Test
 	public void testUpdateList() throws Exception {
-		String expectedJson = "{\"id\":\"123\",\"bugzillaUrl\":\"someUrl\",\"lists\":[{\"name\":\"List Name\",\"content\":\"123,456\"},{\"name\":\"List Name 2\",\"content\":\"789,10\"}]}";
-
 		when(mockRepository.updateList(anyString(), anyString())).thenReturn(mockPopulatedDbConfig);
 
-		mvc.perform(put("/lists/update")
+		MvcResult result = mvc.perform(put("/lists/update")
 			.content("{\n" +
-				"    \"name\": \"My new\",\n" +
+				"    \"name\": \"My new list\",\n" +
 				"    \"content\": \"My new content\"\n" +
 				"}")
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
-			.andExpect(content().json(expectedJson));
+			.andReturn();
+
+		UserConfig listResult = new ObjectMapper().readValue(result.getResponse().getContentAsString(), UserConfig.class);
+		assertEquals("someUrl", listResult.getBugzillaUrl());
+		assertEquals("123,456", listResult.getLists().get(0).getContent());
+		assertEquals("List Name", listResult.getLists().get(0).getName());
 	}
 
 	@Test
 	public void testDeleteList() throws Exception {
-		String expectedJson = "{\"id\":\"123\",\"bugzillaUrl\":\"someUrl\",\"lists\":[{\"name\":\"List Name\",\"content\":\"123,456\"},{\"name\":\"List Name 2\",\"content\":\"789,10\"}]}";
-
 		when(mockRepository.deleteList(anyString())).thenReturn(mockPopulatedDbConfig);
 
-		mvc.perform(delete("/lists/delete?listName=List Name"))
+		MvcResult result = mvc.perform(delete("/lists/delete?listName=List Name"))
 			.andExpect(status().isOk())
-			.andExpect(content().json(expectedJson));
+			.andReturn();
+
+		UserConfig listResult = new ObjectMapper().readValue(result.getResponse().getContentAsString(), UserConfig.class);
+		assertEquals("someUrl", listResult.getBugzillaUrl());
+		assertEquals("123,456", listResult.getLists().get(0).getContent());
+		assertEquals("List Name", listResult.getLists().get(0).getName());
 	}
 }

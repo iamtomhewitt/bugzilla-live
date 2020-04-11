@@ -8,6 +8,8 @@ public class BugList {
 	private String content;
 	private boolean isCurrent;
 
+	public BugList(){}
+
 	public BugList(String name, String content) {
 		this.name = name;
 		this.content = content;
