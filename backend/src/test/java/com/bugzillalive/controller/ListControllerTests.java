@@ -77,6 +77,19 @@ public class ListControllerTests {
 	}
 
 	@Test
+	public void testGetCurrentList() throws Exception {
+		String expectedJson = "{\n" +
+			"    \"name\": \"List Name\",\n" +
+			"    \"content\": \"123,456\"\n" +
+			"}";
+		when(mockRepository.getCurrentBugList()).thenReturn(mockPopulatedDbConfig.getLists().get(0));
+
+		mvc.perform(get("/lists/current"))
+			.andExpect(status().isOk())
+			.andExpect(content().json(expectedJson));
+	}
+
+	@Test
 	public void testGetAllLists() throws Exception {
 		String expectedJson = "[\n" +
 			"    {\n" +
