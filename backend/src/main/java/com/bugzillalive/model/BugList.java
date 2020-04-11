@@ -6,9 +6,11 @@ import lombok.Data;
 public class BugList {
 	private String name;
 	private String content;
+	private boolean isCurrent;
 
 	public BugList(String name, String content) {
 		this.name = name;
 		this.content = content;
+		this.isCurrent = false;
 	}
 }

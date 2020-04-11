@@ -3,6 +3,7 @@ package com.bugzillalive.repository;
 import com.bugzillalive.config.mongo.UserConfig;
 import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.exception.ListNotFoundException;
+import com.bugzillalive.exception.NoCurrentListException;
 import com.bugzillalive.model.BugList;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -27,6 +28,18 @@ public class DatabaseRepository {
 		}
 
 		throw new ListNotFoundException(listName);
+	}
+
+	public BugList getCurrentBugList() throws NoCurrentListException {
+		List<BugList> lists = getAllBugLists();
+
+		for (BugList list : lists) {
+			if (list.isCurrent()) {
+				return list;
+			}
+		}
+
+		throw new NoCurrentListException();
 	}
 
 	public List<BugList> getAllBugLists() {

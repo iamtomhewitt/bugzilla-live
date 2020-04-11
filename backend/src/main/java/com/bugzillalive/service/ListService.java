@@ -3,6 +3,7 @@ package com.bugzillalive.service;
 import com.bugzillalive.config.mongo.UserConfig;
 import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.exception.ListNotFoundException;
+import com.bugzillalive.exception.NoCurrentListException;
 import com.bugzillalive.model.BugList;
 import com.bugzillalive.repository.DatabaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,10 @@ public class ListService {
 
 	public List<BugList> getBugLists() {
 		return repository.getAllBugLists();
+	}
+
+	public BugList getCurrentList() throws NoCurrentListException {
+		return repository.getCurrentBugList();
 	}
 
 	public UserConfig updateList(BugList list) throws ConfigNotFoundException {

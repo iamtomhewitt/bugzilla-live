@@ -3,6 +3,7 @@ package com.bugzillalive.controller;
 import com.bugzillalive.config.mongo.UserConfig;
 import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.exception.ListNotFoundException;
+import com.bugzillalive.exception.NoCurrentListException;
 import com.bugzillalive.model.BugList;
 import com.bugzillalive.service.ListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,11 @@ public class ListController {
 	@GetMapping("/all")
 	public ResponseEntity<List<BugList>> getAllList() {
 		return new ResponseEntity<>(listService.getBugLists(), HttpStatus.OK);
+	}
+
+	@GetMapping("/current")
+	public ResponseEntity<BugList> getCurrentList() throws NoCurrentListException {
+		return new ResponseEntity<>(listService.getCurrentList(), HttpStatus.OK);
 	}
 
 	@PostMapping("/save")

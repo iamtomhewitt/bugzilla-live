@@ -15,6 +15,7 @@ public class UserConfig {
 	private String id;
 	private String bugzillaUrl;
 	private List<BugList> lists;
+	private BugList currentList;
 
 	public UserConfig() {
 	}
