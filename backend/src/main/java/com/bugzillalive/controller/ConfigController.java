@@ -1,6 +1,6 @@
 package com.bugzillalive.controller;
 
-import com.bugzillalive.config.mongo.UserConfig;
+import com.bugzillalive.model.mongo.UserConfig;
 import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.exception.ConfigSaveException;
 import com.bugzillalive.service.ConfigService;

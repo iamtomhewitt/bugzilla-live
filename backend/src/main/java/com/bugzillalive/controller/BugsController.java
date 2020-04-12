@@ -1,7 +1,9 @@
 package com.bugzillalive.controller;
 
 import com.bugzillalive.exception.ConfigNotFoundException;
-import com.bugzillalive.model.*;
+import com.bugzillalive.model.bug.Attachment;
+import com.bugzillalive.model.bug.Bug;
+import com.bugzillalive.model.bug.Comment;
 import com.bugzillalive.model.request.AddCommentRequestBody;
 import com.bugzillalive.model.request.ChangeStatusRequestBody;
 import com.bugzillalive.service.BugsService;

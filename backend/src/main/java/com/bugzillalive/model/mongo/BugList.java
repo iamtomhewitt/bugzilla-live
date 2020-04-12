@@ -1,4 +1,4 @@
-package com.bugzillalive.model;
+package com.bugzillalive.model.mongo;
 
 import lombok.Data;
 

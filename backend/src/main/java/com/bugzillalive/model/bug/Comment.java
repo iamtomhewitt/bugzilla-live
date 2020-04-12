@@ -1,4 +1,4 @@
-package com.bugzillalive.model;
+package com.bugzillalive.model.bug;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,9 +1,9 @@
 package com.bugzillalive.controller;
 
-import com.bugzillalive.config.mongo.UserConfig;
+import com.bugzillalive.model.mongo.UserConfig;
 import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.exception.ConfigSaveException;
-import com.bugzillalive.model.BugList;
+import com.bugzillalive.model.mongo.BugList;
 import com.bugzillalive.repository.DatabaseRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -33,7 +33,6 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)

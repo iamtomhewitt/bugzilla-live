@@ -1,8 +1,8 @@
 package com.bugzillalive.controller;
 
-import com.bugzillalive.model.Attachment;
-import com.bugzillalive.model.Bug;
-import com.bugzillalive.model.Comment;
+import com.bugzillalive.model.bug.Attachment;
+import com.bugzillalive.model.bug.Bug;
+import com.bugzillalive.model.bug.Comment;
 import com.bugzillalive.repository.DatabaseRepository;
 import com.bugzillalive.service.ConfigService;
 import com.fasterxml.jackson.core.type.TypeReference;

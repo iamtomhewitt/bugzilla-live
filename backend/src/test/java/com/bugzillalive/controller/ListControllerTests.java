@@ -1,7 +1,7 @@
 package com.bugzillalive.controller;
 
-import com.bugzillalive.config.mongo.UserConfig;
-import com.bugzillalive.model.BugList;
+import com.bugzillalive.model.mongo.UserConfig;
+import com.bugzillalive.model.mongo.BugList;
 import com.bugzillalive.repository.DatabaseRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

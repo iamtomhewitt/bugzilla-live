@@ -1,6 +1,5 @@
-package com.bugzillalive.config.mongo;
+package com.bugzillalive.model.mongo;
 
-import com.bugzillalive.model.BugList;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
