@@ -1,7 +1,13 @@
 package com.bugzillalive.controller;
 
+import com.bugzillalive.model.Attachment;
+import com.bugzillalive.model.Bug;
+import com.bugzillalive.model.Comment;
 import com.bugzillalive.repository.DatabaseRepository;
 import com.bugzillalive.service.ConfigService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -19,14 +25,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(BugsController.class)
@@ -62,24 +71,32 @@ public class BugsControllerTests {
 			"\t]\n" +
 			"}";
 
-		String expectedResponse = "[\n" +
-			"    {\n" +
-			"        \"id\": \"12345\",\n" +
-			"        \"summary\": \"Test bug\",\n" +
-			"        \"status\": \"Done\",\n" +
-			"        \"product\": \"Core\",\n" +
-			"        \"component\": \"Backend\",\n" +
-			"        \"severity\": \"normal\",\n" +
-			"        \"assignedTo\": \"someone@s.com\",\n" +
-			"        \"lastUpdated\": \"2020-02-27T19:49:08Z\"\n" +
-			"    }\n" +
-			"]";
-
 		Mockito.when(restTemplate.getForObject(anyString(), eq(String.class)))
 			.thenReturn(mockExternalResponse);
 
-		mvc.perform(get("/bugs/numbers?numbers=12345"))
-			.andExpect(content().json(expectedResponse));
+		MvcResult result = mvc.perform(get("/bugs/numbers?numbers=12345"))
+			.andExpect(status().isOk())
+			.andReturn();
+
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+		List<Bug> bugs = mapper.convertValue(
+			mapper.readValue(result.getResponse().getContentAsString(), Bug[].class),
+			new TypeReference<List<Bug>>() {
+			}
+		);
+
+		assertEquals(1, bugs.size());
+		assertEquals("12345", bugs.get(0).getId());
+		assertEquals("Test bug", bugs.get(0).getSummary());
+		assertEquals("Done", bugs.get(0).getStatus());
+		assertEquals("Core", bugs.get(0).getProduct());
+		assertEquals("Backend", bugs.get(0).getComponent());
+		assertEquals("Backend", bugs.get(0).getComponent());
+		assertEquals("normal", bugs.get(0).getSeverity());
+		assertEquals("someone@s.com", bugs.get(0).getAssignedTo());
+		assertEquals("2020-02-27T19:49:08Z", bugs.get(0).getLastUpdated());
 	}
 
 	@Test
@@ -100,24 +117,32 @@ public class BugsControllerTests {
 			"\t]\n" +
 			"}";
 
-		String expectedResponse = "[\n" +
-			"    {\n" +
-			"        \"id\": \"12345\",\n" +
-			"        \"summary\": \"Test bug\",\n" +
-			"        \"status\": \"Done\",\n" +
-			"        \"product\": \"Core\",\n" +
-			"        \"component\": \"Backend\",\n" +
-			"        \"severity\": \"normal\",\n" +
-			"        \"assignedTo\": \"someone@s.com\",\n" +
-			"        \"lastUpdated\": \"2020-02-27T19:49:08Z\"\n" +
-			"    }\n" +
-			"]";
-
 		Mockito.when(restTemplate.getForObject(anyString(), eq(String.class)))
 			.thenReturn(mockExternalResponse);
 
-		mvc.perform(get("/bugs/username?username=someone@s.com"))
-			.andExpect(content().json(expectedResponse));
+		MvcResult result = mvc.perform(get("/bugs/username?username=someone@s.com"))
+			.andExpect(status().isOk())
+			.andReturn();
+
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+		List<Bug> bugs = mapper.convertValue(
+			mapper.readValue(result.getResponse().getContentAsString(), Bug[].class),
+			new TypeReference<List<Bug>>() {
+			}
+		);
+
+		assertEquals(1, bugs.size());
+		assertEquals("12345", bugs.get(0).getId());
+		assertEquals("Test bug", bugs.get(0).getSummary());
+		assertEquals("Done", bugs.get(0).getStatus());
+		assertEquals("Core", bugs.get(0).getProduct());
+		assertEquals("Backend", bugs.get(0).getComponent());
+		assertEquals("Backend", bugs.get(0).getComponent());
+		assertEquals("normal", bugs.get(0).getSeverity());
+		assertEquals("someone@s.com", bugs.get(0).getAssignedTo());
+		assertEquals("2020-02-27T19:49:08Z", bugs.get(0).getLastUpdated());
 	}
 
 	@Test
@@ -145,19 +170,26 @@ public class BugsControllerTests {
 			"\t}\n" +
 			"}";
 
-		String expectedResponse = "[\n" +
-			"\t{\n" +
-			"\t\t\"text\": \"A comment\",\n" +
-			"\t\t\"time\": \"2019-12-19T21:33:56Z\",\n" +
-			"\t\t\"creator\": \"someone@c.com\"\n" +
-			"\t}\n" +
-			"]";
-
 		Mockito.when(restTemplate.getForObject(anyString(), eq(String.class)))
 			.thenReturn(mockExternalResponse);
 
-		mvc.perform(get("/bugs/12345/comments"))
-			.andExpect(content().json(expectedResponse));
+		MvcResult result = mvc.perform(get("/bugs/12345/comments"))
+			.andExpect(status().isOk())
+			.andReturn();
+
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+		List<Comment> comments = mapper.convertValue(
+			mapper.readValue(result.getResponse().getContentAsString(), Comment[].class),
+			new TypeReference<List<Comment>>() {
+			}
+		);
+
+		assertEquals(1, comments.size());
+		assertEquals("someone@c.com", comments.get(0).getCreator());
+		assertEquals("A comment", comments.get(0).getText());
+		assertEquals("2019-12-19T21:33:56Z", comments.get(0).getTime());
 	}
 
 	@Test
@@ -195,19 +227,27 @@ public class BugsControllerTests {
 			"    \"attachments\": {}\n" +
 			"}";
 
-		String expectedResponse = "[\n" +
-			"\t{\n" +
-			"\t\t\"data\": \"test\",\n" +
-			"\t\t\"filename\": \"Some filename\",\n" +
-			"\t\t\"contentType\": \"text/plain\"\n" +
-			"\t}\n" +
-			"]";
-
 		Mockito.when(restTemplate.getForObject(anyString(), eq(String.class)))
 			.thenReturn(mockExternalResponse);
 
-		mvc.perform(get("/bugs/12345/attachments"))
-			.andExpect(content().json(expectedResponse));
+		MvcResult result = mvc.perform(get("/bugs/12345/attachments"))
+			.andExpect(status().isOk())
+			.andReturn();
+
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+		List<Attachment> attachments = mapper.convertValue(
+			mapper.readValue(result.getResponse().getContentAsString(), Attachment[].class),
+			new TypeReference<List<Attachment>>() {
+			}
+		);
+
+		assertEquals(1, attachments.size());
+		assertEquals("text/plain", attachments.get(0).getContentType());
+		assertEquals("test", attachments.get(0).getData());
+		assertEquals("Some filename", attachments.get(0).getFilename()
+		);
 	}
 
 	@Test

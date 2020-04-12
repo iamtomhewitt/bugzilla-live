@@ -1,11 +1,15 @@
 package com.bugzillalive.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.json.JSONObject;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Attachment {
 	private String filename;
 	private String contentType;
