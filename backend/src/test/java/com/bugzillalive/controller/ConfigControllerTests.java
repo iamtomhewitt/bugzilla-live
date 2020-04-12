@@ -5,6 +5,7 @@ import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.exception.ConfigSaveException;
 import com.bugzillalive.model.BugList;
 import com.bugzillalive.repository.DatabaseRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -59,26 +61,23 @@ public class ConfigControllerTests {
 	public void eachTest() {
 		mockEmptyDbConfig = new UserConfig();
 		mockPopulatedDbConfig = new UserConfig("someUrl", Arrays.asList(new BugList("List Name", "123,456")), "123");
+		mockPopulatedDbConfig.setCurrentList(new BugList("List Name", "123,456"));
 	}
 
 	@Test
 	public void getConfigReturnsConfig() throws Exception {
-		String expectedJson = "{\n" +
-			"    \"id\": \"123\",\n" +
-			"    \"bugzillaUrl\": \"someUrl\",\n" +
-			"    \"lists\": [\n" +
-			"        {\n" +
-			"            \"name\": \"List Name\",\n" +
-			"            \"content\": \"123,456\"\n" +
-			"        }\n" +
-			"    ]\n" +
-			"}";
-
 		when(repository.getConfig()).thenReturn(mockPopulatedDbConfig);
 
-		mvc.perform(get("/config/get"))
-			.andExpect(status().is(HttpStatus.OK.value()))
-			.andExpect(content().json(expectedJson));
+		MvcResult result = mvc.perform(get("/config/get"))
+			.andExpect(status().isOk())
+			.andReturn();
+
+		UserConfig config = new ObjectMapper().readValue(result.getResponse().getContentAsString(), UserConfig.class);
+		assertEquals("someUrl", config.getBugzillaUrl());
+		assertEquals("List Name", config.getLists().get(0).getName());
+		assertEquals("123,456", config.getLists().get(0).getContent());
+		assertEquals("List Name", config.getCurrentList().getName());
+		assertEquals("123,456", config.getCurrentList().getContent());
 	}
 
 	@Test
@@ -95,11 +94,9 @@ public class ConfigControllerTests {
 
 	@Test
 	public void saveConfigIsSuccessful() throws Exception {
-		String expectedJson = "{\"id\":\"123\",\"bugzillaUrl\":\"someUrl\",\"lists\":[{\"name\":\"List Name\",\"content\":\"123,456\"}]}";
-
 		when(repository.getConfig()).thenReturn(mockPopulatedDbConfig);
 
-		mvc.perform(put("/config/save")
+		MvcResult result = mvc.perform(put("/config/save")
 			.accept(MediaType.APPLICATION_JSON)
 			.content("{\n" +
 				"    \"bugzillaUrl\": \"URL\",\n" +
@@ -112,7 +109,14 @@ public class ConfigControllerTests {
 				"}")
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().is(HttpStatus.OK.value()))
-			.andExpect(content().json(expectedJson));
+			.andReturn();
+
+		UserConfig config = new ObjectMapper().readValue(result.getResponse().getContentAsString(), UserConfig.class);
+		assertEquals("someUrl", config.getBugzillaUrl());
+		assertEquals("List Name", config.getLists().get(0).getName());
+		assertEquals("123,456", config.getLists().get(0).getContent());
+		assertEquals("List Name", config.getCurrentList().getName());
+		assertEquals("123,456", config.getCurrentList().getContent());
 	}
 
 
