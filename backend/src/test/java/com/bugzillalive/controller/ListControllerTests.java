@@ -1,7 +1,8 @@
 package com.bugzillalive.controller;
 
-import com.bugzillalive.model.mongo.UserConfig;
+import com.bugzillalive.exception.ListAlreadyExistsException;
 import com.bugzillalive.model.mongo.BugList;
+import com.bugzillalive.model.mongo.UserConfig;
 import com.bugzillalive.repository.DatabaseRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -127,6 +128,45 @@ public class ListControllerTests {
 		assertEquals("someUrl", listResult.getBugzillaUrl());
 		assertEquals("My new content", listResult.getLists().get(0).getContent());
 		assertEquals("My new list", listResult.getLists().get(0).getName());
+	}
+
+	@Test
+	public void updatingCurrentListWorks() throws Exception {
+		UserConfig mockConfig = mockPopulatedDbConfig;
+		mockConfig.setCurrentList(new BugList("My new list", "My new content"));
+		when(mockRepository.updateCurrentList(any())).thenReturn(mockConfig);
+
+		MvcResult result = mvc.perform(put("/lists/current")
+			.content("{\n" +
+				"    \"name\": \"My new list\",\n" +
+				"    \"content\": \"My new content\"\n" +
+				"}")
+			.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andReturn();
+
+		UserConfig listResult = new ObjectMapper().readValue(result.getResponse().getContentAsString(), UserConfig.class);
+		assertEquals("someUrl", listResult.getBugzillaUrl());
+		assertEquals("My new content", listResult.getCurrentList().getContent());
+		assertEquals("My new list", listResult.getCurrentList().getName());
+	}
+
+	@Test
+	public void savingExistingListThrowsError() throws Exception {
+		when(mockRepository.saveList(any())).thenThrow(new ListAlreadyExistsException("My new list"));
+
+		try {
+			mvc.perform(post("/lists/save")
+				.content("{\n" +
+				"    \"name\": \"My new list\",\n" +
+				"    \"content\": \"My new content\"\n" +
+				"}")
+				.contentType(MediaType.APPLICATION_JSON))
+				.andReturn();
+		} catch (Exception e) {
+			assertEquals(e.getCause().getClass(), ListAlreadyExistsException.class);
+			assertTrue(e.getMessage().contains("Cannot save list, 'My new list' already exists"));
+		}
 	}
 
 	@Test
