@@ -1,5 +1,6 @@
 package com.bugzillalive.service;
 
+import com.bugzillalive.exception.ListAlreadyExistsException;
 import com.bugzillalive.model.mongo.UserConfig;
 import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.exception.ListNotFoundException;
@@ -33,12 +34,12 @@ public class ListService {
 		return repository.updateList(list.getName(), list.getContent());
 	}
 
-	public UserConfig updateCurrentList(BugList list) throws ConfigNotFoundException {
+	public UserConfig updateCurrentList(BugList list) throws ConfigNotFoundException, ListAlreadyExistsException {
 		list.setCurrent(true);
 		return repository.updateCurrentList(list);
 	}
 
-	public UserConfig saveList(BugList list) throws ConfigNotFoundException {
+	public UserConfig saveList(BugList list) throws ConfigNotFoundException, ListAlreadyExistsException {
 		return repository.saveList(list);
 	}
 

@@ -1,5 +1,6 @@
 package com.bugzillalive.controller;
 
+import com.bugzillalive.exception.ListAlreadyExistsException;
 import com.bugzillalive.model.mongo.UserConfig;
 import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.exception.ListNotFoundException;
@@ -42,12 +43,12 @@ public class ListController {
 	}
 
 	@PutMapping("/current")
-	public ResponseEntity<UserConfig> updateCurrentList(@RequestBody BugList list) throws ConfigNotFoundException {
+	public ResponseEntity<UserConfig> updateCurrentList(@RequestBody BugList list) throws ConfigNotFoundException, ListAlreadyExistsException {
 		return new ResponseEntity<>(listService.updateCurrentList(list), HttpStatus.OK);
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<UserConfig> saveList(@RequestBody BugList list) throws ConfigNotFoundException {
+	public ResponseEntity<UserConfig> saveList(@RequestBody BugList list) throws ConfigNotFoundException, ListAlreadyExistsException {
 		return new ResponseEntity<>(listService.saveList(list), HttpStatus.OK);
 	}
 

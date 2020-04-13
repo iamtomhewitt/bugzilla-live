@@ -1,5 +1,6 @@
 package com.bugzillalive.repository;
 
+import com.bugzillalive.exception.ListAlreadyExistsException;
 import com.bugzillalive.model.mongo.UserConfig;
 import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.exception.ListNotFoundException;
@@ -59,7 +60,7 @@ public class DatabaseRepository {
 		return currentConfig;
 	}
 
-	public UserConfig updateCurrentList(BugList list) throws ConfigNotFoundException {
+	public UserConfig updateCurrentList(BugList list) throws ConfigNotFoundException, ListAlreadyExistsException {
 		UserConfig currentConfig = getConfig();
 		currentConfig.setCurrentList(list);
 		mongoOps.save(currentConfig);
@@ -68,8 +69,14 @@ public class DatabaseRepository {
 		return this.saveList(list);
 	}
 
-	public UserConfig saveList(BugList list) throws ConfigNotFoundException {
+	public UserConfig saveList(BugList list) throws ConfigNotFoundException, ListAlreadyExistsException {
 		UserConfig currentConfig = getConfig();
+
+		if (currentConfig.getLists().stream().anyMatch(x -> x.getName().equals(list.getName())))
+		{
+			throw new ListAlreadyExistsException(list.getName());
+		}
+
 		currentConfig.getLists().add(list);
 		mongoOps.save(currentConfig);
 		return currentConfig;
