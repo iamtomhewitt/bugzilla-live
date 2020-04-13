@@ -41,6 +41,11 @@ public class ListController {
 		return new ResponseEntity<>(listService.getCurrentList(), HttpStatus.OK);
 	}
 
+	@PutMapping("/current")
+	public ResponseEntity<UserConfig> updateCurrentList(@RequestBody BugList list) throws ConfigNotFoundException {
+		return new ResponseEntity<>(listService.updateCurrentList(list), HttpStatus.OK);
+	}
+
 	@PostMapping("/save")
 	public ResponseEntity<UserConfig> saveList(@RequestBody BugList list) throws ConfigNotFoundException {
 		return new ResponseEntity<>(listService.saveList(list), HttpStatus.OK);

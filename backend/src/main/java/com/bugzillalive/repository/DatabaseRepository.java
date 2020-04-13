@@ -59,6 +59,15 @@ public class DatabaseRepository {
 		return currentConfig;
 	}
 
+	public UserConfig updateCurrentList(BugList list) throws ConfigNotFoundException {
+		UserConfig currentConfig = getConfig();
+		currentConfig.setCurrentList(list);
+		mongoOps.save(currentConfig);
+
+		// Now save the list to our list collection, and return
+		return this.saveList(list);
+	}
+
 	public UserConfig saveList(BugList list) throws ConfigNotFoundException {
 		UserConfig currentConfig = getConfig();
 		currentConfig.getLists().add(list);
@@ -90,4 +99,5 @@ public class DatabaseRepository {
 	public void deleteAll() {
 		mongoOps.dropCollection(COLLECTION);
 	}
+
 }

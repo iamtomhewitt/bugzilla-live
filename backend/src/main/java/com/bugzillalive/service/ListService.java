@@ -33,6 +33,11 @@ public class ListService {
 		return repository.updateList(list.getName(), list.getContent());
 	}
 
+	public UserConfig updateCurrentList(BugList list) throws ConfigNotFoundException {
+		list.setCurrent(true);
+		return repository.updateCurrentList(list);
+	}
+
 	public UserConfig saveList(BugList list) throws ConfigNotFoundException {
 		return repository.saveList(list);
 	}
