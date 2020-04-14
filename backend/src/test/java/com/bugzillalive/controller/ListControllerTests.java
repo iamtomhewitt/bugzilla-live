@@ -78,7 +78,9 @@ public class ListControllerTests {
 
 	@Test
 	public void testGetCurrentList() throws Exception {
-		when(mockRepository.getCurrentBugList()).thenReturn(mockPopulatedDbConfig.getLists().get(0));
+		BugList mockCurrentList = new BugList("List Name", "123,456");
+		mockCurrentList.setCurrent(true);
+		when(mockRepository.getCurrentBugList()).thenReturn(mockCurrentList);
 
 		MvcResult result = mvc.perform(get("/lists/current"))
 			.andExpect(status().isOk())
