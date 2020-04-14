@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.util.List;
+import java.util.Optional;
 
 public class DatabaseRepository {
 	private final String DATABASE = "bugzilla_live";
@@ -23,24 +24,18 @@ public class DatabaseRepository {
 	}
 
 	public BugList getBugList(String listName) throws ListNotFoundException {
-		List<BugList> lists = getAllBugLists();
-
-		for (BugList list : lists) {
-			if (listName.equals(list.getName())) {
-				return list;
-			}
+		Optional<BugList> list = getAllBugLists().stream().filter(x -> x.getName().equals(listName)).findFirst();
+		if (list.isPresent()) {
+			return list.get();
 		}
 
 		throw new ListNotFoundException(listName);
 	}
 
-	public BugList getCurrentBugList() throws NoCurrentListException {
-		List<BugList> lists = getAllBugLists();
-
-		for (BugList list : lists) {
-			if (list.isCurrent()) {
-				return list;
-			}
+	public BugList getCurrentBugList() throws NoCurrentListException, ConfigNotFoundException {
+		UserConfig config = getConfig();
+		if (config.getCurrentList() != null) {
+			return config.getCurrentList();
 		}
 
 		throw new NoCurrentListException();

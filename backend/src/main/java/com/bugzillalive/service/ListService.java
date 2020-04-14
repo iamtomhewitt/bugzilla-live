@@ -26,11 +26,11 @@ public class ListService {
 		return repository.getAllBugLists();
 	}
 
-	public BugList getCurrentList() throws NoCurrentListException {
+	public BugList getCurrentList() throws NoCurrentListException, ConfigNotFoundException {
 		return repository.getCurrentBugList();
 	}
 
-	public UserConfig updateList(BugList list) throws ConfigNotFoundException {
+	public UserConfig updateList(BugList list) throws ConfigNotFoundException, ListNotFoundException {
 		return repository.updateList(list.getName(), list.getContent());
 	}
 

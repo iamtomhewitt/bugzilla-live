@@ -38,12 +38,12 @@ public class ListController {
 	}
 
 	@GetMapping("/current")
-	public ResponseEntity<BugList> getCurrentList() throws NoCurrentListException {
+	public ResponseEntity<BugList> getCurrentList() throws NoCurrentListException, ConfigNotFoundException {
 		return new ResponseEntity<>(listService.getCurrentList(), HttpStatus.OK);
 	}
 
 	@PutMapping("/current")
-	public ResponseEntity<UserConfig> updateCurrentList(@RequestBody BugList list) throws ConfigNotFoundException, ListAlreadyExistsException {
+	public ResponseEntity<UserConfig> updateCurrentList(@RequestBody BugList list) throws ConfigNotFoundException {
 		return new ResponseEntity<>(listService.updateCurrentList(list), HttpStatus.OK);
 	}
 
@@ -53,7 +53,7 @@ public class ListController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<UserConfig> updateList(@RequestBody BugList list) throws ConfigNotFoundException {
+	public ResponseEntity<UserConfig> updateList(@RequestBody BugList list) throws ConfigNotFoundException, ListNotFoundException {
 		return new ResponseEntity<>(listService.updateList(list), HttpStatus.OK);
 	}
 
