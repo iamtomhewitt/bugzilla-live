@@ -1,11 +1,11 @@
 package com.bugzillalive.repository;
 
-import com.bugzillalive.exception.ListAlreadyExistsException;
-import com.bugzillalive.model.mongo.UserConfig;
 import com.bugzillalive.exception.ConfigNotFoundException;
+import com.bugzillalive.exception.ListAlreadyExistsException;
 import com.bugzillalive.exception.ListNotFoundException;
 import com.bugzillalive.exception.NoCurrentListException;
 import com.bugzillalive.model.mongo.BugList;
+import com.bugzillalive.model.mongo.UserConfig;
 import com.mongodb.MongoClient;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -16,7 +16,11 @@ public class DatabaseRepository {
 	private final String DATABASE = "bugzilla_live";
 	private final String COLLECTION = "userConfig";
 
-	private MongoOperations mongoOps = new MongoTemplate(new MongoClient("db", 27017), DATABASE);
+	private MongoOperations mongoOps;
+
+	public DatabaseRepository(String dbHost) {
+		mongoOps = new MongoTemplate(new MongoClient(dbHost, 27017), DATABASE);
+	}
 
 	public BugList getBugList(String listName) throws ListNotFoundException {
 		List<BugList> lists = getAllBugLists();
@@ -72,8 +76,7 @@ public class DatabaseRepository {
 	public UserConfig saveList(BugList list) throws ConfigNotFoundException, ListAlreadyExistsException {
 		UserConfig currentConfig = getConfig();
 
-		if (currentConfig.getLists().stream().anyMatch(x -> x.getName().equals(list.getName())))
-		{
+		if (currentConfig.getLists().stream().anyMatch(x -> x.getName().equals(list.getName()))) {
 			throw new ListAlreadyExistsException(list.getName());
 		}
 
@@ -92,7 +95,7 @@ public class DatabaseRepository {
 	public UserConfig getConfig() throws ConfigNotFoundException {
 		List<UserConfig> config = mongoOps.findAll(UserConfig.class);
 
-		if (config.size() == 0){
+		if (config.size() == 0) {
 			throw new ConfigNotFoundException();
 		}
 
@@ -106,5 +109,4 @@ public class DatabaseRepository {
 	public void deleteAll() {
 		mongoOps.dropCollection(COLLECTION);
 	}
-
 }

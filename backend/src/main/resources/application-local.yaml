@@ -1,2 +1,2 @@
 spring.data.mongodb.database: bugzilla_live
-dbHost: db
+dbHost: localhost
