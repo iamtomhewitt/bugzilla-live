@@ -34,9 +34,17 @@ public class ListService {
 		return repository.updateList(list.getName(), list.getContent());
 	}
 
-	public UserConfig updateCurrentList(BugList list) throws ConfigNotFoundException, ListAlreadyExistsException {
+	public UserConfig updateCurrentList(BugList list) throws ConfigNotFoundException {
 		list.setCurrent(true);
-		return repository.updateCurrentList(list);
+		UserConfig config = repository.updateCurrentList(list);
+
+		try {
+			config = repository.saveList(list);
+		} catch (ListAlreadyExistsException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return config;
 	}
 
 	public UserConfig saveList(BugList list) throws ConfigNotFoundException, ListAlreadyExistsException {

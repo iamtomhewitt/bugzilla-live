@@ -64,13 +64,11 @@ public class DatabaseRepository {
 		return currentConfig;
 	}
 
-	public UserConfig updateCurrentList(BugList list) throws ConfigNotFoundException, ListAlreadyExistsException {
+	public UserConfig updateCurrentList(BugList list) throws ConfigNotFoundException {
 		UserConfig currentConfig = getConfig();
 		currentConfig.setCurrentList(list);
 		mongoOps.save(currentConfig);
-
-		// Now save the list to our list collection, and return
-		return this.saveList(list);
+		return currentConfig;
 	}
 
 	public UserConfig saveList(BugList list) throws ConfigNotFoundException, ListAlreadyExistsException {
