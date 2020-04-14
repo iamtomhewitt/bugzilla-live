@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -36,7 +37,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(BugsController.class)
 @AutoConfigureMockMvc
 @ComponentScan({"com.bugzillalive"})
-//@MockBeans({@MockBean(MongoOperations.class)})
 public class ListControllerTests {
 	@MockBean
 	private RestTemplate restTemplate;
@@ -53,18 +53,16 @@ public class ListControllerTests {
 	@Autowired
 	private MockMvc mvc;
 
-	private UserConfig mockEmptyDbConfig;
-	private UserConfig mockPopulatedDbConfig;
+	private UserConfig mockUserConfig;
 
 	@Before
 	public void eachTest() {
-		mockEmptyDbConfig = new UserConfig();
-		mockPopulatedDbConfig = new UserConfig("someUrl", Arrays.asList(new BugList("List Name", "123,456"), new BugList("List Name 2", "789,10")), "123");
+		mockUserConfig = new UserConfig("someUrl", Arrays.asList(new BugList("List Name", "123,456"), new BugList("List Name 2", "789,10")), "123");
 	}
 
 	@Test
 	public void testGetList() throws Exception {
-		when(mockRepository.getBugList(anyString())).thenReturn(mockPopulatedDbConfig.getLists().get(0));
+		when(mockRepository.getBugList(anyString())).thenReturn(mockUserConfig.getLists().get(0));
 
 		MvcResult result = mvc.perform(get("/lists/List Name"))
 			.andExpect(status().isOk())
@@ -94,7 +92,7 @@ public class ListControllerTests {
 
 	@Test
 	public void testGetAllLists() throws Exception {
-		when(mockRepository.getAllBugLists()).thenReturn(mockPopulatedDbConfig.getLists());
+		when(mockRepository.getAllBugLists()).thenReturn(mockUserConfig.getLists());
 
 		MvcResult result = mvc.perform(get("/lists/all"))
 			.andExpect(status().isOk())
@@ -113,8 +111,8 @@ public class ListControllerTests {
 
 	@Test
 	public void testSaveList() throws Exception {
-		UserConfig mockConfig = mockPopulatedDbConfig;
-		mockConfig.setLists(Arrays.asList(new BugList("My new list", "My new content")));
+		UserConfig mockConfig = mockUserConfig;
+		mockConfig.setLists(Collections.singletonList(new BugList("My new list", "My new content")));
 		when(mockRepository.saveList(any())).thenReturn(mockConfig);
 
 		MvcResult result = mvc.perform(post("/lists/save")
@@ -134,7 +132,7 @@ public class ListControllerTests {
 
 	@Test
 	public void updatingCurrentListWorks() throws Exception {
-		UserConfig mockConfig = mockPopulatedDbConfig;
+		UserConfig mockConfig = mockUserConfig;
 		mockConfig.setCurrentList(new BugList("My new list", "My new content"));
 		when(mockRepository.updateCurrentList(any())).thenReturn(mockConfig);
 
@@ -173,7 +171,7 @@ public class ListControllerTests {
 
 	@Test
 	public void testUpdateList() throws Exception {
-		when(mockRepository.updateList(anyString(), anyString())).thenReturn(mockPopulatedDbConfig);
+		when(mockRepository.updateList(anyString(), anyString())).thenReturn(mockUserConfig);
 
 		MvcResult result = mvc.perform(put("/lists/update")
 			.content("{\n" +
@@ -192,7 +190,7 @@ public class ListControllerTests {
 
 	@Test
 	public void testDeleteList() throws Exception {
-		when(mockRepository.deleteList(anyString())).thenReturn(mockPopulatedDbConfig);
+		when(mockRepository.deleteList(anyString())).thenReturn(mockUserConfig);
 
 		MvcResult result = mvc.perform(delete("/lists/delete?listName=List Name"))
 			.andExpect(status().isOk())

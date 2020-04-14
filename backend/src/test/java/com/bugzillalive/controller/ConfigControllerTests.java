@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -53,19 +54,19 @@ public class ConfigControllerTests {
 	@MockBean
 	private RestTemplate restTemplate;
 
-	private UserConfig mockEmptyDbConfig;
-	private UserConfig mockPopulatedDbConfig;
+	private UserConfig mockEmptyUserConfig;
+	private UserConfig mockUserConfig;
 
 	@Before
 	public void eachTest() {
-		mockEmptyDbConfig = new UserConfig();
-		mockPopulatedDbConfig = new UserConfig("someUrl", Arrays.asList(new BugList("List Name", "123,456")), "123");
-		mockPopulatedDbConfig.setCurrentList(new BugList("List Name", "123,456"));
+		mockEmptyUserConfig = new UserConfig();
+		mockUserConfig = new UserConfig("someUrl", Collections.singletonList(new BugList("List Name", "123,456")), "123");
+		mockUserConfig.setCurrentList(new BugList("List Name", "123,456"));
 	}
 
 	@Test
 	public void getConfigReturnsConfig() throws Exception {
-		when(repository.getConfig()).thenReturn(mockPopulatedDbConfig);
+		when(repository.getConfig()).thenReturn(mockUserConfig);
 
 		MvcResult result = mvc.perform(get("/config/get"))
 			.andExpect(status().isOk())
@@ -81,7 +82,7 @@ public class ConfigControllerTests {
 
 	@Test
 	public void whenNoConfigAvailableHandlesErrorCorrectly() throws ConfigNotFoundException {
-		when(repository.getConfig()).thenReturn(mockEmptyDbConfig);
+		when(repository.getConfig()).thenReturn(mockEmptyUserConfig);
 
 		try {
 			mvc.perform(get("/config/get")).andReturn();
@@ -93,7 +94,7 @@ public class ConfigControllerTests {
 
 	@Test
 	public void saveConfigIsSuccessful() throws Exception {
-		when(repository.getConfig()).thenReturn(mockPopulatedDbConfig);
+		when(repository.getConfig()).thenReturn(mockUserConfig);
 
 		MvcResult result = mvc.perform(put("/config/save")
 			.accept(MediaType.APPLICATION_JSON)
@@ -117,7 +118,6 @@ public class ConfigControllerTests {
 		assertEquals("List Name", config.getCurrentList().getName());
 		assertEquals("123,456", config.getCurrentList().getContent());
 	}
-
 
 	@Test
 	public void saveConfigErrorIsHandled() throws ConfigSaveException {
