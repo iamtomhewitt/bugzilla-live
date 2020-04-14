@@ -134,7 +134,9 @@ public class ListControllerTests {
 	public void updatingCurrentListWorks() throws Exception {
 		UserConfig mockConfig = mockUserConfig;
 		mockConfig.setCurrentList(new BugList("My new list", "My new content"));
+
 		when(mockRepository.updateCurrentList(any())).thenReturn(mockConfig);
+		when(mockRepository.saveList(any())).thenReturn(mockConfig);
 
 		MvcResult result = mvc.perform(put("/lists/current")
 			.content("{\n" +
