@@ -36,3 +36,18 @@
 	background-color: #2286c3;
 	border-color: #2286c3;
 }
+
+#createButton {
+	margin-top: 20px;
+	width: 125px;
+	height: 30px;
+	background-color: #64b5f6;
+	color: white;
+	font-size: 16px;
+	border-color: #64b5f6;
+}
+
+#createButton:hover {
+	background-color: #2286c3;
+	border-color: #2286c3;
+}

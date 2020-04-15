@@ -58,7 +58,7 @@ export default class Lists extends Component {
 					return this.createRow(list)
 				})}
 
-				<button>Create List</button>
+				<button id="createButton"><Link to="/createList" style={{ textDecoration: 'none', color: 'white' }}>Create List</Link></button>
 			</div>
 		)
 	}
