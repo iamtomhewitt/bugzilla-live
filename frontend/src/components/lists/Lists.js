@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as api from '../../api/api';
+import { Link } from "react-router-dom";
 
 import './Lists.css'
 
@@ -35,9 +36,9 @@ export default class Lists extends Component {
 				<div id="label">Content: </div>
 				<div id="value">{list['content']}</div>
 				<div>
-					<button id="button">Edit</button>
-					<button id="button">Use</button>
-					<button id="button">Delete</button>
+					<button id="button"><Link to="/editList" style={{ textDecoration: 'none', color: 'white' }}>Edit</Link></button>
+					<button id="button"><Link to="/useList" style={{ textDecoration: 'none', color: 'white' }}>Use</Link></button>
+					<button id="button"><Link to="/deleteList" style={{ textDecoration: 'none', color: 'white' }}>Delete</Link></button>
 				</div>
 			</div>
 		)
@@ -47,6 +48,7 @@ export default class Lists extends Component {
 		return (
 			<div id="container">
 				<h1>Lists</h1>
+
 				<h2>Current List</h2>
 				<p id="note">This is the current list being used to display bugs in the table.</p>
 				{this.createRow(this.state.currentList)}
