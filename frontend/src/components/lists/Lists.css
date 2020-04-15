@@ -1,0 +1,23 @@
+#container {
+	padding: 0px 20px 0px 20px;
+}
+
+#bold {
+	font-weight: bold;
+}
+
+#list {
+	padding-bottom: 20px;
+}
+
+#label {
+	display: inline-block;
+	margin-right: 20px;
+	font-weight: bold;
+	width: 70px;
+}
+
+#value {
+	display: inline-block;
+	text-align: right;
+}
