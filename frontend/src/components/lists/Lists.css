@@ -6,6 +6,11 @@
 	font-weight: bold;
 }
 
+#note {
+	font-style: italic;
+	font-size: 12px;
+}
+
 #list {
 	padding-bottom: 20px;
 }

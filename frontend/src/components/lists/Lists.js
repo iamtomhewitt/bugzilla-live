@@ -48,12 +48,15 @@ export default class Lists extends Component {
 			<div id="container">
 				<h1>Lists</h1>
 				<h2>Current List</h2>
+				<p id="note">This is the current list being used to display bugs in the table.</p>
 				{this.createRow(this.state.currentList)}
 
-				<h2>Other Lists</h2>
+				<h2>Available Lists</h2>
 				{this.state.lists.map((list) => {
 					return this.createRow(list)
 				})}
+
+				<button>Create List</button>
 			</div>
 		)
 	}
