@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import * as api from '../../api/api';
 import { Link } from "react-router-dom";
+import * as api from '../../api/api';
 
 import './Lists.css'
 
@@ -12,6 +12,7 @@ export default class Lists extends Component {
 			lists: []
 		};
 		this.createRow = this.createRow.bind(this);
+		this.updateCurrentList = this.updateCurrentList.bind(this);
 	}
 
 	async componentDidMount() {
@@ -22,9 +23,14 @@ export default class Lists extends Component {
 		const lists = await api.getLists();
 		const currentList = await api.getCurrentList();
 		this.setState({
-			lists: lists,
+			lists,
 			currentList
 		})
+	}
+
+	async updateCurrentList(list) {
+		const response = await api.updateCurrentList(list);
+		this.setState({currentList: response.currentList})
 	}
 
 	createRow(list) {
@@ -37,7 +43,7 @@ export default class Lists extends Component {
 				<div id="value">{list['content']}</div>
 				<div>
 					<button id="button"><Link to="/editList" style={{ textDecoration: 'none', color: 'white' }}>Edit</Link></button>
-					<button id="button"><Link to="/useList" style={{ textDecoration: 'none', color: 'white' }}>Use</Link></button>
+					<button id="button" onClick={(e) => this.updateCurrentList(list, e)}>Use</button>
 					<button id="button"><Link to="/deleteList" style={{ textDecoration: 'none', color: 'white' }}>Delete</Link></button>
 				</div>
 			</div>

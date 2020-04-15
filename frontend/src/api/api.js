@@ -21,3 +21,14 @@ export async function getCurrentList() {
 	return fetch(config.backendUrl + '/lists/current')
 		.then(response => response.json())
 }
+
+export async function updateCurrentList(list) {
+	return fetch(config.backendUrl + '/lists/current', {
+		method: 'PUT',
+		body: JSON.stringify(list),
+		headers: {
+			'Content-Type': 'application/json'
+		},
+	})
+		.then(response => response.json())
+}
