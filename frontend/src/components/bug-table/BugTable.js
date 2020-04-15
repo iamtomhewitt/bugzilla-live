@@ -39,11 +39,19 @@ export default class BugTable extends Component {
 		})
 	}
 
+	truncate(str) {
+		let length = 40;
+		if (str.length >= length) {
+			str = str.substring(0, length) + '...';
+		}
+		return str;
+	}
+
 	createRow(bug) {
 		return (
 			<tr key={bug['id']} id={bug['priority']}>
 				<td><a href={this.state.bugzillaUrl + "/show_bug.cgi?id=" + bug['id']}>{bug['id']}</a></td>
-				<td>{bug['summary'].substring(0, 40) + '...'}</td>
+				<td>{this.truncate(bug['summary'])}</td>
 				<td>{bug['status']}</td>
 				<td>{bug['severity']}</td>
 				<td>{bug['product']}</td>
