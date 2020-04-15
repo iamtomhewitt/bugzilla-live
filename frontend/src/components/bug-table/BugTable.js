@@ -7,8 +7,7 @@ export default class BugTable extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			bugNumbers: props.bugNumbers,
-			bugs: null,
+			bugs: [],
 			bugzillaUrl: ''
 		};
 		this.createRow = this.createRow.bind(this)
@@ -26,7 +25,8 @@ export default class BugTable extends Component {
 	}
 
 	async refreshBugs() {
-		const bugs = await api.getBugs(this.state.bugNumbers);
+		const list = await api.getCurrentList();
+		const bugs = await api.getBugs(list.content);
 		this.setState({
 			bugs: bugs
 		})

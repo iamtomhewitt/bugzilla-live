@@ -1,9 +1,7 @@
 import * as config from '../config';
 
 export async function getBugs(numbers) {
-	let commaList = numbers.join(",")
-
-	return fetch(config.backendUrl + '/bugs/numbers?numbers=' + commaList)
+	return fetch(config.backendUrl + '/bugs/numbers?numbers=' + numbers)
 		.then(response => response.json())
 }
 
