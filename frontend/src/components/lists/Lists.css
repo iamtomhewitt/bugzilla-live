@@ -21,3 +21,17 @@
 	display: inline-block;
 	text-align: right;
 }
+
+#button {
+	margin-right: 10px;
+	width: 75px;
+	background-color: #64b5f6;
+	color: white;
+	font-size: 14px;
+	border-color: #64b5f6;
+}
+
+#button:hover {
+	background-color: #2286c3;
+	border-color: #2286c3;
+}

@@ -31,9 +31,14 @@ export default class Lists extends Component {
 			<div key={list['name']} id="list">
 				<div id="label">Name: </div>
 				<div id="value">{list['name']}</div>
-				<br/>
+				<br />
 				<div id="label">Content: </div>
 				<div id="value">{list['content']}</div>
+				<div>
+					<button id="button">Edit</button>
+					<button id="button">Use</button>
+					<button id="button">Delete</button>
+				</div>
 			</div>
 		)
 	}
