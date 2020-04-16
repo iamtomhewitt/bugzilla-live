@@ -20,6 +20,13 @@ export async function getCurrentList() {
 		.then(response => response.json())
 }
 
+export async function deleteList(name) {
+	return fetch(config.backendUrl + '/lists/delete?listName=' + name, {
+		method: 'DELETE'
+	})
+		.then(response => response.json())
+}
+
 export async function updateCurrentList(list) {
 	return fetch(config.backendUrl + '/lists/current', {
 		method: 'PUT',

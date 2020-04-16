@@ -13,6 +13,7 @@ export default class Lists extends Component {
 		};
 		this.createRow = this.createRow.bind(this);
 		this.updateCurrentList = this.updateCurrentList.bind(this);
+		this.deleteList = this.deleteList.bind(this);
 	}
 
 	async componentDidMount() {
@@ -30,7 +31,14 @@ export default class Lists extends Component {
 
 	async updateCurrentList(list) {
 		const response = await api.updateCurrentList(list);
-		this.setState({currentList: response.currentList})
+		this.setState({ currentList: response.currentList })
+	}
+
+	async deleteList(name) {
+		const response = await api.deleteList(name);
+		this.setState({
+			lists: response.lists
+		})
 	}
 
 	createRow(list) {
@@ -44,7 +52,7 @@ export default class Lists extends Component {
 				<div>
 					<button id="button"><Link to="/editList" style={{ textDecoration: 'none', color: 'white' }}>Edit</Link></button>
 					<button id="button" onClick={(e) => this.updateCurrentList(list, e)}>Use</button>
-					<button id="button"><Link to="/deleteList" style={{ textDecoration: 'none', color: 'white' }}>Delete</Link></button>
+					<button id="button" onClick={(e) => this.deleteList(list['name'], e)}>Delete</button>
 				</div>
 			</div>
 		)
