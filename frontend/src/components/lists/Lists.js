@@ -52,7 +52,10 @@ export default class Lists extends Component {
 				<div>
 					<button id="button"><Link to="/editList" style={{ textDecoration: 'none', color: 'white' }}>Edit</Link></button>
 					<button id="button" onClick={(e) => this.updateCurrentList(list, e)}>Use</button>
-					<button id="button" onClick={(e) => this.deleteList(list['name'], e)}>Delete</button>
+					{list['name'] !== this.state.currentList['name'] &&
+						<button id="button" onClick={(e) => this.deleteList(list['name'], e)}>Delete</button>
+					}
+
 				</div>
 			</div>
 		)
@@ -69,7 +72,10 @@ export default class Lists extends Component {
 
 				<h2>Available Lists</h2>
 				{this.state.lists.map((list) => {
-					return this.createRow(list)
+					if (list['name'] !== this.state.currentList['name']) {
+						return this.createRow(list)
+					}
+					return null;
 				})}
 
 				<button id="createButton"><Link to="/createList" style={{ textDecoration: 'none', color: 'white' }}>Create List</Link></button>
