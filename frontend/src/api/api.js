@@ -48,3 +48,14 @@ export async function updateList(list) {
 	})
 		.then(response => response.json())
 }
+
+export async function saveList(list) {
+	return fetch(config.backendUrl + '/lists/save', {
+		method: 'POST',
+		body: JSON.stringify(list),
+		headers: {
+			'Content-Type': 'application/json'
+		},
+	})
+		.then(response => response.json())
+}

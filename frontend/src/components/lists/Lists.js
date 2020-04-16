@@ -3,6 +3,7 @@ import List from './List';
 import * as api from '../../api/api';
 
 import './Lists.css'
+import CreateList from './CreateList';
 
 export default class Lists extends Component {
 	constructor(props) {
@@ -15,6 +16,7 @@ export default class Lists extends Component {
 		this.updateList = this.updateList.bind(this);
 		this.updateCurrentList = this.updateCurrentList.bind(this);
 		this.deleteList = this.deleteList.bind(this);
+		this.getLists = this.getLists.bind(this);
 	}
 
 	async componentDidMount() {
@@ -74,7 +76,7 @@ export default class Lists extends Component {
 					<div id="create">
 						<h2>Create List</h2>
 						<p id="note">Create a new list here.</p>
-						{this.createTile(this.state.currentList)}
+						<CreateList getLists={this.getLists}/>
 					</div>
 				</div>
 
