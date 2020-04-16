@@ -8,9 +8,11 @@ export default class BugTable extends Component {
 		super(props);
 		this.state = {
 			bugs: [],
-			bugzillaUrl: ''
+			bugzillaUrl: '',
+			currentList: null
 		};
 		this.createRow = this.createRow.bind(this)
+		this.removeBug = this.removeBug.bind(this)
 	}
 
 	async componentDidMount() {
@@ -25,10 +27,11 @@ export default class BugTable extends Component {
 	}
 
 	async refreshBugs() {
-		const list = await api.getCurrentList();
-		const bugs = await api.getBugs(list.content);
+		const currentList = await api.getCurrentList();
+		const bugs = await api.getBugs(currentList.content);
 		this.setState({
-			bugs: bugs
+			bugs,
+			currentList
 		})
 	}
 
@@ -37,6 +40,23 @@ export default class BugTable extends Component {
 		this.setState({
 			bugzillaUrl: config.bugzillaUrl
 		})
+	}
+
+	async removeBug(number) {
+		if (this.state.bugs.length <= 1) {
+			return;
+		}
+
+		let currentListContent = this.state.currentList.content;
+		let newContent = currentListContent.replace(number, '');
+
+		let list = {
+			name: this.state.currentList.name,
+			content: newContent
+		}
+		
+		await api.updateCurrentList(list);
+		this.refreshBugs();
 	}
 
 	truncate(str) {
@@ -58,6 +78,7 @@ export default class BugTable extends Component {
 				<td>{bug['component']}</td>
 				<td>{bug['assignedTo']}</td>
 				<td>{new Date(bug['lastUpdated']).toLocaleDateString()}</td>
+				<td><button onClick={(e) => this.removeBug(bug['id'], e)}><span role="img" aria-label="cross">❌</span></button></td>
 			</tr>
 		)
 	}
@@ -77,6 +98,7 @@ export default class BugTable extends Component {
 								<th>Component</th>
 								<th>Assignee</th>
 								<th>Last Updated</th>
+								<th></th>
 							</tr>
 							{this.state.bugs.map((bug) => {
 								return this.createRow(bug)
