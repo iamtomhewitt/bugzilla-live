@@ -30,18 +30,18 @@ export default class CreateList extends React.Component {
 		}
 		await api.saveList(list);
 		this.setState({
-			name: '',
-			content: ''
+			name: 'Your list name',
+			content: 'Your content'
 		});
 		this.props.getLists();
 	}
 
 	render() {
 		return (
-			<div id="list">
-				<div id="content">Name: 	<input onChange={this.handleNameChange} name="content" type="text" value={this.state.name} /></div>
-				<div id="content">Content: 	<input onChange={this.handleContentChange} name="content" type="text" value={this.state.content} /></div>
-				<div id="buttons">
+			<div id="createList">
+				<div id="name"><input onChange={this.handleNameChange} name="content" type="text" value={this.state.name} /></div>
+				<div id="content"><input onChange={this.handleContentChange} name="content" type="text" value={this.state.content} /></div>
+				<div id="createListSaveButton">
 					<button id="button" onClick={(e) => this.save()}>Save</button>
 				</div>
 			</div>

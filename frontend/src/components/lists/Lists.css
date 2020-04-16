@@ -28,7 +28,7 @@ input {
 	width: 100%;
 }
 
-#list {
+#list, #createList {
 	flex: 0 0 25%;
 	margin: 10px auto 20px auto;
 	background-color: blue;
@@ -40,6 +40,11 @@ input {
 	min-width: 270px;
 	max-width: 270px;
 	padding: 10px;
+}
+
+#createList {
+	max-height: 133px;
+	min-height: 133px;
 }
 
 #content, #name {
@@ -68,6 +73,13 @@ input {
 	color: white;
 	font-size: 14px;
 	border-color: #64b5f6;
+}
+
+#createListSaveButton {
+	margin: auto;
+	padding: 15px 0px 10px 0px;
+	display: block;
+	text-align: center;
 }
 
 #button:hover {
