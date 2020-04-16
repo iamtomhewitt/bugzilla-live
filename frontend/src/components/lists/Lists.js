@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import List from './List';
 import * as api from '../../api/api';
 
@@ -12,7 +11,7 @@ export default class Lists extends Component {
 			currentList: {},
 			lists: []
 		};
-		this.createRow = this.createRow.bind(this);
+		this.createTile = this.createTile.bind(this);
 		this.updateList = this.updateList.bind(this);
 		this.updateCurrentList = this.updateCurrentList.bind(this);
 		this.deleteList = this.deleteList.bind(this);
@@ -46,9 +45,9 @@ export default class Lists extends Component {
 		this.setState({ lists: response.lists })
 	}
 
-	createRow(list) {
+	createTile(list) {
 		return (
-			<List 
+			<List
 				key={list['name']}
 				name={list['name']}
 				content={list['content']}
@@ -65,9 +64,19 @@ export default class Lists extends Component {
 			<div id="container">
 				<h1>Lists</h1>
 
-				<h2>Current List</h2>
-				<p id="note">This is the current list being used to display bugs in the table.</p>
-				{this.createRow(this.state.currentList)}
+				<div id="currentAndCreate">
+					<div id="current">
+						<h2>Current List</h2>
+						<p id="note">This is the current list being used to display bugs in the table.</p>
+						{this.createTile(this.state.currentList)}
+					</div>
+
+					<div id="create">
+						<h2>Create List</h2>
+						<p id="note">Create a new list here.</p>
+						{this.createTile(this.state.currentList)}
+					</div>
+				</div>
 
 				<br></br>
 
@@ -75,13 +84,11 @@ export default class Lists extends Component {
 				<div id="lists">
 					{this.state.lists.map((list) => {
 						if (list['name'] !== this.state.currentList['name']) {
-							return this.createRow(list)
+							return this.createTile(list)
 						}
 						return null;
 					})}
 				</div>
-
-				<button id="createButton"><Link to="/createList" style={{ textDecoration: 'none', color: 'white' }}>Create List</Link></button>
 			</div>
 		)
 	}

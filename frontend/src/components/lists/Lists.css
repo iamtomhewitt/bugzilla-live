@@ -75,19 +75,12 @@ input {
 	border-color: #2286c3;
 }
 
-#createButton {
-	margin: 20px auto;
-	width: 125px;
-	height: 30px;
-	background-color: #64b5f6;
-	color: white;
-	font-size: 16px;
-	border-color: #64b5f6;
-	display: block;
-	text-align: center;
+#currentAndCreate {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
-#createButton:hover {
-	background-color: #2286c3;
-	border-color: #2286c3;
+#current, #create {
+	padding: 0px 70px 0px 70px;
 }
