@@ -44,18 +44,15 @@ export default class Lists extends Component {
 	createRow(list) {
 		return (
 			<div key={list['name']} id="list">
-				<div id="label">Name: </div>
-				<div id="value">{list['name']}</div>
-				<br />
-				<div id="label">Content: </div>
-				<div id="value">{list['content']}</div>
-				<div>
-					<button id="button"><Link to="/editList" style={{ textDecoration: 'none', color: 'white' }}>Edit</Link></button>
+				<div id="name">Name: {list['name']}</div>
+				<div id="content">Content: <input value={list['content']}/></div>
+				
+				<div id="buttons">
+					<button id="button">Edit</button>
 					<button id="button" onClick={(e) => this.updateCurrentList(list, e)}>Use</button>
 					{list['name'] !== this.state.currentList['name'] &&
 						<button id="button" onClick={(e) => this.deleteList(list['name'], e)}>Delete</button>
 					}
-
 				</div>
 			</div>
 		)
@@ -71,12 +68,14 @@ export default class Lists extends Component {
 				{this.createRow(this.state.currentList)}
 
 				<h2>Available Lists</h2>
-				{this.state.lists.map((list) => {
-					if (list['name'] !== this.state.currentList['name']) {
-						return this.createRow(list)
-					}
-					return null;
-				})}
+				<div id="lists">
+					{this.state.lists.map((list) => {
+						if (list['name'] !== this.state.currentList['name']) {
+							return this.createRow(list)
+						}
+						return null;
+					})}
+				</div>
 
 				<button id="createButton"><Link to="/createList" style={{ textDecoration: 'none', color: 'white' }}>Create List</Link></button>
 			</div>

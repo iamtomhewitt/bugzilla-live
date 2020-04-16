@@ -1,3 +1,7 @@
+h1, h2 {
+	text-align: center;
+}
+
 #container {
 	padding: 0px 20px 0px 20px;
 }
@@ -5,26 +9,44 @@
 #note {
 	font-style: italic;
 	font-size: 12px;
+	text-align: center;
+}
+
+#lists {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
 }
 
 #list {
-	padding-bottom: 20px;
+	flex: 0 0 25%;
+	margin: 10px auto 20px auto;
+	background-color: blue;
+	background: white;
+	border: 1px solid #d0cccc;
+	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+	transition: all .8s;
+	width: 270px;
+	min-width: 270px;
+	max-width: 270px;
+	padding: 10px;
 }
 
-#label {
-	display: inline-block;
-	margin-right: 20px;
-	font-weight: bold;
-	width: 70px;
+#content, #name {
+	margin: auto;
+	display: block;
+	padding-bottom: 10px;
 }
 
-#value {
-	display: inline-block;
-	text-align: right;
+#buttons {
+	margin: auto;
+	padding-bottom: 10px;
+	display: block;
 }
 
 #button {
-	margin-right: 10px;
+	margin-right: 5px;
+	margin-left: 5px;
 	width: 75px;
 	background-color: #64b5f6;
 	color: white;
