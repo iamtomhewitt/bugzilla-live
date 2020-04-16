@@ -37,3 +37,14 @@ export async function updateCurrentList(list) {
 	})
 		.then(response => response.json())
 }
+
+export async function updateList(list) {
+	return fetch(config.backendUrl + '/lists/update', {
+		method: 'PUT',
+		body: JSON.stringify(list),
+		headers: {
+			'Content-Type': 'application/json'
+		},
+	})
+		.then(response => response.json())
+}

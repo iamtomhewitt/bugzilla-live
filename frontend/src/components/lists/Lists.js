@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import List from './List';
 import * as api from '../../api/api';
 
 import './Lists.css'
@@ -12,6 +13,7 @@ export default class Lists extends Component {
 			lists: []
 		};
 		this.createRow = this.createRow.bind(this);
+		this.updateList = this.updateList.bind(this);
 		this.updateCurrentList = this.updateCurrentList.bind(this);
 		this.deleteList = this.deleteList.bind(this);
 	}
@@ -34,27 +36,28 @@ export default class Lists extends Component {
 		this.setState({ currentList: response.currentList })
 	}
 
+	async updateList(list) {
+		const response = await api.updateList(list);
+		console.log(response.lists)
+		this.setState({ lists: response.lists })
+	}
+
 	async deleteList(name) {
 		const response = await api.deleteList(name);
-		this.setState({
-			lists: response.lists
-		})
+		this.setState({ lists: response.lists })
 	}
 
 	createRow(list) {
 		return (
-			<div key={list['name']} id="list">
-				<div id="content">Name: <input type="text" value={list['name']}/></div>
-				<div id="content">Content: <input type="text" value={list['content']}/></div>
-				
-				<div id="buttons">
-					<button id="button">Edit</button>
-					<button id="button" onClick={(e) => this.updateCurrentList(list, e)}>Use</button>
-					{list['name'] !== this.state.currentList['name'] &&
-						<button id="button" onClick={(e) => this.deleteList(list['name'], e)}>Delete</button>
-					}
-				</div>
-			</div>
+			<List 
+				key={list['name']}
+				name={list['name']}
+				content={list['content']}
+				currentListName={this.state.currentList.name}
+				deleteList={this.deleteList}
+				updateList={this.updateList}
+				updateCurrentList={this.updateCurrentList}
+			/>
 		)
 	}
 
