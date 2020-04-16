@@ -39,8 +39,8 @@ export default class CreateList extends React.Component {
 	render() {
 		return (
 			<div id="createList">
-				<div id="name"><input onChange={this.handleNameChange} name="content" type="text" value={this.state.name} /></div>
-				<div id="content"><input onChange={this.handleContentChange} name="content" type="text" value={this.state.content} /></div>
+				<div id="name"><input id="input" onChange={this.handleNameChange} name="content" type="text" value={this.state.name} /></div>
+				<div id="content"><input id="input" onChange={this.handleContentChange} name="content" type="text" value={this.state.content} /></div>
 				<div id="createListSaveButton">
 					<button id="button" onClick={(e) => this.save()}>Save</button>
 				</div>
