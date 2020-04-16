@@ -48,6 +48,11 @@ input {
 	padding-bottom: 10px;
 }
 
+#name {
+	color: #2286c3;
+	font-weight: bolder;
+}
+
 #buttons {
 	margin: auto;
 	padding-bottom: 10px;

@@ -12,10 +12,6 @@ export default class List extends React.Component {
 		};
 	}
 
-	handleNameChange = (e) => {
-		this.setState({ name: e.target.value })
-	}
-
 	handleContentChange = (e) => {
 		this.setState({ content: e.target.value })
 	}
@@ -61,7 +57,7 @@ export default class List extends React.Component {
 
 		return (
 			<div id="list">
-				<div id="name">Name: 		<input onChange={this.handleNameChange} name="name" type="text" value={this.state.name} /></div>
+				<div id="name">{this.state.name}</div>
 				<div id="content">Content: 	<input onChange={this.handleContentChange} name="content" type="text" value={this.state.content} /></div>
 				{buttons}
 			</div>

@@ -38,7 +38,6 @@ export default class Lists extends Component {
 
 	async updateList(list) {
 		const response = await api.updateList(list);
-		console.log(response.lists)
 		this.setState({ lists: response.lists })
 	}
 
