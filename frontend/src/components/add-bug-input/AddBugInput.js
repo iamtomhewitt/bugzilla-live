@@ -22,11 +22,9 @@ export default class AddBugInput extends React.Component {
 
     render() {
         return (
-            <div className='AddBugInput'>
-                <input onChange={this.handleChange}/>
-				&nbsp;
-				&nbsp;
-                <button onClick={this.updateBugNumbers}>Add</button>
+            <div id='addBugContainer'>
+                <input id="addBugInput" type="number" onChange={this.handleChange}/>
+                <button id="addBugButton" onClick={this.updateBugNumbers}>Add</button>
             </div>
         );
     }

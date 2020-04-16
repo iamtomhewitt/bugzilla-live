@@ -58,7 +58,7 @@ export default class List extends React.Component {
 		return (
 			<div id="list">
 				<div id="name">{this.state.name}</div>
-				<div id="content">Content: 	<input onChange={this.handleContentChange} name="content" type="text" value={this.state.content} /></div>
+				<div id="content">Content: 	<input id="input" onChange={this.handleContentChange} name="content" type="text" value={this.state.content} /></div>
 				{buttons}
 			</div>
 		)

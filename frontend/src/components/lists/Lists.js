@@ -64,17 +64,17 @@ export default class Lists extends Component {
 	render() {
 		return (
 			<div id="container">
-				<h1>Lists</h1>
+				<h1 id="h1">Lists</h1>
 
 				<div id="currentAndCreate">
 					<div id="current">
-						<h2>Current List</h2>
+						<h2 id="h2">Current List</h2>
 						<p id="note">This is the current list being used to display bugs in the table.</p>
 						{this.createTile(this.state.currentList)}
 					</div>
 
 					<div id="create">
-						<h2>Create List</h2>
+						<h2 id="h2">Create List</h2>
 						<p id="note">Create a new list here.</p>
 						<CreateList getLists={this.getLists}/>
 					</div>
@@ -82,7 +82,7 @@ export default class Lists extends Component {
 
 				<br></br>
 
-				<h2>Available Lists</h2>
+				<h2 id="h2">Available Lists</h2>
 				<div id="lists">
 					{this.state.lists.map((list) => {
 						if (list['name'] !== this.state.currentList['name']) {
