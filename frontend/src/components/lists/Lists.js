@@ -44,8 +44,8 @@ export default class Lists extends Component {
 	createRow(list) {
 		return (
 			<div key={list['name']} id="list">
-				<div id="name">Name: {list['name']}</div>
-				<div id="content">Content: <input value={list['content']}/></div>
+				<div id="content">Name: <input type="text" value={list['name']}/></div>
+				<div id="content">Content: <input type="text" value={list['content']}/></div>
 				
 				<div id="buttons">
 					<button id="button">Edit</button>
@@ -66,6 +66,8 @@ export default class Lists extends Component {
 				<h2>Current List</h2>
 				<p id="note">This is the current list being used to display bugs in the table.</p>
 				{this.createRow(this.state.currentList)}
+
+				<br></br>
 
 				<h2>Available Lists</h2>
 				<div id="lists">
