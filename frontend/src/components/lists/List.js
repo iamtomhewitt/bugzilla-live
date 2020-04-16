@@ -43,7 +43,7 @@ export default class List extends React.Component {
 		if (isCurrentList) {
 			buttons =
 				<div id="buttons">
-					<button id="button" onClick={(e) => this.updateList(this.state.name, this.state.content, e)}>Save</button>
+					<button id="button" onClick={(e) => this.updateCurrentList(this.state.name, this.state.content, e)}>Save</button>
 				</div>
 		}
 		else {
