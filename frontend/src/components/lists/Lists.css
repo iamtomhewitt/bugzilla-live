@@ -76,13 +76,15 @@ input {
 }
 
 #createButton {
-	margin-top: 20px;
+	margin: 20px auto;
 	width: 125px;
 	height: 30px;
 	background-color: #64b5f6;
 	color: white;
 	font-size: 16px;
 	border-color: #64b5f6;
+	display: block;
+	text-align: center;
 }
 
 #createButton:hover {
