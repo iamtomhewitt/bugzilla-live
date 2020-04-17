@@ -5,4 +5,4 @@ An application to show bugs from Bugzilla using the provided API. Originally as 
 
 ## Backend
 ### Documentation
-API documentation can be found at `localhost:8080/swagger-ui/html` when the service is running.
+API documentation can be found at `localhost:8080/swagger-ui.html` when the service is running.
