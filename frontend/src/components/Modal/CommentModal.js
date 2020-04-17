@@ -26,7 +26,7 @@ export default class CommentModal extends React.Component {
 					</Modal.Header>
 					<Modal.Body>
 						{this.state.comments.map((comment) => {
-							return <div>
+							return <div key={comment['time']}>
 								<p id="name">{comment['creator']} | {new Date(comment['time']).toLocaleDateString()}</p>
 								<p>{comment['text']}</p>
 							</div>

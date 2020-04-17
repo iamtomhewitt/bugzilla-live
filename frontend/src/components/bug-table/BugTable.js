@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as api from '../../api/api';
-import CommentModal from '../Modal/CommentModal';
+import CommentModal from '../modal/CommentModal';
 import './BugTable.css';
 
 export default class BugTable extends Component {
