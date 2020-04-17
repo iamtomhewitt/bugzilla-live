@@ -8,19 +8,15 @@
 	display: inline-block;
 	border: none;
 	margin: 0px 10px 0px 10px;
-	width: 20%;
-	height: 30px;
+	width: 200px;
+	height: 38px;
 	font-size: 14px;
-	background-color: rgb(250, 250, 250);
+	background-color: rgb(245, 245, 245);
 	text-align: center;
 }
 
 #addBugButton {
-	height: 30px;
 	width: 100px;
 	color: white;
 	font-size: 16px;
-	font-weight: bold;
-	background-color: #64b5f6;
-	border-color: #64b5f6;
 }
