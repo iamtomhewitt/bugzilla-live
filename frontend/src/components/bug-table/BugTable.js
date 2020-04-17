@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as api from '../../api/api';
+import CommentModal from '../Modal/CommentModal';
 import './BugTable.css';
 
 export default class BugTable extends Component {
@@ -13,6 +14,8 @@ export default class BugTable extends Component {
 		};
 		this.createRow = this.createRow.bind(this)
 		this.removeBug = this.removeBug.bind(this)
+		this.showComment = this.showComment.bind(this)
+		this.hideComment = this.hideComment.bind(this)
 	}
 
 	async componentDidMount() {
@@ -59,6 +62,17 @@ export default class BugTable extends Component {
 		this.refreshBugs();
 	}
 
+	showComment(bug) {
+		this.setState({
+			showModal: true,
+			modalData: bug
+		})
+	}
+
+	hideComment() {
+		this.setState({showModal: false})
+	}
+
 	truncate(str) {
 		let length = 40;
 		if (str.length >= length) {
@@ -79,6 +93,7 @@ export default class BugTable extends Component {
 				<td>{bug['assignedTo']}</td>
 				<td>{new Date(bug['lastUpdated']).toLocaleDateString()}</td>
 				<td><button onClick={(e) => this.removeBug(bug['id'], e)}><span role="img" aria-label="cross">❌</span></button></td>
+				<td><button onClick={(e) => this.showComment(bug, e)}><span role="img" aria-label="speech balloon">💬</span></button></td>
 			</tr>
 		)
 	}
@@ -99,6 +114,7 @@ export default class BugTable extends Component {
 								<th>Assignee</th>
 								<th>Last Updated</th>
 								<th></th>
+								<th></th>
 							</tr>
 							{this.state.bugs.map((bug) => {
 								return this.createRow(bug)
@@ -113,6 +129,9 @@ export default class BugTable extends Component {
 						</tbody>
 					}
 				</table>
+				{this.state.showModal &&
+					<CommentModal bug={this.state.modalData} hideComment={this.hideComment}/>
+				}
 			</div>
 		);
 	}
