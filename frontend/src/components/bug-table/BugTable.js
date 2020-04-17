@@ -92,8 +92,10 @@ export default class BugTable extends Component {
 				<td>{bug['component']}</td>
 				<td>{bug['assignedTo']}</td>
 				<td>{new Date(bug['lastUpdated']).toLocaleDateString()}</td>
-				<td><button onClick={(e) => this.removeBug(bug['id'], e)}><span role="img" aria-label="cross">❌</span></button></td>
-				<td><button onClick={(e) => this.showComment(bug, e)}><span role="img" aria-label="speech balloon">💬</span></button></td>
+				<td>
+					<button onClick={(e) => this.removeBug(bug['id'], e)}><span role="img" aria-label="cross">❌</span></button>
+					<button onClick={(e) => this.showComment(bug, e)}><span role="img" aria-label="speech balloon">💬</span></button>
+				</td>
 			</tr>
 		)
 	}
@@ -113,7 +115,6 @@ export default class BugTable extends Component {
 								<th>Component</th>
 								<th>Assignee</th>
 								<th>Last Updated</th>
-								<th></th>
 								<th></th>
 							</tr>
 							{this.state.bugs.map((bug) => {
