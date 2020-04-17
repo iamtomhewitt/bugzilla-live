@@ -1,30 +1,32 @@
 import React from "react";
 import AddBugInput from "../add-bug-input/AddBugInput";
 import BugTable from "../bug-table/BugTable";
+import * as api from '../../api/api';
 
 export default class Home extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			bugNumbers: [1605238, 12345, 23456]
+			bugs: null,
+			currentList: null
 		}
-		this.updateBugNumbers = this.updateBugNumbers.bind(this)
+		this.updateBugs = this.updateBugs.bind(this)
 	}
 
-	updateBugNumbers(numbers) {
-		let currentNumbers = this.state.bugNumbers
-		currentNumbers.push(numbers)
-
+	async updateBugs() {
+		const currentList = await api.getCurrentList();
+		const bugs = await api.getBugs(currentList.content);
 		this.setState({
-			bugNumbers: currentNumbers
+			bugs,
+			currentList
 		})
 	}
 
 	render() {
 		return (
 			<div>
-				<AddBugInput bugNumbers={this.state.bugNumbers} updateBugNumbers={this.updateBugNumbers} />
-				<BugTable bugNumbers={this.state.bugNumbers} />
+				<AddBugInput updateBugs={this.updateBugs} />
+				<BugTable />
 			</div >
 		);
 	}

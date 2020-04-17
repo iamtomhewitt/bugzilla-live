@@ -54,7 +54,7 @@ export default class BugTable extends Component {
 			name: this.state.currentList.name,
 			content: newContent
 		}
-		
+
 		await api.updateCurrentList(list);
 		this.refreshBugs();
 	}

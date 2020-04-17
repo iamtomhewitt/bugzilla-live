@@ -1,5 +1,5 @@
 import React from 'react'
-
+import * as api from '../../api/api';
 import './AddBugInput.css'
 
 export default class AddBugInput extends React.Component {
@@ -16,8 +16,11 @@ export default class AddBugInput extends React.Component {
         });
     }
 
-    updateBugNumbers() {
-        this.props.updateBugNumbers(this.state.input)
+    async updateBugNumbers() {
+		const currentList = await api.getCurrentList();
+		const newContent = currentList.content + ',' + this.state.input;
+		await api.updateCurrentList({name: currentList.name, content: newContent})
+        this.props.updateBugs()
     }
 
     render() {
