@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import './Lists.css';
 
 export default class List extends React.Component {
@@ -43,15 +44,35 @@ export default class List extends React.Component {
 		if (isCurrentList) {
 			buttons =
 				<div id="buttons">
-					<button id="button" onClick={(e) => this.updateCurrentList(this.state.name, this.state.content, e)}>Save</button>
+					<Button
+						id="button"
+						variant="primary"
+						onClick={(e) => this.updateCurrentList(this.state.name, this.state.content, e)}>
+						Save
+					</Button>
 				</div>
 		}
 		else {
 			buttons =
 				<div id="buttons">
-					<button id="button" onClick={(e) => this.updateList(this.state.name, this.state.content, e)}>Save</button>
-					<button id="button" onClick={(e) => this.updateCurrentList(this.state.name, this.state.content, e)}>Use</button>
-					<button id="button" onClick={(e) => this.deleteList(this.state.name, e)}>Delete</button>
+					<Button
+						id="button"
+						variant="primary"
+						onClick={(e) => this.updateList(this.state.name, this.state.content, e)}>
+						Save
+					</Button>
+					<Button
+						id="button"
+						variant="primary"
+						onClick={(e) => this.updateCurrentList(this.state.name, this.state.content, e)}>
+						Use
+					</Button>
+					<Button
+						id="button"
+						variant="danger"
+						onClick={(e) => this.deleteList(this.state.name, e)}>
+						Delete
+					</Button>
 				</div>
 		}
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import * as api from '../../api/api';
 
 import './Lists.css';
@@ -38,11 +39,16 @@ export default class CreateList extends React.Component {
 
 	render() {
 		return (
-			<div id="createList">
-				<div id="name"><input id="input" onChange={this.handleNameChange} name="content" type="text" value={this.state.name} /></div>
+			<div id="list">
+				<div id="name"><input id="input" onChange={this.handleNameChange} name="name" type="text" value={this.state.name} /></div>
 				<div id="content"><input id="input" onChange={this.handleContentChange} name="content" type="text" value={this.state.content} /></div>
-				<div id="createListSaveButton">
-					<button id="button" onClick={(e) => this.save()}>Save</button>
+				<div id="buttons">
+					<Button
+						id="createListSaveButton"
+						variant="primary"
+						onClick={(e) => this.save()}>
+						Save
+					</Button>
 				</div>
 			</div>
 		)

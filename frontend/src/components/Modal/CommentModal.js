@@ -13,8 +13,8 @@ export default class CommentModal extends React.Component {
 	}
 
 	async componentDidMount() {
-		const resp = await api.getBugComments(this.props.bug['id']);
-		this.setState({comments: resp})
+		const comments = await api.getBugComments(this.props.bug['id']);
+		this.setState({comments})
 	}
 
 	render() {
@@ -34,7 +34,7 @@ export default class CommentModal extends React.Component {
 					</Modal.Body>
 					<Modal.Footer id="footer">
 						<Button 
-							variant="secondary" 
+							variant="primary" 
 							onClick={this.props.hideComment}>
 							Close
 						</Button>

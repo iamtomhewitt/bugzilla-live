@@ -1,4 +1,5 @@
 #h1, #h2 {
+	margin-top: 20px;
 	text-align: center;
 }
 
@@ -31,7 +32,6 @@
 #list, #createList {
 	flex: 0 0 25%;
 	margin: 10px auto 20px auto;
-	background-color: blue;
 	background: white;
 	border: 1px solid #d0cccc;
 	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
@@ -39,6 +39,8 @@
 	width: 270px;
 	min-width: 270px;
 	max-width: 270px;
+	min-height: 160px;
+	max-height: 160px;
 	padding: 10px;
 }
 
@@ -68,23 +70,20 @@
 #button {
 	margin-right: 5px;
 	margin-left: 5px;
-	width: 75px;
-	background-color: #64b5f6;
-	color: white;
+	width: 70px;
 	font-size: 14px;
-	border-color: #64b5f6;
 }
 
 #createListSaveButton {
-	margin: auto;
+	/* margin: auto;
 	padding: 15px 0px 10px 0px;
 	display: block;
-	text-align: center;
-}
-
-#button:hover {
-	background-color: #2286c3;
-	border-color: #2286c3;
+	text-align: center; */
+	margin-right: 5px;
+	margin-top: 13px;
+	margin-left: 5px;
+	width: 70px;
+	font-size: 14px;
 }
 
 #currentAndCreate {
