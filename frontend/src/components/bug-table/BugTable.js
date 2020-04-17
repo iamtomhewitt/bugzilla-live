@@ -76,8 +76,11 @@ export default class BugTable extends Component {
 		this.setState({showCommentModal: false})
 	}
 
-	showChangeStatus() {
-		this.setState({ showChangeStatusModal: true })
+	showChangeStatus(bug) {
+		this.setState({ 
+			showChangeStatusModal: true,
+			modalData: bug 
+		})
 	}
 
 	hideChangeStatus() {
@@ -146,7 +149,7 @@ export default class BugTable extends Component {
 					<CommentModal bug={this.state.modalData} hideComment={this.hideComment}/>
 				}
 				{this.state.showChangeStatusModal &&
-					<ChangeStatusModal hideChangeStatus={this.hideChangeStatus}/>
+					<ChangeStatusModal bug={this.state.modalData} hideChangeStatus={this.hideChangeStatus}/>
 				}
 			</div>
 		);

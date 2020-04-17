@@ -5,3 +5,15 @@
 #footer {
 	margin: 0 auto;
 }
+
+#newStatus {
+	display: flex;
+}
+
+#dropdownButton {
+	margin-left: 30px;
+}
+
+#label {
+	margin-top: 6px;
+}
