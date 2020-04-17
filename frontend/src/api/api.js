@@ -5,6 +5,11 @@ export async function getBugs(numbers) {
 		.then(response => response.json())
 }
 
+export async function getBugComments(number) {
+	return fetch(config.backendUrl + '/bugs/'+number+'/comments')
+		.then(response => response.json())
+}
+
 export async function getConfig() {
 	return fetch(config.backendUrl + '/config/get')
 		.then(response => response.json())
