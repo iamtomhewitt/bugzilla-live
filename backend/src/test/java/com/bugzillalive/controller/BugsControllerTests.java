@@ -246,8 +246,8 @@ public class BugsControllerTests {
 		assertEquals(1, attachments.size());
 		assertEquals("text/plain", attachments.get(0).getContentType());
 		assertEquals("test", attachments.get(0).getData());
-		assertEquals("Some filename", attachments.get(0).getFilename()
-		);
+		assertEquals("Some filename", attachments.get(0).getFilename());
+		assertEquals(1, attachments.get(0).getId());
 	}
 
 	@Test
