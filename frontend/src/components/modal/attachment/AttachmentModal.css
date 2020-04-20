@@ -9,3 +9,8 @@
 #footer {
 	margin: 0 auto;
 }
+
+#noAttachments {
+	font-weight: bold;
+	text-align: center;
+}
