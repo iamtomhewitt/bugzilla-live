@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as api from '../../api/api';
 import CommentModal from '../modal/comment/CommentModal';
 import './BugTable.css';
+import AttachmentModal from '../modal/attachment/AttachmentModal';
 
 export default class BugTable extends Component {
 
@@ -16,6 +17,8 @@ export default class BugTable extends Component {
 		this.removeBug = this.removeBug.bind(this)
 		this.showComment = this.showComment.bind(this)
 		this.hideComment = this.hideComment.bind(this)
+		this.showAttachments = this.showAttachments.bind(this)
+		this.hideAttachments = this.hideAttachments.bind(this)
 	}
 
 	async componentDidMount() {
@@ -73,6 +76,17 @@ export default class BugTable extends Component {
 		this.setState({showCommentModal: false})
 	}
 
+	showAttachments(bug) {
+		this.setState({
+			showAttachmentModal: true,
+			modalData: bug
+		})
+	}
+
+	hideAttachments() {
+		this.setState({showAttachmentModal: false})
+	}
+
 	truncate(str) {
 		let length = 40;
 		if (str.length >= length) {
@@ -95,6 +109,7 @@ export default class BugTable extends Component {
 				<td>
 					<button onClick={(e) => this.removeBug(bug['id'], e)}><span role="img" aria-label="cross">❌</span></button>
 					<button onClick={(e) => this.showComment(bug, e)}><span role="img" aria-label="speech balloon">💬</span></button>
+					<button onClick={(e) => this.showAttachments(bug, e)}><span role="img" aria-label="paperclip">📎</span></button>
 				</td>
 			</tr>
 		)
@@ -132,6 +147,9 @@ export default class BugTable extends Component {
 				</table>
 				{this.state.showCommentModal &&
 					<CommentModal bug={this.state.modalData} hideComment={this.hideComment}/>
+				}
+				{this.state.showAttachmentModal &&
+					<AttachmentModal bug={this.state.modalData} hideAttachments={this.hideAttachments}/>
 				}
 			</div>
 		);

@@ -6,7 +6,12 @@ export async function getBugs(numbers) {
 }
 
 export async function getBugComments(number) {
-	return fetch(config.backendUrl + '/bugs/'+number+'/comments')
+	return fetch(config.backendUrl + '/bugs/' + number + '/comments')
+		.then(response => response.json())
+}
+
+export async function getBugAttachments(number) {
+	return fetch(config.backendUrl + '/bugs/' + number + '/attachments')
 		.then(response => response.json())
 }
 
