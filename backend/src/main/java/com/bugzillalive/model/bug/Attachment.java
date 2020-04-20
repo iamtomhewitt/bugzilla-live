@@ -12,15 +12,11 @@ import org.json.JSONObject;
 @AllArgsConstructor
 public class Attachment {
 	private String filename;
-	private String contentType;
-	private String data;
 	private int id;
 
 	public static Attachment toAttachment(JSONObject json) {
 		return Attachment.builder()
 			.filename(json.getString("file_name"))
-			.contentType(json.getString("content_type"))
-			.data(json.getString("data"))
 			.id(json.getInt("id"))
 			.build();
 	}
