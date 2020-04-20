@@ -32,7 +32,7 @@ export default class AttachmentModal extends React.Component {
 					<Modal.Body>
 						{this.state.attachments.map((attachment) => {
 							return <div key={attachment['filename']}>
-								<p id="name">{attachment['filename']} <a href={this.state.bugzillaUrl + "attachment.cgi?id=" + attachment['id']}>Open</a></p>
+								<a href={this.state.bugzillaUrl + "attachment.cgi?id=" + attachment['id']}>{attachment['filename']}</a>
 							</div>
 						})}
 						{this.state.attachments.length === 0 &&
