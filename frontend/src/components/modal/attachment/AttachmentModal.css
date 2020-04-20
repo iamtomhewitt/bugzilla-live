@@ -10,7 +10,7 @@
 	margin: 0 auto;
 }
 
-#noAttachments {
+#noAttachments, #loading {
 	font-weight: bold;
 	text-align: center;
 }

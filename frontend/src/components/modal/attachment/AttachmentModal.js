@@ -9,7 +9,8 @@ export default class AttachmentModal extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			attachments: []
+			attachments: [],
+			loading: true
 		}
 	}
 
@@ -18,7 +19,8 @@ export default class AttachmentModal extends React.Component {
 		const config = await api.getConfig();
 		this.setState({
 			attachments,
-			bugzillaUrl: config.bugzillaUrl
+			bugzillaUrl: config.bugzillaUrl,
+			loading: false
 		})
 	}
 
@@ -35,8 +37,11 @@ export default class AttachmentModal extends React.Component {
 								<a target="_blank" rel="noopener noreferrer" href={this.state.bugzillaUrl + "attachment.cgi?id=" + attachment['id']}>{attachment['filename']}</a>
 							</div>
 						})}
-						{this.state.attachments.length === 0 &&
+						{this.state.attachments.length === 0 && this.state.loading === false &&
 							<div id="noAttachments"><p>There are no attachments for this bug.</p></div>
+						}
+						{this.state.loading === true &&
+							<div id="loading"><p>Loading...</p></div>
 						}
 					</Modal.Body>
 					<Modal.Footer id="footer">
