@@ -20,6 +20,21 @@ export async function getConfig() {
 		.then(response => response.json())
 }
 
+export async function saveConfig(bugzillaUrl, lists, currentList) {
+	return fetch(config.backendUrl + '/config/save', {
+		method: 'PUT',
+		body: JSON.stringify({
+			bugzillaUrl,
+			lists,
+			currentList
+		}),
+		headers: {
+			'Content-Type': 'application/json'
+		},
+	})
+		.then(response => response.json())
+}
+
 export async function getLists() {
 	return fetch(config.backendUrl + '/lists/all')
 		.then(response => response.json())

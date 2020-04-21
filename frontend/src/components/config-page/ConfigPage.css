@@ -5,7 +5,7 @@
 
 #config-container {
 	padding: 0px 20px 0px 20px;
-	width: 70%;
+	width: 100%;
 	margin: 0 auto;
 }
 
@@ -19,6 +19,24 @@
 #config-button {
 	margin-right: 5px;
 	margin-left: 5px;
-	width: 70px;
+	width: 100px;
+	font-size: 14px;
+}
+
+#config {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+#config-input {
+	margin-left: 20px;
+	display: block;
+	border: none;
+	margin-right: auto;
+	border-bottom: 1px solid #ccc;
+	width: 300px;
 	font-size: 14px;
 }
