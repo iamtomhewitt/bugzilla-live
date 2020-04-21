@@ -11,7 +11,8 @@ export default class BugTable extends Component {
 		this.state = {
 			bugs: [],
 			bugzillaUrl: '',
-			currentList: null
+			currentList: null,
+			loading: true
 		};
 		this.createRow = this.createRow.bind(this)
 		this.removeBug = this.removeBug.bind(this)
@@ -33,11 +34,13 @@ export default class BugTable extends Component {
 	}
 
 	async refreshBugs() {
+		this.setState({loading: true})
 		const currentList = await api.getCurrentList();
 		const bugs = await api.getBugs(currentList.content);
 		this.setState({
 			bugs,
-			currentList
+			currentList,
+			loading: false
 		})
 	}
 
@@ -119,7 +122,7 @@ export default class BugTable extends Component {
 		return (
 			<div>
 				<table cellSpacing="0" cellPadding="0">
-					{this.state.bugs != null &&
+					{this.state.bugs != null && !this.state.loading && 
 						<tbody>
 							<tr>
 								<th>Number</th>
@@ -137,7 +140,7 @@ export default class BugTable extends Component {
 							})}
 						</tbody>
 					}
-					{this.state.bugs == null &&
+					{this.state.bugs == null && !this.state.loading && 
 						<tbody>
 							<tr>
 								<td>No bugs! :-D</td>
@@ -150,6 +153,9 @@ export default class BugTable extends Component {
 				}
 				{this.state.showAttachmentModal &&
 					<AttachmentModal bug={this.state.modalData} hideAttachments={this.hideAttachments}/>
+				}
+				{this.state.loading &&
+					<p id="loading">Loading...</p>
 				}
 			</div>
 		);
