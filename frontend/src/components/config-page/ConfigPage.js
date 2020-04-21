@@ -58,6 +58,7 @@ export default class ConfigPage extends Component {
 						Save
 					</Button>
 				</div>
+				<div id="swagger">Backend API documentation can be found <a href="http://localhost:8080/swagger-ui.html">here</a>.</div>
 			</div>
 		)
 	}

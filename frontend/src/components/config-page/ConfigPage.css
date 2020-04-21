@@ -31,6 +31,11 @@
 	margin-bottom: 50px;
 }
 
+#swagger {
+	text-align: center;
+	padding-top: 50px;
+}
+
 #config-input {
 	margin-left: 20px;
 	display: block;
