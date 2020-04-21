@@ -1,5 +1,5 @@
 #informationPane {
-	width: 300px;
+	width: 275px;
 	background-color: #3E7BFF;
 	min-height: 750px;
 }
@@ -17,6 +17,5 @@
 	color: white;
 	list-style-type: none;
 	padding: 15px;
-	font-size: 18px;
-	font-style: italic;
+	font-size: 15px;
 }
