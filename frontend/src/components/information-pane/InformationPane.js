@@ -3,20 +3,34 @@ import React from "react";
 import './InformationPane.css';
 
 export default class InformationPane extends React.Component {
+	constructor(props) {
+		super(props);
+		this.countOccurences = this.countOccurences.bind(this)
+	}
+
+	countOccurences(bugs) {
+		let map = {}
+
+		for (let i = 0; i < bugs.length; i++) {
+			let status = bugs[i]['status'];
+			map[status] = map[status] ? map[status] + 1 : 1;
+		}
+		return map;
+	}
 
 	render() {
 		let currentList = this.props.currentList;
+		let bugs = this.props.bugs;
+
 		return (
 			<div id="informationPane">
-				{currentList != null &&
+				{currentList != null && bugs != null &&
 					<>
-						<h4>{currentList.name}</h4>
+						<h4 id="header">{currentList.name}</h4>
 						<ul>
-							<li>1</li>
-							<li>2</li>
-							<li>3</li>
-							<li>4</li>
-							<li>5</li>
+							{Object.entries(this.countOccurences(bugs)).map(([label, value]) => {
+								return <li key={label}>{label}: {value}</li>
+							})}
 						</ul>
 					</>
 				}

@@ -34,7 +34,7 @@ export default class Home extends React.Component {
 			<div>
 				<AddBugInput updateBugs={this.updateBugs} />
 				<div id="main">
-					<InformationPane currentList={this.state.currentList}/>
+					<InformationPane currentList={this.state.currentList} bugs={this.state.bugs}/>
 					<BugTable />
 				</div>
 			</div >

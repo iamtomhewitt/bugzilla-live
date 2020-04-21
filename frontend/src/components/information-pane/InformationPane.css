@@ -2,3 +2,10 @@
 	width: 15%;
 	background-color: #3E7BFF;
 }
+
+#header {
+	color: white;
+	text-align: center;
+	margin-top: 10px;
+	font-size: 20px;
+}
