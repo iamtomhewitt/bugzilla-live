@@ -25,7 +25,7 @@ export default class BugTable extends Component {
 	async componentDidMount() {
 		this.getBugzillaUrl()
 		this.refreshBugs()
-		this.interval = setInterval(() => this.refreshBugs(), 60000);
+		this.interval = setInterval(() => this.refreshBugs(), 300000);
 	}
 
 	async componentWillReceiveProps() {
@@ -100,7 +100,7 @@ export default class BugTable extends Component {
 
 	createRow(bug) {
 		return (
-			<tr key={bug['id']} id={bug['priority']}>
+			<tr key={bug['id']} id={bug['severity']}>
 				<td><a href={this.state.bugzillaUrl + "/show_bug.cgi?id=" + bug['id']}>{bug['id']}</a></td>
 				<td>{this.truncate(bug['summary'])}</td>
 				<td>{bug['status']}</td>
@@ -120,7 +120,7 @@ export default class BugTable extends Component {
 
 	render() {
 		return (
-			<div>
+			<div id="bugTable">
 				<table cellSpacing="0" cellPadding="0">
 					{this.state.bugs != null && !this.state.loading && 
 						<tbody>

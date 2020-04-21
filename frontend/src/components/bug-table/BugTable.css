@@ -1,9 +1,8 @@
 td {
     text-align: center;
     font-weight: bold;
-    padding: 10px 10px;
-    padding-top: .5em;
-    padding-bottom: .5em;
+	padding: 10px 10px;
+	font-size: 14px;
 }
 
 th {
@@ -29,27 +28,35 @@ table {
 	text-align: center;
 }
 
-#P1 {
+#bugTable {
+	width: 100%;
+}
+
+#critical, #blocker {
     color: white;
     background-color: #FF0000;
 }
 
-#P2 {
+#blocker a, #critical a {
+	color: white;
+}
+
+#major {
     background-color: orange;
     color: black;
 }
 
-#P3 {
+#minor {
     background-color: #FFFF00;
     color: black;
 }
 
-#P4 {
+#normal {
     background-color: #92DDFF;
     color: black;
 }
 
-#P5 {
+#trivial {
     background-color: rgb(211, 226, 231);
     color: black;
 }

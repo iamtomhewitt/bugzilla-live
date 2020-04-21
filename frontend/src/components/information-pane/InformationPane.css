@@ -1,6 +1,7 @@
 #informationPane {
-	width: 15%;
+	width: 300px;
 	background-color: #3E7BFF;
+	min-height: 750px;
 }
 
 #header {
@@ -9,6 +10,7 @@
 	margin-top: 20px;
 	font-size: 20px;
 	font-weight: bold;
+	text-decoration: underline;
 }
 
 #informationPaneList {
