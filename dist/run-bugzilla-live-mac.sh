@@ -1,1 +1,0 @@
-./bugzilla-live-backend & java -jar bugzilla-live.jar

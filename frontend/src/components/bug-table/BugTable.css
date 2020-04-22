@@ -1,0 +1,62 @@
+td {
+    text-align: center;
+    font-weight: bold;
+	padding: 10px 10px;
+	font-size: 14px;
+}
+
+th {
+    background-color: #3E7BFF;
+    color: white;
+    padding: 10px 10px;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    text-align: center;
+}
+
+a {
+    color: rgb(4, 127, 184);
+}
+
+table {
+	border: none;
+	width: 100%;
+}
+
+#loading {
+	font-weight: bold;
+	text-align: center;
+}
+
+#bugTable {
+	width: 100%;
+}
+
+#critical, #blocker {
+    color: white;
+    background-color: #FF0000;
+}
+
+#blocker a, #critical a {
+	color: white;
+}
+
+#major {
+    background-color: orange;
+    color: black;
+}
+
+#minor {
+    background-color: #FFFF00;
+    color: black;
+}
+
+#normal {
+    background-color: #92DDFF;
+    color: black;
+}
+
+#trivial {
+    background-color: rgb(211, 226, 231);
+    color: black;
+}

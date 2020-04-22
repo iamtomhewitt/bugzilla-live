@@ -1,0 +1,16 @@
+#name {
+	font-weight: bold;
+}
+
+#bold {
+	font-weight: bold;
+}
+
+#footer {
+	margin: 0 auto;
+}
+
+#noAttachments, #loading {
+	font-weight: bold;
+	text-align: center;
+}

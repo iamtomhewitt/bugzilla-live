@@ -1,0 +1,21 @@
+#informationPane {
+	width: 275px;
+	background-color: #3E7BFF;
+	min-height: 750px;
+}
+
+#header {
+	color: white;
+	text-align: center;
+	margin-top: 20px;
+	font-size: 20px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+#informationPaneList {
+	color: white;
+	list-style-type: none;
+	padding: 15px;
+	font-size: 15px;
+}

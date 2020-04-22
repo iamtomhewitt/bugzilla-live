@@ -1,0 +1,22 @@
+#addBugContainer {
+	text-align: center;
+	padding-bottom: 25px;
+	margin-top: 20px;
+}
+
+#addBugInput {
+	display: inline-block;
+	border: none;
+	margin: 0px 10px 0px 10px;
+	width: 200px;
+	height: 38px;
+	font-size: 14px;
+	background-color: rgb(245, 245, 245);
+	text-align: center;
+}
+
+#addBugButton {
+	width: 100px;
+	color: white;
+	font-size: 16px;
+}
