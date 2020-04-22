@@ -3,33 +3,32 @@ import { Button } from 'react-bootstrap';
 import './Lists.css';
 
 export default class List extends React.Component {
-
 	constructor(props) {
 		super(props);
 		this.state = {
 			name: props.name,
 			content: props.content,
-			currentListName: props.currentListName
+			currentListName: props.currentListName,
 		};
 	}
 
 	handleContentChange = (e) => {
-		this.setState({ content: e.target.value })
+		this.setState({ content: e.target.value });
 	}
 
 	updateCurrentList(name, content) {
-		let list = {
+		const list = {
 			name,
-			content
-		}
+			content,
+		};
 		this.props.updateCurrentList(list);
 	}
 
 	updateList(name, content) {
-		let list = {
+		const list = {
 			name,
-			content
-		}
+			content,
+		};
 		this.props.updateList(list);
 	}
 
@@ -42,46 +41,53 @@ export default class List extends React.Component {
 		let buttons;
 
 		if (isCurrentList) {
-			buttons =
+			buttons = (
 				<div id="buttons">
 					<Button
 						id="button"
 						variant="primary"
-						onClick={(e) => this.updateCurrentList(this.state.name, this.state.content, e)}>
+						onClick={(e) => this.updateCurrentList(this.state.name, this.state.content, e)}
+					>
 						Save
-					</Button>
+        </Button>
 				</div>
-		}
-		else {
-			buttons =
+			);
+		} else {
+			buttons = (
 				<div id="buttons">
 					<Button
 						id="button"
 						variant="primary"
-						onClick={(e) => this.updateList(this.state.name, this.state.content, e)}>
+						onClick={(e) => this.updateList(this.state.name, this.state.content, e)}
+					>
 						Save
-					</Button>
+	                </Button>
 					<Button
 						id="button"
 						variant="primary"
-						onClick={(e) => this.updateCurrentList(this.state.name, this.state.content, e)}>
+						onClick={(e) => this.updateCurrentList(this.state.name, this.state.content, e)}
+					>
 						Use
-					</Button>
+	                </Button>
 					<Button
 						id="button"
 						variant="danger"
-						onClick={(e) => this.deleteList(this.state.name, e)}>
+						onClick={(e) => this.deleteList(this.state.name, e)}
+					>
 						Delete
-					</Button>
+        </Button>
 				</div>
+			);
 		}
 
 		return (
 			<div id="list">
 				<div id="name">{this.state.name}</div>
-				<div id="content">Content: 	<input id="input" onChange={this.handleContentChange} name="content" type="text" value={this.state.content} /></div>
+				<div id="content">
+					Content: 	<input id="input" onChange={this.handleContentChange} name="content" type="text" value={this.state.content} />
+				</div>
 				{buttons}
 			</div>
-		)
+		);
 	}
 }
