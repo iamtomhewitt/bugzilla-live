@@ -1,8 +1,10 @@
 package com.bugzillalive.model.mongo;
 
 import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
+@Document(collection = "lists")
 public class BugList {
 	private String name;
 	private String content;

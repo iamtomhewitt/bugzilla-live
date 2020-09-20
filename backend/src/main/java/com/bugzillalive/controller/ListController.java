@@ -22,14 +22,9 @@ public class ListController {
 	@Autowired
 	private ListService listService;
 
-	@GetMapping("/health")
-	public ResponseEntity<String> health() {
-		return new ResponseEntity<>("UP", HttpStatus.OK);
-	}
-
-	@GetMapping("/{listName}")
-	public ResponseEntity<BugList> getList(@PathVariable String listName) throws ListNotFoundException {
-		return new ResponseEntity<>(listService.getList(listName), HttpStatus.OK);
+	@GetMapping("/{name}")
+	public ResponseEntity<BugList> getList(@PathVariable String name) throws ListNotFoundException {
+		return new ResponseEntity<>(listService.getList(name), HttpStatus.OK);
 	}
 
 	@GetMapping("/all")

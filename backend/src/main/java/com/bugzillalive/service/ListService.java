@@ -18,8 +18,8 @@ public class ListService {
 	@Autowired
 	private DatabaseRepository repository;
 
-	public BugList getList(String listName) throws ListNotFoundException {
-		return repository.getBugList(listName);
+	public BugList getList(String name) throws ListNotFoundException {
+		return repository.getBugList(name);
 	}
 
 	public List<BugList> getBugLists() {

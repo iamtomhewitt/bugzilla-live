@@ -9,10 +9,14 @@ import com.bugzillalive.model.mongo.UserConfig;
 import com.mongodb.MongoClient;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
+// TODO make this abstract and have a list repository and a config repository
 public class DatabaseRepository {
 	private final String DATABASE = "bugzilla_live";
 	private final String COLLECTION = "userConfig";
@@ -23,26 +27,18 @@ public class DatabaseRepository {
 		mongoOps = new MongoTemplate(new MongoClient(dbHost, 27017), DATABASE);
 	}
 
-	public BugList getBugList(String listName) throws ListNotFoundException {
-		Optional<BugList> list = getAllBugLists().stream().filter(x -> x.getName().equals(listName)).findFirst();
-		if (list.isPresent()) {
-			return list.get();
-		}
-
-		throw new ListNotFoundException(listName);
+	public BugList getBugList(String name) throws ListNotFoundException {
+		Query query = query(where("name").is(name));
+		return Optional.ofNullable(mongoOps.findOne(query, BugList.class)).orElseThrow(() -> new ListNotFoundException(name));
 	}
 
-	public BugList getCurrentBugList() throws NoCurrentListException, ConfigNotFoundException {
-		UserConfig config = getConfig();
-		if (config.getCurrentList() != null) {
-			return config.getCurrentList();
-		}
-
-		throw new NoCurrentListException();
+	public BugList getCurrentBugList() throws NoCurrentListException {
+		Query query = query(where("isCurrent").is(true));
+		return Optional.ofNullable(mongoOps.findOne(query, BugList.class)).orElseThrow(NoCurrentListException::new);
 	}
 
 	public List<BugList> getAllBugLists() {
-		return mongoOps.findAll(UserConfig.class).get(0).getLists();
+		return mongoOps.findAll(BugList.class);
 	}
 
 	public UserConfig updateList(String listName, String contents) throws ConfigNotFoundException {
