@@ -10,11 +10,12 @@ public class BugList {
 	private String content;
 	private boolean isCurrent;
 
-	public BugList(){}
+	public BugList() {
+	}
 
-	public BugList(String name, String content) {
+	public BugList(String name, String content, boolean isCurrent) {
 		this.name = name;
 		this.content = content;
-		this.isCurrent = false;
+		this.isCurrent = isCurrent;
 	}
 }
