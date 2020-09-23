@@ -1,5 +1,6 @@
-package com.bugzillalive.controller;
+package com.bugzillalive;
 
+import com.bugzillalive.controller.ListController;
 import com.bugzillalive.exception.ListAlreadyExistsException;
 import com.bugzillalive.exception.ListNotFoundException;
 import com.bugzillalive.model.mongo.BugList;
@@ -26,7 +27,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-public class ListControllerTests {
+public class ListTests {
 
 	@InjectMocks
 	private ListController controller;
