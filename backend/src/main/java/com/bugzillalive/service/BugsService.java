@@ -1,6 +1,7 @@
 package com.bugzillalive.service;
 
 import com.bugzillalive.exception.ConfigNotFoundException;
+import com.bugzillalive.exception.ConfigSaveException;
 import com.bugzillalive.model.bug.Attachment;
 import com.bugzillalive.model.bug.Bug;
 import com.bugzillalive.model.bug.Comment;
@@ -29,14 +30,14 @@ public class BugsService {
 		this.configService = configService;
 	}
 
-	public List<Bug> getBugsByNumbers(String numbers) throws ConfigNotFoundException {
-		String url = this.configService.getBugzillaUrl() + "/rest/bug?id=" + numbers;
+	public List<Bug> getBugsByNumbers(String numbers) throws ConfigNotFoundException, ConfigSaveException {
+		String url = this.configService.getConfig().getBugzillaUrl() + "/rest/bug?id=" + numbers;
 		JSONObject response = new JSONObject(restTemplate.getForObject(url, String.class));
 		return toBugs((response.getJSONArray("bugs")));
 	}
 
-	public List<Bug> getBugsByUsername(String username) throws ConfigNotFoundException {
-		String url = configService.getBugzillaUrl() + "/rest/bug?assigned_to=" + username;
+	public List<Bug> getBugsByUsername(String username) throws ConfigNotFoundException, ConfigSaveException {
+		String url = this.configService.getConfig().getBugzillaUrl() + "/rest/bug?assigned_to=" + username;
 		JSONObject response = new JSONObject(restTemplate.getForObject(url, String.class));
 		return toBugs((response.getJSONArray("bugs")));
 	}
@@ -50,8 +51,8 @@ public class BugsService {
 		return bugs;
 	}
 
-	public List<Comment> getCommentsForBug(String number) throws ConfigNotFoundException {
-		String url = configService.getBugzillaUrl() + "/rest/bug/" + number + "/comment";
+	public List<Comment> getCommentsForBug(String number) throws ConfigNotFoundException, ConfigSaveException {
+		String url = this.configService.getConfig().getBugzillaUrl() + "/rest/bug/" + number + "/comment";
 		JSONObject response = new JSONObject(restTemplate.getForObject(url, String.class));
 		List<Comment> comments = new ArrayList<>();
 
@@ -68,8 +69,8 @@ public class BugsService {
 		return comments;
 	}
 
-	public List<Attachment> getAttachmentsForBug(String number) throws ConfigNotFoundException {
-		String url = configService.getBugzillaUrl() + "/rest/bug/" + number + "/attachment";
+	public List<Attachment> getAttachmentsForBug(String number) throws ConfigNotFoundException, ConfigSaveException {
+		String url = this.configService.getConfig().getBugzillaUrl() + "/rest/bug/" + number + "/attachment";
 		JSONObject response = new JSONObject(restTemplate.getForObject(url, String.class));
 		List<Attachment> attachments = new ArrayList<>();
 
@@ -85,8 +86,9 @@ public class BugsService {
 		return attachments;
 	}
 
-	public ResponseEntity<String> addCommentToBug(String number, AddCommentRequestBody body) throws ConfigNotFoundException {
-		String url = configService.getBugzillaUrl() + "/rest/bug/" + number + "/comment";
+	public ResponseEntity<String> addCommentToBug(String number, AddCommentRequestBody body) throws ConfigNotFoundException, ConfigSaveException {
+		// TODO url should be enum called OutboundEndpoint
+		String url = this.configService.getConfig().getBugzillaUrl() + "/rest/bug/" + number + "/comment";
 		String jsonBody = "{\"comment\": \"" + body.getComment() + "\"}";
 
 		HttpHeaders headers = new HttpHeaders();
@@ -97,8 +99,8 @@ public class BugsService {
 		return restTemplate.postForEntity(url, entity, String.class);
 	}
 
-	public ResponseEntity<String> changeBugStatus(String number, ChangeStatusRequestBody body) throws ConfigNotFoundException {
-		String url = configService.getBugzillaUrl() + "/rest/bug/" + number;
+	public ResponseEntity<String> changeBugStatus(String number, ChangeStatusRequestBody body) throws ConfigNotFoundException, ConfigSaveException {
+		String url = this.configService.getConfig().getBugzillaUrl() + "/rest/bug/" + number;
 		String jsonBody = body.getStatus().equals("RESOLVED") ?
 			"{\n" +
 				"\t\"status\" : \"" + body.getStatus() + "\",\n" +

@@ -18,7 +18,7 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 public class BugListRepository extends DatabaseRepository {
 
 	public BugListRepository(String dbHost) {
-		super(dbHost);
+		super(dbHost, "lists");
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class BugListRepository extends DatabaseRepository {
 		Bson content = set("content", list.getContent());
 		Bson isCurrent = set("isCurrent", list.isCurrent());
 		Bson updates = combine(content, isCurrent);
-		mongo().getCollection("lists").updateOne(filter, updates);
+		collection().updateOne(filter, updates);
 	}
 
 	@Override
@@ -68,6 +68,6 @@ public class BugListRepository extends DatabaseRepository {
 		Query query = query(where("name").is(s));
 		Optional.ofNullable(mongo().findOne(query, BugList.class)).orElseThrow(() -> new ListNotFoundException(s));
 
-		mongo().getCollection("lists").deleteOne(filter);
+		collection().deleteOne(filter);
 	}
 }
