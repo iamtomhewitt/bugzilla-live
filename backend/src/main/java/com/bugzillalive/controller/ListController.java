@@ -39,8 +39,8 @@ public class ListController {
 		return new ResponseEntity<>(setBodyMessage("Saved"), HttpStatus.OK);
 	}
 
-	@PutMapping("/")
-	public ResponseEntity<Map<String, String>> updateList(@RequestBody BugList list) {
+	@PutMapping()
+	public ResponseEntity<Map<String, String>> updateList(@RequestBody BugList list) throws ListAlreadyExistsException {
 		listService.updateList(list);
 		return new ResponseEntity<>(setBodyMessage("Updated"), HttpStatus.OK);
 	}

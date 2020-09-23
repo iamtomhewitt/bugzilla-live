@@ -1,206 +1,153 @@
 package com.bugzillalive.controller;
 
 import com.bugzillalive.exception.ListAlreadyExistsException;
+import com.bugzillalive.exception.ListNotFoundException;
 import com.bugzillalive.model.mongo.BugList;
-import com.bugzillalive.model.mongo.UserConfig;
-import com.bugzillalive.repository.DatabaseRepository;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.bugzillalive.service.ListService;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.http.MediaType;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(BugsController.class)
-@AutoConfigureMockMvc
-@ComponentScan({"com.bugzillalive"})
 public class ListControllerTests {
-	@MockBean
-	private RestTemplate restTemplate;
+
+	@InjectMocks
+	private ListController controller;
 
 	@Mock
-	private ListController listController;
+	private ListService mockListService;
 
-	@MockBean
-	private DatabaseRepository mockRepository;
+	@Rule
+	public ExpectedException expectedException = ExpectedException.none();
 
-	@MockBean
-	private MongoOperations mongoOperations;
+	private BugList mockBugList;
+	private BugList mockCurrentBugList;
+	private List<BugList> mockBugLists;
 
-	@Autowired
-	private MockMvc mvc;
-
-	private UserConfig mockUserConfig;
+	private final String LIST_NAME = "mock-list";
 
 	@Before
 	public void eachTest() {
-		mockUserConfig = new UserConfig("someUrl", Arrays.asList(new BugList("List Name", "123,456"), new BugList("List Name 2", "789,10")), "123");
+		MockitoAnnotations.initMocks(this);
+
+		mockBugList = BugList.builder()
+			.content("12345")
+			.name("mock-list")
+			.isCurrent(false)
+			.build();
+
+		mockCurrentBugList = BugList.builder()
+			.content("44556")
+			.name("mock-current-list")
+			.isCurrent(true)
+			.build();
+
+		mockBugLists = Arrays.asList(mockBugList, mockCurrentBugList);
 	}
 
 	@Test
-	public void testGetList() throws Exception {
-		when(mockRepository.getBugList(anyString())).thenReturn(mockUserConfig.getLists().get(0));
+	public void shouldReturnASingleBugList() throws Exception {
+		when(mockListService.getList(LIST_NAME)).thenReturn(mockBugList);
 
-		MvcResult result = mvc.perform(get("/lists/List Name"))
-			.andExpect(status().isOk())
-			.andReturn();
+		BugList list = controller.getList("mock-list").getBody();
 
-		BugList listResult = new ObjectMapper().readValue(result.getResponse().getContentAsString(), BugList.class);
-		assertEquals("List Name", listResult.getName());
-		assertEquals("123,456", listResult.getContent());
-		assertFalse(listResult.isCurrent());
+		assertThat(list.getName(), is(LIST_NAME));
+		assertThat(list.getContent(), is("12345"));
+		assertThat(list.isCurrent(), is(false));
 	}
 
 	@Test
-	public void testGetCurrentList() throws Exception {
-		BugList mockCurrentList = new BugList("List Name", "123,456");
-		mockCurrentList.setCurrent(true);
-		when(mockRepository.getCurrentBugList()).thenReturn(mockCurrentList);
+	public void shouldReturnMultipleBugLists() {
+		when(mockListService.getAllLists()).thenReturn(mockBugLists);
 
-		MvcResult result = mvc.perform(get("/lists/current"))
-			.andExpect(status().isOk())
-			.andReturn();
+		List<BugList> lists = controller.getAllList().getBody();
 
-		BugList listResult = new ObjectMapper().readValue(result.getResponse().getContentAsString(), BugList.class);
-		assertEquals("List Name", listResult.getName());
-		assertEquals("123,456", listResult.getContent());
-		assertTrue(listResult.isCurrent());
+		assertThat(lists.size(), is(2));
 	}
 
 	@Test
-	public void testGetAllLists() throws Exception {
-		when(mockRepository.getAllBugLists()).thenReturn(mockUserConfig.getLists());
+	public void shouldThrowExceptionWhenGettingANonExistentList() throws ListNotFoundException {
+		expectedException.expect(ListNotFoundException.class);
+		expectedException.expectMessage("mock-list could not be found");
+		when(mockListService.getList(LIST_NAME)).thenThrow(new ListNotFoundException(LIST_NAME));
 
-		MvcResult result = mvc.perform(get("/lists/all"))
-			.andExpect(status().isOk())
-			.andReturn();
-
-		List<BugList> lists = new ObjectMapper().convertValue(
-			new ObjectMapper().readValue(result.getResponse().getContentAsString(), List.class),
-			new TypeReference<List<BugList>>() {
-			}
-		);
-		assertEquals("List Name", lists.get(0).getName());
-		assertEquals("123,456", lists.get(0).getContent());
-		assertEquals("List Name 2", lists.get(1).getName());
-		assertEquals("789,10", lists.get(1).getContent());
+		controller.getList(LIST_NAME);
 	}
 
 	@Test
-	public void testSaveList() throws Exception {
-		UserConfig mockConfig = mockUserConfig;
-		mockConfig.setLists(Collections.singletonList(new BugList("My new list", "My new content")));
-		when(mockRepository.saveList(any())).thenReturn(mockConfig);
+	public void shouldSaveAList() throws ListAlreadyExistsException {
+		ResponseEntity<Map<String, String>> response = controller.saveList(mockBugList);
 
-		MvcResult result = mvc.perform(post("/lists/save")
-			.content("{\n" +
-				"    \"name\": \"My new list\",\n" +
-				"    \"content\": \"My new content\"\n" +
-				"}")
-			.contentType(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk())
-			.andReturn();
-
-		UserConfig listResult = new ObjectMapper().readValue(result.getResponse().getContentAsString(), UserConfig.class);
-		assertEquals("someUrl", listResult.getBugzillaUrl());
-		assertEquals("My new content", listResult.getLists().get(0).getContent());
-		assertEquals("My new list", listResult.getLists().get(0).getName());
+		assertThat(response.getStatusCode(), is(HttpStatus.OK));
+		assertThat(response.getBody().get("message"), is("Saved"));
 	}
 
 	@Test
-	public void updatingCurrentListWorks() throws Exception {
-		UserConfig mockConfig = mockUserConfig;
-		mockConfig.setCurrentList(new BugList("My new list", "My new content"));
+	public void shouldThrowExceptionWhenTryingToSaveAListWithTheSameName() throws ListAlreadyExistsException {
+		expectedException.expect(ListAlreadyExistsException.class);
+		expectedException.expectMessage("Cannot save list, 'mock-list' already exists");
+		doThrow(new ListAlreadyExistsException(LIST_NAME)).when(mockListService).saveList(mockBugList);
 
-		when(mockRepository.updateCurrentList(any())).thenReturn(mockConfig);
-		when(mockRepository.saveList(any())).thenReturn(mockConfig);
-
-		MvcResult result = mvc.perform(put("/lists/current")
-			.content("{\n" +
-				"    \"name\": \"My new list\",\n" +
-				"    \"content\": \"My new content\"\n" +
-				"}")
-			.contentType(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk())
-			.andReturn();
-
-		UserConfig listResult = new ObjectMapper().readValue(result.getResponse().getContentAsString(), UserConfig.class);
-		assertEquals("someUrl", listResult.getBugzillaUrl());
-		assertEquals("My new content", listResult.getCurrentList().getContent());
-		assertEquals("My new list", listResult.getCurrentList().getName());
+		controller.saveList(mockBugList);
 	}
 
 	@Test
-	public void savingExistingListThrowsError() throws Exception {
-		when(mockRepository.saveList(any())).thenThrow(new ListAlreadyExistsException("My new list"));
+	public void shouldUpdateAList() throws ListNotFoundException, ListAlreadyExistsException {
+		BugList updatedList = BugList.builder()
+			.content("new content")
+			.name("mock-list")
+			.isCurrent(false)
+			.build();
+		when(mockListService.getList(LIST_NAME)).thenReturn(updatedList);
 
-		try {
-			mvc.perform(post("/lists/save")
-				.content("{\n" +
-				"    \"name\": \"My new list\",\n" +
-				"    \"content\": \"My new content\"\n" +
-				"}")
-				.contentType(MediaType.APPLICATION_JSON))
-				.andReturn();
-		} catch (Exception e) {
-			assertEquals(e.getCause().getClass(), ListAlreadyExistsException.class);
-			assertTrue(e.getMessage().contains("Cannot save list, 'My new list' already exists"));
-		}
+		ResponseEntity<Map<String, String>> updatedResponse = controller.updateList(updatedList);
+		BugList listResponse = controller.getList("mock-list").getBody();
+
+		assertThat(updatedResponse.getStatusCode(), is(HttpStatus.OK));
+		assertThat(updatedResponse.getBody().get("message"), is("Updated"));
+		assertThat(listResponse.getContent(), is("new content"));
 	}
 
 	@Test
-	public void testUpdateList() throws Exception {
-		when(mockRepository.updateList(anyString(), anyString())).thenReturn(mockUserConfig);
+	public void shouldThrowExceptionWhenTryingToUpdateAListWithTheSameName() throws ListAlreadyExistsException {
+		expectedException.expect(ListAlreadyExistsException.class);
+		expectedException.expectMessage("Cannot save list, 'mock-list' already exists");
+		doThrow(new ListAlreadyExistsException(LIST_NAME)).when(mockListService).updateList(mockBugList);
 
-		MvcResult result = mvc.perform(put("/lists/update")
-			.content("{\n" +
-				"    \"name\": \"My new list\",\n" +
-				"    \"content\": \"My new content\"\n" +
-				"}")
-			.contentType(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk())
-			.andReturn();
-
-		UserConfig listResult = new ObjectMapper().readValue(result.getResponse().getContentAsString(), UserConfig.class);
-		assertEquals("someUrl", listResult.getBugzillaUrl());
-		assertEquals("123,456", listResult.getLists().get(0).getContent());
-		assertEquals("List Name", listResult.getLists().get(0).getName());
+		controller.updateList(mockBugList);
 	}
 
 	@Test
-	public void testDeleteList() throws Exception {
-		when(mockRepository.deleteList(anyString())).thenReturn(mockUserConfig);
+	public void shouldDeleteList() throws ListNotFoundException {
+		ResponseEntity<Map<String, String>> response = controller.deleteList(mockBugList.getName());
 
-		MvcResult result = mvc.perform(delete("/lists/delete?listName=List Name"))
-			.andExpect(status().isOk())
-			.andReturn();
+		assertThat(response.getStatusCode(), is(HttpStatus.OK));
+		assertThat(response.getBody().get("message"), is("Deleted"));
+	}
 
-		UserConfig listResult = new ObjectMapper().readValue(result.getResponse().getContentAsString(), UserConfig.class);
-		assertEquals("someUrl", listResult.getBugzillaUrl());
-		assertEquals("123,456", listResult.getLists().get(0).getContent());
-		assertEquals("List Name", listResult.getLists().get(0).getName());
+	@Test
+	public void shouldThrowExceptionWhenTryingToDeleteANonExistentList() throws ListNotFoundException {
+		expectedException.expect(ListNotFoundException.class);
+		expectedException.expectMessage("mock-list could not be found");
+		doThrow(new ListNotFoundException(LIST_NAME)).when(mockListService).deleteList(mockBugList.getName());
+
+		controller.deleteList(mockBugList.getName());
 	}
 }

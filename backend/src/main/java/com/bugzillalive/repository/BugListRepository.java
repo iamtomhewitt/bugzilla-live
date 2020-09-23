@@ -45,8 +45,15 @@ public class BugListRepository extends DatabaseRepository {
 	}
 
 	@Override
-	public void update(Object object) {
+	public void update(Object object) throws ListAlreadyExistsException {
 		BugList list = (BugList) object;
+
+		boolean exists = !mongo().find(query(where("name").is(list.getName())), BugList.class).isEmpty();
+		if (!exists) {
+			this.save(list);
+			return;
+		}
+
 		Bson filter = eq("name", list.getName());
 		Bson content = set("content", list.getContent());
 		Bson isCurrent = set("isCurrent", list.isCurrent());

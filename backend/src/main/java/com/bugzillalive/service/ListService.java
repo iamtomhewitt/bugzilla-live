@@ -27,7 +27,7 @@ public class ListService {
 		return repository.getAll();
 	}
 
-	public void updateList(BugList list) {
+	public void updateList(BugList list) throws ListAlreadyExistsException {
 		repository.update(list);
 	}
 
