@@ -13,6 +13,10 @@ public class ConfigService {
 	@Autowired
 	private ConfigRepository configRepository;
 
+	public ConfigService(ConfigRepository configRepository) {
+		this.configRepository = configRepository;
+	}
+
 	public UserConfig getConfig() throws ConfigNotFoundException, ConfigSaveException {
 		return configRepository.getAll();
 	}

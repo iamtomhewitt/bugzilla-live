@@ -7,6 +7,8 @@ import com.bugzillalive.model.bug.Bug;
 import com.bugzillalive.model.bug.Comment;
 import com.bugzillalive.model.request.AddCommentRequestBody;
 import com.bugzillalive.model.request.ChangeStatusRequestBody;
+import com.bugzillalive.model.response.BugsResponse;
+import com.bugzillalive.repository.ConfigRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,42 +19,36 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.bugzillalive.model.request.OutboundEndpoint.*;
+
 @Service
 public class BugsService {
 
 	@Autowired
 	private RestTemplate restTemplate;
 
+	@Autowired
 	private ConfigService configService;
 
-	@Autowired
-	public BugsService(ConfigService configService) {
+	public BugsService(RestTemplate restTemplate, ConfigService configService) {
+		this.restTemplate = restTemplate;
 		this.configService = configService;
 	}
 
 	public List<Bug> getBugsByNumbers(String numbers) throws ConfigNotFoundException, ConfigSaveException {
-		String url = this.configService.getConfig().getBugzillaUrl() + "/rest/bug?id=" + numbers;
-		JSONObject response = new JSONObject(restTemplate.getForObject(url, String.class));
-		return toBugs((response.getJSONArray("bugs")));
+		String url = BUGS_FOR_NUMBERS.uri(this.configService.getConfig().getBugzillaUrl(), numbers);
+		BugsResponse response = restTemplate.getForObject(url, BugsResponse.class);
+		return response.getBugs();
 	}
 
 	public List<Bug> getBugsByUsername(String username) throws ConfigNotFoundException, ConfigSaveException {
-		String url = this.configService.getConfig().getBugzillaUrl() + "/rest/bug?assigned_to=" + username;
-		JSONObject response = new JSONObject(restTemplate.getForObject(url, String.class));
-		return toBugs((response.getJSONArray("bugs")));
-	}
-
-	private List<Bug> toBugs(JSONArray array) {
-		List<Bug> bugs = new ArrayList<>();
-		for (int i = 0; i < array.length(); i++) {
-			JSONObject b = array.getJSONObject(i);
-			bugs.add(Bug.toBug(b));
-		}
-		return bugs;
+		String url = BUGS_FOR_USER.uri(this.configService.getConfig().getBugzillaUrl(), username);
+		BugsResponse response = restTemplate.getForObject(url, BugsResponse.class);
+		return response.getBugs();
 	}
 
 	public List<Comment> getCommentsForBug(String number) throws ConfigNotFoundException, ConfigSaveException {
-		String url = this.configService.getConfig().getBugzillaUrl() + "/rest/bug/" + number + "/comment";
+		String url = BUG_COMMENTS.uri(this.configService.getConfig().getBugzillaUrl(), number);
 		JSONObject response = new JSONObject(restTemplate.getForObject(url, String.class));
 		List<Comment> comments = new ArrayList<>();
 
@@ -70,7 +66,7 @@ public class BugsService {
 	}
 
 	public List<Attachment> getAttachmentsForBug(String number) throws ConfigNotFoundException, ConfigSaveException {
-		String url = this.configService.getConfig().getBugzillaUrl() + "/rest/bug/" + number + "/attachment";
+		String url = BUG_ATTACHMENTS.uri(this.configService.getConfig().getBugzillaUrl(), number);
 		JSONObject response = new JSONObject(restTemplate.getForObject(url, String.class));
 		List<Attachment> attachments = new ArrayList<>();
 
@@ -87,35 +83,30 @@ public class BugsService {
 	}
 
 	public ResponseEntity<String> addCommentToBug(String number, AddCommentRequestBody body) throws ConfigNotFoundException, ConfigSaveException {
-		// TODO url should be enum called OutboundEndpoint
-		String url = this.configService.getConfig().getBugzillaUrl() + "/rest/bug/" + number + "/comment";
-		String jsonBody = "{\"comment\": \"" + body.getComment() + "\"}";
+		String url = BUG_COMMENTS.uri(this.configService.getConfig().getBugzillaUrl(), number);
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.add("X-BUGZILLA-API-KEY", body.getApiKey());
+		JSONObject json = new JSONObject();
+		json.put("comment", body.getComment());
 
-		HttpEntity<String> entity = new HttpEntity<>(jsonBody, headers);
+		HttpEntity<String> entity = new HttpEntity<>(json.toString(), createHeaders(body.getApiKey()));
 		return restTemplate.postForEntity(url, entity, String.class);
 	}
 
 	public ResponseEntity<String> changeBugStatus(String number, ChangeStatusRequestBody body) throws ConfigNotFoundException, ConfigSaveException {
 		String url = this.configService.getConfig().getBugzillaUrl() + "/rest/bug/" + number;
-		String jsonBody = body.getStatus().equals("RESOLVED") ?
-			"{\n" +
-				"\t\"status\" : \"" + body.getStatus() + "\",\n" +
-				"\t\"resolution\": \"" + body.getResolution() + "\"\n" +
-				"}"
-			:
-			"{\n" +
-				"\t\"status\" : \"" + body.getStatus() + "\"\n" +
-				"}";
 
+		JSONObject json = new JSONObject();
+		json.put("status", body.getStatus());
+		json.put("resolution", body.getResolution());
+
+		HttpEntity<String> entity = new HttpEntity<>(json.toString(), createHeaders(body.getApiKey()));
+		return restTemplate.exchange(url, HttpMethod.PUT, entity, String.class);
+	}
+
+	private HttpHeaders createHeaders(String apiKey) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.add("X-BUGZILLA-API-KEY", body.getApiKey());
-
-		HttpEntity<String> entity = new HttpEntity<>(jsonBody, headers);
-		return restTemplate.exchange(url, HttpMethod.PUT, entity, String.class);
+		headers.add("X-BUGZILLA-API-KEY", apiKey);
+		return headers;
 	}
 }

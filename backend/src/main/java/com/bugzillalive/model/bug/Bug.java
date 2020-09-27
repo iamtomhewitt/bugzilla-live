@@ -1,5 +1,6 @@
 package com.bugzillalive.model.bug;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,16 +21,23 @@ public class Bug {
 	private String assignedTo;
 	private String lastUpdated;
 
-	public static Bug toBug(JSONObject json) {
-		return Bug.builder()
-			.assignedTo(json.getString("assigned_to"))
-			.component(json.getString("component"))
-			.id(json.get("id").toString())
-			.lastUpdated(json.getString("last_change_time"))
-			.product(json.getString("product"))
-			.severity(json.getString("severity"))
-			.status(json.getString("status"))
-			.summary(json.getString("summary"))
-			.build();
+	@JsonProperty("assignedTo")
+	public String getAssignedTo() {
+		return this.assignedTo;
+	}
+
+	@JsonProperty("assigned_to")
+	public void setAssignedTo(String assignedTo) {
+		this.assignedTo = assignedTo;
+	}
+
+	@JsonProperty("lastUpdated")
+	public String getLastUpdated() {
+		return this.lastUpdated;
+	}
+
+	@JsonProperty("last_change_time")
+	public void setLastUpdated(String lastUpdated) {
+		this.lastUpdated = lastUpdated;
 	}
 }

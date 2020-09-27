@@ -19,8 +19,13 @@ import java.util.List;
 @RequestMapping("bugs")
 @CrossOrigin(origins = "*")
 public class BugsController {
+
 	@Autowired
 	private BugsService service;
+
+	public BugsController(BugsService service) {
+		this.service = service;
+	}
 
 	@GetMapping("/{numbers}")
 	@ResponseBody
@@ -50,13 +55,13 @@ public class BugsController {
 		return new ResponseEntity<>(attachments, HttpStatus.OK);
 	}
 
-	@PostMapping("/{number}/comments/add")
+	@PostMapping("/{number}/comments")
 	@ResponseBody
 	public ResponseEntity<String> addCommentToBug(@PathVariable String number, @RequestBody AddCommentRequestBody body) throws ConfigNotFoundException, ConfigSaveException {
 		return service.addCommentToBug(number, body);
 	}
 
-	@PutMapping("/{number}/status/change")
+	@PutMapping("/{number}/status")
 	@ResponseBody
 	public ResponseEntity<String> changeBugStatus(@PathVariable String number, @RequestBody ChangeStatusRequestBody body) throws ConfigNotFoundException, ConfigSaveException {
 		return service.changeBugStatus(number, body);
