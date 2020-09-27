@@ -6,6 +6,7 @@ import com.bugzillalive.exception.ConfigNotFoundException;
 import com.bugzillalive.exception.ListNotFoundException;
 import com.bugzillalive.exception.NoCurrentListException;
 import com.bugzillalive.model.mongo.BugList;
+import com.bugzillalive.repository.BugListRepository;
 import com.bugzillalive.repository.DatabaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,42 +17,25 @@ import java.util.List;
 public class ListService {
 
 	@Autowired
-	private DatabaseRepository repository;
+	private BugListRepository repository;
 
-	public BugList getList(String listName) throws ListNotFoundException {
-		return repository.getBugList(listName);
+	public BugList getList(String name) throws ListNotFoundException {
+		return repository.get(name);
 	}
 
-	public List<BugList> getBugLists() {
-		return repository.getAllBugLists();
+	public List<BugList> getAllLists() {
+		return repository.getAll();
 	}
 
-	public BugList getCurrentList() throws NoCurrentListException, ConfigNotFoundException {
-		return repository.getCurrentBugList();
+	public void updateList(BugList list) throws ListAlreadyExistsException {
+		repository.update(list);
 	}
 
-	public UserConfig updateList(BugList list) throws ConfigNotFoundException, ListNotFoundException {
-		return repository.updateList(list.getName(), list.getContent());
+	public void saveList(BugList list) throws ListAlreadyExistsException {
+		repository.save(list);
 	}
 
-	public UserConfig updateCurrentList(BugList list) throws ConfigNotFoundException {
-		list.setCurrent(true);
-		UserConfig config = repository.updateCurrentList(list);
-
-		try {
-			config = repository.saveList(list);
-		} catch (ListAlreadyExistsException e) {
-			System.out.println(e.getMessage());
-		}
-
-		return config;
-	}
-
-	public UserConfig saveList(BugList list) throws ConfigNotFoundException, ListAlreadyExistsException {
-		return repository.saveList(list);
-	}
-
-	public UserConfig deleteList(String listName) throws ConfigNotFoundException {
-		return repository.deleteList(listName);
+	public void deleteList(String listName) throws ListNotFoundException {
+		repository.delete(listName);
 	}
 }
